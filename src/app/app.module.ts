@@ -1,30 +1,45 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
+import { LayoutModule } from './layout/layout.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { NZ_I18N, zh_CN } from 'ng-zorro-antd';
+import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
-import en from '@angular/common/locales/en';
+import zh from '@angular/common/locales/zh';
+import { IconsProviderModule } from './icons-provider.module';
 
-registerLocaleData(en);
+//service
+import { AuthGuardService } from './business-modules/service/auth-guard.service';
+import { ExceptionInterceptorService } from './business-modules/service/exception-interceptor.service';
+
+//component
+import { NotFoundComponent } from './not-found/not-found.component';
+
+registerLocaleData(zh);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgZorroAntdModule,
+    LayoutModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    IconsProviderModule,
+    ReactiveFormsModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ExceptionInterceptorService, multi: true },
+    { provide: NZ_I18N, useValue: zh_CN },
+    AuthGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
