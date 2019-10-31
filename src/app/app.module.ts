@@ -12,7 +12,7 @@ import zh from '@angular/common/locales/zh';
 import { IconsProviderModule } from './icons-provider.module';
 
 //service
-//import { AuthGuardService } from './business-modules/service/auth-guard.service';
+import { AuthGuardService } from './business-modules/service/auth-guard.service';
 import { ExceptionInterceptorService } from './business-modules/service/exception-interceptor.service';
 
 //component
@@ -38,7 +38,7 @@ registerLocaleData(zh);
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ExceptionInterceptorService, multi: true },
     { provide: NZ_I18N, useValue: zh_CN },
-    //
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
