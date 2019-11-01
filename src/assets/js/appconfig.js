@@ -2,7 +2,7 @@
   var Configuration = function () {
     return {
 
-      baseUrl: "http://127.0.0.1/Grandeflorum"
+      baseUrl: "http://localhost:8080"
 
     };
   };

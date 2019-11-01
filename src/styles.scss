@@ -9,3 +9,107 @@ body, html {
     max-width: 1920px;
     min-height: 650px;
   }
+
+  .div_contain {
+    height: calc(100% - 100px);
+    background: #fff;
+    padding: 0, 10px;
+  }
+  
+  .div_top {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 10px;
+  }
+  
+  .div_top_tip {
+    width: 3px;
+    background: #0050b3;
+    height: 15px;
+    margin-top: 18px;
+    margin-right: 5px;
+  }
+  
+  //添加
+  .div_top_add {
+    height: 50px;
+    padding: 15px 0px 15px 20px;
+    color: #666666;
+    border-bottom: 1px solid #e5e5e5;
+    font-weight: 550;
+  }
+
+  .fl {
+    float: left;
+  }
+
+  .fr{
+    float: right;
+  }
+  
+  .addbtn {
+    width: 70px;
+    background: #1890ff;
+    padding-right: 0px;
+  }
+  
+  .delbtn {
+    width: 70px;
+    background: #f47264;
+    padding-right: 0px;
+    color: #fff;
+  }
+
+  .tablescoll_rainbow tbody {
+    display: block;
+    // max-height: 400px;
+    overflow-y: auto;
+  
+    tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+      text-align: left;
+    }
+  }
+  
+  .tablescoll_rainbow thead {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    text-align: left;
+  }
+  
+  .tablescoll_rainbow thead {
+    width: 100%;
+  }
+  
+  
+  
+  .commontable {
+    th {
+      color: #0050b3 !important;
+      font-weight: 550!important;
+    }
+    table-layout: fixed;
+    word-break: break-all;
+  }
+  
+  .ta_r {
+    text-align: right;
+  }
+  
+  .ta_l {
+    text-align: left;
+  }
+  .clo_r {
+    color: red;
+  }
+  
+  .ma_b20 {
+    margin-bottom: 20px;
+  }
+
+  .w200 {
+    width: 200px;
+  }

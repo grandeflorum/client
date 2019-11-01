@@ -1,0 +1,81 @@
+<div style="height: 100%;">
+    <div nz-row class="div_contain">
+        <div class="div_top">
+            <div class="fl div_top_tip"></div>
+            <div class="fl" style="color: #0050b3;">
+                组织机构
+            </div>
+            <div class="fr">
+                <button nz-button nzType="primary" style=" margin-right: 10px;" class="addbtn" (click)="add()">
+                    添加
+                </button>
+            </div>
+        </div>
+        <div>
+            <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow">
+                <thead>
+                    <tr>
+                        <th style="width: 50%">部门名称</th>
+                        <th style="width: 30%">部门编码</th>
+                        <th style="width: 20%">操作</th>
+                    </tr>
+                </thead>
+                <tbody [appPageHeight]='300'>
+                    <ng-container *ngFor="let data of nestedTable.data">
+                        <ng-container *ngFor="let item of mapOfExpandedData[data.id]">
+                            <tr *ngIf="(item.parent && item.parent.expand) || !item.parent">
+                                <td style="width: 50%" [nzIndentSize]="item.level * 20"
+                                    [nzShowExpand]="item.children.length > 0" [(nzExpand)]="item.expand"
+                                    (nzExpandChange)="
+                      collapse(mapOfExpandedData[data.id], item, $event)
+                    ">
+                                    {{ item.name }}
+                                </td>
+                                <td style="width: 30%">{{ item.code }}</td>
+                                <td style="width: 20%">
+                                    <a (click)="modify(item)">编辑</a>
+                                    <nz-divider nzType="vertical"></nz-divider>
+                                    <a *ngIf="item.children.length == 0" nz-popconfirm nzTitle="确定删除吗?"
+                                        (nzOnConfirm)="delete(item)">删除</a>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </tbody>
+            </nz-table>
+        </div>
+    </div>
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="{{ title }}" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+        [nzOkLoading]="isOkLoading" [nzCancelText]="null">
+        <div>
+            <div nz-row style="height: 60px;">
+                <div class="ta_r">
+                    <span class="clo_r">*</span>部门名称：
+                    <input nz-input style="width:calc(100% - 100px)" required [validation]="true" nzSize="default"
+                        [(ngModel)]="currentOrg.name" class="w200" [validationType]="'maxlength'"
+                        [validationLenth]="150" />
+                </div>
+            </div>
+
+            <div nz-row style="height: 60px;">
+                <div class="ta_r">
+                    <span class="clo_r">*</span>部门编码：
+                    <input nz-input style="width:calc(100% - 100px)" required [validation]="true" nzSize="default"
+                        [(ngModel)]="currentOrg.code" class="w200" [validationType]="'maxlength'"
+                        [validationLenth]="36" />
+                </div>
+            </div>
+
+            <div nz-row style="height: 60px;">
+                <div class="ta_r">
+                    上级部门：
+                    <nz-tree-select [nzDropdownStyle]="{ 'max-height': '300px' }"
+                        style="width: 250px;width:calc(100% - 100px)" [nzDefaultExpandAll]="true"
+                        [nzNodes]="menuTreeNodes" nzShowSearch nzPlaceHolder="请选择上级部门"
+                        [(ngModel)]="currentOrg.parentId">
+                    </nz-tree-select>
+                </div>
+            </div>
+        </div>
+    </nz-modal>
+</div>

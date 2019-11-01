@@ -1,0 +1,176 @@
+﻿input.ng2-invalid {
+    height: 32px;
+    border: 1px solid #d70000 !important;
+    padding-left: 6px;
+    padding-right: 6px;
+    /* background-color: #fdf4ef; */
+}
+/* datepicker-input .form-group
+{
+    border: 1px solid #d70000;
+} */
+
+select.ng2-invalid {
+    height: 30px;
+    border: 1px solid #d70000!important;
+    padding-left: 3px;
+    padding-right: 3px;
+    /* background-color: #fdf4ef; */
+    /* margin-left: 5px; */
+}
+
+.ng2-invalid {
+    border: 1px solid #d70000!important;
+    border-radius: 6px;
+    /* background-color: #fdf4ef; */
+    /* margin-left: 5px; */
+}
+
+.dateTool.ng2-invalid input{
+    border: 1px solid #d70000;
+    background-color: #fdf4ef;
+}
+textarea.ng2-invalid {
+    /* height: 78px; */
+    border: 1px solid #d70000!important;
+    /* background-color: #fdf4ef; */
+    /* margin-left: 5px; */
+    padding: 6px;
+}
+.vtooltip {
+    position: absolute;
+    z-index: 1070;
+    display: block;
+    margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    text-align: start;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    word-break: normal;
+    word-spacing: normal;
+    white-space: normal;
+    line-break: auto;
+    font-size: .875rem;
+    word-wrap: break-word;
+    opacity: 0;
+}
+
+.vtooltip.bottom-left .vtooltip-arrow {
+    top: 0;
+    right: 5px;
+    margin-top: -5px;
+    border-width: 0 5px 5px;
+    border-bottom-color: #000;
+}
+.vtooltip.bottom .vtooltip-arrow {
+    top: 0;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 0 5px 5px;
+    border-bottom-color: #000;
+}
+.vtooltip-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+.vtooltip.left .vtooltip-arrow {
+    z-index: 9;
+    pointer-events: none;
+    border-left-color: #F00;
+    filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    opacity: 1;
+}
+
+.vtooltip.bottom .vtooltip-arrow {
+    z-index: 9;
+    pointer-events: none;
+    border-bottom-color: #F00;
+    filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    opacity: 1;
+}
+
+.vtooltip.top .vtooltip-arrow {
+    z-index: 9;
+    pointer-events: none;
+    border-top-color: #F00;
+    filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    opacity: 1;
+}
+
+.vtooltip.right .vtooltip-arrow {
+    z-index: 9;
+    pointer-events: none;
+    border-right-color: #F00;
+    filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    opacity: 1;
+}
+
+.vtooltip.bottom {
+    z-index: 9;
+    margin: 0;
+    padding: 0px 0;
+}
+
+.vtooltip-inner {
+    max-width: 215px;
+    padding: 3px 8px;
+    color: #fff;
+    text-align: center;
+    background-color: #000;
+    border-radius: .25rem;
+    z-index: 9;
+    pointer-events: none;
+    background-color: #F00;
+    border-radius: 0px;
+    filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    opacity: 1;
+}
+
+
+/*
+.tip-tagert{
+    border:1px solid #ccc;
+    height: 20px;
+    width:20px;
+    border-radius: 10px;
+}
+.tip-description .vtooltip-arrow {
+    border-top-color: #000;
+}
+
+.vtooltip.top.tip-description .vtooltip-arrow {
+    z-index: 9;
+    pointer-events: none;
+    border-top-color: #000;
+    filter: alpha(opacity=90);
+    -moz-opacity: 1;
+    opacity: 0.9;
+}
+.tip-description .vtooltip-inner{
+    background-color: #000;
+    filter: alpha(opacity=90);
+    -moz-opacity: 0.9;
+    opacity: 0.9;
+}*/
+
+.tip-description.vtooltip.top .vtooltip-arrow {
+    border-top-color: #000;
+}
+
+.tip-description .vtooltip-inner {
+    background-color: #000;
+}

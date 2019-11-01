@@ -8,7 +8,7 @@ export class HttpRestService {
     
     get<T>(url){
         url = AppConfig.Configuration.baseUrl + url;
-        return  this._httpClient.get<T>( url,{withCredentials: true}).toPromise()
+        return  this._httpClient.get<T>( url,{withCredentials: false}).toPromise()
         .catch(ex => {
           let t: T;
           return t;
@@ -17,7 +17,7 @@ export class HttpRestService {
 
       post<T>(url ,data) {
         url = AppConfig.Configuration.baseUrl + url;
-        return  this._httpClient.post<T>( url, data ,{withCredentials: true}).toPromise()
+        return  this._httpClient.post<T>( url, data ,{withCredentials: false}).toPromise()
         .catch(ex => {
             let t: T;
             return t;
@@ -28,7 +28,7 @@ export class HttpRestService {
 
     down(url){
         url = AppConfig.Configuration.baseUrl + url;
-        return  this._httpClient.get( url,{withCredentials: true}).toPromise() ; 
+        return  this._httpClient.get( url,{withCredentials: false}).toPromise() ; 
     }
     
 
