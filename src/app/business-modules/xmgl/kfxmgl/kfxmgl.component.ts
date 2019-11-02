@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { RoleService } from '../../service/system/role.service';
-import { OrganizationService } from '../../service/system/organization.service';
-import { UserService } from '../../service/system/user.service';
+import { Router } from '@angular/router';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 
@@ -48,9 +46,7 @@ export class KfxmglComponent implements OnInit {
 
   constructor(
     private msg: NzMessageService,
-    private roleService: RoleService,
-    private orgService: OrganizationService,
-    private userService: UserService
+    private router:Router
   ) { }
 
   ngOnInit() {
@@ -147,6 +143,26 @@ export class KfxmglComponent implements OnInit {
 
 selectItem(data) {
     this.selectId = data.id;
+  }
+
+  add(m , item?){
+    // switch (m) {
+    //   case 1://添加
+    //     break;
+    //     case 2://查看
+    //     break;
+    //     case 3://编辑
+    //     break;
+    //   default:
+    //     break;
+    // }
+
+    this.router.navigate(['/xmgl/kfxmgl/detail'], {
+      queryParams: {
+        id: item?item.id:'',
+        type:m
+      }
+    });
   }
 
 

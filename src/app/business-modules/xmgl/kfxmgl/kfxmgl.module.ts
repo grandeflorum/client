@@ -4,18 +4,24 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutModule } from '../../../layout/layout.module';
 import { KfxmglComponent} from './kfxmgl.component';
+import { KfxmglDetailComponent } from './detail/kfxmgl-detail.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 
 const routes: Routes = [
     {
         path: '',
         component: KfxmglComponent
+    },
+    {
+        path: 'detail',
+        component: KfxmglDetailComponent
     }
 ];
 
 @NgModule({
     declarations: [
-        KfxmglComponent
+        KfxmglComponent,
+        KfxmglDetailComponent
     ],
     imports: [
         CommonModule,
