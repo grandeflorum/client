@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList , ViewChild , TemplateRef } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router , ActivatedRoute} from '@angular/router';
 import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
@@ -12,12 +12,13 @@ import * as $ from 'jquery';
 })
 export class KfxmglDetailComponent implements OnInit {
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
+  @ViewChild('uploadComponent',{static:false}) uploadComponent ;
 
   tabs = [
     {name:'项目信息',index:0},
     {name:'附件',index:1},
   ]
-  tabsetIndex = 1;
+  tabsetIndex = 0;
   isDisable = false;
   detailId = "";
   detailObj:any = {};
@@ -53,6 +54,7 @@ export class KfxmglDetailComponent implements OnInit {
   listOfAllData = [];
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
+  isVisible = false;
 
   constructor(
     private msg: NzMessageService,
@@ -172,6 +174,21 @@ export class KfxmglDetailComponent implements OnInit {
     }else{
       this.tableIsScroll = null
     }
+  }
+
+  upload(){
+    this.isVisible = true;
+    this.uploadComponent.fileList = [];
+  }
+
+  handleCancel(){
+    this.isVisible = false;
+    this.uploadComponent.fileList = [];
+  }
+
+//开始上传
+  handleOk(){
+    this.uploadComponent.import();
   }
 
   ngAfterViewInit() {

@@ -7,6 +7,8 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { ValidationDirective } from './_directives/validation.directive';
 import { PageHeightDrective } from './_directives/pageHeightDrective';
 
+import { uploadComponent } from './_components/upload/upload.component';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -16,8 +18,8 @@ import { PageHeightDrective } from './_directives/pageHeightDrective';
         NgZorroAntdModule,
         NgxEchartsModule
     ],
-    declarations: [ValidationDirective,PageHeightDrective],
-    exports: [ValidationDirective,PageHeightDrective, NgxEchartsModule],
+    declarations: [ValidationDirective,PageHeightDrective , uploadComponent],
+    exports: [ValidationDirective,PageHeightDrective, uploadComponent , NgxEchartsModule],
     providers: [],
     entryComponents: []
 })
