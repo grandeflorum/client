@@ -15,6 +15,16 @@ const routes: Routes = [
         ]
     },
     {
+        path: 'practitioner',
+        component: BusinessModulesComponent,
+        canActivate: [AuthGuardService],
+        data: { id: 'A-practitioner' },
+        children: [
+            { path: 'company', loadChildren: () => import('./practitioner/company/company.module').then(m => m.CompanyModule) }
+          
+        ]
+    },
+    {
         path: 'system',
         component: BusinessModulesComponent,
         canActivate: [AuthGuardService],
