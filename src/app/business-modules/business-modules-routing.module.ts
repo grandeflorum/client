@@ -26,6 +26,15 @@ const routes: Routes = [
             { path: 'menu', loadChildren: () => import('./system/menu/menu.module').then(m => m.MenuModule) }
         ]
     },
+    {
+        path: 'xmgl',
+        component: BusinessModulesComponent,
+        canActivate: [AuthGuardService],
+        data: { id: 'A-xmgl' },
+        children: [
+            { path: 'kfxmgl', loadChildren: () => import('./xmgl/kfxmgl/kfxmgl.module').then(m => m.KfxmglModule) }
+        ]
+    },
     { path: '', pathMatch: 'full', redirectTo: '/home' }
 ];
 

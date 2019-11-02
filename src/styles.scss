@@ -113,3 +113,17 @@ body, html {
   .w200 {
     width: 200px;
   }
+  
+  [nz-button] {
+    margin-left: 10px;
+  }
+
+  .table_a{
+      margin-left:10px;
+  }
+
+
+  .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+   height:40px;
+   padding:0;
+}
