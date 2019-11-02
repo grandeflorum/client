@@ -20,8 +20,9 @@ const routes: Routes = [
         canActivate: [AuthGuardService],
         data: { id: 'A-practitioner' },
         children: [
-            { path: 'company', loadChildren: () => import('./practitioner/company/company.module').then(m => m.CompanyModule) }
-          
+            { path: 'company', loadChildren: () => import('./practitioner/company/company.module').then(m => m.CompanyModule) },
+            { path: 'employee', loadChildren: () => import('./practitioner/employee/employee.module').then(m => m.EmployeeModule) }
+
         ]
     },
     {
