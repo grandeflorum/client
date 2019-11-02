@@ -3,26 +3,31 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutModule } from '../../../layout/layout.module';
-import { CompanyComponent} from './company.component';
+import { CompanyComponent } from './company.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { CompanyDetailComponent } from './company-detail/company-detail.component';
 
 const routes: Routes = [
     {
         path: '',
         component: CompanyComponent
+    }, {
+        path: 'detail',
+        component: CompanyDetailComponent
     }
 ];
 
 @NgModule({
     declarations: [
-        CompanyComponent
+        CompanyComponent,
+        CompanyDetailComponent
     ],
     imports: [
         CommonModule,
-        FormsModule, 
+        FormsModule,
         LayoutModule,
         NgZorroAntdModule,
-        RouterModule.forChild(routes),   
+        RouterModule.forChild(routes),
     ],
     exports: [RouterModule],
     entryComponents: []

@@ -38,8 +38,7 @@
 
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="24">
-            <button *ngIf="module=='child'" (click)="addEmployee()" nz-button nzType="primary"><i nz-icon
-                    nzType="plus"></i>
+            <button (click)="addEmployee()" nz-button nzType="primary"><i nz-icon nzType="plus"></i>
                 添加
             </button>
             <button *ngIf="module=='child'" nz-button nzType="default">

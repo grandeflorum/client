@@ -1,12 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { SystemDictionaryService } from './service/system/system-dictionary.service';
+import { Localstorage } from './service/localstorage';
+import { NzMessageService } from 'ng-zorro-antd';
+
 @Component({
     templateUrl: './business-modules.component.html',
     styleUrls: ['./business-modules.component.scss']
 })
 export class BusinessModulesComponent implements OnInit {
     isCollapsed = false;
+
+    constructor(
+        private systemDictionaryService: SystemDictionaryService,
+        private msg: NzMessageService,
+        private localstorage: Localstorage
+    ) {
+
+    }
 
     menuList = [
         { name: '首页', id: 'sy', route: '/home', icon: 'dashboard', children: [] },
@@ -53,7 +65,18 @@ export class BusinessModulesComponent implements OnInit {
     ]
 
     ngOnInit() {
+        this.getAllDictionary();
+    }
 
+
+    async getAllDictionary() {
+        let res = await this.systemDictionaryService.getAllDictionary();
+
+        if (res && res.code == 200) {
+            this.localstorage.setObject('dictionary', res.msg);
+        } else {
+            this.msg.create('error', '查询字典表失败');
+        }
     }
 
 }
