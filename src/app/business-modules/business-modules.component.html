@@ -9,15 +9,15 @@
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <ng-container *ngFor="let item of menuList">
-        <li nz-submenu nzTitle="{{item.name}}" nzIcon="{{item.icon}}" *ngIf="item.children.length>0; else navMenuItem">
+        <li *ngIf="item.children.length>0; else navMenuItem" nz-submenu nzTitle="{{item.name}}" nzIcon="{{item.icon}}" [ngClass]="{'submenu-ul-open':currentUrl.indexOf(item.route)>-1}">
           <ul>
-            <li nz-menu-item nzMatchRouter (click)="menuItemClick(child)" *ngFor="let child of item.children">
-              <a routerLink="{{child.route}}">{{child.name}}</a>
+            <li nz-menu-item (click)="menuItemClick(child)" *ngFor="let child of item.children" [nzSelected]="currentUrl.indexOf(child.route)>-1">
+              <a>{{child.name}}</a>
             </li>
           </ul>
         </li>
         <ng-template #navMenuItem>
-          <li nz-menu-item nzMatchRouter routerLink="{{item.route}}">
+          <li nz-menu-item  (click)="menuItemClick(item)" [nzSelected]="currentUrl.indexOf(item.route)>-1" >
             <i nz-icon nzType="{{item.icon}}"></i>
             <span>{{item.name}}</span>
           </li>
@@ -32,6 +32,12 @@
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
           <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
         </span>
+        <nz-breadcrumb class="head_breadcrumb">
+          <nz-breadcrumb-item *ngFor="let item of breadcrumbList">
+            {{item.name}}
+          </nz-breadcrumb-item>
+          
+        </nz-breadcrumb>
       </div>
     </nz-header>
     <nz-content>

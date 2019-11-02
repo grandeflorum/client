@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SystemDictionaryService } from './service/system/system-dictionary.service';
 import { Localstorage } from './service/localstorage';
 import { NzMessageService } from 'ng-zorro-antd';
+import { visitValue } from '../../../node_modules/@angular/compiler/src/util';
 
 @Component({
     templateUrl: './business-modules.component.html',
@@ -11,11 +12,14 @@ import { NzMessageService } from 'ng-zorro-antd';
 })
 export class BusinessModulesComponent implements OnInit {
     isCollapsed = false;
+    breadcrumbList = [];
+    currentUrl = "";
 
     constructor(
         private systemDictionaryService: SystemDictionaryService,
         private msg: NzMessageService,
-        private localstorage: Localstorage
+        private localstorage: Localstorage,
+        private router:Router
     ) {
 
     }
@@ -66,6 +70,42 @@ export class BusinessModulesComponent implements OnInit {
 
     ngOnInit() {
         this.getAllDictionary();
+        this.currentUrl = this.router.url;
+
+        this.urlChange();
+       
+        
+    }
+
+    menuItemClick(item){
+        if(item.children&&item.children.length > 0){
+            //this.router.navigate([item.children[0].route]);
+        }else{
+            this.router.navigate([item.route]);
+        }
+       
+    }
+
+
+    urlChange(){
+        const url = this.router.url;
+        
+        this.menuList.forEach((v,k)=>{
+            if(url.indexOf(v.route)>-1){
+                this.breadcrumbList.push(v);
+
+                if(v.children.length>0){
+                    v.children.forEach((vv,kk)=>{
+                        if(url.indexOf(vv.route)>-1){
+                            this.breadcrumbList.push(vv);
+                        }
+                    })
+                }
+            }
+        })
+
+        console.log(this.breadcrumbList)
+
     }
 
 
