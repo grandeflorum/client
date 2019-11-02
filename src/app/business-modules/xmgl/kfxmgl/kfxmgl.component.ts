@@ -18,16 +18,16 @@ export class KfxmglComponent implements OnInit {
   Loading = false;
   tableIsScroll = null;
   dataSet: any = [
-    {id:'1',disabled:false,xmmc:'aa',kfqymc:'aaa',shzt:'aaaa',kgrq:'aaaaa',jgrq:'aasdad'},
-    {id:'2',disabled:false,xmmc:'sdsd',kfqymc:'ukk',shzt:'jkhkhk',kgrq:'ghgh',jgrq:'fhfb'},
-    {id:'3',disabled:false,xmmc:'dadfd',kfqymc:'jhk',shzt:'hl',kgrq:'eesff',jgrq:'ffrh'},
-    {id:'4',disabled:false,xmmc:'fsff',kfqymc:'hfg',shzt:'lil',kgrq:'hfhgh',jgrq:'ujjj'},
-    {id:'1',disabled:false,xmmc:'aa',kfqymc:'aaa',shzt:'aaaa',kgrq:'aaaaa',jgrq:'aasdad'},
-    {id:'2',disabled:false,xmmc:'sdsd',kfqymc:'ukk',shzt:'jkhkhk',kgrq:'ghgh',jgrq:'fhfb'},
-    {id:'3',disabled:false,xmmc:'dadfd',kfqymc:'jhk',shzt:'hl',kgrq:'eesff',jgrq:'ffrh'},
-    {id:'4',disabled:false,xmmc:'fsff',kfqymc:'hfg',shzt:'lil',kgrq:'hfhgh',jgrq:'ujjj'},
-    {id:'4',disabled:false,xmmc:'fsff',kfqymc:'hfg',shzt:'lil',kgrq:'hfhgh',jgrq:'ujjj'},
-    {id:'4',disabled:false,xmmc:'fsff',kfqymc:'hfg',shzt:'lil',kgrq:'hfhgh',jgrq:'ujjj'}
+    {id:'1',disabled:false,xmmc:'aa',kfqymc:'aaa',shzt:'aaaa',kgrq:'aaaaa',jgrq:'aasdad' ,yjld:'1,2'},
+    {id:'2',disabled:false,xmmc:'sdsd',kfqymc:'ukk',shzt:'jkhkhk',kgrq:'ghgh',jgrq:'fhfb',yjld:'1,2'},
+    {id:'3',disabled:false,xmmc:'dadfd',kfqymc:'jhk',shzt:'hl',kgrq:'eesff',jgrq:'ffrh',yjld:'1,2'},
+    {id:'4',disabled:false,xmmc:'fsff',kfqymc:'hfg',shzt:'lil',kgrq:'hfhgh',jgrq:'ujjj',yjld:'1,2'},
+    {id:'1',disabled:false,xmmc:'aa',kfqymc:'aaa',shzt:'aaaa',kgrq:'aaaaa',jgrq:'aasdad',yjld:'1,2'},
+    {id:'2',disabled:false,xmmc:'sdsd',kfqymc:'ukk',shzt:'jkhkhk',kgrq:'ghgh',jgrq:'fhfb',yjld:'1,2'},
+    {id:'3',disabled:false,xmmc:'dadfd',kfqymc:'jhk',shzt:'hl',kgrq:'eesff',jgrq:'ffrh',yjld:'1,2'},
+    {id:'4',disabled:false,xmmc:'fsff',kfqymc:'hfg',shzt:'lil',kgrq:'hfhgh',jgrq:'ujjj',yjld:'1,2'},
+    {id:'4',disabled:false,xmmc:'fsff',kfqymc:'hfg',shzt:'lil',kgrq:'hfhgh',jgrq:'ujjj',yjld:'1,2'},
+    {id:'4',disabled:false,xmmc:'fsff',kfqymc:'hfg',shzt:'lil',kgrq:'hfhgh',jgrq:'ujjj',yjld:'1,2'}
   ];
 
   selectId: any = '';
@@ -80,7 +80,7 @@ export class KfxmglComponent implements OnInit {
     console.log(option)
     this.operateData();
     this.Loading = false;
-    this.alculationHeight();
+    this.calculationHeight();
   }
 
 
@@ -166,7 +166,7 @@ selectItem(data) {
   }
 
 
-  alculationHeight(){
+  calculationHeight(){
     const bodyHeight = $('body').height()
     const height = this.dataSet.length * 40;
     if(height > bodyHeight - 390){
@@ -179,7 +179,7 @@ selectItem(data) {
   ngAfterViewInit() {
     var that = this;
     $(window).resize(function () {
-      that.alculationHeight()
+      that.calculationHeight()
     })
   }
 
