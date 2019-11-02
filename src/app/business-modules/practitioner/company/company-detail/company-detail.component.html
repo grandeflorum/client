@@ -1,0 +1,218 @@
+<div style="height: 100%;">
+    <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex"
+        (nzSelectedIndexChange)="tabsetChange($event)">
+        <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
+    </nz-tabset>
+
+
+    <div class="jbxx" *ngIf="tabsetIndex==0">
+        <nz-divider nzText="基本信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+            <div nz-col [nzSpan]="8">
+                <div class="label_div"><span class="clo_r">*</span>开发企业名称：</div>
+                <input nz-input nzSize="default" [(ngModel)]="detailObj.qymc" [disabled]="isDisable" required
+                    [validation]="true" class="w200" maxlength="100" placeholder="请输入开发企业名称" />
+            </div>
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">营业执照：</div>
+                <input nz-input nzSize="default" [(ngModel)]="detailObj.yyzz" [disabled]="isDisable" class="w200"
+                    placeholder="请输入营业执照" maxlength="50" />
+            </div>
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">社会信用代码：</div>
+                <input nz-input nzSize="default" [(ngModel)]="detailObj.shxydm" [disabled]="isDisable" class="w200"
+                    placeholder="请输入社会信用代码" maxlength="50" />
+            </div>
+        </div>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">企业类型：</div>
+                <nz-select [(ngModel)]="detailObj.qylx" class="w200" [disabled]="isDisable" nzAllowClear>
+                    <nz-option nzValue="1" nzLabel="企业1"></nz-option>
+                    <nz-option nzValue="2" nzLabel="企业2"></nz-option>
+                </nz-select>
+            </div>
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">注册资本：</div>
+                <input nz-input nzSize="default" [(ngModel)]="detailObj.zczj" [disabled]="isDisable" class="w200"
+                    placeholder="请输入注册资本" maxlength="10" [validation]="true" [validationType]="'nullnumber'" />&nbsp;万元
+            </div>
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">联系电话：</div>
+                <input nz-input nzSize="default" [(ngModel)]="detailObj.phone" [disabled]="isDisable"
+                    [validation]="true" [validationType]="'nullphonenumber'" class="w200" maxlength="20"
+                    placeholder="请输入联系电话" />
+            </div>
+
+        </div>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">所属地区：</div>
+                <nz-select class="w200" [(ngModel)]="parentCode" [disabled]="isDisable" nzAllowClear>
+                    <nz-option nzValue="1" nzLabel="企业1"></nz-option>
+                    <nz-option nzValue="2" nzLabel="企业2"></nz-option>
+                </nz-select>
+            </div>
+
+            <div nz-col [nzSpan]="16">
+                <div class="label_div">详细地址：</div>
+                <nz-select class="w200" [(ngModel)]="detailObj.regioncode" [disabled]="isDisable" nzAllowClear>
+                    <nz-option nzValue="1" nzLabel="企业1"></nz-option>
+                    <nz-option nzValue="2" nzLabel="企业2"></nz-option>
+                </nz-select>
+                <input style="margin-left: 10px;    width: calc(100% - 390px);" nz-input nzSize="default"
+                    [(ngModel)]="detailObj.address" [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
+
+            </div>
+
+        </div>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">邮政编码：</div>
+                <input nz-input nzSize="default" [(ngModel)]="detailObj.yzbm" [disabled]="isDisable" class="w200"
+                    maxlength="25" placeholder="请输入邮政编码" />
+            </div>
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">成立日期：</div>
+                <nz-date-picker class="w200" [nzStyle]="{'width':'200px'}" [(ngModel)]="detailObj.clrq" [disabled]="isDisable" placeholder="请输入成立日期">
+                </nz-date-picker>
+            </div>
+
+        </div>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">营业期限：</div>
+                <nz-select class="w200" [(ngModel)]="detailObj.yyqx" [disabled]="isDisable" nzAllowClear>
+                    <nz-option nzValue="1" nzLabel="10年"></nz-option>
+                    <nz-option nzValue="2" nzLabel="20年"></nz-option>
+                </nz-select>
+            </div>
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">电子邮箱：</div>
+                <input nz-input nzSize="default" [(ngModel)]="detailObj.dzyx" [disabled]="isDisable" class="w200"
+                    maxlength="30" placeholder="请输入电子邮箱" [validation]="true" [validationType]="'nullEmail'" />
+            </div>
+
+        </div>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">企业网址：</div>
+                <nz-input-group nzAddOnBefore="Http://" nzAddOnAfter=".com" class="w200">
+                    <input type="text" nz-input [(ngModel)]="detailObj.qywz" [disabled]="isDisable" maxlength="100" />
+                </nz-input-group>
+            </div>
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">主管部门：</div>
+                <input nz-input nzSize="default" [(ngModel)]="detailObj.zgbm" [disabled]="isDisable" class="w200"
+                    maxlength="30" placeholder="请输入主管部门" />
+            </div>
+
+        </div>
+
+
+
+        <nz-divider nzText="法人信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+            <div nz-col [nzSpan]="8">
+                <div class="label_div"><span class="clo_r">*</span>企业法人：</div>
+                <input nz-input nzSize="default" [(ngModel)]="detailObj.qyfr" [disabled]="isDisable" required
+                    [validation]="true" class="w200" maxlength="15" placeholder="请输入企业法人" />
+            </div>
+
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">证件类型：</div>
+                <nz-select [(ngModel)]="detailObj.zjlx" class="w200" [disabled]="isDisable" nzAllowClear>
+                    <nz-option nzValue="1" nzLabel="身份证"></nz-option>
+                    <nz-option nzValue="2" nzLabel="户口本"></nz-option>
+                </nz-select>
+            </div>
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">证件号：</div>
+                <input nz-input nzSize="default" [(ngModel)]="detailObj.zjh" [disabled]="isDisable" class="w200"
+                    maxlength="20" placeholder="请输入证件号" />
+            </div>
+
+        </div>
+
+        <nz-divider nzText="资质信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">资质证书号：</div>
+                <input nz-input nzSize="default" [(ngModel)]="detailObj.zzzsh" [disabled]="isDisable" class="w200"
+                    maxlength="30" placeholder="请输入资质证书号" />
+            </div>
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">资质等级：</div>
+
+                <nz-select [(ngModel)]="detailObj.zzdj" class="w200" [disabled]="isDisable" nzAllowClear>
+                    <nz-option nzValue="1" nzLabel="1级"></nz-option>
+                    <nz-option nzValue="2" nzLabel="2级"></nz-option>
+                </nz-select>
+            </div>
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">资质有效时间：</div>
+                <input nz-input nzSize="default" [(ngModel)]="detailObj.yxqx" [disabled]="isDisable" class="w200"
+                maxlength="12" placeholder="请输入资质有效时间" />
+            </div>
+
+        </div>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">批准时间：</div>
+                <nz-date-picker class="w200" [nzStyle]="{'width':'200px'}" [(ngModel)]="detailObj.pzsj" [disabled]="isDisable" placeholder="请输入批准时间">
+                </nz-date-picker>
+            </div>
+
+            <div nz-col [nzSpan]="8">
+                <div class="label_div">批准部门：</div>
+                <input nz-input nzSize="default" [(ngModel)]="detailObj.pzbm" [disabled]="isDisable" class="w200"
+                    maxlength="30" placeholder="请输入批准部门" />
+            </div>
+        </div>
+
+        <nz-divider nzText="备注" nzOrientation="left" style="font-size: 18px"></nz-divider>
+
+        <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }" [(ngModel)]="detailObj.bz"
+            maxlength="500" [disabled]="isDisable"></textarea>
+    </div>
+
+
+
+
+
+    <div nz-row style="height: 50px;padding: 10px;text-align: right;padding-right: 20px;">
+        <div nz-col [nzSpan]="24">
+            <button nz-button nzType="default" (click)="quit()">取消</button>
+            <button nz-button nzType="primary" (click)="save()">保存</button>
+            <button nz-button nzType="primary" (click)="submit()">提交审核</button>
+        </div>
+
+    </div>
+
+
+</div>
