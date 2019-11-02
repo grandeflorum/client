@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { EmployeeService } from '../../../service/employee/employee.service';
 import { NzMessageService } from 'ng-zorro-antd';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-list',
@@ -41,10 +42,19 @@ export class EmployeeListComponent implements OnInit {
   constructor(
     private employeeService: EmployeeService,
     private msg: NzMessageService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.search();
+  }
+
+  addEmployee() {
+    this.router.navigate(['/practitioner/employee/detail'], {
+      queryParams: {
+        type: 'add'
+      }
+    });
   }
 
   ngAfterViewInit() {
