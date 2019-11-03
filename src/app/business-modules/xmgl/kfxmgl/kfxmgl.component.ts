@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
+import { KfxmglService } from '../../service/xmgl/kfxmgl.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 
@@ -17,26 +18,25 @@ export class KfxmglComponent implements OnInit {
   pageSize: any = 10;
   Loading = false;
   tableIsScroll = null;
-  dataSet: any = [
-    {id:'1',disabled:false,xmmc:'aa',kfqymc:'aaa',shzt:'aaaa',kgrq:'aaaaa',jgrq:'aasdad' ,yjld:'1,2'},
-    {id:'2',disabled:false,xmmc:'sdsd',kfqymc:'ukk',shzt:'jkhkhk',kgrq:'ghgh',jgrq:'fhfb',yjld:'1,2'},
-    {id:'3',disabled:false,xmmc:'dadfd',kfqymc:'jhk',shzt:'hl',kgrq:'eesff',jgrq:'ffrh',yjld:'1,2'},
-    {id:'4',disabled:false,xmmc:'fsff',kfqymc:'hfg',shzt:'lil',kgrq:'hfhgh',jgrq:'ujjj',yjld:'1,2'},
-    {id:'1',disabled:false,xmmc:'aa',kfqymc:'aaa',shzt:'aaaa',kgrq:'aaaaa',jgrq:'aasdad',yjld:'1,2'},
-    {id:'2',disabled:false,xmmc:'sdsd',kfqymc:'ukk',shzt:'jkhkhk',kgrq:'ghgh',jgrq:'fhfb',yjld:'1,2'},
-    {id:'3',disabled:false,xmmc:'dadfd',kfqymc:'jhk',shzt:'hl',kgrq:'eesff',jgrq:'ffrh',yjld:'1,2'},
-    {id:'4',disabled:false,xmmc:'fsff',kfqymc:'hfg',shzt:'lil',kgrq:'hfhgh',jgrq:'ujjj',yjld:'1,2'},
-    {id:'4',disabled:false,xmmc:'fsff',kfqymc:'hfg',shzt:'lil',kgrq:'hfhgh',jgrq:'ujjj',yjld:'1,2'},
-    {id:'4',disabled:false,xmmc:'fsff',kfqymc:'hfg',shzt:'lil',kgrq:'hfhgh',jgrq:'ujjj',yjld:'1,2'}
-  ];
+  dataSet: any = [];
 
   selectId: any = '';
   xmmc = '';
   kfqymc = '';
-  shzt = '0';
+  auditType ="";
   kgrq = '';
   jgrq = '';
+  isVisible = false;
 
+  shxxObj:any = {
+    ids:[],
+    wfAudit:{
+      shjg:"1",
+      shry:'',
+      bz:'',
+      shrq:null
+    }
+  }
   isAllDisplayDataChecked = false;
   isIndeterminate = false;
   listOfDisplayData = [];
@@ -46,7 +46,8 @@ export class KfxmglComponent implements OnInit {
 
   constructor(
     private msg: NzMessageService,
-    private router:Router
+    private router:Router,
+    private kfxmglService:KfxmglService
   ) { }
 
   ngOnInit() {
@@ -68,8 +69,8 @@ export class KfxmglComponent implements OnInit {
     if (this.kfqymc) {
       option.conditions.push({ key: 'kfqymc', value: this.kfqymc });
     }
-    if (this.shzt) {
-      option.conditions.push({ key: 'shzt', value: this.shzt });
+    if (this.auditType||this.auditType==="0") {
+      option.conditions.push({ key: 'auditType', value: this.auditType });
     }
     if (this.kgrq) {
       option.conditions.push({ key: 'kgrq', value: this.kgrq });
@@ -78,8 +79,14 @@ export class KfxmglComponent implements OnInit {
       option.conditions.push({ key: 'jgrq', value: this.jgrq });
     }
     console.log(option)
-    this.operateData();
+
+    var res = await this.kfxmglService.getProjectList(option);
     this.Loading = false;
+    if(res.code == 200){
+      this.dataSet = res.msg.currentList;
+    }
+
+    this.operateData();
     this.calculationHeight();
   }
 
@@ -95,10 +102,10 @@ export class KfxmglComponent implements OnInit {
     this.search();
   }
 
-  reset() {
+  reset() { 
     this.xmmc = '';
     this.kfqymc = '';
-    this.shzt = '0';
+    this.auditType ="0";
     this.kgrq = '';
     this.jgrq = '';
     this.search();
@@ -134,11 +141,11 @@ export class KfxmglComponent implements OnInit {
 
 
   onChange(m,date){
-    if(m == 1){
-      this.kgrq = Moment(date).format('YYYY-MM-DD')
-    }else if(m == 2){
-      this.jgrq = Moment(date).format('YYYY-MM-DD')
-    }
+    // if(m == 1){
+    //   this.kgrq = Moment(date).format('YYYY-MM-DD')
+    // }else if(m == 2){
+    //   this.jgrq = Moment(date).format('YYYY-MM-DD')
+    // }
   }
 
 selectItem(data) {
@@ -174,6 +181,98 @@ selectItem(data) {
     }else{
       this.tableIsScroll = null
     }
+  }
+
+  //删除
+  async btachDelete(item){
+    var ids = [];
+    if (item) {//单个删除
+      ids.push(item.id);
+    } else {//批量删除
+      if (this.listOfDisplayData.length > 0) {
+        this.listOfDisplayData.forEach(element => {
+          if (this.mapOfCheckedId[element.id]) {
+            ids.push(element.id);
+          }
+        });
+      }
+    }
+
+    if(ids.length==0){
+      this.msg.warning('请选择需要删除的项目');
+      return;
+    }
+
+    var res = await this.kfxmglService.deleteProjectByIds(ids);
+    if (res && res.code == 200) {
+      this.msg.create('success', '删除成功');
+      this.search();
+    } else {
+      this.msg.create('error', '删除失败');
+    }
+  }
+
+  //提交审核
+ async auditSubmit(item , type){
+    var res = await this.kfxmglService.auditProjectById(item.id , type);
+    if (res && res.code == 200) {
+      this.msg.create('success', '提交审核成功');
+      this.search();
+    } else {
+      this.msg.create('error', '提交审核失败');
+    }
+  }
+
+  //批量审核 || 单个审核
+ async moreAudit(item){
+  
+  this.shxxObj = {
+    ids:[],
+    wfAudit:{
+      shjg:"1",
+      shry:'',
+      bz:'',
+      shrq:null
+    }
+  }
+   this.shxxObj.ids = [];
+
+    if(item){
+      this.shxxObj.ids.push(item.id);
+    }else{
+
+    }
+
+    if(this.shxxObj.ids.length == 0){
+      this.msg.warning('请选择需要审核的项目');
+      return;
+    }
+
+    this.isVisible = true;
+}
+
+  //打开审核模态框
+  shxm(){
+    this.isVisible = true;
+    this.shxxObj = {
+      ids:[],
+      wfAudit:{
+        shjg:"1",
+        shry:'',
+        bz:'',
+        shrq:null
+      }
+    }
+  }
+
+    //审核
+  async handleOk(){
+    var res = await this.kfxmglService.auditProjects(this.shxxObj);
+  }
+
+
+  handleCancel(){
+    this.isVisible = false;
   }
 
   ngAfterViewInit() {
