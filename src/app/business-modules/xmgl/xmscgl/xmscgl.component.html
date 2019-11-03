@@ -2,7 +2,7 @@
   <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="12">
         所属类目：
-        <nz-select [(ngModel)]="sslm" style="width:400px" [disabled]="isDisable" nzAllowClear>
+        <nz-select [(ngModel)]="sslm" style="width:400px" nzAllowClear>
             <nz-option nzLabel="全部" nzValue=""></nz-option>
             <nz-option *ngFor="let option of dictionaryObj.xmsc" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
@@ -19,7 +19,7 @@
 </div>
 <div nz-row style="height: 50px;padding: 10px;">
      <div nz-col [nzSpan]="24">
-        <button nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
+        <button nz-button nzType="primary" (click)="add()"><i nz-icon nzType="plus"></i>
           添加
         </button>
         <button nz-button nzType="default" (click)="btachDelete()">批量删除</button>
@@ -27,7 +27,7 @@
       </div>
     </div>
 
-      <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow"  [nzLoading]="Loading" 
+      <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow"  [nzLoading]="Loading"  [nzShowTotal]="rangeTemplate"
         [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize" [nzTotal]="totalCount" 
         (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
         (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
@@ -58,11 +58,15 @@
       </nz-table>
 </div>
 
+<ng-template #rangeTemplate let-range="range" let-total>
+    共{{total}}条记录&nbsp;&nbsp;
+ </ng-template>
+
 <nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="24">
         所属类目：
-        <nz-select [(ngModel)]="modalSslm" style="width:300px" [disabled]="isDisable" nzAllowClear>
+        <nz-select [(ngModel)]="modalSslm" style="width:300px" nzAllowClear>
           <nz-option nzLabel="全部" nzValue=""></nz-option>
           <nz-option *ngFor="let option of dictionaryObj.xmsc" [nzLabel]="option.name" [nzValue]="option.code">
           </nz-option>

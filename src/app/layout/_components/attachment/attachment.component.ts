@@ -20,6 +20,9 @@ export class AttachmentComponent implements OnInit {
     @ViewChild('uploadComponent', { static: false }) uploadComponent;
 
     isVisible: any = false;
+    isVisiblePic: any = false;
+    previewUrl: any = "";
+    okText: any = null;
 
     downLoadurl: any = AppConfig.Configuration.baseUrl + "/FileInfo/download";
 
@@ -56,7 +59,7 @@ export class AttachmentComponent implements OnInit {
 
         var pos = fileName.lastIndexOf('.');
         var format = fileName.substring(pos + 1);
-        var picType = ['pdf', 'doc', 'txt', 'docx'];
+        var picType = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
         var res = false;
 
         picType.forEach(element => {
@@ -70,12 +73,14 @@ export class AttachmentComponent implements OnInit {
 
     preview(item) {
 
-        if (item && item.response) {
-            var url = this.downLoadurl + "?id=" + item.response.msg + "&type=2";
+        // if (item && item.response) {
+        //     var url = this.downLoadurl + "?id=" + item.response.msg + "&type=2";
 
-            window.open('assets/usermanual/web/viewer.html?url=' + this.utilitiesSercice.wrapUrl(url), "_blank");
-        }
+        //     window.open('assets/usermanual/web/viewer.html?url=' + this.utilitiesSercice.wrapUrl(url), "_blank");
+        // }
 
+        this.isVisiblePic = true;
+        this.previewUrl = this.downLoadurl + "?id=" + item.uid + "&type=1";
 
     }
 

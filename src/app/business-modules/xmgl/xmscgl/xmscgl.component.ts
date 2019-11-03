@@ -15,6 +15,8 @@ import * as $ from 'jquery';
 export class XmscglComponent implements OnInit {
   @ViewChild('uploadComponent',{static:false}) uploadComponent ;
 
+  downLoadurl =  AppConfig.Configuration.baseUrl + "/FileInfo/download";
+
   pageIndex: any = 1;
   totalCount: any;
   pageSize: any = 10;
@@ -77,6 +79,7 @@ export class XmscglComponent implements OnInit {
     this.Loading = false;
     if(res.code == 200){
       this.dataSet = res.msg.currentList;
+      this.totalCount = res.msg.recordCount;
     }
 
     this.operateData();
@@ -141,15 +144,15 @@ selectItem(data) {
   calculationHeight(){
     const bodyHeight = $('body').height()
     const height = this.dataSet.length * 40;
-    if(height > bodyHeight - 390){
-        this.tableIsScroll = {y: bodyHeight - 390 + 'px'}
+    if(height > bodyHeight - 400){
+        this.tableIsScroll = {y: bodyHeight - 350 + 'px'}
     }else{
       this.tableIsScroll = null
     }
   }
 
   //删除
-  async btachDelete(item){
+  async btachDelete(item?){
     var ids = [];
     if (item) {//单个删除
       ids.push(item.id);
@@ -168,13 +171,13 @@ selectItem(data) {
       return;
     }
 
-    // var res = await this.kfxmglService.deleteProjectByIds(ids);
-    // if (res && res.code == 200) {
-    //   this.msg.create('success', '删除成功');
-    //   this.search();
-    // } else {
-    //   this.msg.create('error', '删除失败');
-    // }
+    var res = await this.fileService.delete(item.id);
+    if (res && res.code == 200) {
+      this.msg.create('success', '删除成功');
+      this.search();
+    } else {
+      this.msg.create('error', '删除失败');
+    }
   }
 
 
@@ -224,16 +227,16 @@ selectItem(data) {
 
   previewImg(item){
     if(item.fileSuffix != 'pdf'){
-      this.currentImg = item.serverPath;
+      this.currentImg = this.downLoadurl + "?id=" + item.id + "&type=0";
       this.isImgVisible = true;
     }else{
-      window.open(item.serverPath);
+      window.open(this.downLoadurl + "?id=" + item.id + "&type=0");
     }
     
   }
 
       //下载
-      btachDown(item){
+      btachDown(item?){
         var ids = [];
         if (item) {//单个
           ids.push(item.id);
@@ -252,7 +255,7 @@ selectItem(data) {
           return;
         }
   
-        location.href = item.serverPath;
+        window.location.href = this.downLoadurl + "?id=" + item.id + "&type=0";
       }
 
   ngAfterViewInit() {

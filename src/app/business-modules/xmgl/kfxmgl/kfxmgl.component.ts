@@ -197,7 +197,7 @@ selectItem(data) {
   calculationHeight(){
     const bodyHeight = $('body').height()
     const height = this.dataSet.length * 40;
-    if(height > bodyHeight - 400){
+    if(height > bodyHeight - 450){
         this.tableIsScroll = {y: bodyHeight - 400 + 'px'}
     }else{
       this.tableIsScroll = null
@@ -205,7 +205,7 @@ selectItem(data) {
   }
 
   //删除
-  async btachDelete(item){
+  async btachDelete(item?){
     var ids = [];
     if (item) {//单个删除
       ids.push(item.id);
@@ -245,7 +245,7 @@ selectItem(data) {
   }
 
   //批量审核 || 单个审核
- async moreAudit(item){
+ async moreAudit(item?){
   
   this.shxxObj = {
     ids:[],

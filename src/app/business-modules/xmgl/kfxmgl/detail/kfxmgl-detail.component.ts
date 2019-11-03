@@ -5,6 +5,8 @@ import { ValidationDirective } from '../../../../layout/_directives/validation.d
 import { Localstorage } from '../../../service/localstorage';
 import { KfxmglService } from '../../../service/xmgl/kfxmgl.service';
 import { FileService  } from '../../../service/file/file.service';
+import { UtilitiesSercice } from 'src/app/business-modules/service/common/utilities.services';
+
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 
@@ -17,6 +19,7 @@ export class KfxmglDetailComponent implements OnInit {
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
   @ViewChild('uploadComponent',{static:false}) uploadComponent ;
 
+  downLoadurl =  AppConfig.Configuration.baseUrl + "/FileInfo/download";
   tabs = [
     {name:'项目信息',index:0},
     {name:'附件',index:1},
@@ -50,7 +53,8 @@ export class KfxmglDetailComponent implements OnInit {
     private activatedRoute:ActivatedRoute,
     private kfxmglService:KfxmglService,
     private localstorage:Localstorage,
-    private fileService:FileService
+    private fileService:FileService,
+    private utilitiesSercice:UtilitiesSercice
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
     this.detailObj.id = this.activatedRoute.snapshot.queryParams.id;
@@ -192,7 +196,7 @@ export class KfxmglDetailComponent implements OnInit {
   calculationHeight(){
     const bodyHeight = $('body').height()
     const height = this.fjList.length * 40;
-    if(height > bodyHeight - 400){
+    if(height > bodyHeight - 440){
         this.tableIsScroll = {y: bodyHeight - 400 + 'px'}
     }else{
       this.tableIsScroll = null
@@ -223,16 +227,16 @@ export class KfxmglDetailComponent implements OnInit {
 
   previewImg(item){
     if(item.fileSuffix != 'pdf'){
-      this.currentImg = item.serverPath;
+      this.currentImg = this.downLoadurl + "?id=" + item.id + "&type=0";
       this.isImgVisible = true;
     }else{
-      window.open(item.serverPath);
+      window.open(this.downLoadurl + "?id=" + item.id + "&type=0");
     }
     
   }
 
     //删除
-    async btachDelete(item){
+    async btachDelete(item?){
       var ids = [];
       if (item) {//单个删除
         ids.push(item.id);
@@ -251,17 +255,17 @@ export class KfxmglDetailComponent implements OnInit {
         return;
       }
   
-      // var res = await this.kfxmglService.deleteProjectByIds(ids);
-      // if (res && res.code == 200) {
-      //   this.msg.create('success', '删除成功');
-      //   this.search();
-      // } else {
-      //   this.msg.create('error', '删除失败');
-      // }
+      var res = await this.fileService.delete(item.id);
+      if (res && res.code == 200) {
+        this.msg.create('success', '删除成功');
+        this.search();
+      } else {
+        this.msg.create('error', '删除失败');
+      }
     }
 
     //下载
-    btachDown(item){
+    btachDown(item?){
       var ids = [];
       if (item) {//单个
         ids.push(item.id);
@@ -280,7 +284,7 @@ export class KfxmglDetailComponent implements OnInit {
         return;
       }
 
-      location.href = item.serverPath;
+      window.location.href = this.downLoadurl + "?id=" + item.id + "&type=0";
     }
 
   ngAfterViewInit() {
