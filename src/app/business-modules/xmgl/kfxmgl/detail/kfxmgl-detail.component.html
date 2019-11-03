@@ -249,8 +249,8 @@
           (click)="selectItem(data)">
           <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
             (nzCheckedChange)="refreshStatus()"></td>
-          <td>{{ data.serverFileName }}</td>
-          <td>{{ data.uploadDate }}</td>
+          <td>{{ data.clientFileName }}</td>
+          <td>{{ data.uploadDate | date:'yyyy-MM-dd HH:mm:ss' }}</td>
           <td style="width:30%">
             <a class="table_a" *ngIf="data.fileSuffix=='jpg' || data.fileSuffix=='jpeg' || data.fileSuffix=='png' || data.fileSuffix=='bmp' ||  data.fileSuffix=='pdf'" (click)="previewImg(data)">查看</a>
             <a class="table_a" *ngIf="!isDisable"  nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete(data)">删除</a>
