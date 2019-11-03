@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChildren, QueryList , ViewChild , TemplateRef } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router , ActivatedRoute} from '@angular/router';
-import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
-import { Localstorage } from 'src/app/business-modules/service/localstorage';
+import { ValidationDirective } from '../../../../layout/_directives/validation.directive';
+import { Localstorage } from '../../../service/localstorage';
 import { KfxmglService } from '../../../service/xmgl/kfxmgl.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
@@ -58,7 +58,7 @@ export class KfxmglDetailComponent implements OnInit {
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
   isVisible = false;
-  dictionaryObj = [];
+  dictionaryObj:any = {};
 
   constructor(
     private msg: NzMessageService,

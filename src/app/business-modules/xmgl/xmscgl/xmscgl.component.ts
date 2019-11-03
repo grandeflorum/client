@@ -1,17 +1,18 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, QueryList } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { KfxmglService } from '../../service/xmgl/kfxmgl.service';
+import { Localstorage } from '../../service/localstorage';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 
 @Component({
-  selector: 'app-kfxmgl',
-  templateUrl: './kfxmgl.component.html',
-  styleUrls: ['./kfxmgl.component.scss']
+  selector: 'app-xmscgl',
+  templateUrl: './xmscgl.component.html',
+  styleUrls: ['./xmscgl.component.scss']
 })
-export class KfxmglComponent implements OnInit {
-
+export class XmscglComponent implements OnInit {
+  @ViewChild('uploadComponent',{static:false}) uploadComponent ;
 
   pageIndex: any = 1;
   totalCount: any;
@@ -21,22 +22,9 @@ export class KfxmglComponent implements OnInit {
   dataSet: any = [];
 
   selectId: any = '';
-  xmmc = '';
-  kfqymc = '';
-  auditType ="";
-  kgrq = '';
-  jgrq = '';
   isVisible = false;
 
-  shxxObj:any = {
-    ids:[],
-    wfAudit:{
-      shjg:"1",
-      shry:'',
-      bz:'',
-      shrq:null
-    }
-  }
+
   isAllDisplayDataChecked = false;
   isIndeterminate = false;
   listOfDisplayData = [];
@@ -44,14 +32,18 @@ export class KfxmglComponent implements OnInit {
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
 
+  sslm = "";
+  dictionaryObj:any = {};
+
   constructor(
     private msg: NzMessageService,
     private router:Router,
-    private kfxmglService:KfxmglService
+    private kfxmglService:KfxmglService,
+    private localstorage:Localstorage
   ) { }
 
   ngOnInit() {
-
+    this.dictionaryObj = this.localstorage.getObject("dictionary");
     this.search();
   }
 
@@ -63,33 +55,20 @@ export class KfxmglComponent implements OnInit {
       conditions: []
     };
 
-    if (this.xmmc) {
-      option.conditions.push({ key: 'xmmc', value: this.xmmc });
-    }
-    if (this.kfqymc) {
-      option.conditions.push({ key: 'kfqymc', value: this.kfqymc });
-    }
-    if (this.auditType||this.auditType==="0") {
-      option.conditions.push({ key: 'auditType', value: this.auditType });
-    }
-    if (this.kgrq) {
-      option.conditions.push({ key: 'kgrq', value: this.kgrq });
-    }
-    if (this.jgrq) {
-      option.conditions.push({ key: 'jgrq', value: this.jgrq });
-    }
+    // if (this.xmmc) {
+    //   option.conditions.push({ key: 'xmmc', value: this.xmmc });
+    // }
+
     console.log(option)
 
     var res = await this.kfxmglService.getProjectList(option);
     this.Loading = false;
     if(res.code == 200){
       this.dataSet = res.msg.currentList;
-      this.totalCount = res.msg.recordCount;
-      this.calculationHeight();
     }
 
     this.operateData();
-    
+    this.calculationHeight();
   }
 
 
@@ -105,13 +84,7 @@ export class KfxmglComponent implements OnInit {
   }
 
   reset() { 
-    this.xmmc = '';
-    this.kfqymc = '';
-    this.auditType ="0";
-    this.kgrq = '';
-    this.jgrq = '';
     this.search();
-    
   }
 
   currentPageDataChange($event): void {
@@ -142,44 +115,22 @@ export class KfxmglComponent implements OnInit {
   }
 
 
-  onChange(m,date){
-    // if(m == 1){
-    //   this.kgrq = Moment(date).format('YYYY-MM-DD')
-    // }else if(m == 2){
-    //   this.jgrq = Moment(date).format('YYYY-MM-DD')
-    // }
-  }
+
 
 selectItem(data) {
     this.selectId = data.id;
   }
 
-  add(m , item?){
-    // switch (m) {
-    //   case 1://添加
-    //     break;
-    //     case 2://查看
-    //     break;
-    //     case 3://编辑
-    //     break;
-    //   default:
-    //     break;
-    // }
-
-    this.router.navigate(['/xmgl/kfxmgl/detail'], {
-      queryParams: {
-        id: item?item.id:'',
-        type:m
-      }
-    });
+  add(){
+    this.isVisible = true;
   }
 
 
   calculationHeight(){
     const bodyHeight = $('body').height()
     const height = this.dataSet.length * 40;
-    if(height > bodyHeight - 400){
-        this.tableIsScroll = {y: bodyHeight - 400 + 'px'}
+    if(height > bodyHeight - 390){
+        this.tableIsScroll = {y: bodyHeight - 390 + 'px'}
     }else{
       this.tableIsScroll = null
     }
@@ -214,75 +165,37 @@ selectItem(data) {
     }
   }
 
-  //提交审核
- async auditSubmit(item , type){
-    var res = await this.kfxmglService.auditProjectById(item.id , type);
-    if (res && res.code == 200) {
-      this.msg.create('success', '提交审核成功');
-      this.search();
-    } else {
-      this.msg.create('error', '提交审核失败');
-    }
-  }
+
 
   //批量审核 || 单个审核
- async moreAudit(item){
+ async moreDown(item){
   
-  this.shxxObj = {
-    ids:[],
-    wfAudit:{
-      shjg:"1",
-      shry:'',
-      bz:'',
-      shrq:null
-    }
-  }
-   this.shxxObj.ids = [];
+
+   var ids = [];
 
     if(item){
-      this.shxxObj.ids.push(item.id);
+      ids.push(item.id);
     }else{
 
     }
 
-    if(this.shxxObj.ids.length == 0){
-      this.msg.warning('请选择需要审核的项目');
+    if(ids.length == 0){
+      this.msg.warning('请选择需要下载的项目');
       return;
     }
 
     this.isVisible = true;
 }
 
-  //打开审核模态框
-  shxm(){
-    this.isVisible = true;
-    this.shxxObj = {
-      ids:[],
-      wfAudit:{
-        shjg:"1",
-        shry:'',
-        bz:'',
-        shrq:null
-      }
-    }
-  }
 
-    //审核
-  async handleOk(){
-    var res = await this.kfxmglService.auditProjects(this.shxxObj);
-
-    if (res && res.code == 200) {
-      this.msg.create('success', '审核成功');
-      this.search();
-      this.isVisible = false;
-    } else {
-      this.msg.create('error', '审核失败');
-    }
+   handleOk(){
+    this.uploadComponent.import();
   }
 
 
   handleCancel(){
     this.isVisible = false;
+    this.uploadComponent.fileList = [];
   }
 
   ngAfterViewInit() {

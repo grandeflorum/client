@@ -43,7 +43,8 @@ const routes: Routes = [
         canActivate: [AuthGuardService],
         data: { id: 'A-xmgl' },
         children: [
-            { path: 'kfxmgl', loadChildren: () => import('./xmgl/kfxmgl/kfxmgl.module').then(m => m.KfxmglModule) }
+            { path: 'kfxmgl', loadChildren: () => import('./xmgl/kfxmgl/kfxmgl.module').then(m => m.KfxmglModule) },
+            { path: 'xmscgl', loadChildren: () => import('./xmgl/xmscgl/xmscgl.module').then(m => m.XmscglModule) }
         ]
     },
     {

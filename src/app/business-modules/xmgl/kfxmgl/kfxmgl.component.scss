@@ -4,3 +4,45 @@
     margin-top:5px;
     width:70px;
 }
+.cr0{
+    color: rgba(0, 0, 0, 0.4);
+    position: relative;
+    padding-left: 15px;
+}
+.cr1{
+    color: #FF9933;
+    position: relative;
+    padding-left: 15px;
+}
+.cr2{
+    color: #33CC00;
+    position: relative;
+    padding-left: 15px;
+}
+.cr3{
+    color: red;
+    position: relative;
+    padding-left: 15px;
+}
+
+.point{
+    position: absolute;
+    top: 22px;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 10px;
+}
+
+.point0{
+    background: rgba(0, 0, 0, 0.427450980392157);
+}
+.point1{
+    background: #FF9933;
+}
+.point2{
+    background: #33CC00;
+}
+.point3{
+    background: red;
+}
