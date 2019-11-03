@@ -13,7 +13,7 @@ import * as $ from 'jquery';
 })
 export class uploadComponent implements OnInit {
   @Input() accept = "xls,xlsx,doc,pdf,docx,image/png,image/jpg,image/jpeg,image/gif,image/bmp";
-  @Input() type = "1";//1 开发项目管理
+  @Input() type = "0";
   @Input() refid = "";
 
   @Output() private outer = new EventEmitter<UploadFile[]>();
@@ -83,7 +83,11 @@ export class uploadComponent implements OnInit {
 
         if (event instanceof HttpResponse) {
           var res: any = event.body;
+     
+           
           if (res && res.code == 200) {
+
+            this.msg.success('上传成功');
 
             for (let i = 0; i < that.fileList.length; i++) {
               that.fileList[i].uid = res.msg[i];
@@ -92,10 +96,10 @@ export class uploadComponent implements OnInit {
             that.outer.emit(that.fileList);
 
           } else {
-            this.msg.error(res.msg)
+            this.msg.error(res.msg);
           }
+        
         }
-
 
       },
       err => {

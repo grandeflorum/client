@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CompanyService } from 'src/app/business-modules/service/practitioner/company.service';
 import { Localstorage } from 'src/app/business-modules/service/localstorage';
 import { AttachmentSercice } from 'src/app/business-modules/service/common/attachment.service';
+import { AttachmentComponent } from 'src/app/layout/_components/attachment/attachment.component';
 
 @Component({
   selector: 'app-company-detail',
@@ -14,7 +15,9 @@ import { AttachmentSercice } from 'src/app/business-modules/service/common/attac
 export class CompanyDetailComponent implements OnInit {
 
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
-  @ViewChild('uploadComponent', { static: false }) uploadComponent;
+
+  @ViewChild('attachmentComponent',{ static: false }) attachmentComponent:AttachmentComponent;
+
   tabs = [
     { name: '开发企业信息', index: 0 },
     { name: '从业人员管理', index: 1 },
@@ -109,7 +112,7 @@ export class CompanyDetailComponent implements OnInit {
       return;
     }
 
-    if (this.fileList.length == 0) {
+    if (this.attachmentComponent.fileList.length == 0) {
       this.msg.create('warning', '请上传资质附件');
       return;
     }
@@ -118,7 +121,7 @@ export class CompanyDetailComponent implements OnInit {
 
     this.detailObj.fileInfoList = [];
 
-    this.fileList.forEach(element => {
+    this.attachmentComponent.fileList.forEach(element => {
       this.detailObj.fileInfoList.push({ id: element.uid });
     });
 
@@ -142,30 +145,6 @@ export class CompanyDetailComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-
-  }
-
-  /**
-   * 附件
-   */
-  upload() {
-    this.isVisible = true;
-    this.uploadComponent.fileList = [];
-  }
-
-  handleCancel() {
-    this.isVisible = false;
-    this.uploadComponent.fileList = [];
-  }
-
-  //开始上传
-  handleOk() {
-    this.uploadComponent.import();
-  }
-
-  uploadCompelete(data) {
-    this.fileList = [...this.fileList, ...data];
-    this.isVisible = false;
 
   }
 

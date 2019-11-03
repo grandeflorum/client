@@ -36,9 +36,8 @@
             <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
               (nzCheckedChange)="checkAll($event)"></th>
             <th>项目名称</th>
-            <th>开发企业名称</th>
-            <!-- <th>已建楼幢</th> -->
-            <th>审核状态</th>
+            <th>上传时间</th>
+            
             <th>操作</th>
           </tr>
         </thead>
@@ -47,11 +46,9 @@
             (click)="selectItem(data)">
             <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
               (nzCheckedChange)="refreshStatus()"></td>
-            <td>{{ data.xmmc }}</td>
-            <td>{{ data.kfqymc }}</td>
-            <!-- <td>{{ data.yjld }}</td> -->
-            <td>{{ data.auditType }}</td>
-            <td>
+            <td>{{ data.serverFileName }}</td>
+            <td>{{ data.uploadDate }}</td>
+           <td>
               <a class="table_a">查看</a>
               <a class="table_a" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete(data)">删除</a>
             </td>
@@ -61,8 +58,22 @@
 </div>
 
 <nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-    <app-upload #uploadComponent></app-upload>  
-  </nz-modal>
+    <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="24">
+        所属类目：
+        <nz-select [(ngModel)]="sslm" style="width:300px" [disabled]="isDisable" nzAllowClear>
+          <nz-option nzLabel="全部" nzValue=""></nz-option>
+          <nz-option *ngFor="let option of dictionaryObj.xmsc" [nzLabel]="option.name" [nzValue]="option.code">
+          </nz-option>
+        </nz-select>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+        <app-upload [type]="sslm" [refid]="'xmsc'" (outer)="outer($event)" #uploadComponent></app-upload>
+      </div>
+    </div>
+</nz-modal>
 
 
  

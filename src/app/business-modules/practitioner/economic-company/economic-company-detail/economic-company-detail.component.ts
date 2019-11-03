@@ -5,6 +5,7 @@ import { CompanyService } from 'src/app/business-modules/service/practitioner/co
 import { Localstorage } from 'src/app/business-modules/service/localstorage';
 import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
 import { AttachmentSercice } from 'src/app/business-modules/service/common/attachment.service';
+import { AttachmentComponent } from 'src/app/layout/_components/attachment/attachment.component';
 
 @Component({
   selector: 'app-economic-company-detail',
@@ -14,7 +15,7 @@ import { AttachmentSercice } from 'src/app/business-modules/service/common/attac
 export class EconomicCompanyDetailComponent implements OnInit {
 
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
-  @ViewChild('uploadComponent', { static: false }) uploadComponent;
+  @ViewChild('attachmentComponent', { static: false }) attachmentComponent: AttachmentComponent;
 
   tabs = [
     { name: '经纪企业信息', index: 0 },
@@ -29,9 +30,6 @@ export class EconomicCompanyDetailComponent implements OnInit {
 
   companyId: string;
   companyType: string;
-
-  //附件
-  isVisible: any = false;
 
   fileList: any = [];
 
@@ -68,6 +66,14 @@ export class EconomicCompanyDetailComponent implements OnInit {
     }
   }
 
+  async getCompanyById(id) {
+
+    let data = await this.companyService.getCompanyById(id);
+    if (data) {
+      this.detailObj = data.msg;
+    }
+  }
+
   async getAtatchment(id) {
     let res = await this.attachmentSercice.getFileListById(id);
     if (res.msg.length > 0) {
@@ -77,14 +83,6 @@ export class EconomicCompanyDetailComponent implements OnInit {
           name: element.clientFileName
         });
       });
-    }
-  }
-
-  async getCompanyById(id) {
-
-    let data = await this.companyService.getCompanyById(id);
-    if (data) {
-      this.detailObj = data.msg;
     }
   }
 
@@ -111,18 +109,18 @@ export class EconomicCompanyDetailComponent implements OnInit {
       return;
     }
 
-    if (this.fileList.length == 0) {
+    if (this.attachmentComponent.fileList.length == 0) {
       this.msg.create('warning', '请上传资质附件');
       return;
     }
 
-    this.detailObj.companyType = 2;
-
     this.detailObj.fileInfoList = [];
 
-    this.fileList.forEach(element => {
+    this.attachmentComponent.fileList.forEach(element => {
       this.detailObj.fileInfoList.push({ id: element.uid });
     });
+
+    this.detailObj.companyType = 2;
 
     let res = await this.companyService.saveOrUpdateCompany(this.detailObj);
 
@@ -144,30 +142,6 @@ export class EconomicCompanyDetailComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-
-  }
-
-  /**
-   * 附件
-   */
-  upload() {
-    this.isVisible = true;
-    this.uploadComponent.fileList = [];
-  }
-
-  handleCancel() {
-    this.isVisible = false;
-    this.uploadComponent.fileList = [];
-  }
-
-  //开始上传
-  handleOk() {
-    this.uploadComponent.import();
-  }
-
-  uploadCompelete(data) {
-    this.fileList = [...this.fileList, ...data];
-    this.isVisible = false;
 
   }
 

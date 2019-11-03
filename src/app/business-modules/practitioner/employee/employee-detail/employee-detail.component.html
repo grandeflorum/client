@@ -116,14 +116,7 @@
             </div>
         </div>
 
-        <div nz-row style="height: 50px;padding: 10px;">
-            <button [disabled]="isDisable" nz-button nzType="primary" (click)="upload()"><i nz-icon nzType="plus"></i>
-                上传附件
-            </button>
-        </div>
-
-        <app-attachment [fileList]="fileList" [isDisable]="isDisable"> </app-attachment>
-
+        <app-attachment [fileList]="fileList" [isDisable]="isDisable" [refid]="employee.id" #attachmentComponent> </app-attachment>
 
         <nz-divider nzText="备注" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
@@ -138,8 +131,4 @@
 
         </div>
     </div>
-
-    <nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-        <app-upload #uploadComponent (outer)="uploadCompelete($event)" [refid]="employee.id"></app-upload>
-    </nz-modal>
 </div>

@@ -5,6 +5,7 @@ import { EmployeeService } from '../../../service/employee/employee.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AttachmentSercice } from 'src/app/business-modules/service/common/attachment.service';
+import { AttachmentComponent } from 'src/app/layout/_components/attachment/attachment.component';
 
 @Component({
   selector: 'app-employee-detail',
@@ -13,7 +14,7 @@ import { AttachmentSercice } from 'src/app/business-modules/service/common/attac
 })
 export class EmployeeDetailComponent implements OnInit {
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
-  @ViewChild('uploadComponent', { static: false }) uploadComponent;
+  @ViewChild('attachmentComponent', { static: false }) attachmentComponent: AttachmentComponent;
 
   employee: any = {};
 
@@ -29,7 +30,6 @@ export class EmployeeDetailComponent implements OnInit {
   module: string;
 
   //附件
-  isVisible: any = false;
   fileList: any = [];
 
   constructor(
@@ -109,16 +109,17 @@ export class EmployeeDetailComponent implements OnInit {
       return;
     }
 
-    if (this.fileList.length == 0) {
+    if (this.attachmentComponent.fileList.length == 0) {
       this.msg.create('warning', '请上传资质附件');
       return;
     }
     this.employee.fileInfoList = [];
     this.employee.companyId = this.companyId;
 
-    this.fileList.forEach(element => {
+    this.attachmentComponent.fileList.forEach(element => {
       this.employee.fileInfoList.push({ id: element.uid });
     });
+
 
     let res;
 
@@ -147,30 +148,6 @@ export class EmployeeDetailComponent implements OnInit {
       }
     });
     return isValid;
-  }
-
-  /**
-   * 附件
-   */
-  upload() {
-    this.isVisible = true;
-    this.uploadComponent.fileList = [];
-  }
-
-  handleCancel() {
-    this.isVisible = false;
-    this.uploadComponent.fileList = [];
-  }
-
-  //开始上传
-  handleOk() {
-    this.uploadComponent.import();
-  }
-
-  uploadCompelete(data) {
-    this.fileList = [...this.fileList, ...data];
-    this.isVisible = false;
-
   }
 
 }

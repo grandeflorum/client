@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 import { UploadXHRArgs, NzMessageService } from 'ng-zorro-antd';
 import { HttpRequest, HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
@@ -15,6 +15,11 @@ export class AttachmentComponent implements OnInit {
 
     @Input() fileList = [];
     @Input() isDisable = false;
+    @Input() refid = "";
+
+    @ViewChild('uploadComponent', { static: false }) uploadComponent;
+
+    isVisible: any = false;
 
     downLoadurl: any = AppConfig.Configuration.baseUrl + "/FileInfo/download";
 
@@ -71,6 +76,30 @@ export class AttachmentComponent implements OnInit {
             window.open('assets/usermanual/web/viewer.html?url=' + this.utilitiesSercice.wrapUrl(url), "_blank");
         }
 
+
+    }
+
+    /**
+ * 附件
+ */
+    upload() {
+        this.isVisible = true;
+        this.uploadComponent.fileList = [];
+    }
+
+    handleCancel() {
+        this.isVisible = false;
+        this.uploadComponent.fileList = [];
+    }
+
+    //开始上传
+    handleOk() {
+        this.uploadComponent.import();
+    }
+
+    uploadCompelete(data) {
+        this.fileList = [...this.fileList, ...data];
+        this.isVisible = false;
 
     }
 
