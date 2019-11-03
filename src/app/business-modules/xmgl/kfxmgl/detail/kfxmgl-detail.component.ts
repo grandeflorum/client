@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChildren, QueryList , ViewChild , TemplateRef } 
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router , ActivatedRoute} from '@angular/router';
 import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
+import { Localstorage } from 'src/app/business-modules/service/localstorage';
+import { KfxmglService } from '../../../service/xmgl/kfxmgl.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 
@@ -18,6 +20,7 @@ export class KfxmglDetailComponent implements OnInit {
     {name:'项目信息',index:0},
     {name:'附件',index:1},
   ]
+  qsList = [{name:'1',code:'1'},{name:'2',code:'2'}]
   tabsetIndex = 0;
   isDisable = false;
   detailId = "";
@@ -55,14 +58,17 @@ export class KfxmglDetailComponent implements OnInit {
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
   isVisible = false;
+  dictionaryObj = [];
 
   constructor(
     private msg: NzMessageService,
     private router:Router,
-    private activatedRoute:ActivatedRoute
+    private activatedRoute:ActivatedRoute,
+    private kfxmglService:KfxmglService,
+    private localstorage:Localstorage
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
-    var id = this.activatedRoute.snapshot.queryParams.id;
+    this.detailId = this.activatedRoute.snapshot.queryParams.id;
 
     switch (type) {
       case '1'://添加
@@ -81,7 +87,22 @@ export class KfxmglDetailComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.dictionaryObj = this.localstorage.getObject("dictionary");
+    if(this.detailId){
+      this.getProjectById();
+    }
+
     this.search();
+  }
+
+  async getProjectById(){
+    var res = await this.kfxmglService.getProjectById(this.detailId);
+
+    if (res && res.code == 200) {
+      this.detailObj=res.msg;
+     } else {
+      this.msg.create('error', '内部服务出错');
+    }
   }
 
   search(){
@@ -140,11 +161,11 @@ export class KfxmglDetailComponent implements OnInit {
 
 
   onChange(m,date){
-    if(m == 1){
-      this.detailObj.kgrq = Moment(date).format('YYYY-MM-DD')
-    }else if(m == 2){
-      this.detailObj.jgrq = Moment(date).format('YYYY-MM-DD')
-    }
+    // if(m == 1){
+    //   this.detailObj.kgrq = Moment(date).format('YYYY-MM-DD')
+    // }else if(m == 2){
+    //   this.detailObj.jgrq = Moment(date).format('YYYY-MM-DD')
+    // }
   }
 
   FormValidation() {
@@ -162,8 +183,19 @@ export class KfxmglDetailComponent implements OnInit {
   }
 
 
-  save(){
-    this.FormValidation();
+  async save(){
+    // this.FormValidation();
+
+    var res = await this.kfxmglService.saveOrUpdateProject(this.detailObj);
+    if(res.code == 200){
+      
+    if (res && res.code == 200) {
+      this.detailObj.id=res.msg;
+      this.msg.create('success', '保存成功');
+    } else {
+      this.msg.create('error', '保存失败');
+    }
+    }
   }
 
   calculationHeight(){
