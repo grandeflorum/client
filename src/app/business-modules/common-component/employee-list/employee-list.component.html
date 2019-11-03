@@ -1,27 +1,28 @@
 <div style="height: 100%;">
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="6">
-            姓名
+            姓名：
             <input nz-input nzSize="default" [(ngModel)]="name" class="w150" placeholder="请输入姓名" />
         </div>
-        <div *ngIf="module=='child'" nz-col [nzSpan]="6">
-            从业年限
+        <div *ngIf="module=='employee'||module=='economic'" nz-col [nzSpan]="6">
+            从业年限：
             <input nz-input nzSize="default" [(ngModel)]="cynx" class="w150" placeholder="请输入开发企业名称" />
         </div>
-        <div nz-col [nzSpan]="6">
-            服务机构名称
+        <div nz-col [nzSpan]="7">
+            服务机构名称：
             <input nz-input nzSize="default" [(ngModel)]="fwjgmc" class="w150" placeholder="请输入开发企业名称" />
         </div>
-        <div *ngIf="module=='module'" nz-col [nzSpan]="6">
+        <div *ngIf="module=='employee'" nz-col [nzSpan]="6">
             审核状态：
             <nz-select [(ngModel)]="auditType" class="w150">
                 <nz-option nzValue="" nzLabel="全部"></nz-option>
                 <nz-option nzValue="0" nzLabel="未提交"></nz-option>
                 <nz-option nzValue="1" nzLabel="待审核"></nz-option>
                 <nz-option nzValue="2" nzLabel="已审核"></nz-option>
+                <nz-option nzValue="3" nzLabel="待修改"></nz-option>
             </nz-select>
         </div>
-        <div nz-col [nzSpan]="6" class="ta_r">
+        <div nz-col [nzSpan]="5" class="ta_r">
             <button nz-button nzType="primary" (click)="search()">
                 查询
             </button>
@@ -52,7 +53,7 @@
         (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
         <thead (nzSortChange)="sort($event)">
             <tr>
-                <th *ngIf="module=='child'&&operatorType!=2" style="width:5%" nzShowCheckbox
+                <th *ngIf="companyId&&operatorType!=2" style="width:5%" nzShowCheckbox
                     [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
                     (nzCheckedChange)="checkAll($event)"></th>
                 <th>姓名</th>
@@ -62,14 +63,14 @@
                 <th>服务机构名称</th>
                 <th>职务</th>
                 <th nzShowSort nzSortKey="cynx">从业年限</th>
-                <th *ngIf="module=='module'" nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th>
+                <th *ngIf="module=='employee'" nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th>
                 <th style="width:20%">操作</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let data of nestedTable.data; index as index" [ngClass]="{ itemSeleted: data.id == selectId }"
                 (click)="selectItem(data)">
-                <td *ngIf="module=='child'&&operatorType!=2" style="width:5%" nzShowCheckbox
+                <td *ngIf="companyId&&operatorType!=2" style="width:5%" nzShowCheckbox
                     [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
                     (nzCheckedChange)="refreshStatus()"></td>
                 <td>{{ data.name }}</td>
@@ -79,12 +80,16 @@
                 <td>{{ data.fwjgdm }}</td>
                 <td>{{ data.postion }}</td>
                 <td>{{ data.cynx }}{{data.cynx?'年':''}}</td>
-                <td *ngIf="module=='module'">{{ data.auditType|audit }}</td>
+                <td *ngIf="module=='employee'"
+                    [ngClass]="{'cr0':data.auditType==0, 'cr1':data.auditType==1,'cr2':data.auditType==2,'cr3':data.auditType==3}">
+                    <div class="point"
+                        [ngClass]="{'point0':data.auditType==0, 'point1':data.auditType==1,'point2':data.auditType==2,'point3':data.auditType==3}">
+                    </div>{{ data.auditType|audit }}
+                </td>
                 <td style="width:20%">
                     <a (click)="addEmployee(data,'see')" class=" table_a">查看</a>
-                    <a *ngIf="module=='child'&&operatorType!=2" (click)="addEmployee(data,'edit')"
-                        class=" table_a">编辑</a>
-                    <a *ngIf="module=='child'&&operatorType!=2" (click)="delete([data.id])" class="table_a">删除</a>
+                    <a *ngIf="companyId&&operatorType!=2" (click)="addEmployee(data,'edit')" class=" table_a">编辑</a>
+                    <a *ngIf="companyId&&operatorType!=2" (click)="delete([data.id])" class="table_a">删除</a>
                 </td>
             </tr>
         </tbody>

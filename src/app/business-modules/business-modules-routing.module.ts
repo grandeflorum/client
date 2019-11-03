@@ -21,7 +21,8 @@ const routes: Routes = [
         data: { id: 'A-practitioner' },
         children: [
             { path: 'company', loadChildren: () => import('./practitioner/company/company.module').then(m => m.CompanyModule) },
-            { path: 'employee', loadChildren: () => import('./practitioner/employee/employee.module').then(m => m.EmployeeModule) }
+            { path: 'employee', loadChildren: () => import('./practitioner/employee/employee.module').then(m => m.EmployeeModule) },
+            { path: 'economic', loadChildren: () => import('./practitioner/economic-company/economic-company.module').then(m => m.EconomicCompanyModule) }
 
         ]
     },
