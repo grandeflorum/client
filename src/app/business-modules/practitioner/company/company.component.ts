@@ -23,6 +23,7 @@ export class CompanyComponent implements OnInit {
   tableIsScroll = null;
   dataSet: any = [
   ];
+  sortList: any = [];
 
   selectId: any = '';
   qymc = '';
@@ -85,6 +86,8 @@ export class CompanyComponent implements OnInit {
     }
 
     option.conditions.push({ key: 'CompanyType', value: 1 });
+    option.conditions.push({ key: 'sort', value: this.sortList });
+
     let res = await this.companyService.getCompanyList(option);
 
     if (res) {
@@ -230,9 +233,13 @@ export class CompanyComponent implements OnInit {
   btachAudit() {
     this.auditProjectId = [];
 
+    let flag = false;
     if (this.listOfDisplayData.length > 0) {
       this.listOfDisplayData.forEach(element => {
         if (this.mapOfCheckedId[element.id]) {
+          if (element.auditType != 1) {
+            flag = true;
+          }
           this.auditProjectId.push(element.id);
         }
       });
@@ -241,6 +248,11 @@ export class CompanyComponent implements OnInit {
     if (this.auditProjectId.length == 0) {
 
       this.msg.create("warning", "请选择要审核的企业");
+      return;
+    }
+
+    if (flag) {
+      this.msg.create("warning", "只能选择待审核的企业进行审核");
       return;
     }
 
@@ -273,6 +285,25 @@ export class CompanyComponent implements OnInit {
       this.msg.create('error', '审核失败');
     }
 
+  }
+
+  //排序
+  sort(evt) {
+    let key = evt.key;
+
+    if (this.sortList.some(x => x.indexOf(key) > -1)) {
+      this.sortList.splice(this.sortList.findIndex(x => x.indexOf(key) > -1), 1);
+    }
+
+    if (evt.value) {
+      if (evt.value == 'ascend') {
+        this.sortList.push(key);
+      } else if (evt.value == 'descend') {
+        this.sortList.push(key + ' desc');
+      }
+    }
+
+    this.search();
   }
 
 

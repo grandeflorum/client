@@ -50,7 +50,7 @@
         [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize"
         [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
         (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
-        <thead>
+        <thead (nzSortChange)="sort($event)">
             <tr>
                 <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
                     [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
@@ -59,7 +59,7 @@
                 <th>联系电话</th>
                 <th>资质证书号</th>
                 <th>资质有效时间</th>
-                <th>审核状态</th>
+                <th nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th>
                 <th style="width:30%">操作</th>
             </tr>
         </thead>
@@ -73,7 +73,12 @@
                 <td>{{ data.phone }}</td>
                 <td>{{ data.zzzsh }}</td>
                 <td>{{ data.yxqx }}</td>
-                <td>{{ data.auditType|audit }}</td>
+                <td
+                    [ngClass]="{'cr0':data.auditType==0, 'cr1':data.auditType==1,'cr2':data.auditType==2,'cr3':data.auditType==3}">
+                    <div class="point"
+                    [ngClass]="{'point0':data.auditType==0, 'point1':data.auditType==1,'point2':data.auditType==2,'point3':data.auditType==3}"
+                    ></div>{{ data.auditType|audit }}
+                </td>
                 <td style="width:30%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
                     <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" (click)="add(3,data)">编辑</a>
@@ -121,8 +126,8 @@
         <div nz-row>
             <div nz-col [nzSpan]="24" class="ta_l">
                 <div class="label_div">备注</div>
-                <textarea style="width: calc(100% - 175px);margin-left: 35px;" nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }" [(ngModel)]="auditObj.bz"
-                    maxlength="500"></textarea>
+                <textarea style="width: calc(100% - 175px);margin-left: 35px;" nz-input
+                    [nzAutosize]="{ minRows: 5, maxRows: 8 }" [(ngModel)]="auditObj.bz" maxlength="500"></textarea>
             </div>
         </div>
     </nz-modal>
