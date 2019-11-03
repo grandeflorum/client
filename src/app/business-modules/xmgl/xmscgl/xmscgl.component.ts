@@ -15,6 +15,8 @@ import * as $ from 'jquery';
 export class XmscglComponent implements OnInit {
   @ViewChild('uploadComponent',{static:false}) uploadComponent ;
 
+  downLoadurl =  AppConfig.Configuration.baseUrl + "/FileInfo/download";
+
   pageIndex: any = 1;
   totalCount: any;
   pageSize: any = 10;
@@ -224,10 +226,10 @@ selectItem(data) {
 
   previewImg(item){
     if(item.fileSuffix != 'pdf'){
-      this.currentImg = item.serverPath;
+      this.currentImg = this.downLoadurl + "?id=" + item.id + "&type=0";
       this.isImgVisible = true;
     }else{
-      window.open(item.serverPath);
+      window.open(this.downLoadurl + "?id=" + item.id + "&type=0");
     }
     
   }
@@ -252,7 +254,7 @@ selectItem(data) {
           return;
         }
   
-        location.href = item.serverPath;
+        window.location.href = this.downLoadurl + "?id=" + item.id + "&type=0";
       }
 
   ngAfterViewInit() {

@@ -5,6 +5,8 @@ import { ValidationDirective } from '../../../../layout/_directives/validation.d
 import { Localstorage } from '../../../service/localstorage';
 import { KfxmglService } from '../../../service/xmgl/kfxmgl.service';
 import { FileService  } from '../../../service/file/file.service';
+import { UtilitiesSercice } from 'src/app/business-modules/service/common/utilities.services';
+
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 
@@ -17,6 +19,7 @@ export class KfxmglDetailComponent implements OnInit {
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
   @ViewChild('uploadComponent',{static:false}) uploadComponent ;
 
+  downLoadurl =  AppConfig.Configuration.baseUrl + "/FileInfo/download";
   tabs = [
     {name:'项目信息',index:0},
     {name:'附件',index:1},
@@ -50,7 +53,8 @@ export class KfxmglDetailComponent implements OnInit {
     private activatedRoute:ActivatedRoute,
     private kfxmglService:KfxmglService,
     private localstorage:Localstorage,
-    private fileService:FileService
+    private fileService:FileService,
+    private utilitiesSercice:UtilitiesSercice
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
     this.detailObj.id = this.activatedRoute.snapshot.queryParams.id;
@@ -223,10 +227,10 @@ export class KfxmglDetailComponent implements OnInit {
 
   previewImg(item){
     if(item.fileSuffix != 'pdf'){
-      this.currentImg = item.serverPath;
+      this.currentImg = this.downLoadurl + "?id=" + item.id + "&type=0";
       this.isImgVisible = true;
     }else{
-      window.open(item.serverPath);
+      window.open(this.downLoadurl + "?id=" + item.id + "&type=0");
     }
     
   }
@@ -280,7 +284,7 @@ export class KfxmglDetailComponent implements OnInit {
         return;
       }
 
-      location.href = item.serverPath;
+      window.location.href = this.downLoadurl + "?id=" + item.id + "&type=0";
     }
 
   ngAfterViewInit() {
