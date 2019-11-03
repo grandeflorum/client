@@ -8,6 +8,8 @@ import { ValidationDirective } from './_directives/validation.directive';
 import { PageHeightDrective } from './_directives/pageHeightDrective';
 import { AuditPipe } from './_pipes/audit.pipe';
 import { uploadComponent } from './_components/upload/upload.component';
+import { AttachmentComponent } from './_components/attachment/attachment.component';
+import { TooltipsPipe } from './_pipes/tooltips.pipe';
 
 @NgModule({
     imports: [
@@ -18,8 +20,8 @@ import { uploadComponent } from './_components/upload/upload.component';
         NgZorroAntdModule,
         NgxEchartsModule
     ],
-    declarations: [ValidationDirective, PageHeightDrective, uploadComponent, AuditPipe],
-    exports: [ValidationDirective, PageHeightDrective, uploadComponent, AuditPipe, NgxEchartsModule],
+    declarations: [ValidationDirective, PageHeightDrective, uploadComponent, AttachmentComponent,TooltipsPipe, AuditPipe],
+    exports: [ValidationDirective, PageHeightDrective, uploadComponent, AttachmentComponent, TooltipsPipe,AuditPipe, NgxEchartsModule],
     providers: [],
     entryComponents: []
 })

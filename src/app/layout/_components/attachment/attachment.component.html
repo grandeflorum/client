@@ -1,0 +1,23 @@
+<div *ngIf="fileList&&fileList.length>0||!isDisable">
+
+    <div [ngClass]="{'file_div':!isDisable,'file_div_check':isDisable}">
+        <div *ngFor="let fileItem of fileList">
+            <div class="file_item">
+                <i nz-icon type="paper-clip" theme="outline" class="flie_item_pic"></i>
+                <span nz-tooltip nzTitle={{fileItem.name}}>{{fileItem.name|tooltips:30}}</span>
+
+                <i nz-icon type="close" style="color: red;" theme="outline" class="file_item_delete" *ngIf="!isDisable"
+                    nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="RemoveAttachment(fileItem)"></i>
+
+                <!-- <i nz-icon type="eye" theme="outline" title="预览" *ngIf="canPreview(fileItem.name)" class="file_item_btn"
+                    (click)="preview(fileItem)"></i> -->
+
+                <i nz-icon type="download" theme="outline" title="下载" (click)="downloadAccessory(fileItem)"
+                    class="file_item_btn"></i>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
