@@ -19,7 +19,7 @@ export class BusinessModulesComponent implements OnInit {
         private systemDictionaryService: SystemDictionaryService,
         private msg: NzMessageService,
         private localstorage: Localstorage,
-        private router:Router
+        private router: Router
     ) {
 
     }
@@ -29,7 +29,7 @@ export class BusinessModulesComponent implements OnInit {
         {
             name: '从业主体管理', id: 'practitioner', route: '/practitioner', icon: 'dashboard', children: [
                 { name: '开发企业管理', id: 'company', route: '/practitioner/company', icon: 'dashboard' },
-                { name: '经纪企业管理', id: 'jjqygl', route: '/cyztgl/jjqygl', icon: 'dashboard' },
+                { name: '经纪企业管理', id: 'economic', route: '/practitioner/economic', icon: 'dashboard' },
                 { name: '从业人员管理', id: 'employee', route: '/practitioner/employee', icon: 'dashboard' },
             ]
         },
@@ -73,30 +73,30 @@ export class BusinessModulesComponent implements OnInit {
         this.currentUrl = this.router.url;
 
         this.urlChange();
-       
-        
+
+
     }
 
-    menuItemClick(item){
-        if(item.children&&item.children.length > 0){
+    menuItemClick(item) {
+        if (item.children && item.children.length > 0) {
             //this.router.navigate([item.children[0].route]);
-        }else{
+        } else {
             this.router.navigate([item.route]);
         }
-       
+
     }
 
 
-    urlChange(){
+    urlChange() {
         const url = this.router.url;
-        
-        this.menuList.forEach((v,k)=>{
-            if(url.indexOf(v.route)>-1){
+
+        this.menuList.forEach((v, k) => {
+            if (url.indexOf(v.route) > -1) {
                 this.breadcrumbList.push(v);
 
-                if(v.children.length>0){
-                    v.children.forEach((vv,kk)=>{
-                        if(url.indexOf(vv.route)>-1){
+                if (v.children.length > 0) {
+                    v.children.forEach((vv, kk) => {
+                        if (url.indexOf(vv.route) > -1) {
                             this.breadcrumbList.push(vv);
                         }
                     })

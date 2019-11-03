@@ -157,7 +157,7 @@ export class EmployeeListComponent implements OnInit {
     if (this.auditType) {
       option.conditions.push({ key: 'auditType', value: this.auditType });
     }
-    if (this.module == 'child') {
+    if (this.module != 'employee') {
       option.conditions.push({ key: 'companyId', value: this.companyId ? this.companyId : 'child' });
     }
 
