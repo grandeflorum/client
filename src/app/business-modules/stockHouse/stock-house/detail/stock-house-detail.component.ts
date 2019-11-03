@@ -215,7 +215,7 @@ export class StockHouseDetailComponent implements OnInit {
   calculationHeight() {
     const bodyHeight = $('body').height()
     const height = this.fjList.length * 40;
-    if (height > bodyHeight - 400) {
+    if (height > bodyHeight - 440) {
       this.tableIsScroll = { y: bodyHeight - 400 + 'px' }
     } else {
       this.tableIsScroll = null

@@ -116,7 +116,7 @@
     </div>
 
     <!-- 附件 -->
-    <div class="jbxx" *ngIf="tabsetIndex==1">
+    <div class="jbxx" *ngIf="tabsetIndex==1"  style="overflow: hidden">
         <div nz-row style="height: 50px;padding: 10px;">
             <button nz-button nzType="primary" [nzVisible]="!detailObj.id" [disabled]="!detailObj.id" nz-tooltip nzTooltipTitle="请先保存项目信息" nzTooltipPlacement="bottom" (click)="upload()"><i nz-icon nzType="plus"></i>
                 上传附件

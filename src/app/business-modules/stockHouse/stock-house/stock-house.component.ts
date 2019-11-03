@@ -225,8 +225,8 @@ export class StockHouseComponent implements OnInit {
   calculationHeight() {
     const bodyHeight = $('body').height()
     const height = this.dataSet.length * 40;
-    if (height > bodyHeight - 390) {
-      this.tableIsScroll = { y: bodyHeight - 390 + 'px' }
+    if (height > bodyHeight - 450) {
+      this.tableIsScroll = { y: bodyHeight - 400 + 'px' }
     } else {
       this.tableIsScroll = null
     }
