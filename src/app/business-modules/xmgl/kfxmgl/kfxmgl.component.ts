@@ -197,7 +197,7 @@ selectItem(data) {
   calculationHeight(){
     const bodyHeight = $('body').height()
     const height = this.dataSet.length * 40;
-    if(height > bodyHeight - 280){
+    if(height > bodyHeight - 450){
         this.tableIsScroll = {y: bodyHeight - 400 + 'px'}
     }else{
       this.tableIsScroll = null
