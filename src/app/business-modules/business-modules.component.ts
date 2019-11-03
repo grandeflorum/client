@@ -40,7 +40,7 @@ export class BusinessModulesComponent implements OnInit {
             ]
         },
         { name: '楼盘表管理', id: 'lpbgl', route: '/lpbgl', icon: 'dashboard', children: [] },
-        { name: '存量房管理', id: 'clfgl', route: '/clfgl', icon: 'dashboard', children: [] },
+        { name: '存量房管理', id: 'stockHouse', route: '/stockHouse', icon: 'dashboard', children: [] },
         {
             name: '合同备案管理', id: 'htbagl', route: '/htbagl', icon: 'dashboard', children: [
                 { name: '商品房合同备案', id: 'spfhtba', route: '/htbagl/spfhtba', icon: 'dashboard' },

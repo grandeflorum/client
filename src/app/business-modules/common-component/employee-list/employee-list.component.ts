@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { EmployeeService } from '../../../service/employee/employee.service';
-import { NzMessageService } from 'ng-zorro-antd';
+import { EmployeeService } from '../../service/employee/employee.service';
+import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,14 +13,14 @@ export class EmployeeListComponent implements OnInit {
 
   @Input() module: string;
   @Input() companyId: string;
+  @Input() operatorType: string;
 
   //定义查询条件
   name: string = '';
   cynx: string = '';
   fwjgmc: string = '';
   auditType: string = '';
-  desc: string[] = [];
-  asc: string[] = [];
+  sortList: string[] = [];
 
   //结果展示
   dataSet: any[];
@@ -42,18 +42,63 @@ export class EmployeeListComponent implements OnInit {
   constructor(
     private employeeService: EmployeeService,
     private msg: NzMessageService,
-    private router: Router
+    private router: Router,
+    private NzModalService: NzModalService
   ) { }
 
   ngOnInit() {
     this.search();
   }
 
-  addEmployee() {
-    this.router.navigate(['/practitioner/employee/detail'], {
-      queryParams: {
-        type: 'add'
+  async deleteAll() {
+    let datas = [];
+
+    if (this.listOfDisplayData.length > 0) {
+      this.listOfDisplayData.forEach(element => {
+        if (this.mapOfCheckedId[element.id]) {
+          datas.push(element.id);
+        }
+      });
+    }
+
+
+    this.delete(datas);
+  }
+
+  delete(datas) {
+    if (datas && datas.length == 0) {
+      this.msg.create("warning", "请选择要删除的从业人员");
+      return;
+    }
+
+    this.NzModalService.confirm({
+      nzTitle: '提示', nzContent: '确认删除从业人员', nzOnOk: () => {
+        let res = this.employeeService.deleteEmployeeByIds(datas).then(res => {
+          if (res && res.code == 200) {
+            this.msg.create('success', '删除成功');
+            this.search();
+          } else {
+            this.msg.create('error', '删除失败');
+          }
+        });
       }
+    });
+
+
+  }
+
+  addEmployee(data, type) {
+
+    let param = {
+      id: data ? data.id : null,
+      type: type,
+      module: this.module,
+      companyId: this.companyId,
+      operatorType: this.operatorType
+    }
+
+    this.router.navigate(['/practitioner/employee/detail'], {
+      queryParams: param
     });
   }
 
@@ -74,7 +119,26 @@ export class EmployeeListComponent implements OnInit {
     }
   }
 
+  sort(evt) {
+    let key = evt.key;
+
+    if (this.sortList.some(x => x.indexOf(key) > -1)) {
+      this.sortList.splice(this.sortList.findIndex(x => x.indexOf(key) > -1), 1);
+    }
+
+    if (evt.value) {
+      if (evt.value == 'ascend') {
+        this.sortList.push(key);
+      } else if (evt.value == 'descend') {
+        this.sortList.push(key + ' desc');
+      }
+    }
+
+    this.search();
+  }
+
   async search() {
+    this.Loading = true;
     let option = {
       pageNo: this.pageIndex,
       pageSize: this.pageSize,
@@ -93,27 +157,25 @@ export class EmployeeListComponent implements OnInit {
     if (this.auditType) {
       option.conditions.push({ key: 'auditType', value: this.auditType });
     }
-    if (this.companyId) {
-      option.conditions.push({ key: 'companyId', value: this.companyId });
+    if (this.module == 'child') {
+      option.conditions.push({ key: 'companyId', value: this.companyId ? this.companyId : 'child' });
     }
 
-    option.conditions.push({ key: 'desc', value: this.desc });
-    option.conditions.push({ key: 'asc', value: this.asc });
+
+    option.conditions.push({ key: 'sort', value: this.sortList });
 
     let res = await this.employeeService.getEmployeeList(option);
 
     if (res && res.code == 200) {
 
-      this.dataSet = res.msg;
-
-      this.listOfAllData.forEach(item => (this.mapOfCheckedId[item.id] = false));
-      this.refreshStatus();
-
-      this.alculationHeight();
+      this.dataSet = res.msg.currentList;
+      this.totalCount = res.msg.recordCount;
     } else {
       this.msg.create('error', '查询失败');
     }
-
+    this.operateData();
+    this.Loading = false;
+    this.alculationHeight();
   }
 
   reset() {
@@ -139,6 +201,13 @@ export class EmployeeListComponent implements OnInit {
   currentPageDataChange($event): void {
     this.listOfDisplayData = $event;
     this.refreshStatus();
+  }
+
+  operateData(): void {
+    setTimeout(() => {
+      this.listOfAllData.forEach(item => (this.mapOfCheckedId[item.id] = false));
+      this.refreshStatus();
+    }, 1000);
   }
 
   checkAll(value: boolean): void {

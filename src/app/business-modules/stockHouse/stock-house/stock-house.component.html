@@ -1,0 +1,82 @@
+<div style="height: 100%;">
+    <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="7">
+            产权人姓名：
+            <input nz-input nzSize="default" [(ngModel)]="cqrxm" class="w200" placeholder="请输入产权人姓名" />
+        </div>
+        <div nz-col [nzSpan]="6">
+            房屋坐落：
+            <input nz-input nzSize="default" [(ngModel)]="address" class="w200" placeholder="请输入房屋坐落" />
+        </div>
+
+        <div nz-col [nzSpan]="6">
+            审核状态：
+            <nz-select [(ngModel)]="auditType" class="w200">
+                <nz-option nzValue="" nzLabel="全部"></nz-option>
+                <nz-option nzValue="0" nzLabel="未提交"></nz-option>
+                <nz-option nzValue="1" nzLabel="待审核"></nz-option>
+                <nz-option nzValue="2" nzLabel="已审核"></nz-option>
+            </nz-select>
+        </div>
+        <div nz-col [nzSpan]="5" class="ta_r">
+            <button nz-button nzType="primary" (click)="search()">
+                查询
+            </button>
+            <button nz-button nzType="default" (click)="reset()">
+                重置
+            </button>
+        </div>
+
+
+    </div>
+    <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="24">
+            <button nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
+                添加
+            </button>
+            <button nz-button nzType="default">
+                批量删除
+            </button>
+            <button nz-button nzType="default">
+                批量审核
+            </button>
+        </div>
+    </div>
+
+    <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow" [nzLoading]="Loading"
+        [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize"
+        [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
+        (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
+        <thead>
+            <tr>
+                <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
+                    [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
+                <th>产权人姓名</th>
+                <th>房屋坐落</th>
+                <th>房型</th>
+                <th>建筑面积</th>
+                <th>审核状态</th>
+                <th style="width:30%">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of nestedTable.data; index as index" [ngClass]="{ itemSeleted: data.id == selectId }"
+                (click)="selectItem(data)">
+                <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]"
+                    [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
+                <td>{{ data.cqrxm }}</td>
+                <td>{{ data.address }}</td>
+                <td>{{ data.fx }}</td>
+                <td>{{ data.jzmj }}</td>
+                <td>{{ data.auditType }}</td>
+                <td style="width:30%">
+                    <a class="table_a" (click)="add(2,data)">查看</a>
+                    <a class="table_a" *ngIf="data.auditType==0" (click)="add(3,data)">编辑</a>
+                    <a class="table_a" *ngIf="data.auditType==1">审核</a>
+                    <a class="table_a" (nzOnConfirm)="delete([data.id])" *ngIf="data.auditType!='2'" nz-popconfirm nzTitle="确定删除吗?">删除</a>
+                    <a class="table_a" *ngIf="data.auditType==0" (nzOnConfirm)="auditCompany(data.id,1)" nz-popconfirm nzTitle="确定提交审核吗?">提交审核</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

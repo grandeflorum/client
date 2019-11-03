@@ -1,28 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EmployeeComponent } from './employee.component';
 import { FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+import { StockHouseComponent } from "./stock-house.component";
 import { LayoutModule } from '../../../layout/layout.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
-import { RouterModule, Routes } from '@angular/router';
-import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
-import { CommonComponentModule } from '../../common-component/common-component.module';
+import { StockHouseDetailComponent } from './detail/stock-house-detail.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: EmployeeComponent
+    component: StockHouseComponent
   },
   {
     path: 'detail',
-    component: EmployeeDetailComponent
+    component: StockHouseDetailComponent
   }
 ];
 
 @NgModule({
   declarations: [
-    EmployeeComponent,
-    EmployeeDetailComponent
+    StockHouseComponent,
+    StockHouseDetailComponent
   ],
   imports: [
     CommonModule,
@@ -30,9 +29,9 @@ const routes: Routes = [
     LayoutModule,
     NgZorroAntdModule,
     RouterModule.forChild(routes),
-    CommonComponentModule
+
   ],
   exports: [RouterModule],
   entryComponents: []
 })
-export class EmployeeModule { }
+export class StockHouseModule { }
