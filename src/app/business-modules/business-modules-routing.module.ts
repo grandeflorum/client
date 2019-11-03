@@ -46,6 +46,15 @@ const routes: Routes = [
             { path: 'kfxmgl', loadChildren: () => import('./xmgl/kfxmgl/kfxmgl.module').then(m => m.KfxmglModule) }
         ]
     },
+    {
+        path: 'stockHouse',
+        component: BusinessModulesComponent,
+        canActivate: [AuthGuardService],
+        data: { id: 'A-stockHouse' },
+        children: [
+            { path: '', loadChildren: () => import('./stockHouse/stock-house/stock-house.module').then(m => m.StockHouseModule) }
+        ]
+    },
     { path: '', pathMatch: 'full', redirectTo: '/home' }
 ];
 
