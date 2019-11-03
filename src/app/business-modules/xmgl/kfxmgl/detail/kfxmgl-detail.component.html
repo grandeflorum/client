@@ -223,9 +223,12 @@
         <button nz-button nzType="primary" [nzVisible]="!detailObj.id" [disabled]="!detailObj.id" nz-tooltip nzTooltipTitle="请先保存项目信息" nzTooltipPlacement="bottom" (click)="upload()"><i nz-icon nzType="plus"></i>
           上传附件
         </button>
-        <button nz-button nzType="default" *ngIf="!isDisable">
+        <button nz-button nzType="default" *ngIf="!isDisable" (click)="btachDelete()">
           批量删除
         </button>
+        <button nz-button nzType="default" *ngIf="!isDisable" (click)="btachDown()">
+            批量下载
+          </button>
       </div>
 
       <nz-table #nestedTable [nzData]="fjList" class="commontable tablescoll_rainbow"  [nzLoading]="Loading" 
@@ -250,8 +253,8 @@
           <td>{{ data.uploadDate }}</td>
           <td style="width:30%">
             <a class="table_a" *ngIf="data.fileSuffix=='jpg' || data.fileSuffix=='jpeg' || data.fileSuffix=='png' || data.fileSuffix=='bmp' ||  data.fileSuffix=='pdf'" (click)="previewImg(data)">查看</a>
-            <a class="table_a" *ngIf="!isDisable">删除</a>
-            <a class="table_a">下载</a>
+            <a class="table_a" *ngIf="!isDisable"  nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete(data)">删除</a>
+            <a class="table_a" (click)="btachDown(data)">下载</a>
           </td>
         </tr>
       </tbody>

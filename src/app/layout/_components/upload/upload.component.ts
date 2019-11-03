@@ -13,7 +13,7 @@ import * as $ from 'jquery';
 })
 export class uploadComponent implements OnInit {
   @Input() accept = "xls,xlsx,doc,pdf,docx,image/png,image/jpg,image/jpeg,image/gif,image/bmp";
-  @Input() type = "1";//1 开发项目管理
+  @Input() type = "";
   @Input() refid = "";
 
   @Output() private outer = new EventEmitter<UploadFile[]>();

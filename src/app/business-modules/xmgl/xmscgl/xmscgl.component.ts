@@ -207,6 +207,13 @@ selectItem(data) {
     this.uploadComponent.fileList = [];
   }
 
+  outer(event){
+    if(event){
+      this.handleCancel();
+      this.search();
+    }
+  }
+
   ngAfterViewInit() {
     var that = this;
     $(window).resize(function () {
