@@ -236,7 +236,7 @@ export class KfxmglDetailComponent implements OnInit {
   }
 
     //删除
-    async btachDelete(item){
+    async btachDelete(item?){
       var ids = [];
       if (item) {//单个删除
         ids.push(item.id);
@@ -255,17 +255,17 @@ export class KfxmglDetailComponent implements OnInit {
         return;
       }
   
-      // var res = await this.kfxmglService.deleteProjectByIds(ids);
-      // if (res && res.code == 200) {
-      //   this.msg.create('success', '删除成功');
-      //   this.search();
-      // } else {
-      //   this.msg.create('error', '删除失败');
-      // }
+      var res = await this.fileService.delete(item.id);
+      if (res && res.code == 200) {
+        this.msg.create('success', '删除成功');
+        this.search();
+      } else {
+        this.msg.create('error', '删除失败');
+      }
     }
 
     //下载
-    btachDown(item){
+    btachDown(item?){
       var ids = [];
       if (item) {//单个
         ids.push(item.id);
