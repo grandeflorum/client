@@ -5,6 +5,7 @@ import { ValidationDirective } from 'src/app/layout/_directives/validation.direc
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { StockHouseService } from "../../../service/stockHouse/stock-house.service";
+import { Localstorage } from '../../../service/localstorage';
 
 @Component({
   selector: 'app-stock-house-detail',
@@ -23,7 +24,9 @@ export class StockHouseDetailComponent implements OnInit {
   tabsetIndex = 0;
   isDisable = false;
   detailId = "";
-  detailObj: any = {};
+  detailObj: any={
+    relationShips:[]
+  };
   selectId = -1;
   fjList = [
     { name: "f", scrq: '4545', id: 1 },
@@ -57,12 +60,14 @@ export class StockHouseDetailComponent implements OnInit {
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
   isVisible = false;
+  genderList=[];
 
   constructor(
     private msg: NzMessageService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private stockHouseService: StockHouseService
+    private stockHouseService: StockHouseService,
+    private localstorage: Localstorage,
   ) {
 
   }
@@ -84,9 +89,16 @@ export class StockHouseDetailComponent implements OnInit {
       default:
         break;
     }
+    this.getDictory();
     if (id) {
      this.getStockHouseById(id);
     }
+  }
+
+  getDictory() {
+    let dic = this.localstorage.getObject("dictionary");
+
+    this.genderList = dic.gender;
   }
 
   async getStockHouseById(id) {
@@ -94,6 +106,9 @@ export class StockHouseDetailComponent implements OnInit {
     let data = await this.stockHouseService.getStockHouseById(id);
     if (data) {
       this.detailObj = data.msg;
+      if(!this.detailObj.relationShips){
+        this.detailObj.relationShips=[];
+      }
     }
   }
 
@@ -133,6 +148,18 @@ export class StockHouseDetailComponent implements OnInit {
     } else {
       this.msg.create('error', '保存失败');
     }
+  }
+
+  addpeople(){
+    if(!this.detailObj.relationShips){
+      this.detailObj.relationShips=[];
+    }
+    var newpeople={};
+    this.detailObj.relationShips.push(newpeople);
+  }
+
+  deletepeople(obj,i){
+    this.detailObj.relationShips.splice(i,1);
   }
 
   calculationHeight() {

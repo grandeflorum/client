@@ -222,9 +222,66 @@ export class KfxmglDetailComponent implements OnInit {
   }
 
   previewImg(item){
-    this.currentImg = item.serverPath;
-    this.isImgVisible = true;
+    if(item.fileSuffix != 'pdf'){
+      this.currentImg = item.serverPath;
+      this.isImgVisible = true;
+    }else{
+      window.open(item.serverPath);
+    }
+    
   }
+
+    //删除
+    async btachDelete(item){
+      var ids = [];
+      if (item) {//单个删除
+        ids.push(item.id);
+      } else {//批量删除
+        if (this.listOfDisplayData.length > 0) {
+          this.listOfDisplayData.forEach(element => {
+            if (this.mapOfCheckedId[element.id]) {
+              ids.push(element.id);
+            }
+          });
+        }
+      }
+  
+      if(ids.length==0){
+        this.msg.warning('请选择需要删除的项目');
+        return;
+      }
+  
+      // var res = await this.kfxmglService.deleteProjectByIds(ids);
+      // if (res && res.code == 200) {
+      //   this.msg.create('success', '删除成功');
+      //   this.search();
+      // } else {
+      //   this.msg.create('error', '删除失败');
+      // }
+    }
+
+    //下载
+    btachDown(item){
+      var ids = [];
+      if (item) {//单个
+        ids.push(item.id);
+      } else {//批量
+        if (this.listOfDisplayData.length > 0) {
+          this.listOfDisplayData.forEach(element => {
+            if (this.mapOfCheckedId[element.id]) {
+              ids.push(element.id);
+            }
+          });
+        }
+      }
+  
+      if(ids.length==0){
+        this.msg.warning('请选择需要下载的项目');
+        return;
+      }
+
+      location.href = item.serverPath;
+    }
 
   ngAfterViewInit() {
     var that = this;

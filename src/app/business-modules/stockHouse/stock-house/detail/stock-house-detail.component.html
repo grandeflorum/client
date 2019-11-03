@@ -15,7 +15,7 @@
             </div>
             <div nz-col [nzSpan]="8">
                 <div class="label_div"><span class="clo_r">*</span>房型：</div>
-                <nz-select [(ngModel)]="detailObj.qs" class="w200" [disabled]="isDisable" required [validation]="true">
+                <nz-select [(ngModel)]="detailObj.fx" class="w200" [disabled]="isDisable" required [validation]="true">
                     <nz-option nzValue="0" nzLabel="全部"></nz-option>
                     <nz-option nzValue="1" nzLabel="未提交"></nz-option>
                     <nz-option nzValue="2" nzLabel="待审核"></nz-option>
@@ -54,6 +54,59 @@
                     <input nz-input nzSize="default" [(ngModel)]="detailObj.address" class="w200" placeholder="请输入"
                         [disabled]="isDisable" required [validation]="true" />
                 </span>
+            </div>
+        </div>
+        <nz-divider nzText="与产权人关系" nzOrientation="left" style="font-size: 18px"></nz-divider>
+        <div nz-row style="height: 50px;padding: 10px;">
+            <div nz-col [nzSpan]="4">
+                <div style="text-align: center;" class="label_div"><span class="clo_r">*</span>姓名</div>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <div style="text-align: center;" class="label_div">性别</div>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <div style="text-align: center;" class="label_div"><span class="clo_r">*</span>身份证号</div>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <div style="text-align: center;" class="label_div">联系方式</div>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <div style="text-align: center;" class="label_div"><span class="clo_r">*</span>与产权人关系</div>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <button nz-button nzType="primary" (click)="addpeople()">添加</button>
+            </div>
+        </div>
+        <div *ngFor="let item of detailObj.relationShips;index as index" nz-row style="height: 50px;padding: 10px;">
+            <div nz-col [nzSpan]="4">
+                <input nz-input nzSize="default" [(ngModel)]="item.name" [disabled]="isDisable" required
+                    [validation]="true" class="w200" placeholder="请输入姓名" />
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-select nzPlaceHolder='请选择性别' [(ngModel)]="item.gender" class="w200" [disabled]="isDisable">
+                    <nz-option *ngFor="let option of genderList" [nzLabel]="option.name" [nzValue]="option.code">
+                    </nz-option>
+                </nz-select>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <input nz-input nzSize="default" [(ngModel)]="item.sfzh" [disabled]="isDisable" required
+                    [validation]="true" class="w200" placeholder="请输入身份证号" />
+            </div>
+            <div nz-col [nzSpan]="4">
+                <input nz-input nzSize="default" [(ngModel)]="item.lxdh" [disabled]="isDisable" 
+                     class="w200" placeholder="请输入联系方式" />
+            </div>
+            <div nz-col [nzSpan]="4">
+                <nz-select [(ngModel)]="item.cqrgx" class="w200" [disabled]="isDisable" required
+                    [validation]="true">
+                    <nz-option nzValue="0" nzLabel="全部"></nz-option>
+                    <nz-option nzValue="1" nzLabel="未提交"></nz-option>
+                    <nz-option nzValue="2" nzLabel="待审核"></nz-option>
+                    <nz-option nzValue="3" nzLabel="已审核"></nz-option>
+                </nz-select>
+            </div>
+            <div nz-col [nzSpan]="4">
+                <button nz-button nzType="primary" (click)="deletepeople(item,index)">删除</button>
             </div>
         </div>
         <nz-divider nzText="备注" nzOrientation="left" style="font-size: 18px"></nz-divider>
