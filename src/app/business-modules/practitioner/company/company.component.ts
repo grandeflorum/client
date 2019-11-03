@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { CompanyService } from '../../service/practitioner/company.service';
+import { Localstorage } from '../../service/localstorage';
 
 @Component({
   selector: 'app-company',
@@ -32,14 +33,18 @@ export class CompanyComponent implements OnInit {
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
 
+  dictionaryObj: any = [];
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private localstorage: Localstorage
   ) { }
 
   ngOnInit() {
 
+    this.dictionaryObj = this.localstorage.getObject("dictionary");
     this.search();
   }
 
@@ -89,7 +94,7 @@ export class CompanyComponent implements OnInit {
   reset() {
     this.qymc = '';
     this.qylx = '';
-    this.auditType = '0';
+    this.auditType = '';
     this.search();
 
   }

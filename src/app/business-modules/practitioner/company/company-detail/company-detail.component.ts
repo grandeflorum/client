@@ -3,6 +3,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CompanyService } from 'src/app/business-modules/service/practitioner/company.service';
+import { Localstorage } from 'src/app/business-modules/service/localstorage';
 
 @Component({
   selector: 'app-company-detail',
@@ -22,15 +23,19 @@ export class CompanyDetailComponent implements OnInit {
   parentCode: any = "";
   isDisable: any = false;
 
+  dictionaryObj: any = [];
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
     private companyService: CompanyService,
-    private ActivatedRoute: ActivatedRoute
+    private ActivatedRoute: ActivatedRoute,
+    private localstorage: Localstorage
   ) { }
 
   ngOnInit() {
 
+    this.dictionaryObj = this.localstorage.getObject("dictionary");
     let id = this.ActivatedRoute.snapshot.queryParams["id"];
     let type = this.ActivatedRoute.snapshot.queryParams["type"];
 

@@ -7,16 +7,16 @@
         <div nz-col [nzSpan]="6">
             企业类型：
             <nz-select [(ngModel)]="qylx" class="w200">
-                <nz-option nzValue="0" nzLabel="全部"></nz-option>
-                <nz-option nzValue="1" nzLabel="企业1"></nz-option>
-                <nz-option nzValue="2" nzLabel="企业2"></nz-option>
+                <nz-option nzValue="" nzLabel="全部"></nz-option>
+                <nz-option *ngFor="let option of dictionaryObj.qylx" [nzLabel]="option.name" [nzValue]="option.code">
+                </nz-option>
             </nz-select>
         </div>
 
         <div nz-col [nzSpan]="6">
             审核状态：
             <nz-select [(ngModel)]="auditType" class="w200">
-                <nz-option nzValue="0" nzLabel="全部"></nz-option>
+                <nz-option nzValue="" nzLabel="全部"></nz-option>
                 <nz-option nzValue="1" nzLabel="未提交"></nz-option>
                 <nz-option nzValue="2" nzLabel="待审核"></nz-option>
                 <nz-option nzValue="3" nzLabel="已审核"></nz-option>
@@ -72,8 +72,8 @@
                 <td>{{ data.qyfr }}</td>
                 <td>{{ data.phone }}</td>
                 <td>{{ data.zzzsh }}</td>
-                <td>{{ data.pzbm }}</td>
-                <td>{{ data.auditType }}</td>
+                <td>{{ data.yxqx }}</td>
+                <td>{{ data.auditType|audit }}</td>
                 <td style="width:30%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
                     <a class="table_a" *ngIf="data.auditType==0" (click)="add(3,data)">编辑</a>
@@ -81,7 +81,7 @@
                     <a class="table_a" *ngIf="data.auditType==0" nz-popconfirm nzTitle="确定删除吗?"
                         (nzOnConfirm)="delete([data.id])">删除</a>
                     <a class="table_a" *ngIf="data.auditType==0" nz-popconfirm nzTitle="确定提交审核吗?"
-                    (nzOnConfirm)="auditCompany(data.id,1)">提交审核</a>
+                        (nzOnConfirm)="auditCompany(data.id,1)">提交审核</a>
                 </td>
             </tr>
         </tbody>

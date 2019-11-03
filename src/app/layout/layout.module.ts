@@ -6,7 +6,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ValidationDirective } from './_directives/validation.directive';
 import { PageHeightDrective } from './_directives/pageHeightDrective';
-
+import { AuditPipe } from './_pipes/audit.pipe';
 import { uploadComponent } from './_components/upload/upload.component';
 
 @NgModule({
@@ -18,8 +18,8 @@ import { uploadComponent } from './_components/upload/upload.component';
         NgZorroAntdModule,
         NgxEchartsModule
     ],
-    declarations: [ValidationDirective,PageHeightDrective , uploadComponent],
-    exports: [ValidationDirective,PageHeightDrective, uploadComponent , NgxEchartsModule],
+    declarations: [ValidationDirective, PageHeightDrective, uploadComponent, AuditPipe],
+    exports: [ValidationDirective, PageHeightDrective, uploadComponent, AuditPipe, NgxEchartsModule],
     providers: [],
     entryComponents: []
 })
