@@ -116,10 +116,18 @@
             </div>
         </div>
 
+        <div nz-row style="height: 50px;padding: 10px;">
+            <button [disabled]="isDisable" nz-button nzType="primary" (click)="upload()"><i nz-icon nzType="plus"></i>
+                上传附件
+            </button>
+        </div>
+
+        <app-attachment [fileList]="fileList" [isDisable]="isDisable"> </app-attachment>
+
 
         <nz-divider nzText="备注" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
-        <textarea maxlength="500" nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }"
+        <textarea [disabled]="isDisable" maxlength="500" nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }"
             [(ngModel)]="employee.bz"></textarea>
 
         <div nz-row style="height: 50px;padding: 10px;text-align: right;padding-right: 20px;">
@@ -129,7 +137,9 @@
             </div>
 
         </div>
-
-
     </div>
+
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <app-upload #uploadComponent (outer)="uploadCompelete($event)" [refid]="employee.id"></app-upload>
+    </nz-modal>
 </div>

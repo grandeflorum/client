@@ -1,9 +1,10 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren, ViewChild } from '@angular/core';
 import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
 import { Localstorage } from '../../../service/localstorage';
 import { EmployeeService } from '../../../service/employee/employee.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AttachmentSercice } from 'src/app/business-modules/service/common/attachment.service';
 
 @Component({
   selector: 'app-employee-detail',
@@ -12,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EmployeeDetailComponent implements OnInit {
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
+  @ViewChild('uploadComponent', { static: false }) uploadComponent;
 
   employee: any = {};
 
@@ -26,12 +28,17 @@ export class EmployeeDetailComponent implements OnInit {
   id: string;
   module: string;
 
+  //附件
+  isVisible: any = false;
+  fileList: any = [];
+
   constructor(
     private localstorage: Localstorage,
     private msg: NzMessageService,
     private employeeService: EmployeeService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private attachmentSercice: AttachmentSercice
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
     this.id = this.activatedRoute.snapshot.queryParams.id;
@@ -43,6 +50,7 @@ export class EmployeeDetailComponent implements OnInit {
 
     if (this.id) {
       this.getViewData();
+      this.getAtatchment();
     }
   }
 
@@ -57,6 +65,18 @@ export class EmployeeDetailComponent implements OnInit {
       this.employee = res.msg;
     } else {
       this.msg.create('error', '从业人员信息获取失败');
+    }
+  }
+
+  async getAtatchment() {
+    let res = await this.attachmentSercice.getFileListById(this.id);
+    if (res.msg.length > 0) {
+      res.msg.forEach(element => {
+        this.fileList.push({
+          uid: element.id,
+          name: element.clientFileName
+        });
+      });
     }
   }
 
@@ -89,7 +109,16 @@ export class EmployeeDetailComponent implements OnInit {
       return;
     }
 
+    if (this.fileList.length == 0) {
+      this.msg.create('warning', '请上传资质附件');
+      return;
+    }
+    this.employee.fileInfoList = [];
     this.employee.companyId = this.companyId;
+
+    this.fileList.forEach(element => {
+      this.employee.fileInfoList.push({ id: element.uid });
+    });
 
     let res;
 
@@ -118,6 +147,30 @@ export class EmployeeDetailComponent implements OnInit {
       }
     });
     return isValid;
+  }
+
+  /**
+   * 附件
+   */
+  upload() {
+    this.isVisible = true;
+    this.uploadComponent.fileList = [];
+  }
+
+  handleCancel() {
+    this.isVisible = false;
+    this.uploadComponent.fileList = [];
+  }
+
+  //开始上传
+  handleOk() {
+    this.uploadComponent.import();
+  }
+
+  uploadCompelete(data) {
+    this.fileList = [...this.fileList, ...data];
+    this.isVisible = false;
+
   }
 
 }

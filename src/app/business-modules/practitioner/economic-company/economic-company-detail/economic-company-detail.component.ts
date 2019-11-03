@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ViewChild } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CompanyService } from 'src/app/business-modules/service/practitioner/company.service';
 import { Localstorage } from 'src/app/business-modules/service/localstorage';
 import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
+import { AttachmentSercice } from 'src/app/business-modules/service/common/attachment.service';
 
 @Component({
   selector: 'app-economic-company-detail',
@@ -13,6 +14,7 @@ import { ValidationDirective } from 'src/app/layout/_directives/validation.direc
 export class EconomicCompanyDetailComponent implements OnInit {
 
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
+  @ViewChild('uploadComponent', { static: false }) uploadComponent;
 
   tabs = [
     { name: '经纪企业信息', index: 0 },
@@ -28,12 +30,18 @@ export class EconomicCompanyDetailComponent implements OnInit {
   companyId: string;
   companyType: string;
 
+  //附件
+  isVisible: any = false;
+
+  fileList: any = [];
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
     private companyService: CompanyService,
     private ActivatedRoute: ActivatedRoute,
-    private localstorage: Localstorage
+    private localstorage: Localstorage,
+    private attachmentSercice: AttachmentSercice
   ) { }
 
   ngOnInit() {
@@ -56,6 +64,19 @@ export class EconomicCompanyDetailComponent implements OnInit {
 
     if (id) {
       this.getCompanyById(id);
+      this.getAtatchment(id);
+    }
+  }
+
+  async getAtatchment(id) {
+    let res = await this.attachmentSercice.getFileListById(id);
+    if (res.msg.length > 0) {
+      res.msg.forEach(element => {
+        this.fileList.push({
+          uid: element.id,
+          name: element.clientFileName
+        });
+      });
     }
   }
 
@@ -90,7 +111,19 @@ export class EconomicCompanyDetailComponent implements OnInit {
       return;
     }
 
+    if (this.fileList.length == 0) {
+      this.msg.create('warning', '请上传资质附件');
+      return;
+    }
+
     this.detailObj.companyType = 2;
+
+    this.detailObj.fileInfoList = [];
+
+    this.fileList.forEach(element => {
+      this.detailObj.fileInfoList.push({ id: element.uid });
+    });
+
     let res = await this.companyService.saveOrUpdateCompany(this.detailObj);
 
     if (res && res.code == 200) {
@@ -111,6 +144,30 @@ export class EconomicCompanyDetailComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+
+  }
+
+  /**
+   * 附件
+   */
+  upload() {
+    this.isVisible = true;
+    this.uploadComponent.fileList = [];
+  }
+
+  handleCancel() {
+    this.isVisible = false;
+    this.uploadComponent.fileList = [];
+  }
+
+  //开始上传
+  handleOk() {
+    this.uploadComponent.import();
+  }
+
+  uploadCompelete(data) {
+    this.fileList = [...this.fileList, ...data];
+    this.isVisible = false;
 
   }
 
