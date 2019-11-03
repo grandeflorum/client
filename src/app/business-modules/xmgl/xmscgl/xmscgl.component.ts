@@ -36,6 +36,9 @@ export class XmscglComponent implements OnInit {
   sslm = "";
   txt = "";
   dictionaryObj:any = {};
+  isImgVisible = false;
+  currentImg = "";
+  modalSslm = "";
 
   constructor(
     private msg: NzMessageService,
@@ -161,17 +164,17 @@ selectItem(data) {
     }
 
     if(ids.length==0){
-      this.msg.warning('请选择需要删除的项目');
+      this.msg.warning('请选择需要删除的附件');
       return;
     }
 
-    var res = await this.kfxmglService.deleteProjectByIds(ids);
-    if (res && res.code == 200) {
-      this.msg.create('success', '删除成功');
-      this.search();
-    } else {
-      this.msg.create('error', '删除失败');
-    }
+    // var res = await this.kfxmglService.deleteProjectByIds(ids);
+    // if (res && res.code == 200) {
+    //   this.msg.create('success', '删除成功');
+    //   this.search();
+    // } else {
+    //   this.msg.create('error', '删除失败');
+    // }
   }
 
 
@@ -198,7 +201,12 @@ selectItem(data) {
 
 
    handleOk(){
-    this.uploadComponent.import();
+     if(this.modalSslm || this.modalSslm=="0"){
+      this.uploadComponent.import();
+     }else{
+       this.msg.warning('请选择所属类别');
+     }
+    
   }
 
 
@@ -213,6 +221,39 @@ selectItem(data) {
       this.search();
     }
   }
+
+  previewImg(item){
+    if(item.fileSuffix != 'pdf'){
+      this.currentImg = item.serverPath;
+      this.isImgVisible = true;
+    }else{
+      window.open(item.serverPath);
+    }
+    
+  }
+
+      //下载
+      btachDown(item){
+        var ids = [];
+        if (item) {//单个
+          ids.push(item.id);
+        } else {//批量
+          if (this.listOfDisplayData.length > 0) {
+            this.listOfDisplayData.forEach(element => {
+              if (this.mapOfCheckedId[element.id]) {
+                ids.push(element.id);
+              }
+            });
+          }
+        }
+    
+        if(ids.length==0){
+          this.msg.warning('请选择需要下载的项目');
+          return;
+        }
+  
+        location.href = item.serverPath;
+      }
 
   ngAfterViewInit() {
     var that = this;

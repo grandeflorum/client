@@ -23,7 +23,7 @@
           添加
         </button>
         <button nz-button nzType="default" (click)="btachDelete()">批量删除</button>
-        <button nz-button nzType="default" (click)="moreDown()">批量下载</button>
+        <button nz-button nzType="default" (click)="btachDown()">批量下载</button>
       </div>
     </div>
 
@@ -49,8 +49,9 @@
             <td>{{ data.serverFileName }}</td>
             <td>{{ data.uploadDate }}</td>
            <td>
-              <a class="table_a">查看</a>
+              <a class="table_a"  *ngIf="data.fileSuffix=='jpg' || data.fileSuffix=='jpeg' || data.fileSuffix=='png' || data.fileSuffix=='bmp' ||  data.fileSuffix=='pdf'" (click)="previewImg(data)">查看</a>
               <a class="table_a" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete(data)">删除</a>
+              <a class="table_a" (click)="btachDown(data)">下载</a>
             </td>
           </tr>
         </tbody>
@@ -61,7 +62,7 @@
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="24">
         所属类目：
-        <nz-select [(ngModel)]="sslm" style="width:300px" [disabled]="isDisable" nzAllowClear>
+        <nz-select [(ngModel)]="modalSslm" style="width:300px" [disabled]="isDisable" nzAllowClear>
           <nz-option nzLabel="全部" nzValue=""></nz-option>
           <nz-option *ngFor="let option of dictionaryObj.xmsc" [nzLabel]="option.name" [nzValue]="option.code">
           </nz-option>
@@ -70,10 +71,14 @@
     </div>
     <div nz-row>
       <div nz-col [nzSpan]="24">
-        <app-upload [type]="sslm" [refid]="'xmsc'" (outer)="outer($event)" #uploadComponent></app-upload>
+        <app-upload [type]="modalSslm" [refid]="'xmsc'" (outer)="outer($event)" #uploadComponent></app-upload>
       </div>
     </div>
 </nz-modal>
+
+<nz-modal [(nzVisible)]="isImgVisible" nzTitle="附件预览" (nzOnCancel)="isImgVisible = false" [nzFooter]="null">
+    <img src="{{currentImg}}" style="width:100%">
+  </nz-modal>
 
 
  
