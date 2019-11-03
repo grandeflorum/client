@@ -47,7 +47,7 @@
         [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize"
         [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
         (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
-        <thead>
+        <thead (nzSortChange)="sort($event)">
             <tr>
                 <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
                     [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
@@ -55,7 +55,7 @@
                 <th>房屋坐落</th>
                 <th>房型</th>
                 <th>建筑面积</th>
-                <th>审核状态</th>
+                <th nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th>
                 <th style="width:30%">操作</th>
             </tr>
         </thead>

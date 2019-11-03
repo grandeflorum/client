@@ -16,7 +16,7 @@ export class StockHouseComponent implements OnInit {
   pageSize: any = 10;
   Loading = false;
   tableIsScroll = null;
-
+  sortList: any = [];
   selectId: any = '';
   cqrxm = '';
   address = '';
@@ -70,9 +70,29 @@ export class StockHouseComponent implements OnInit {
     if (this.auditType||this.auditType==="0") {
       option.conditions.push({ key: 'auditType', value: this.auditType });
     }
+    option.conditions.push({ key: 'sort', value: this.sortList });
     this.operateData(option);
     this.Loading = false;
     this.calculationHeight();
+  }
+
+  //排序
+  sort(evt) {
+    let key = evt.key;
+
+    if (this.sortList.some(x => x.indexOf(key) > -1)) {
+      this.sortList.splice(this.sortList.findIndex(x => x.indexOf(key) > -1), 1);
+    }
+
+    if (evt.value) {
+      if (evt.value == 'ascend') {
+        this.sortList.push(key);
+      } else if (evt.value == 'descend') {
+        this.sortList.push(key + ' desc');
+      }
+    }
+
+    this.search();
   }
 
 
