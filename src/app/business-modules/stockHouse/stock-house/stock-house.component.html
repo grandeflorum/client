@@ -34,10 +34,10 @@
             <button nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
                 添加
             </button>
-            <button nz-button nzType="default">
+            <button nz-button nzType="default" (click)="btachDelete()">
                 批量删除
             </button>
-            <button nz-button nzType="default">
+            <button nz-button nzType="default" (click)="moreAudit()">
                 批量审核
             </button>
         </div>
@@ -72,7 +72,7 @@
                 <td style="width:30%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
                     <a class="table_a" *ngIf="data.auditType==0" (click)="add(3,data)">编辑</a>
-                    <a class="table_a" *ngIf="data.auditType==1">审核</a>
+                    <a class="table_a" *ngIf="data.auditType==1" (click)="moreAudit(data)">审核</a>
                     <a class="table_a" (nzOnConfirm)="delete([data.id])" *ngIf="data.auditType!='2'" nz-popconfirm nzTitle="确定删除吗?">删除</a>
                     <a class="table_a" *ngIf="data.auditType==0" (nzOnConfirm)="auditCompany(data.id,1)" nz-popconfirm nzTitle="确定提交审核吗?">提交审核</a>
                 </td>
@@ -80,3 +80,34 @@
         </tbody>
     </nz-table>
 </div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="审核" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="24">
+        <div class="label_div">审核结果：</div>
+        <nz-select [(ngModel)]="shxxObj.wfAudit.shjg" class="w200" >
+          <nz-option nzValue="1" nzLabel="通过"></nz-option>
+          <nz-option nzValue="2" nzLabel="不通过"></nz-option>
+        </nz-select>
+      </div>
+    </div>
+    <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="24">
+        <div class="label_div">审核人：</div>
+        <input nz-input nzSize="default" [(ngModel)]="shxxObj.wfAudit.shry" class="w200" placeholder="请输入" />
+      </div>
+  </div>
+  <div nz-row style="height: 50px;padding: 10px;">
+    <div nz-col [nzSpan]="24">
+      <div class="label_div">审核日期：</div>
+      <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="shxxObj.wfAudit.shrq" (ngModelChange)="onChange(3,$event)"></nz-date-picker>
+    </div>
+  </div>
+  <div nz-row style="padding: 10px;">
+    <div nz-col [nzSpan]="24">
+      备注：
+      <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }"  [(ngModel)]="shxxObj.wfAudit.bz"></textarea>
+  
+    </div>
+  </div>
+  </nz-modal>

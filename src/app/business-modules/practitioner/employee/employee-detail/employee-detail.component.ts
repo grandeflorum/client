@@ -69,15 +69,15 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   quit() {
-    if (this.module == 'module') {
+    if (this.module == 'employee') {
       this.router.navigate(['/practitioner/employee']);
-    } else if (this.module == 'child') {
+    } else {
       let data = {
         id: this.companyId,
         type: this.operatorType,
         quit: 1
       }
-      this.router.navigate(['/practitioner/company/detail'], {
+      this.router.navigate(['/practitioner/' + this.module + '/detail'], {
         queryParams: data
       });
     }
