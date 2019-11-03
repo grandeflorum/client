@@ -1,3 +1,9 @@
+<div nz-row style="height: 50px;padding: 10px;" *ngIf="!isDisable">
+    <button nz-button nzType="primary" (click)="upload()"><i nz-icon nzType="plus"></i>
+        上传附件
+    </button>
+</div>
+
 <div *ngIf="fileList&&fileList.length>0||!isDisable">
 
     <div [ngClass]="{'file_div':!isDisable,'file_div_check':isDisable}">
@@ -21,3 +27,7 @@
     </div>
 
 </div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <app-upload #uploadComponent (outer)="uploadCompelete($event)" [refid]="refid"></app-upload>
+</nz-modal>

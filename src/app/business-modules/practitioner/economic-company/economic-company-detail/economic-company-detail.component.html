@@ -183,6 +183,8 @@
 
         </div>
 
+        <app-attachment [fileList]="fileList" [isDisable]="isDisable" [refid]="detailObj.id" #attachmentComponent> </app-attachment>
+
         <nz-divider nzText="备注" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
         <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }" [(ngModel)]="detailObj.bz" maxlength="500"
@@ -203,6 +205,5 @@
         </div>
 
     </div>
-
 
 </div>
