@@ -79,6 +79,7 @@ export class XmscglComponent implements OnInit {
     this.Loading = false;
     if(res.code == 200){
       this.dataSet = res.msg.currentList;
+      this.totalCount = res.msg.recordCount;
     }
 
     this.operateData();
@@ -170,13 +171,13 @@ selectItem(data) {
       return;
     }
 
-    // var res = await this.kfxmglService.deleteProjectByIds(ids);
-    // if (res && res.code == 200) {
-    //   this.msg.create('success', '删除成功');
-    //   this.search();
-    // } else {
-    //   this.msg.create('error', '删除失败');
-    // }
+    var res = await this.fileService.delete(item.id);
+    if (res && res.code == 200) {
+      this.msg.create('success', '删除成功');
+      this.search();
+    } else {
+      this.msg.create('error', '删除失败');
+    }
   }
 
 

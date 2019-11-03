@@ -13,9 +13,11 @@ export class FileService {
     return this.http.post('/FileInfo/getFileListByRefidAndType', data);
   }
 
-
-  
-  getFileListById(id): Promise<any> {
+getFileListById(id): Promise<any> {
     return this.http.get('/FileInfo/getFileListById?id=' + id);
+  }
+
+  delete(id): Promise<any> {
+    return this.http.get('/FileInfo/delete?id=' + id);
   }
 }
