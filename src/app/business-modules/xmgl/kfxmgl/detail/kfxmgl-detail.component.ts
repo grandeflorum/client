@@ -236,7 +236,7 @@ export class KfxmglDetailComponent implements OnInit {
   }
 
     //删除
-    async btachDelete(item){
+    async btachDelete(item?){
       var ids = [];
       if (item) {//单个删除
         ids.push(item.id);
@@ -265,7 +265,7 @@ export class KfxmglDetailComponent implements OnInit {
     }
 
     //下载
-    btachDown(item){
+    btachDown(item?){
       var ids = [];
       if (item) {//单个
         ids.push(item.id);

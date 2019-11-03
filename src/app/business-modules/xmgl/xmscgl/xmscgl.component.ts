@@ -144,15 +144,15 @@ selectItem(data) {
   calculationHeight(){
     const bodyHeight = $('body').height()
     const height = this.dataSet.length * 40;
-    if(height > bodyHeight - 390){
-        this.tableIsScroll = {y: bodyHeight - 390 + 'px'}
+    if(height > bodyHeight - 400){
+        this.tableIsScroll = {y: bodyHeight - 350 + 'px'}
     }else{
       this.tableIsScroll = null
     }
   }
 
   //删除
-  async btachDelete(item){
+  async btachDelete(item?){
     var ids = [];
     if (item) {//单个删除
       ids.push(item.id);
@@ -236,7 +236,7 @@ selectItem(data) {
   }
 
       //下载
-      btachDown(item){
+      btachDown(item?){
         var ids = [];
         if (item) {//单个
           ids.push(item.id);
