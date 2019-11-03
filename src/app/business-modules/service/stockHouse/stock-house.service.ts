@@ -28,6 +28,6 @@ export class StockHouseService {
     }
     // 审核项目
     auditStockHouses(params): any {
-        return this.http.post('/Project/auditStockHouses', params);
+        return this.http.post('/StockHouse/auditStockHouses', params);
     }
 }

@@ -263,6 +263,13 @@ export class StockHouseComponent implements OnInit {
     //审核
   async handleOk(){
     var res = await this.stockHouseService.auditStockHouses(this.shxxObj);
+    if (res && res.code == 200) {
+      this.msg.create('success', '审核成功');
+      this.isVisible = false;
+      this.search();
+    } else {
+      this.msg.create('error', '审核失败');
+    }
   }
 
 
