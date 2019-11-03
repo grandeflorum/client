@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { LayoutModule } from '../../../layout/layout.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { RouterModule, Routes } from '@angular/router';
-import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
+import { CommonComponentModule } from '../../common-component/common-component.module';
 
 const routes: Routes = [
   {
@@ -22,7 +22,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     EmployeeComponent,
-    EmployeeListComponent,
     EmployeeDetailComponent
   ],
   imports: [
@@ -31,6 +30,7 @@ const routes: Routes = [
     LayoutModule,
     NgZorroAntdModule,
     RouterModule.forChild(routes),
+    CommonComponentModule
   ],
   exports: [RouterModule],
   entryComponents: []

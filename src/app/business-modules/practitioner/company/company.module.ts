@@ -6,6 +6,7 @@ import { LayoutModule } from '../../../layout/layout.module';
 import { CompanyComponent } from './company.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
+import { CommonComponentModule } from '../../common-component/common-component.module';
 
 const routes: Routes = [
     {
@@ -28,6 +29,7 @@ const routes: Routes = [
         LayoutModule,
         NgZorroAntdModule,
         RouterModule.forChild(routes),
+        CommonComponentModule
     ],
     exports: [RouterModule],
     entryComponents: []

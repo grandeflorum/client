@@ -32,7 +32,8 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div">企业类型：</div>
                 <nz-select [(ngModel)]="detailObj.qylx" class="w200" [disabled]="isDisable" nzAllowClear>
-                    <nz-option *ngFor="let option of dictionaryObj.qylx" [nzLabel]="option.name" [nzValue]="option.code">
+                    <nz-option *ngFor="let option of dictionaryObj.qylx" [nzLabel]="option.name"
+                        [nzValue]="option.code">
                     </nz-option>
                 </nz-select>
             </div>
@@ -97,7 +98,7 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div">营业期限：</div>
                 <input nz-input nzSize="default" [(ngModel)]="detailObj.yyqx" [disabled]="isDisable" class="w200"
-                    maxlength="10" placeholder="请输入营业期限"  />
+                    maxlength="10" placeholder="请输入营业期限" />
             </div>
 
             <div nz-col [nzSpan]="8">
@@ -141,7 +142,8 @@
                 <div class="label_div">证件类型：</div>
 
                 <nz-select [(ngModel)]="detailObj.zjlx" class="w200" [disabled]="isDisable" nzAllowClear>
-                    <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
+                    <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name"
+                        [nzValue]="option.code">
                     </nz-option>
                 </nz-select>
             </div>
@@ -167,7 +169,8 @@
                 <div class="label_div">资质等级：</div>
 
                 <nz-select [(ngModel)]="detailObj.zzdj" [disabled]="isDisable" class="w200" nzAllowClear>
-                    <nz-option *ngFor="let option of dictionaryObj.zzdj" [nzLabel]="option.name" [nzValue]="option.code">
+                    <nz-option *ngFor="let option of dictionaryObj.zzdj" [nzLabel]="option.name"
+                        [nzValue]="option.code">
                     </nz-option>
                 </nz-select>
             </div>
@@ -202,7 +205,9 @@
             [disabled]="isDisable"></textarea>
     </div>
 
-
+    <div class="jbxx" *ngIf="tabsetIndex==1">
+        <app-employee-list [companyId]="companyId" module="child" [operatorType]='companyType'></app-employee-list>
+    </div>
 
 
 

@@ -25,6 +25,9 @@ export class CompanyDetailComponent implements OnInit {
 
   dictionaryObj: any = [];
 
+  companyId: string;
+  companyType: string;
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -37,7 +40,15 @@ export class CompanyDetailComponent implements OnInit {
 
     this.dictionaryObj = this.localstorage.getObject("dictionary");
     let id = this.ActivatedRoute.snapshot.queryParams["id"];
+    this.companyId = id;
     let type = this.ActivatedRoute.snapshot.queryParams["type"];
+    this.companyType = type;
+
+    let quit = this.ActivatedRoute.snapshot.queryParams.quit;
+
+    if (quit) {
+      this.tabsetIndex = 1;
+    }
 
     if (type == 2) {
       this.isDisable = true;
@@ -84,6 +95,7 @@ export class CompanyDetailComponent implements OnInit {
 
     if (res && res.code == 200) {
       this.detailObj.id = res.msg;
+      this.companyId = res.msg;
       this.msg.create('success', '保存成功');
     } else {
       this.msg.create('error', '保存失败');
