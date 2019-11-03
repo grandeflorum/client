@@ -15,8 +15,8 @@
                 <i nz-icon type="close" style="color: red;" theme="outline" class="file_item_delete" *ngIf="!isDisable"
                     nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="RemoveAttachment(fileItem)"></i>
 
-                <!-- <i nz-icon type="eye" theme="outline" title="预览" *ngIf="canPreview(fileItem.name)" class="file_item_btn"
-                    (click)="preview(fileItem)"></i> -->
+                <i nz-icon type="eye" theme="outline" title="预览" *ngIf="canPreview(fileItem.name)" class="file_item_btn"
+                    (click)="preview(fileItem)"></i>
 
                 <i nz-icon type="download" theme="outline" title="下载" (click)="downloadAccessory(fileItem)"
                     class="file_item_btn"></i>
@@ -30,4 +30,8 @@
 
 <nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
     <app-upload #uploadComponent (outer)="uploadCompelete($event)" [refid]="refid"></app-upload>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisiblePic" nzTitle="预览" [nzOkText]="okText" (nzOnCancel)="isVisiblePic=false;">
+    <img [src]="previewUrl" style="width: 470px;height: 300px;"/>
 </nz-modal>
