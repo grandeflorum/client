@@ -14,4 +14,8 @@ export class FileService {
   }
 
 
+  
+  getFileListById(id): Promise<any> {
+    return this.http.get('/FileInfo/getFileListById?id=' + id);
+  }
 }

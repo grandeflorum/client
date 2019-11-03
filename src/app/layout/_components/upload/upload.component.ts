@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList , Output , EventEmitter} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UploadChangeParam } from 'ng-zorro-antd/upload';
 import { NzModalService, NzTreeNodeOptions, NzMessageService, UploadXHRArgs, UploadFile } from 'ng-zorro-antd';
@@ -15,6 +15,8 @@ export class uploadComponent implements OnInit {
   @Input() accept = "xls,xlsx,doc,pdf,docx,image/png,image/jpg,image/jpeg,image/gif,image/bmp";
   @Input() type = "1";//1 开发项目管理
   @Input() refid = "";
+
+  @Output() uploadSuccess = new EventEmitter<any>();
 
   uploadFileUrl = AppConfig.Configuration.baseUrl + "/FileInfo/upload";
   fileList: UploadFile[] = [];
@@ -79,17 +81,15 @@ export class uploadComponent implements OnInit {
 
         if (event instanceof HttpResponse) {
           var res: any = event.body;
-          if (res.success) {
-
-            if (this.type == '1') {
-
-
-            }
+          if (res.code == 200) {
+            this.msg.success('上传成功');
+            this.uploadSuccess.emit(true);
 
 
 
           } else {
-            this.msg.error(res.msg)
+            this.msg.error(res.msg);
+            this.uploadSuccess.emit(true);
           }
         }
 

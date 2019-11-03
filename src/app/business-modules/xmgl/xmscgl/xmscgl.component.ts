@@ -56,12 +56,12 @@ export class XmscglComponent implements OnInit {
       pageNo: this.pageIndex,
       pageSize: this.pageSize,
       conditions: [
-        { key: 'id', value: "xmsc" }
+        { key: 'refid', value: "xmsc" }
       ]
     };
 
     if (this.sslm) {
-      option.conditions.push({ key: 'fileType', value: this.sslm });
+      option.conditions.push({ key: 'type', value: this.sslm });
     }
 
     if (this.txt) {

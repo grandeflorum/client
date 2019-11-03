@@ -4,6 +4,7 @@ import { Router , ActivatedRoute} from '@angular/router';
 import { ValidationDirective } from '../../../../layout/_directives/validation.directive';
 import { Localstorage } from '../../../service/localstorage';
 import { KfxmglService } from '../../../service/xmgl/kfxmgl.service';
+import { FileService  } from '../../../service/file/file.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 
@@ -26,26 +27,7 @@ export class KfxmglDetailComponent implements OnInit {
   detailId = "";
   detailObj:any = {};
   selectId = -1;
-  fjList = [
-    {name:"f",scrq:'4545',id:1},
-    {name:"fsf",scrq:'454',id:2},
-    {name:"gh",scrq:'554',id:3},
-    {name:"hk",scrq:'453',id:4},
-    {name:";;",scrq:'3234',id:5},
-    {name:"er",scrq:'24',id:6},
-    {name:"f",scrq:'4545',id:1},
-    {name:"fsf",scrq:'454',id:2},
-    {name:"gh",scrq:'554',id:3},
-    {name:"hk",scrq:'453',id:4},
-    {name:";;",scrq:'3234',id:5},
-    {name:"er",scrq:'24',id:6},
-    {name:"f",scrq:'4545',id:1},
-    {name:"fsf",scrq:'454',id:2},
-    {name:"gh",scrq:'554',id:3},
-    {name:"hk",scrq:'453',id:4},
-    {name:";;",scrq:'3234',id:5},
-    {name:"er",scrq:'24',id:6}
-  ];
+  fjList = [];
   pageIndex: any = 1;
   totalCount: any;
   pageSize: any = 10;
@@ -59,16 +41,19 @@ export class KfxmglDetailComponent implements OnInit {
   numberOfChecked = 0;
   isVisible = false;
   dictionaryObj:any = {};
+  isImgVisible = false;
+  currentImg = "";
 
   constructor(
     private msg: NzMessageService,
     private router:Router,
     private activatedRoute:ActivatedRoute,
     private kfxmglService:KfxmglService,
-    private localstorage:Localstorage
+    private localstorage:Localstorage,
+    private fileService:FileService
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
-    this.detailId = this.activatedRoute.snapshot.queryParams.id;
+    this.detailObj.id = this.activatedRoute.snapshot.queryParams.id;
 
     switch (type) {
       case '1'://添加
@@ -88,15 +73,16 @@ export class KfxmglDetailComponent implements OnInit {
 
   ngOnInit() {
     this.dictionaryObj = this.localstorage.getObject("dictionary");
-    if(this.detailId){
+    if(this.detailObj.id){
       this.getProjectById();
+      this.search();
     }
 
-    this.search();
+  
   }
 
   async getProjectById(){
-    var res = await this.kfxmglService.getProjectById(this.detailId);
+    var res = await this.kfxmglService.getProjectById(this.detailObj.id);
 
     if (res && res.code == 200) {
       this.detailObj=res.msg;
@@ -105,7 +91,12 @@ export class KfxmglDetailComponent implements OnInit {
     }
   }
 
-  search(){
+  async search(){
+    var res = await this.fileService.getFileListById(this.detailObj.id);
+    if(res&& res.code == 200){
+      this.fjList = res.msg;
+    }
+
     this.calculationHeight();
     this.operateData();
   }
@@ -185,16 +176,16 @@ export class KfxmglDetailComponent implements OnInit {
 
   async save(){
     // this.FormValidation();
-
+    if(!this.detailObj.id){
+      delete this.detailObj.id;
+    }
     var res = await this.kfxmglService.saveOrUpdateProject(this.detailObj);
-    if(res.code == 200){
       
     if (res && res.code == 200) {
       this.detailObj.id=res.msg;
       this.msg.create('success', '保存成功');
     } else {
       this.msg.create('error', '保存失败');
-    }
     }
   }
 
@@ -221,6 +212,18 @@ export class KfxmglDetailComponent implements OnInit {
 //开始上传
   handleOk(){
     this.uploadComponent.import();
+  }
+
+  uploadSuccess(event){
+    if(event){
+      this.handleCancel();
+      this.search();
+    }
+  }
+
+  previewImg(item){
+    this.currentImg = item.serverPath;
+    this.isImgVisible = true;
   }
 
   ngAfterViewInit() {
