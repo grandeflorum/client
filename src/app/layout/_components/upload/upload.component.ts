@@ -35,7 +35,7 @@ export class uploadComponent implements OnInit {
 
   beforeUpload = (file: UploadFile): boolean => {
     var fileName = file.name.split('.');
-    var fileType = fileName[fileName.length - 1];
+    var fileType = fileName[fileName.length - 1].toLowerCase();
     if (this.type == '1') {
       const isZIP = (fileType == 'xls' || fileType == 'xlsx' || fileType == 'doc' || fileType == 'docx' || fileType == 'pdf' || fileType == 'png' || fileType == 'jpg' || fileType == 'jpeg' || fileType == 'bmp');
       if (!isZIP) {
