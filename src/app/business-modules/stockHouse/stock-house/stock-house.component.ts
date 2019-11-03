@@ -233,7 +233,7 @@ export class StockHouseComponent implements OnInit {
   }
 
   //批量审核 || 单个审核
- async moreAudit(item){
+ async moreAudit(item?){
   
   this.shxxObj = {
     ids:[],
