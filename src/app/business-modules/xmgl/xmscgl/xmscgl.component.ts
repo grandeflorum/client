@@ -3,6 +3,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { KfxmglService } from '../../service/xmgl/kfxmgl.service';
 import { Localstorage } from '../../service/localstorage';
+import { FileService } from '../../service/file/file.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 
@@ -33,13 +34,15 @@ export class XmscglComponent implements OnInit {
   numberOfChecked = 0;
 
   sslm = "";
+  txt = "";
   dictionaryObj:any = {};
 
   constructor(
     private msg: NzMessageService,
     private router:Router,
     private kfxmglService:KfxmglService,
-    private localstorage:Localstorage
+    private localstorage:Localstorage,
+    private fileService:FileService
   ) { }
 
   ngOnInit() {
@@ -52,16 +55,22 @@ export class XmscglComponent implements OnInit {
     let option = {
       pageNo: this.pageIndex,
       pageSize: this.pageSize,
-      conditions: []
+      conditions: [
+        { key: 'id', value: "xmsc" }
+      ]
     };
 
-    // if (this.xmmc) {
-    //   option.conditions.push({ key: 'xmmc', value: this.xmmc });
-    // }
+    if (this.sslm) {
+      option.conditions.push({ key: 'fileType', value: this.sslm });
+    }
+
+    if (this.txt) {
+      option.conditions.push({ key: 'name', value: this.txt });
+    }
 
     console.log(option)
 
-    var res = await this.kfxmglService.getProjectList(option);
+    var res = await this.fileService.getFileListByRefidAndType(option);
     this.Loading = false;
     if(res.code == 200){
       this.dataSet = res.msg.currentList;

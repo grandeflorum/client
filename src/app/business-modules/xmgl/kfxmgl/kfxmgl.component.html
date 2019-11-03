@@ -54,7 +54,7 @@
         [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize" [nzTotal]="totalCount" 
         (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
         (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
-        <thead>
+        <thead (nzSortChange)="sort($event)">
           <tr>
             <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
               (nzCheckedChange)="checkAll($event)"></th>

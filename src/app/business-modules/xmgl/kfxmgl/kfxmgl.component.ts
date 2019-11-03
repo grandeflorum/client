@@ -19,7 +19,7 @@ export class KfxmglComponent implements OnInit {
   Loading = false;
   tableIsScroll = null;
   dataSet: any = [];
-
+  sortList: any = [];
   selectId: any = '';
   xmmc = '';
   kfqymc = '';
@@ -78,7 +78,7 @@ export class KfxmglComponent implements OnInit {
     if (this.jgrq) {
       option.conditions.push({ key: 'jgrq', value: this.jgrq });
     }
-    console.log(option)
+    option.conditions.push({ key: 'sort', value: this.sortList });
 
     var res = await this.kfxmglService.getProjectList(option);
     this.Loading = false;
@@ -91,6 +91,25 @@ export class KfxmglComponent implements OnInit {
     this.operateData();
     
   }
+
+    //排序
+    sort(evt) {
+      let key = evt.key;
+  
+      if (this.sortList.some(x => x.indexOf(key) > -1)) {
+        this.sortList.splice(this.sortList.findIndex(x => x.indexOf(key) > -1), 1);
+      }
+  
+      if (evt.value) {
+        if (evt.value == 'ascend') {
+          this.sortList.push(key);
+        } else if (evt.value == 'descend') {
+          this.sortList.push(key + ' desc');
+        }
+      }
+  
+      this.search();
+    }
 
 
   pageIndexChange(num) {
