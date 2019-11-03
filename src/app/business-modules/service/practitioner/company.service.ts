@@ -26,4 +26,9 @@ export class CompanyService {
     auditCompanyById(id, type): any {
         return this.http.get('/Company/auditCompanyById?id=' + id + "&type=" + type);
     }
+
+    //批量审核
+    btachAuditCompany(data):any{
+        return this.http.post('/Company/btachAuditCompany', data);
+    }
 }
