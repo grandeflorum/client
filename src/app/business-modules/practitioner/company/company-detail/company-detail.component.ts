@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ViewChild } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -13,7 +13,7 @@ import { Localstorage } from 'src/app/business-modules/service/localstorage';
 export class CompanyDetailComponent implements OnInit {
 
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
-
+  @ViewChild('uploadComponent', { static: false }) uploadComponent;
   tabs = [
     { name: '开发企业信息', index: 0 },
     { name: '从业人员管理', index: 1 },
@@ -27,6 +27,8 @@ export class CompanyDetailComponent implements OnInit {
 
   companyId: string;
   companyType: string;
+
+  isVisible: any = false;
 
   constructor(
     private msg: NzMessageService,
@@ -112,6 +114,24 @@ export class CompanyDetailComponent implements OnInit {
 
   ngAfterViewInit() {
 
+  }
+
+  /**
+   * 附件
+   */
+  upload() {
+    this.isVisible = true;
+    this.uploadComponent.fileList = [];
+  }
+
+  handleCancel() {
+    this.isVisible = false;
+    this.uploadComponent.fileList = [];
+  }
+
+  //开始上传
+  handleOk() {
+    this.uploadComponent.import();
   }
 
 }
