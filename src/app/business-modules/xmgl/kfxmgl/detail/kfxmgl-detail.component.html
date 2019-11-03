@@ -249,7 +249,7 @@
           <td>{{ data.serverFileName }}</td>
           <td>{{ data.uploadDate }}</td>
           <td style="width:30%">
-            <a class="table_a" *ngIf="fileSuffix=='jpg' || fileSuffix=='jpeg' || fileSuffix=='png' || fileSuffix=='bmp' || || fileSuffix=='pdf'" (click)="previewImg(data)">查看</a>
+            <a class="table_a" *ngIf="data.fileSuffix=='jpg' || data.fileSuffix=='jpeg' || data.fileSuffix=='png' || data.fileSuffix=='bmp' ||  data.fileSuffix=='pdf'" (click)="previewImg(data)">查看</a>
             <a class="table_a" *ngIf="!isDisable">删除</a>
             <a class="table_a">下载</a>
           </td>
@@ -275,7 +275,7 @@
 </div>
 
 <nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-  <app-upload #uploadComponent [refid]="detailObj.id" (uploadSuccess)="uploadSuccess($event)"></app-upload>  
+  <app-upload #uploadComponent [refid]="detailObj.id" (outer)="outer($event)"></app-upload>  
 </nz-modal>
 
 <nz-modal [(nzVisible)]="isImgVisible" nzTitle="附件预览" (nzOnCancel)="isImgVisible = false" [nzFooter]="null">

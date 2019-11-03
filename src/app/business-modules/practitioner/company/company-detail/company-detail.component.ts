@@ -4,6 +4,7 @@ import { ValidationDirective } from 'src/app/layout/_directives/validation.direc
 import { Router, ActivatedRoute } from '@angular/router';
 import { CompanyService } from 'src/app/business-modules/service/practitioner/company.service';
 import { Localstorage } from 'src/app/business-modules/service/localstorage';
+import { AttachmentSercice } from 'src/app/business-modules/service/common/attachment.service';
 
 @Component({
   selector: 'app-company-detail',
@@ -30,12 +31,15 @@ export class CompanyDetailComponent implements OnInit {
 
   isVisible: any = false;
 
+  fileList: any = [];
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
     private companyService: CompanyService,
     private ActivatedRoute: ActivatedRoute,
-    private localstorage: Localstorage
+    private localstorage: Localstorage,
+    private attachmentSercice: AttachmentSercice
   ) { }
 
   ngOnInit() {
@@ -58,6 +62,19 @@ export class CompanyDetailComponent implements OnInit {
 
     if (id) {
       this.getCompanyById(id);
+      this.getAtatchment(id);
+    }
+  }
+
+  async getAtatchment(id) {
+    let res = await this.attachmentSercice.getFileListById(id);
+    if (res.msg.length > 0) {
+      res.msg.forEach(element => {
+        this.fileList.push({
+          uid: element.id,
+          name: element.clientFileName
+        });
+      });
     }
   }
 
@@ -92,7 +109,19 @@ export class CompanyDetailComponent implements OnInit {
       return;
     }
 
+    if (this.fileList.length == 0) {
+      this.msg.create('warning', '请上传资质附件');
+      return;
+    }
+
     this.detailObj.companyType = 1;
+
+    this.detailObj.fileInfoList = [];
+
+    this.fileList.forEach(element => {
+      this.detailObj.fileInfoList.push({ id: element.uid });
+    });
+
     let res = await this.companyService.saveOrUpdateCompany(this.detailObj);
 
     if (res && res.code == 200) {
@@ -132,6 +161,12 @@ export class CompanyDetailComponent implements OnInit {
   //开始上传
   handleOk() {
     this.uploadComponent.import();
+  }
+
+  uploadCompelete(data) {
+    this.fileList = [...this.fileList, ...data];
+    this.isVisible = false;
+
   }
 
 }

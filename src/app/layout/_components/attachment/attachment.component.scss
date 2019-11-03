@@ -1,0 +1,59 @@
+.check_style{
+    float: left;
+    height: 200px;
+    line-height: 200px;
+    margin-right: 30px;
+    font-size: 16px;
+}
+
+.limitTips{
+    margin-left: 100px;
+    margin-bottom: 10px;
+    color: #f5222d;
+}
+
+.file_item_btn {
+    float: right;
+    margin-top: 9px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  .file_div {
+    height: 150px;
+    float: right;
+    width: 100%;
+    border: 1px dashed #cccccc;
+    background: #fafafa;
+    overflow: auto;
+  }
+  
+  .file_div_check {
+    height: 200px;
+    // width: calc(100% - 100px);
+    border: 1px dashed #cccccc;
+    // border-left: 0;
+    background: #fafafa;
+    overflow: auto;
+  }
+  
+  .file_item {
+    background: #e4f4ff;
+    height: 30px;
+    line-height: 30px;
+    margin: 3px 0px 3px 10px;
+    color: #0050b3;
+    // width: 32%;
+    // float: left;
+  }
+  
+  .file_item_delete {
+    float: right;
+    margin-top: 9px;
+    margin-right: 10px;
+  }
+  
+  .flie_item_pic {
+    margin-left: 10px;
+    margin-right: 20px;
+  }

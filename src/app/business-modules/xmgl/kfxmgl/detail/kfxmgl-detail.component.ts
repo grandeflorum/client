@@ -214,7 +214,7 @@ export class KfxmglDetailComponent implements OnInit {
     this.uploadComponent.import();
   }
 
-  uploadSuccess(event){
+  outer(event){
     if(event){
       this.handleCancel();
       this.search();
