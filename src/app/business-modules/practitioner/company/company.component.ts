@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { CompanyService } from '../../service/practitioner/company.service';
 import { Localstorage } from '../../service/localstorage';
+import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
 
 @Component({
   selector: 'app-company',
@@ -12,6 +13,8 @@ import { Localstorage } from '../../service/localstorage';
   styleUrls: ['./company.component.scss']
 })
 export class CompanyComponent implements OnInit {
+
+  @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
 
   pageIndex: any = 1;
   totalCount: any;
@@ -34,6 +37,21 @@ export class CompanyComponent implements OnInit {
   numberOfChecked = 0;
 
   dictionaryObj: any = [];
+
+  auditList: any = [
+    { name: "通过", code: 1 },
+    { name: "不通过", code: 2 }
+  ];
+
+  //审核对象
+  auditObj: any = {
+    shrq: new Date()
+  };
+
+  isVisible: any = false;
+  isOkLoading: any = false;
+
+  auditProjectId: any = [];
 
   constructor(
     private msg: NzMessageService,
@@ -175,6 +193,7 @@ export class CompanyComponent implements OnInit {
 
   }
 
+  //提交审核
   async auditCompany(id, type) {
 
     let res = await this.companyService.auditCompanyById(id, type);
@@ -185,6 +204,75 @@ export class CompanyComponent implements OnInit {
     } else {
       this.msg.create('error', '提交审核失败');
     }
+  }
+
+
+  //审核
+  audit(data) {
+
+    this.isVisible = true;
+    this.isOkLoading = false;
+
+    this.auditProjectId = [];
+    this.auditProjectId.push(data.id);
+
+    this.auditObj = {
+      shrq: new Date()
+    };
+
+  }
+
+  handleCancel() {
+    this.isVisible = false;
+  }
+
+  //批量审核
+  btachAudit() {
+    this.auditProjectId = [];
+
+    if (this.listOfDisplayData.length > 0) {
+      this.listOfDisplayData.forEach(element => {
+        if (this.mapOfCheckedId[element.id]) {
+          this.auditProjectId.push(element.id);
+        }
+      });
+    }
+
+    if (this.auditProjectId.length == 0) {
+
+      this.msg.create("warning", "请选择要审核的企业");
+      return;
+    }
+
+    this.isVisible = true;
+    this.isOkLoading = false;
+
+
+  }
+
+  //审核保存
+  async handleOk() {
+
+    if (!this.FormValidation()) {
+      return;
+    }
+
+    this.isOkLoading = true;
+    var data = {
+      ids: this.auditProjectId,
+      wfAudit: this.auditObj
+    }
+
+    let res = await this.companyService.btachAuditCompany(data);
+    if (res && res.code == 200) {
+      this.msg.create('success', '审核成功');
+      this.isOkLoading = false;
+      this.isVisible = false;
+      this.search();
+    } else {
+      this.msg.create('error', '审核失败');
+    }
+
   }
 
 
@@ -203,6 +291,16 @@ export class CompanyComponent implements OnInit {
     $(window).resize(function () {
       that.alculationHeight()
     })
+  }
+
+  FormValidation() {
+    let isValid = true;
+    this.directives.forEach(d => {
+      if (!d.validationValue()) {
+        isValid = false;
+      }
+    });
+    return isValid;
   }
 
 }
