@@ -240,7 +240,13 @@ selectItem(data) {
     if(item){
       this.shxxObj.ids.push(item.id);
     }else{
-
+      if (this.listOfDisplayData.length > 0) {
+        this.listOfDisplayData.forEach(element => {
+          if (this.mapOfCheckedId[element.id]) {
+            this.shxxObj.ids.push(element.id);
+          }
+        });
+      }
     }
 
     if(this.shxxObj.ids.length == 0){

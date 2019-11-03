@@ -26,4 +26,8 @@ export class StockHouseService {
     auditStockHouseById(id, type): any {
         return this.http.get('/StockHouse/auditStockHouseById?id=' + id + "&type=" + type);
     }
+    // 审核项目
+    auditStockHouses(params): any {
+        return this.http.post('/Project/auditStockHouses', params);
+    }
 }

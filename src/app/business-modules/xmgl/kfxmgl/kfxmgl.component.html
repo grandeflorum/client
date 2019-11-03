@@ -77,7 +77,7 @@
             <td>
               <a class="table_a" (click)="add(2,data)">查看</a>
               <a class="table_a" (click)="add(3,data)">编辑</a>
-              <a class="table_a" (click)="shxm()" *ngIf="data.auditType==1" (click)="moreAudit(data)">审核</a>
+              <a class="table_a"  *ngIf="data.auditType==1" (click)="moreAudit(data)">审核</a>
               <a class="table_a" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete(data)">删除</a>
               <a class="table_a" *ngIf="data.auditType==0 || data.auditType == 3"  nz-popconfirm nzTitle="确定提交审核吗?"
               (nzOnConfirm)="auditSubmit(data , 1)">提交审核</a>

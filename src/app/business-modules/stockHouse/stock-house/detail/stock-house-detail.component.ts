@@ -85,7 +85,7 @@ export class StockHouseDetailComponent implements OnInit {
         break;
     }
     if (id) {
-
+     this.getStockHouseById(id);
     }
   }
 
