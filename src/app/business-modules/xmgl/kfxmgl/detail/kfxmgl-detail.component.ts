@@ -179,7 +179,9 @@ export class KfxmglDetailComponent implements OnInit {
 
 
   async save(){
-    // this.FormValidation();
+    if (!this.FormValidation()) {
+      return;
+    }
     if(!this.detailObj.id){
       delete this.detailObj.id;
     }

@@ -15,7 +15,7 @@
             </div>
             <div nz-col [nzSpan]="8">
                 <div class="label_div"><span class="clo_r">*</span>房型：</div>
-                <nz-select [(ngModel)]="detailObj.fx" class="w200" [disabled]="isDisable" required [validation]="true">
+                <nz-select [(ngModel)]="detailObj.fx" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable" required [validation]="true">
                   <nz-option *ngFor="let option of fxList" [nzLabel]="option.name" [nzValue]="option.code">
                   </nz-option>
                 </nz-select>
@@ -29,7 +29,7 @@
         <div nz-row style="height: 50px;padding: 10px;">
             <div nz-col [nzSpan]="8">
                 <div class="label_div"><span class="clo_r">*</span>所属地区：</div>
-                <nz-select [(ngModel)]="detailObj.ssdq" class="w200" [disabled]="isDisable" required
+                <nz-select [(ngModel)]="detailObj.ssdq" class="w200" nzPlaceHolder="请选择" [disabled]="isDisable" required
                     [validation]="true">
                     <nz-option *ngFor="let option of fxList" [nzLabel]="option.name" [nzValue]="option.code">
                     </nz-option>
@@ -38,14 +38,14 @@
             <div nz-col [nzSpan]="16">
                 <div class="label_div"><span class="clo_r">*</span>项目地址：</div>
                 <span>
-                    <nz-select [(ngModel)]="detailObj.xmdz" class="w200" [disabled]="isDisable" required
+                    <nz-select [(ngModel)]="detailObj.xmdz" class="w200" nzPlaceHolder="请选择" [disabled]="isDisable" required
                         [validation]="true">
                         <nz-option *ngFor="let option of fxList" [nzLabel]="option.name" [nzValue]="option.code">
                         </nz-option>
                     </nz-select>
                 </span>
                 <span>
-                    <input nz-input nzSize="default" [(ngModel)]="detailObj.address" class="w200" placeholder="请输入"
+                    <input nz-input nzSize="default" [(ngModel)]="detailObj.address" class="w200" placeholder="请输入详细地址"
                         [disabled]="isDisable" required [validation]="true" />
                 </span>
             </div>
@@ -91,7 +91,7 @@
                      class="w200" placeholder="请输入联系方式" />
             </div>
             <div nz-col [nzSpan]="4">
-                <nz-select [(ngModel)]="item.cqrgx" class="w200" [disabled]="isDisable" required
+                <nz-select [(ngModel)]="item.cqrgx" class="w200" nzPlaceHolder="请选择与产权人关系" [disabled]="isDisable" required
                     [validation]="true">
                     <nz-option *ngFor="let option of cqrgxList" [nzLabel]="option.name" [nzValue]="option.code">
                     </nz-option>
@@ -103,7 +103,7 @@
         </div>
         <nz-divider nzText="备注" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
-        <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }" [disabled]="isDisable"
+        <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }" [disabled]="isDisable" placeholder="请输入备注"
             [(ngModel)]="detailObj.bz"></textarea>
     </div>
 

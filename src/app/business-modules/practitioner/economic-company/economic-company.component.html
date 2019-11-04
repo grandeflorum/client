@@ -6,7 +6,7 @@
         </div>
         <div nz-col [nzSpan]="6">
             企业类型：
-            <nz-select [(ngModel)]="qylx" class="w150">
+            <nz-select [(ngModel)]="qylx" class="w150" nzPlaceHolder="请选择">
                 <nz-option nzValue="" nzLabel="全部"></nz-option>
                 <nz-option *ngFor="let option of dictionaryObj.qylx" [nzLabel]="option.name" [nzValue]="option.code">
                 </nz-option>
@@ -15,7 +15,7 @@
 
         <div nz-col [nzSpan]="6">
             审核状态：
-            <nz-select [(ngModel)]="auditType" class="w150">
+            <nz-select [(ngModel)]="auditType" class="w150" nzPlaceHolder="请选择">
                 <nz-option nzValue="" nzLabel="全部"></nz-option>
                 <nz-option nzValue="0" nzLabel="未提交"></nz-option>
                 <nz-option nzValue="1" nzLabel="待审核"></nz-option>
@@ -96,7 +96,7 @@
 
             <div nz-col [nzSpan]="12" class="ta_r">
                 <div class="label_div"><span class="clo_r">*</span>审核结果</div>
-                <nz-select [(ngModel)]="auditObj.shjg" class="w200" required [validation]="true" name="shjg">
+                <nz-select [(ngModel)]="auditObj.shjg" class="w200" required [validation]="true" name="shjg" nzPlaceHolder="请选择">
                     <nz-option *ngFor="let option of auditList" [nzLabel]="option.name" [nzValue]="option.code">
                     </nz-option>
                 </nz-select>

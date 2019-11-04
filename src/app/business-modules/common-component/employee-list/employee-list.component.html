@@ -14,7 +14,7 @@
         </div>
         <div *ngIf="module=='employee'" nz-col [nzSpan]="6">
             审核状态：
-            <nz-select [(ngModel)]="auditType" class="w150">
+            <nz-select [(ngModel)]="auditType" class="w150" nzPlaceHolder="请选择">
                 <nz-option nzValue="" nzLabel="全部"></nz-option>
                 <nz-option nzValue="0" nzLabel="未提交"></nz-option>
                 <nz-option nzValue="1" nzLabel="待审核"></nz-option>

@@ -11,7 +11,7 @@
 
     <div nz-col [nzSpan]="8">
       审核状态：
-      <nz-select [(ngModel)]="auditType" class="w200" >
+      <nz-select [(ngModel)]="auditType" class="w200" nzPlaceHolder="请选择">
           <nz-option nzValue="" nzLabel="全部"></nz-option>
           <nz-option nzValue="0" nzLabel="未提交"></nz-option>
           <nz-option nzValue="1" nzLabel="待审核"></nz-option>
@@ -94,7 +94,7 @@
   <div nz-row style="height: 50px;padding: 10px;">
     <div nz-col [nzSpan]="24">
       <div class="label_div">审核结果：</div>
-      <nz-select [(ngModel)]="shxxObj.wfAudit.shjg" class="w200" >
+      <nz-select [(ngModel)]="shxxObj.wfAudit.shjg" class="w200" nzPlaceHolder="请选择">
         <nz-option nzValue="1" nzLabel="通过"></nz-option>
         <nz-option nzValue="2" nzLabel="不通过"></nz-option>
       </nz-select>

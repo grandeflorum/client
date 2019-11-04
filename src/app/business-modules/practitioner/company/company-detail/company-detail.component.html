@@ -31,7 +31,7 @@
 
             <div nz-col [nzSpan]="8">
                 <div class="label_div">企业类型：</div>
-                <nz-select [(ngModel)]="detailObj.qylx" class="w200" [disabled]="isDisable" nzAllowClear>
+                <nz-select [(ngModel)]="detailObj.qylx" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
                     <nz-option *ngFor="let option of dictionaryObj.qylx" [nzLabel]="option.name"
                         [nzValue]="option.code">
                     </nz-option>
@@ -58,7 +58,7 @@
 
             <div nz-col [nzSpan]="8">
                 <div class="label_div">所属地区：</div>
-                <nz-select class="w200" [(ngModel)]="parentCode" [disabled]="isDisable" nzAllowClear>
+                <nz-select class="w200" [(ngModel)]="parentCode" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
                     <nz-option nzValue="1" nzLabel="企业1"></nz-option>
                     <nz-option nzValue="2" nzLabel="企业2"></nz-option>
                 </nz-select>
@@ -66,7 +66,7 @@
 
             <div nz-col [nzSpan]="16">
                 <div class="label_div">详细地址：</div>
-                <nz-select class="w200" [(ngModel)]="detailObj.regioncode" [disabled]="isDisable" nzAllowClear>
+                <nz-select class="w200" [(ngModel)]="detailObj.regioncode" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
                     <nz-option nzValue="1" nzLabel="企业1"></nz-option>
                     <nz-option nzValue="2" nzLabel="企业2"></nz-option>
                 </nz-select>
@@ -143,7 +143,7 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div">证件类型：</div>
 
-                <nz-select [(ngModel)]="detailObj.zjlx" class="w200" [disabled]="isDisable" nzAllowClear>
+                <nz-select [(ngModel)]="detailObj.zjlx" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
                     <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name"
                         [nzValue]="option.code">
                     </nz-option>
@@ -170,7 +170,7 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div">资质等级：</div>
 
-                <nz-select [(ngModel)]="detailObj.zzdj" [disabled]="isDisable" class="w200" nzAllowClear>
+                <nz-select [(ngModel)]="detailObj.zzdj" [disabled]="isDisable" class="w200" nzAllowClear nzPlaceHolder="请选择">
                     <nz-option *ngFor="let option of dictionaryObj.zzdj" [nzLabel]="option.name"
                         [nzValue]="option.code">
                     </nz-option>
