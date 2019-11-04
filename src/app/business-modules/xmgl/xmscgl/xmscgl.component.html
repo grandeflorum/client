@@ -22,7 +22,7 @@
         <button nz-button nzType="primary" (click)="add()"><i nz-icon nzType="plus"></i>
           添加
         </button>
-        <button nz-button nzType="default" (click)="btachDelete()">批量删除</button>
+        <button nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">批量删除</button>
         <button nz-button nzType="default" (click)="btachDown()">批量下载</button>
       </div>
     </div>

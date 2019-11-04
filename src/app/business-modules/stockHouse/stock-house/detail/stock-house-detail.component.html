@@ -113,7 +113,7 @@
             <button nz-button nzType="primary" [nzVisible]="!detailObj.id" [disabled]="!detailObj.id" nz-tooltip nzTooltipTitle="请先保存项目信息" nzTooltipPlacement="bottom" (click)="upload()"><i nz-icon nzType="plus"></i>
                 上传附件
             </button>
-            <button nz-button nzType="default" *ngIf="!isDisable" (click)="btachDelete()">
+            <button nz-button nzType="default" *ngIf="!isDisable" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">
                 批量删除
               </button>
               <button nz-button nzType="default" *ngIf="!isDisable" (click)="btachDown()">

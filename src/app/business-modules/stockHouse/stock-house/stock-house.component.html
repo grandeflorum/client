@@ -34,16 +34,16 @@
             <button nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
                 添加
             </button>
-            <button nz-button nzType="default" (click)="btachDelete()">
+            <button nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">
                 批量删除
             </button>
-            <button nz-button nzType="default" (click)="moreAudit()">
+            <button nz-button nzType="default" nz-popconfirm nzTitle="确定审核吗?" (nzOnConfirm)="moreAudit()">
                 批量审核
             </button>
         </div>
     </div>
 
-    <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow" [nzLoading]="Loading"
+    <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow" [nzLoading]="Loading" [nzShowTotal]="rangeTemplate"
         [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize"
         [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
         (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
@@ -76,11 +76,11 @@
                 </td>
                 <td style="width:30%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
-                    <a class="table_a" *ngIf="data.auditType==0" (click)="add(3,data)">编辑</a>
+                    <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" (click)="add(3,data)">编辑</a>
                     <a class="table_a" *ngIf="data.auditType==1" (click)="moreAudit(data)">审核</a>
-                    <a class="table_a" (nzOnConfirm)="delete([data.id])" *ngIf="data.auditType!='2'" nz-popconfirm
+                    <a class="table_a" (nzOnConfirm)="delete([data.id])" *ngIf="data.auditType==0||data.auditType==3" nz-popconfirm
                         nzTitle="确定删除吗?">删除</a>
-                    <a class="table_a" *ngIf="data.auditType==0" (nzOnConfirm)="auditCompany(data.id,1)" nz-popconfirm
+                    <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" (nzOnConfirm)="auditCompany(data.id,1)" nz-popconfirm
                         nzTitle="确定提交审核吗?">提交审核</a>
                 </td>
             </tr>
@@ -118,3 +118,7 @@
         </div>
     </div>
 </nz-modal>
+
+<ng-template #rangeTemplate let-range="range" let-total>
+  共{{total}}条记录&nbsp;&nbsp;
+</ng-template>

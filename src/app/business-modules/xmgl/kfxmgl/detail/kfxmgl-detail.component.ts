@@ -258,7 +258,7 @@ export class KfxmglDetailComponent implements OnInit {
         return;
       }
 
-      var res = await this.fileService.delete(item.id);
+      var res = await this.fileService.deleteByIds(ids);
       if (res && res.code == 200) {
         this.msg.create('success', '删除成功');
         this.search();

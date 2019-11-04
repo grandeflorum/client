@@ -98,7 +98,7 @@ export class XmscglComponent implements OnInit {
     this.search();
   }
 
-  reset() { 
+  reset() {
     this.search();
   }
 
@@ -171,7 +171,7 @@ selectItem(data) {
       return;
     }
 
-    var res = await this.fileService.delete(item.id);
+    var res = await this.fileService.deleteByIds(ids);
     if (res && res.code == 200) {
       this.msg.create('success', '删除成功');
       this.search();
@@ -184,7 +184,7 @@ selectItem(data) {
 
   //批量审核 || 单个审核
  async moreDown(item){
-  
+
 
    var ids = [];
 
@@ -209,7 +209,7 @@ selectItem(data) {
      }else{
        this.msg.warning('请选择所属类别');
      }
-    
+
   }
 
 
@@ -232,7 +232,7 @@ selectItem(data) {
     }else{
       window.open(this.downLoadurl + "?id=" + item.id + "&type=0");
     }
-    
+
   }
 
       //下载
@@ -249,12 +249,12 @@ selectItem(data) {
             });
           }
         }
-    
+
         if(ids.length==0){
           this.msg.warning('请选择需要下载的项目');
           return;
         }
-  
+
         window.location.href = this.downLoadurl + "?id=" + item.id + "&type=0";
       }
 
