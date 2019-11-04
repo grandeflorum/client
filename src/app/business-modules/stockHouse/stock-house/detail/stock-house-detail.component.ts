@@ -43,6 +43,8 @@ export class StockHouseDetailComponent implements OnInit {
   numberOfChecked = 0;
   isVisible = false;
   genderList = [];
+  fxList=[];
+  cqrgxList=[];
 
   isImgVisible = false;
   currentImg = "";
@@ -86,6 +88,8 @@ export class StockHouseDetailComponent implements OnInit {
     let dic = this.localstorage.getObject("dictionary");
 
     this.genderList = dic.gender;
+    this.fxList=dic.fx;
+    this.cqrgxList=dic.cqrgx;
   }
 
   async getStockHouseById() {
@@ -189,11 +193,16 @@ export class StockHouseDetailComponent implements OnInit {
     if (!this.FormValidation()) {
       return;
     }
-
+    if(!this.detailObj.id){
+      delete this.detailObj.id;
+    }
     let res = await this.stockHouseService.saveOrUpdateStockHouse(this.detailObj);
 
     if (res && res.code == 200) {
       this.detailObj.id = res.msg;
+      if(!this.detailObj.auditType){
+        this.detailObj.auditType=0;
+      }
       this.msg.create('success', '保存成功');
     } else {
       this.msg.create('error', '保存失败');

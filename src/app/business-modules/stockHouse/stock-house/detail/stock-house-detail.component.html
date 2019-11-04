@@ -16,10 +16,8 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div"><span class="clo_r">*</span>房型：</div>
                 <nz-select [(ngModel)]="detailObj.fx" class="w200" [disabled]="isDisable" required [validation]="true">
-                    <nz-option nzValue="0" nzLabel="全部"></nz-option>
-                    <nz-option nzValue="1" nzLabel="未提交"></nz-option>
-                    <nz-option nzValue="2" nzLabel="待审核"></nz-option>
-                    <nz-option nzValue="3" nzLabel="已审核"></nz-option>
+                  <nz-option *ngFor="let option of fxList" [nzLabel]="option.name" [nzValue]="option.code">
+                  </nz-option>
                 </nz-select>
             </div>
             <div nz-col [nzSpan]="8">
@@ -33,10 +31,8 @@
                 <div class="label_div"><span class="clo_r">*</span>所属地区：</div>
                 <nz-select [(ngModel)]="detailObj.ssdq" class="w200" [disabled]="isDisable" required
                     [validation]="true">
-                    <nz-option nzValue="0" nzLabel="全部"></nz-option>
-                    <nz-option nzValue="1" nzLabel="未提交"></nz-option>
-                    <nz-option nzValue="2" nzLabel="待审核"></nz-option>
-                    <nz-option nzValue="3" nzLabel="已审核"></nz-option>
+                    <nz-option *ngFor="let option of fxList" [nzLabel]="option.name" [nzValue]="option.code">
+                    </nz-option>
                 </nz-select>
             </div>
             <div nz-col [nzSpan]="16">
@@ -44,10 +40,8 @@
                 <span>
                     <nz-select [(ngModel)]="detailObj.xmdz" class="w200" [disabled]="isDisable" required
                         [validation]="true">
-                        <nz-option nzValue="0" nzLabel="全部"></nz-option>
-                        <nz-option nzValue="1" nzLabel="未提交"></nz-option>
-                        <nz-option nzValue="2" nzLabel="待审核"></nz-option>
-                        <nz-option nzValue="3" nzLabel="已审核"></nz-option>
+                        <nz-option *ngFor="let option of fxList" [nzLabel]="option.name" [nzValue]="option.code">
+                        </nz-option>
                     </nz-select>
                 </span>
                 <span>
@@ -93,16 +87,14 @@
                     [validation]="true" class="w200" placeholder="请输入身份证号" />
             </div>
             <div nz-col [nzSpan]="4">
-                <input nz-input nzSize="default" [(ngModel)]="item.lxdh" [disabled]="isDisable" 
+                <input nz-input nzSize="default" [(ngModel)]="item.lxdh" [disabled]="isDisable"
                      class="w200" placeholder="请输入联系方式" />
             </div>
             <div nz-col [nzSpan]="4">
                 <nz-select [(ngModel)]="item.cqrgx" class="w200" [disabled]="isDisable" required
                     [validation]="true">
-                    <nz-option nzValue="0" nzLabel="全部"></nz-option>
-                    <nz-option nzValue="1" nzLabel="未提交"></nz-option>
-                    <nz-option nzValue="2" nzLabel="待审核"></nz-option>
-                    <nz-option nzValue="3" nzLabel="已审核"></nz-option>
+                    <nz-option *ngFor="let option of cqrgxList" [nzLabel]="option.name" [nzValue]="option.code">
+                    </nz-option>
                 </nz-select>
             </div>
             <div nz-col [nzSpan]="4">
@@ -177,9 +169,9 @@
 </div>
 
 <nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-    <app-upload #uploadComponent [refid]="detailObj.id" (outer)="outer($event)"></app-upload>  
+    <app-upload #uploadComponent [refid]="detailObj.id" (outer)="outer($event)"></app-upload>
   </nz-modal>
-  
+
   <nz-modal [(nzVisible)]="isImgVisible" nzTitle="附件预览" (nzOnCancel)="isImgVisible = false" [nzFooter]="null">
     <img src="{{currentImg}}" style="width:100%">
   </nz-modal>

@@ -28,7 +28,7 @@
     </div>
 
       <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow"  [nzLoading]="Loading"  [nzShowTotal]="rangeTemplate"
-        [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize" [nzTotal]="totalCount" 
+        [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize" [nzTotal]="totalCount"
         (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
         (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
         <thead>
@@ -37,7 +37,7 @@
               (nzCheckedChange)="checkAll($event)"></th>
             <th>项目名称</th>
             <th>上传时间</th>
-            
+
             <th>操作</th>
           </tr>
         </thead>
@@ -46,8 +46,8 @@
             (click)="selectItem(data)">
             <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
               (nzCheckedChange)="refreshStatus()"></td>
-            <td>{{ data.serverFileName }}</td>
-            <td>{{ data.uploadDate }}</td>
+            <td>{{ data.clientFileName }}</td>
+            <td>{{ data.uploadDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
            <td>
               <a class="table_a"  *ngIf="data.fileSuffix=='jpg' || data.fileSuffix=='jpeg' || data.fileSuffix=='png' || data.fileSuffix=='bmp' ||  data.fileSuffix=='pdf'" (click)="previewImg(data)">查看</a>
               <a class="table_a" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete(data)">删除</a>
@@ -85,4 +85,4 @@
   </nz-modal>
 
 
- 
+

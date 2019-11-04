@@ -72,7 +72,7 @@ export class KfxmglDetailComponent implements OnInit {
       default:
         break;
     }
-    
+
    }
 
   ngOnInit() {
@@ -82,7 +82,7 @@ export class KfxmglDetailComponent implements OnInit {
       this.search();
     }
 
-  
+
   }
 
   async getProjectById(){
@@ -184,9 +184,12 @@ export class KfxmglDetailComponent implements OnInit {
       delete this.detailObj.id;
     }
     var res = await this.kfxmglService.saveOrUpdateProject(this.detailObj);
-      
+
     if (res && res.code == 200) {
       this.detailObj.id=res.msg;
+      if(!this.detailObj.auditType){
+        this.detailObj.auditType=0;
+      }
       this.msg.create('success', '保存成功');
     } else {
       this.msg.create('error', '保存失败');
@@ -232,7 +235,7 @@ export class KfxmglDetailComponent implements OnInit {
     }else{
       window.open(this.downLoadurl + "?id=" + item.id + "&type=0");
     }
-    
+
   }
 
     //删除
@@ -249,12 +252,12 @@ export class KfxmglDetailComponent implements OnInit {
           });
         }
       }
-  
+
       if(ids.length==0){
         this.msg.warning('请选择需要删除的项目');
         return;
       }
-  
+
       var res = await this.fileService.delete(item.id);
       if (res && res.code == 200) {
         this.msg.create('success', '删除成功');
@@ -278,7 +281,7 @@ export class KfxmglDetailComponent implements OnInit {
           });
         }
       }
-  
+
       if(ids.length==0){
         this.msg.warning('请选择需要下载的项目');
         return;
