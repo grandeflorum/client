@@ -233,7 +233,7 @@
       </div>
 
       <nz-table #nestedTable [nzData]="fjList" class="commontable tablescoll_rainbow"  [nzLoading]="Loading"
-      [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize" [nzTotal]="totalCount"
+      [nzPageIndex]="pageIndex" [nzPageSize]="pageSize" [nzTotal]="totalCount"
       (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
       (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
       <thead>

@@ -32,7 +32,7 @@ export class KfxmglDetailComponent implements OnInit {
   selectId = -1;
   fjList = [];
   pageIndex: any = 1;
-  totalCount: any;
+  totalCount: any = 0;
   pageSize: any = 10;
   Loading = false;
   tableIsScroll = null;
@@ -99,6 +99,7 @@ export class KfxmglDetailComponent implements OnInit {
     var res = await this.fileService.getFileListById(this.detailObj.id);
     if(res&& res.code == 200){
       this.fjList = res.msg;
+      this.totalCount =  res.msg.length;
     }
 
     this.calculationHeight();

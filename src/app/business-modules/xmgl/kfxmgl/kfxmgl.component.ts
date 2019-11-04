@@ -14,7 +14,7 @@ export class KfxmglComponent implements OnInit {
 
 
   pageIndex: any = 1;
-  totalCount: any;
+  totalCount: any = 0;
   pageSize: any = 10;
   Loading = false;
   tableIsScroll = null;
