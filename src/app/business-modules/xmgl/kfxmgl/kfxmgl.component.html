@@ -70,8 +70,8 @@
             (click)="selectItem(data)">
             <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
               (nzCheckedChange)="refreshStatus()"></td>
-            <td>{{ data.xmmc }}</td>
-            <td>{{ data.kfqymc }}</td>
+            <td title="{{data.xmmc}}">{{ data.xmmc |tooltips:15}}</td>
+            <td title="{{data.kfqymc}}">{{ data.kfqymc |tooltips:15}}</td>
             <!-- <td>{{ data.yjld }}</td> -->
             <td [ngClass]="{'cr0':data.auditType==0, 'cr1':data.auditType==1,'cr2':data.auditType==2,'cr3':data.auditType==3}">
                 <div class="point"
