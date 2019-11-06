@@ -9,15 +9,17 @@
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <ng-container *ngFor="let item of menuList">
-        <li *ngIf="item.children.length>0; else navMenuItem" nz-submenu nzTitle="{{item.name}}" nzIcon="{{item.icon}}" [ngClass]="{'submenu-ul-open':currentUrl.indexOf(item.route)>-1}">
+        <li *ngIf="item.children.length>0; else navMenuItem" nz-submenu nzTitle="{{item.name}}" nzIcon="{{item.icon}}"
+          [ngClass]="{'submenu-ul-open':currentUrl.indexOf(item.route)>-1}">
           <ul>
-            <li nz-menu-item (click)="menuItemClick(child)" *ngFor="let child of item.children" [nzSelected]="currentUrl.indexOf(child.route)>-1">
+            <li nz-menu-item (click)="menuItemClick(child)" *ngFor="let child of item.children"
+              [nzSelected]="currentUrl.indexOf(child.route)>-1">
               <a>{{child.name}}</a>
             </li>
           </ul>
         </li>
         <ng-template #navMenuItem>
-          <li nz-menu-item  (click)="menuItemClick(item)" [nzSelected]="currentUrl.indexOf(item.route)>-1" >
+          <li nz-menu-item (click)="menuItemClick(item)" [nzSelected]="currentUrl.indexOf(item.route)>-1">
             <i nz-icon nzType="{{item.icon}}"></i>
             <span>{{item.name}}</span>
           </li>
@@ -36,9 +38,26 @@
           <nz-breadcrumb-item *ngFor="let item of breadcrumbList">
             {{item.name}}
           </nz-breadcrumb-item>
-          
+
         </nz-breadcrumb>
+
+        <div style="text-align: right;float: right;">
+          欢迎
+          <img class="bg_icon" src="../../assets/images/index_03.png" />
+          <span style="margin-left: 8px;">{{ name }}</span>
+          <nz-divider nzType="vertical" style="margin: 0 15px 0 15px;;height: 24px;width: 1px;"></nz-divider>
+
+          <a (click)="changePassword()" title="修改密码">
+            <img src="../../assets/images/password.png" alt="" class="bg_icon" />
+          </a>
+          <a (click)="exitSystem()" class="func-button" title="退出">
+            <img src="../../assets/images/index_09.png" alt="" class="bg_icon" />
+          </a>
+        </div>
       </div>
+
+
+
     </nz-header>
     <nz-content>
       <div class="inner-content">

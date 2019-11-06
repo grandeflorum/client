@@ -18,6 +18,7 @@ export class CompanyComponent implements OnInit {
 
   pageIndex: any = 1;
   totalCount: any;
+  total:any;
   pageSize: any = 10;
   Loading = false;
   tableIsScroll = null;
@@ -93,6 +94,7 @@ export class CompanyComponent implements OnInit {
     if (res) {
       this.dataSet = res.msg.currentList;
       this.totalCount = res.msg.recordCount;
+      this.total = res.msg.recordCount;
     }
 
     this.operateData();

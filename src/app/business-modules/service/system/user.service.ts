@@ -5,7 +5,7 @@ import { HttpRestService } from '../http-rest.service';
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private http: HttpRestService) {}
+  constructor(private http: HttpRestService) { }
 
   getAllUser(): any {
     return this.http.post('/SystemUser/getAllUser', null);
@@ -30,5 +30,18 @@ export class UserService {
 
   changePassword(currentUser: any): any {
     return this.http.post('/SystemUser/changePassword', currentUser);
+  }
+
+  // 系统登录
+  login(param): any {
+    return this.http.post('/SystemUser/login', param);
+  }
+
+  loginout(): any {
+    return this.http.post('/SystemUser/loginout', null);
+  }
+
+  findUserByUsername(name): any {
+    return this.http.get('/SystemUser/findUserByUsername?name=' + name);
   }
 }

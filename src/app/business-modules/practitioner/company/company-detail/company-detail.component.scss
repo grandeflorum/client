@@ -9,6 +9,24 @@
     overflow: auto;
 }
 
+.deleteicon{
+   
+    position: absolute;
+    right: 2px;
+
+    cursor: pointer;
+  }
 .w200 {
     width: 180px!important;
   }
+
+  i[nz-icon] {
+    font-size: 32px;
+    color: #999;
+  }
+  .ant-upload-text {
+    margin-top: 8px;
+    color: #666;
+  }
+
+ 

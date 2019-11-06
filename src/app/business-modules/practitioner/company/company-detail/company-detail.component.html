@@ -31,7 +31,8 @@
 
             <div nz-col [nzSpan]="8">
                 <div class="label_div">企业类型：</div>
-                <nz-select [(ngModel)]="detailObj.qylx" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+                <nz-select [(ngModel)]="detailObj.qylx" class="w200" [disabled]="isDisable" nzAllowClear
+                    nzPlaceHolder="请选择">
                     <nz-option *ngFor="let option of dictionaryObj.qylx" [nzLabel]="option.name"
                         [nzValue]="option.code">
                     </nz-option>
@@ -58,7 +59,8 @@
 
             <div nz-col [nzSpan]="8">
                 <div class="label_div">所属地区：</div>
-                <nz-select class="w200" [(ngModel)]="parentCode" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+                <nz-select class="w200" [(ngModel)]="parentCode" [disabled]="isDisable" nzAllowClear
+                    nzPlaceHolder="请选择">
                     <nz-option nzValue="1" nzLabel="企业1"></nz-option>
                     <nz-option nzValue="2" nzLabel="企业2"></nz-option>
                 </nz-select>
@@ -66,7 +68,8 @@
 
             <div nz-col [nzSpan]="16">
                 <div class="label_div">详细地址：</div>
-                <nz-select class="w200" [(ngModel)]="detailObj.regioncode" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+                <nz-select class="w200" [(ngModel)]="detailObj.regioncode" [disabled]="isDisable" nzAllowClear
+                    nzPlaceHolder="请选择">
                     <nz-option nzValue="1" nzLabel="企业1"></nz-option>
                     <nz-option nzValue="2" nzLabel="企业2"></nz-option>
                 </nz-select>
@@ -91,6 +94,9 @@
                     [disabled]="isDisable" placeholder="请输入成立日期">
                 </nz-date-picker>
             </div>
+            <div nz-col [nzSpan]="8">
+                企业logo
+            </div>
 
         </div>
 
@@ -107,6 +113,28 @@
                 <input nz-input nzSize="default" name="dzyx" [(ngModel)]="detailObj.dzyx" [disabled]="isDisable"
                     class="w200" maxlength="30" placeholder="请输入电子邮箱" [validation]="true"
                     [validationType]="'nullEmail'" />
+            </div>
+
+            <div nz-col [nzSpan]="8">
+                <div class="clearfix" style="position: absolute;top:-20px;">
+                    <nz-upload [nzAction]="uploadFileUrl" nzListType="picture-card" [nzCustomRequest]="customReq"
+                        [nzFileList]="fileLogoList" [nzShowButton]="fileLogoList.length < 1&&!isDisable" [nzShowUploadList]="false">
+                        <i nz-icon nzType="plus"></i>
+                        <div class="ant-upload-text">Upload</div>
+                    </nz-upload>
+
+                    <div style="width: 100px; height: 100px;border: 1px solid #cccccc;" *ngIf="fileLogoList.length>0">
+                        <i nz-icon *ngIf="!isDisable" type="close" style=" color: red;    font-size: 16px;" class="deleteicon" theme="outline" nz-popconfirm nzTitle="确定删除吗?"
+                            (nzOnConfirm)="handleDelete()"></i>
+                        <img style="width: 100px;height: 100px; padding: 4px;" [src]="preUrl" />
+                    </div>
+                    <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+                        (nzOnCancel)="previewVisible = false">
+                        <ng-template #modalContent>
+                            <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+                        </ng-template>
+                    </nz-modal>
+                </div>
             </div>
 
         </div>
@@ -143,7 +171,8 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div">证件类型：</div>
 
-                <nz-select [(ngModel)]="detailObj.zjlx" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+                <nz-select [(ngModel)]="detailObj.zjlx" class="w200" [disabled]="isDisable" nzAllowClear
+                    nzPlaceHolder="请选择">
                     <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name"
                         [nzValue]="option.code">
                     </nz-option>
@@ -170,7 +199,8 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div">资质等级：</div>
 
-                <nz-select [(ngModel)]="detailObj.zzdj" [disabled]="isDisable" class="w200" nzAllowClear nzPlaceHolder="请选择">
+                <nz-select [(ngModel)]="detailObj.zzdj" [disabled]="isDisable" class="w200" nzAllowClear
+                    nzPlaceHolder="请选择">
                     <nz-option *ngFor="let option of dictionaryObj.zzdj" [nzLabel]="option.name"
                         [nzValue]="option.code">
                     </nz-option>
@@ -201,7 +231,8 @@
             </div>
         </div>
 
-        <app-attachment [fileList]="fileList" [isDisable]="isDisable" [refid]="detailObj.id" #attachmentComponent> </app-attachment>
+        <app-attachment [fileList]="fileList" [isDisable]="isDisable" [refid]="detailObj.id" #attachmentComponent>
+        </app-attachment>
 
         <nz-divider nzText="备注" nzOrientation="left" style="font-size: 18px"></nz-divider>
 

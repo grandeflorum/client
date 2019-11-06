@@ -3,8 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { SystemDictionaryService } from './service/system/system-dictionary.service';
 import { Localstorage } from './service/localstorage';
-import { NzMessageService } from 'ng-zorro-antd';
-import { visitValue } from '../../../node_modules/@angular/compiler/src/util';
+import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+import { StaffSercice } from './service/common/staff-service';
+import { UserService } from './service/system/user.service';
 
 @Component({
     templateUrl: './business-modules.component.html',
@@ -15,11 +16,16 @@ export class BusinessModulesComponent implements OnInit {
     breadcrumbList = [];
     currentUrl = "";
 
+    name: any = "";
+
     constructor(
         private systemDictionaryService: SystemDictionaryService,
         private msg: NzMessageService,
         private localstorage: Localstorage,
-        private router: Router
+        private router: Router,
+        private staffSercice: StaffSercice,
+        private modal: NzModalService,
+        private userService: UserService
     ) {
 
     }
@@ -69,6 +75,16 @@ export class BusinessModulesComponent implements OnInit {
     ]
 
     ngOnInit() {
+
+        let logUser = this.staffSercice.getStaffObj();
+        if (!logUser.id && this.router.url != '/login') {
+            this.router.navigate(['/login']);
+        } else {
+            this.name = logUser.realname;
+        }
+
+
+
         this.getAllDictionary();
         this.currentUrl = this.router.url;
 
@@ -117,6 +133,27 @@ export class BusinessModulesComponent implements OnInit {
         } else {
             this.msg.create('error', '查询字典表失败');
         }
+    }
+
+    exitSystem() {
+        this.modal.confirm({
+            nzTitle: '<i>提示</i>',
+            nzContent: '<b>确定退出系统？</b>',
+            nzOnOk: () => this.loginOut()
+        });
+    }
+
+    async loginOut() {
+        let res = await this.userService.loginout();
+
+        if (res && res.code == 200) {
+            sessionStorage.removeItem('staffObj');
+            sessionStorage.removeItem('permission');
+
+            this.router.navigate(['/login']);
+        }
+
+
     }
 
 }
