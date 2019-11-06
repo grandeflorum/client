@@ -31,19 +31,12 @@
   .sidebar-logo {
     position: relative;
     height: 64px;
-    padding-left: 24px;
     overflow: hidden;
     line-height: 64px;
     background: #001529;
     transition: all .3s;
   }
   
-  .sidebar-logo img {
-    display: inline-block;
-    height: 32px;
-    width: 32px;
-    vertical-align: middle;
-  }
   
   .sidebar-logo h1 {
     display: inline-block;
@@ -95,3 +88,15 @@
   .func-button{
     margin-left: 10px;
   }
+
+  .main_icon_text{
+    color: #ffffff;
+    float: right;
+    width: calc(100% - 65px);
+    font-size: 19px;
+    word-break: break-all;
+    line-height: initial;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+  

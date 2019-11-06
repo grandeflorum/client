@@ -2,10 +2,9 @@
   <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
     [nzTrigger]="null">
     <div class="sidebar-logo">
-      <!-- <a href="https://ng.ant.design/" target="_blank">
-                                <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-                                <h1>Ant Design Of Angular</h1>
-                        </a> -->
+      <div style="width: 64px; float: left; height: 65px;"><img src="../../assets/images/main_icon.png"/></div>
+      <div class="main_icon_text">房产交易与网上合同
+        备案管理系统</div>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <ng-container *ngFor="let item of menuList">
