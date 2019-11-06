@@ -1,32 +1,35 @@
 import { Component, OnInit, ViewChildren, QueryList , ViewChild , TemplateRef } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router , ActivatedRoute} from '@angular/router';
-import { ValidationDirective } from '../../../../layout/_directives/validation.directive';
-import { Localstorage } from '../../../service/localstorage';
-import { KfxmglService } from '../../../service/xmgl/kfxmgl.service';
-import { FileService  } from '../../../service/file/file.service';
+import { ValidationDirective } from '../../../layout/_directives/validation.directive';
+import { Localstorage } from '../../service/localstorage';
+import { KfxmglService } from '../../service/xmgl/kfxmgl.service';
+import { FileService  } from '../../service/file/file.service';
 import { UtilitiesSercice } from 'src/app/business-modules/service/common/utilities.services';
 
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 
 @Component({
-  selector: 'app-kfxmgl-detail',
-  templateUrl: './kfxmgl-detail.component.html',
-  styleUrls: ['./kfxmgl-detail.component.scss']
+  selector: 'app-lpbgl-detail',
+  templateUrl: './lpbgl-detail.component.html',
+  styleUrls: ['./lpbgl-detail.component.scss']
 })
-export class KfxmglDetailComponent implements OnInit {
+export class LpbglDetailComponent implements OnInit {
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
   @ViewChild('uploadComponent',{static:false}) uploadComponent ;
 
   downLoadurl =  AppConfig.Configuration.baseUrl + "/FileInfo/download";
   tabs = [
-    {name:'项目信息',index:0},
-    {name:'附件',index:1},
+    {name:'楼盘信息',index:0},
+    {name:'测绘材料',index:1},
+  ]
+  tabs2 = [
+    {name:'楼幢1',index:0},
+    {name:'楼幢2',index:1},
   ]
   qsList = [{name:'1',code:'1'},{name:'2',code:'2'}]
   tabsetIndex = 0;
-  tabsetIndex2 = 0;
   isDisable = false;
   detailId = "";
   detailObj:any = {};
@@ -110,11 +113,6 @@ export class KfxmglDetailComponent implements OnInit {
   tabsetChange(m){
     this.tabsetIndex = m;
   }
-
-  tabsetChange2(m){
-    this.tabsetIndex2 = m;
-  }
-
   cancel(){
     this.router.navigate(['/xmgl/kfxmgl']);
   }

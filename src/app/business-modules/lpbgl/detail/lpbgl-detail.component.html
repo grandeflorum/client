@@ -1,0 +1,198 @@
+<div style="height: 100%;">
+    <div class="card-container">
+  <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex" (nzSelectedIndexChange)="tabsetChange($event)">
+    <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
+  </nz-tabset>
+    </div>
+
+  <!-- 基本信息 -->
+  <div class="jbxx" *ngIf="tabsetIndex==0">
+    <nz-divider nzText="基本信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
+    <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="8">项目名称</div>
+      <div nz-col [nzSpan]="8">楼盘名称</div>
+      <div nz-col [nzSpan]="8"></div>
+    </div>
+
+    <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="8">云海 观澜府</div>
+      <div nz-col [nzSpan]="8">云海 观澜府 9、10幢</div>
+      <div nz-col [nzSpan]="8"></div>
+    </div>
+
+    <div class="card-container">
+        <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex2" (nzSelectedIndexChange)="tabsetChange2($event)">
+          <nz-tab *ngFor="let tab of tabs2" [nzTitle]="tab.name"></nz-tab>
+        </nz-tabset>
+    </div>
+
+    <div class="lp_message_wrap">
+      <div class="lp_title"><i nz-icon nzType="info-circle" nzTheme="outline"></i>楼幢总览</div>
+
+      <div class="lp_content">
+        总面积：7337.43，总套数：54，禁售套数：0，抵押套数：0，抵押面积：0，未售面积：7337.43，未售套数：54，未售住宅面积：7337.43，未售住宅套数：54，已售面积：0，已售套数：0，销售额：0，已售住宅面积：0，已售住宅套数：0
+      </div>
+    </div>
+
+    <nz-divider nzText="楼幢信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
+
+    <div nz-row style="height: 50px;padding: 10px;">
+    <div nz-col [nzSpan]="8">
+        <div class="label_div">幢编号：</div>
+        <input nz-input nzSize="default" [(ngModel)]="detailObj.zbh" maxlength="50" [disabled]="isDisable" 
+          class="w200" placeholder="请输入幢编号" />
+      </div>
+
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">幢号：</div>
+        <input nz-input nzSize="default" [(ngModel)]="detailObj.zh" maxlength="50" [disabled]="isDisable" 
+          class="w200" placeholder="请输入幢号" />&nbsp;幢
+      </div>
+
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">最大户数：</div>
+        <input nz-input nzSize="default" [(ngModel)]="detailObj.zdhs" maxlength="50" [disabled]="isDisable" 
+          class="w200" placeholder="请输入最大户数" />
+      </div>
+    </div>
+
+    <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="8">
+            <div class="label_div">销售类型：</div>
+            <nz-select [(ngModel)]="detailObj.xslx" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择" >
+              <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
+              </nz-option>
+          </nz-select>
+          </div>
+
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">许可证号：</div>
+        <input nz-input nzSize="default" [(ngModel)]="detailObj.xkzh" maxlength="50" [disabled]="isDisable" 
+          class="w200" placeholder="请输入许可证号" />
+      </div>
+
+      <div nz-col [nzSpan]="8">
+          <div class="label_div">建筑结构：</div>
+          <nz-select [(ngModel)]="detailObj.jzjg" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择" >
+            <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
+            </nz-option>
+        </nz-select>
+        </div>
+
+    </div>
+
+    <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="8">
+          <div class="label_div">建筑面积：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.jzmj" [disabled]="isDisable"
+            class="w200" placeholder="请输入建筑面积" />&nbsp;㎡
+        </div>
+        <div nz-col [nzSpan]="8">
+          <div class="label_div">房屋用途：</div>
+          <nz-select [(ngModel)]="detailObj.fwyt" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+              <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
+              </nz-option>
+          </nz-select>
+        </div>
+        <div nz-col [nzSpan]="8">
+          <div class="label_div">总层数：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.zcs" [disabled]="isDisable" 
+            class="w200" placeholder="请输入总层数" />
+        </div>
+      </div>
+
+      <div nz-row style="height: 50px;padding: 10px;">
+          <div nz-col [nzSpan]="8">
+            <div class="label_div">单元信息：</div>
+            <input nz-input nzSize="default" [(ngModel)]="detailObj.dyxx" [disabled]="isDisable"
+              class="w200" placeholder="请输入单元信息" />
+          </div>
+          <div nz-col [nzSpan]="8">
+            <div class="label_div">特殊层号：</div>
+            <input nz-input nzSize="default" [(ngModel)]="detailObj.tsch" [disabled]="isDisable" 
+              class="w200" placeholder="请输入特殊层号" />
+          </div>
+          <div nz-col [nzSpan]="8">
+            <div class="label_div">特殊层信息：</div>
+            <input nz-input nzSize="default" [(ngModel)]="detailObj.tscxx" [disabled]="isDisable" 
+              class="w200" placeholder="请输入特殊层信息" />
+          </div>
+        </div>
+
+
+    <nz-divider nzText="楼盘表" nzOrientation="left" style="font-size: 18px"></nz-divider>
+
+
+
+
+
+    
+  </div>
+
+  <!-- 附件 -->
+  <div class="jbxx" *ngIf="tabsetIndex==1" style="overflow: hidden">
+      <div nz-row style="height: 50px;padding: 10px;">
+        <button nz-button nzType="primary" [nzVisible]="!detailObj.id" [disabled]="!detailObj.id" nz-tooltip nzTooltipTitle="请先保存项目信息" nzTooltipPlacement="bottom" (click)="upload()"><i nz-icon nzType="plus"></i>
+          上传附件
+        </button>
+        <button nz-button nzType="default" *ngIf="!isDisable" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">
+          批量删除
+        </button>
+        <button nz-button nzType="default" *ngIf="!isDisable" (click)="btachDown()">
+            批量下载
+          </button>
+      </div>
+
+      <nz-table #nestedTable [nzData]="fjList" class="commontable tablescoll_rainbow"  [nzLoading]="Loading"
+      [nzPageIndex]="pageIndex" [nzPageSize]="pageSize" [nzTotal]="totalCount"
+      (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
+      (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
+      <thead>
+        <tr>
+          <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
+            (nzCheckedChange)="checkAll($event)"></th>
+          <th>附件名称</th>
+          <th>上传日期</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of nestedTable.data; index as index" [ngClass]="{ itemSeleted: data.id == selectId }"
+          (click)="selectItem(data)">
+          <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
+            (nzCheckedChange)="refreshStatus()"></td>
+          <td>{{ data.clientFileName }}</td>
+          <td>{{ data.uploadDate | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td style="width:30%">
+            <a class="table_a" *ngIf="data.fileSuffix=='jpg' || data.fileSuffix=='jpeg' || data.fileSuffix=='png' || data.fileSuffix=='bmp' ||  data.fileSuffix=='pdf'" (click)="previewImg(data)">查看</a>
+            <a class="table_a" *ngIf="!isDisable"  nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete(data)">删除</a>
+            <a class="table_a" (click)="btachDown(data)">下载</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+
+
+
+
+  <div nz-row style="height: 50px;padding: 10px;text-align: right;padding-right: 20px;">
+    <div nz-col [nzSpan]="24">
+      <button nz-button nzType="default" (click)="cancel()">取消</button>
+      <button nz-button nzType="primary" *ngIf="!isDisable&&tabsetIndex==0" (click)="save()">保存</button>
+      <!-- <button nz-button nzType="primary" *ngIf="!isDisable" (click)="submit()">提交审核</button> -->
+    </div>
+
+  </div>
+
+
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <app-upload #uploadComponent [refid]="detailObj.id" (outer)="outer($event)"></app-upload>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isImgVisible" nzTitle="附件预览" (nzOnCancel)="isImgVisible = false" [nzFooter]="null">
+  <img src="{{currentImg}}" style="width:100%">
+</nz-modal>

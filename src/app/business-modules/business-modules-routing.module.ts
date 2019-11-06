@@ -57,6 +57,15 @@ const routes: Routes = [
             { path: '', loadChildren: () => import('./stockHouse/stock-house/stock-house.module').then(m => m.StockHouseModule) }
         ]
     },
+    {
+        path: 'lpbgl',
+        component: BusinessModulesComponent,
+        canActivate: [AuthGuardService],
+        data: { id: 'A-xmgl' },
+        children: [
+            { path: '', loadChildren: () => import('./lpbgl/lpbgl.module').then(m => m.LpbglModule) }
+        ]
+    },
     { path: '', pathMatch: 'full', redirectTo: '/home' }
 ];
 
