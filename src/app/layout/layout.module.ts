@@ -10,7 +10,7 @@ import { AuditPipe } from './_pipes/audit.pipe';
 import { uploadComponent } from './_components/upload/upload.component';
 import { AttachmentComponent } from './_components/attachment/attachment.component';
 import { TooltipsPipe } from './_pipes/tooltips.pipe';
-
+import { UEditorModule, UEditorConfig } from "ngx-ueditor";
 @NgModule({
     imports: [
         CommonModule,
@@ -18,10 +18,19 @@ import { TooltipsPipe } from './_pipes/tooltips.pipe';
         FormsModule,
         ReactiveFormsModule,
         NgZorroAntdModule,
-        NgxEchartsModule
+        NgxEchartsModule,
+        UEditorModule.forRoot({
+            js:[
+                '../../assets/ueditor/ueditor.all.js',
+                '../../assets/ueditor/ueditor.config.js'
+            ],
+            options:{
+                UEDITOR_HOME_URL:'../../assets/ueditor/'
+            }
+        })
     ],
     declarations: [ValidationDirective, PageHeightDrective, uploadComponent, AttachmentComponent,TooltipsPipe, AuditPipe],
-    exports: [ValidationDirective, PageHeightDrective, uploadComponent, AttachmentComponent, TooltipsPipe,AuditPipe, NgxEchartsModule],
+    exports: [ValidationDirective, PageHeightDrective, uploadComponent,UEditorModule,AttachmentComponent, TooltipsPipe,AuditPipe, NgxEchartsModule],
     providers: [],
     entryComponents: []
 })
