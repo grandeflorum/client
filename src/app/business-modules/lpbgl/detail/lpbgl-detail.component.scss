@@ -37,6 +37,33 @@
   color:#848d92;
 }
 
+.lpb_div{
+  ul{
+    overflow: hidden;
+    margin-bottom:0;
+    width:20000px;
+  }
+  li{
+    width:100px;
+    height:30px;
+    text-align: center;
+    line-height: 30px;
+    list-style: none;
+    float:left;
+    border:1px solid #ccc;
+
+    &:hover{
+      background: #e6f7ff;
+    }
+  }
+}
+
+.ch_td{
+  width:100px;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 550;
+}
+
 
   .card-container ::ng-deep .ant-tabs-card {
     background: #f5f5f5;

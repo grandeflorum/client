@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { KfxmglService } from '../service/xmgl/kfxmgl.service';
+import { LpbglService } from '../service/lpbgl/lpbgl.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 
@@ -22,7 +23,7 @@ export class LpbglComponent implements OnInit {
   sortList: any = [];
   selectId: any = '';
   xmmc = '';
-  kfqymc = '';
+  jzwmc = '';
   auditType ="";
   kgrq = '';
   jgrq = '';
@@ -47,7 +48,8 @@ export class LpbglComponent implements OnInit {
   constructor(
     private msg: NzMessageService,
     private router:Router,
-    private kfxmglService:KfxmglService
+    private kfxmglService:KfxmglService,
+    private lpbglService:LpbglService
   ) { }
 
   ngOnInit() {
@@ -66,21 +68,21 @@ export class LpbglComponent implements OnInit {
     if (this.xmmc) {
       option.conditions.push({ key: 'xmmc', value: this.xmmc });
     }
-    if (this.kfqymc) {
-      option.conditions.push({ key: 'kfqymc', value: this.kfqymc });
+    if (this.jzwmc) {
+      option.conditions.push({ key: 'jzwmc', value: this.jzwmc });
     }
-    if (this.auditType||this.auditType==="0") {
-      option.conditions.push({ key: 'auditType', value: this.auditType });
-    }
-    if (this.kgrq) {
-      option.conditions.push({ key: 'kgrq', value: this.kgrq });
-    }
-    if (this.jgrq) {
-      option.conditions.push({ key: 'jgrq', value: this.jgrq });
-    }
-    option.conditions.push({ key: 'sort', value: this.sortList });
+    // if (this.auditType||this.auditType==="0") {
+    //   option.conditions.push({ key: 'auditType', value: this.auditType });
+    // }
+    // if (this.kgrq) {
+    //   option.conditions.push({ key: 'kgrq', value: this.kgrq });
+    // }
+    // if (this.jgrq) {
+    //   option.conditions.push({ key: 'jgrq', value: this.jgrq });
+    // }
+    //option.conditions.push({ key: 'sort', value: this.sortList });
 
-    var res = await this.kfxmglService.getProjectList(option);
+    var res = await this.lpbglService.getBuildingTableList(option);
     this.Loading = false;
     if(res.code == 200){
       this.dataSet = res.msg.currentList;
@@ -125,7 +127,7 @@ export class LpbglComponent implements OnInit {
 
   reset() { 
     this.xmmc = '';
-    this.kfqymc = '';
+    this.jzwmc = '';
     this.auditType ="0";
     this.kgrq = '';
     this.jgrq = '';
