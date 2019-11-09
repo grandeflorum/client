@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, Input } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { KfxmglService } from '../service/xmgl/kfxmgl.service';
@@ -12,7 +12,7 @@ import * as $ from 'jquery';
   styleUrls: ['./lpbgl.component.scss']
 })
 export class LpbglComponent implements OnInit {
-
+  @Input() type = "";
 
   pageIndex: any = 1;
   totalCount: any = 0;
@@ -64,6 +64,10 @@ export class LpbglComponent implements OnInit {
       pageSize: this.pageSize,
       conditions: []
     };
+
+    if(this.type){
+      option.conditions.push({ key: 'type', value: this.type });
+    }
 
     if (this.xmmc) {
       option.conditions.push({ key: 'xmmc', value: this.xmmc });
@@ -176,20 +180,24 @@ selectItem(data) {
   }
 
   add(m , item?){
-    // switch (m) {
-    //   case 1://添加
-    //     break;
-    //     case 2://查看
-    //     break;
-    //     case 3://编辑
-    //     break;
-    //   default:
-    //     break;
-    // }
 
-    this.router.navigate(['/lpbgl/detail'], {
+    var route = "/lpbgl/detail";
+
+    switch (this.type) {
+      case 'dy':
+        route = '/zjgcdygl/detail';
+        break;
+      case 'cf':
+        break;
+
+      default:
+        break;
+    }
+
+    this.router.navigate([route], {
       queryParams: {
         id: item?item.id:'',
+        moduleType: this.type,
         type:m
       }
     });

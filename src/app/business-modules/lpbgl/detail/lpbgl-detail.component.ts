@@ -55,6 +55,7 @@ export class LpbglDetailComponent implements OnInit {
   lpbData = ["hasData"];
   selectedHu:any = {};
   rowSpan = 0;
+  moduleType = "";
 
   constructor(
     private msg: NzMessageService,
@@ -68,6 +69,7 @@ export class LpbglDetailComponent implements OnInit {
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
     this.detailObj.id = this.activatedRoute.snapshot.queryParams.id;
+    this.moduleType = this.activatedRoute.snapshot.queryParams.moduleType;
 
     switch (type) {
       case '1'://添加
@@ -159,7 +161,18 @@ export class LpbglDetailComponent implements OnInit {
     // this.tabsetIndex2 = m;
   }
   cancel(){
-    this.router.navigate(['/lpbgl']);
+    var route = "/lpbgl";
+    switch (this.moduleType) {
+      case 'dy':
+        route = '/zjgcdygl';
+        break;
+      case 'cf':
+        break;
+
+      default:
+        break;
+    }
+    this.router.navigate([route]);
   }
 
   pageIndexChange(num) {

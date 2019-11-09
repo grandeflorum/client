@@ -11,6 +11,8 @@ import { uploadComponent } from './_components/upload/upload.component';
 import { AttachmentComponent } from './_components/attachment/attachment.component';
 import { TooltipsPipe } from './_pipes/tooltips.pipe';
 import { UEditorModule, UEditorConfig } from "ngx-ueditor";
+import { LpbglComponent } from '../business-modules/lpbgl/lpbgl.component';
+import { LpbglDetailComponent } from '../business-modules/lpbgl/detail/lpbgl-detail.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -29,8 +31,8 @@ import { UEditorModule, UEditorConfig } from "ngx-ueditor";
             }
         })
     ],
-    declarations: [ValidationDirective, PageHeightDrective, uploadComponent, AttachmentComponent,TooltipsPipe, AuditPipe],
-    exports: [ValidationDirective, PageHeightDrective, uploadComponent,UEditorModule,AttachmentComponent, TooltipsPipe,AuditPipe, NgxEchartsModule],
+    declarations: [ValidationDirective, PageHeightDrective, uploadComponent, AttachmentComponent,TooltipsPipe, AuditPipe , LpbglComponent ,LpbglDetailComponent],
+    exports: [ValidationDirective, PageHeightDrective, uploadComponent,UEditorModule,AttachmentComponent, TooltipsPipe,AuditPipe, NgxEchartsModule , LpbglComponent ,LpbglDetailComponent],
     providers: [],
     entryComponents: []
 })

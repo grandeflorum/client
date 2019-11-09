@@ -67,6 +67,15 @@ const routes: Routes = [
         ]
     },
     {
+        path: 'zjgcdygl',
+        component: BusinessModulesComponent,
+        canActivate: [AuthGuardService],
+        data: { id: 'A-zjgcdygl' },
+        children: [
+            { path: '', loadChildren: () => import('./zjgcdygl/zjgcdygl.module').then(m => m.ZjgcdyglModule) }
+        ]
+    },
+    {
         path: 'contract',
         component: BusinessModulesComponent,
         canActivate: [AuthGuardService],
