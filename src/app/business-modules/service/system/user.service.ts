@@ -44,4 +44,8 @@ export class UserService {
   findUserByUsername(name): any {
     return this.http.get('/SystemUser/findUserByUsername?name=' + name);
   }
+
+  insertRoleManage(data): any {
+    return this.http.post('/SystemUser/insertRoleManage', data);
+  }
 }

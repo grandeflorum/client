@@ -2,7 +2,7 @@
   <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
     [nzTrigger]="null">
     <div class="sidebar-logo">
-      <div style="width: 64px; float: left; height: 65px;"><img src="../../assets/images/main_icon.png"/></div>
+      <div style="width: 64px; float: left; height: 65px;"><img src="../../assets/images/main_icon.png" /></div>
       <div class="main_icon_text">房产交易与网上合同
         备案管理系统</div>
     </div>
@@ -42,18 +42,48 @@
 
         <div style="text-align: right;float: right;">
           欢迎
-          <img class="bg_icon" src="../../assets/images/index_03.png" />
+          <!-- <img class="bg_icon" src="../../assets/images/index_03.png" /> -->
+          <i nz-icon nzType="user" nzTheme="outline"></i>
           <span style="margin-left: 8px;">{{ name }}</span>
           <nz-divider nzType="vertical" style="margin: 0 15px 0 15px;;height: 24px;width: 1px;"></nz-divider>
 
           <a (click)="changePassword()" title="修改密码">
-            <img src="../../assets/images/password.png" alt="" class="bg_icon" />
+            <i nz-icon nzType="lock" nzTheme="outline" style="color: rgba(0, 0, 0, 0.45);"></i>
           </a>
           <a (click)="exitSystem()" class="func-button" title="退出">
-            <img src="../../assets/images/index_09.png" alt="" class="bg_icon" />
+            <i nz-icon nzType="export" nzTheme="outline" style="color: rgba(0, 0, 0, 0.45);"></i>
           </a>
         </div>
       </div>
+
+      <nz-modal nz-modal [(nzVisible)]="isVisiblePwd" nzTitle="修改密码" (nzOnCancel)="isVisiblePwd=false"
+        (nzOnOk)="handleOk()" [nzCancelText]="null">
+        <div>
+          <div nz-row style="height: 60px;">
+            <div class="ta_r">
+              <span class="clo_r">*</span>当前密码：
+              <input type="password" name="curpassword" maxlength="50" nz-input style="width:calc(100% - 120px)"
+                required [validation]="true" nzSize="default" [(ngModel)]="changeUser.password" class="w200" />
+            </div>
+          </div>
+          <div nz-row style="height: 60px;">
+            <div class="ta_r">
+              <span class="clo_r">*</span>新密码：
+              <input type="password" name="newpassword" nz-input maxlength="50" style="width:calc(100% - 120px)"
+                required [validation]="true" [validationType]="'password'" nzSize="default"
+                [(ngModel)]="changeUser.passwordNew" class="w200" />
+            </div>
+          </div>
+          <div nz-row style="height: 60px;">
+            <div class="ta_r">
+              <span class="clo_r">*</span>重新输入密码：
+              <input type="password" name="passwordCofirm" nz-input maxlength="50" style="width:calc(100% - 120px)"
+                required [validation]="true" [validationType]="'password'" nzSize="default"
+                [(ngModel)]="changeUser.passwordCofirm" class="w200" />
+            </div>
+          </div>
+        </div>
+      </nz-modal>
 
 
 

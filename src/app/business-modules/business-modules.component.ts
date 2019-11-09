@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { SystemDictionaryService } from './service/system/system-dictionary.service';
@@ -6,17 +6,25 @@ import { Localstorage } from './service/localstorage';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { StaffSercice } from './service/common/staff-service';
 import { UserService } from './service/system/user.service';
+import { ValidationDirective } from '../layout/_directives/validation.directive';
 
 @Component({
     templateUrl: './business-modules.component.html',
     styleUrls: ['./business-modules.component.scss']
 })
 export class BusinessModulesComponent implements OnInit {
+
+    @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
+
     isCollapsed = false;
     breadcrumbList = [];
     currentUrl = "";
 
     name: any = "";
+
+    isVisiblePwd: any = false;
+    changeUser: any = {};
+    logUser: any = {};
 
     constructor(
         private systemDictionaryService: SystemDictionaryService,
@@ -76,14 +84,12 @@ export class BusinessModulesComponent implements OnInit {
 
     ngOnInit() {
 
-        let logUser = this.staffSercice.getStaffObj();
-        if (!logUser.id && this.router.url != '/login') {
+        this.logUser = this.staffSercice.getStaffObj();
+        if (!this.logUser.id && this.router.url != '/login') {
             this.router.navigate(['/login']);
         } else {
-            this.name = logUser.realname;
+            this.name = this.logUser.realname;
         }
-
-
 
         this.getAllDictionary();
         this.currentUrl = this.router.url;
@@ -154,6 +160,57 @@ export class BusinessModulesComponent implements OnInit {
         }
 
 
+    }
+
+    changePassword() {
+
+        this.isVisiblePwd = true;
+        this.changeUser = {};
+    }
+
+    async handleOk() {
+
+        if (!this.FormValidation()) {
+            return;
+        }
+
+        if (this.changeUser.password != this.logUser.password) {
+            this.msg.create("warning", "原密码输入有误");
+            return;
+        }
+
+        if (this.changeUser.passwordNew != this.changeUser.passwordCofirm) {
+            this.msg.create("warning", "两次输入密码不一致");
+            return;
+        }
+
+        if (this.changeUser.passwordNew != this.logUser.password) {
+            this.msg.create("warning", "新密码不能与原始密码相同");
+            return;
+        }
+
+
+        let data = { id: this.logUser.id, password: this.changeUser.passwordNew };
+        let res = await this.userService.changePassword(data);
+
+        if (res && res.code == 200) {
+            this.isVisiblePwd = false;
+            this.logUser.password = this.changeUser.passwordNew;
+            this.msg.create("success", "修改成功");
+        } else {
+            this.msg.create("erroe", "修改失败");
+        }
+
+    }
+
+    FormValidation() {
+        let isValid = true;
+        this.directives.forEach(d => {
+            if (!d.validationValue()) {
+                isValid = false;
+            }
+        });
+        return isValid;
     }
 
 }

@@ -50,7 +50,7 @@
         [nzShowTotal]="rangeTemplate" [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger
         [nzPageSize]="pageSize" [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)"
         (nzPageSizeChange)="pageSizeChange($event)" (nzCurrentPageDataChange)="currentPageDataChange($event)"
-        [nzScroll]="tableIsScroll">
+        [nzScroll]="tableIsScroll" [nzFrontPagination]="false">
         <thead (nzSortChange)="sort($event)">
             <tr>
                 <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
@@ -82,7 +82,7 @@
                 </td>
                 <td style="width:30%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
-
+                    <a class="table_a" (click)="rolemanage(data)" *ngIf="data.auditType==2">权限管理</a>
                     <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" (click)="add(3,data)">编辑</a>
                     <a class="table_a" *ngIf="data.auditType==1" (click)="audit(data)">审核</a>
                     <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" nz-popconfirm nzTitle="确定删除吗?"
@@ -135,7 +135,73 @@
         </div>
     </nz-modal>
 
+    <nz-modal [(nzVisible)]="isVisibleRole" nzTitle="权限管理" (nzOnCancel)="isVisibleRole=false" (nzOnOk)="handleOkRole()"
+        [nzOkLoading]="isOkLoadingRole" [nzWidth]="700">
+        <div style="padding: 20px;">
+            <div nz-row style="height: 30px;">
+                <div nz-col [nzSpan]="12">
+                    用户角色
+                </div>
+                <div nz-col [nzSpan]="12">
+                    企业名称
+                </div>
+            </div>
+
+            <div nz-row style="height: 60px;">
+                <div nz-col [nzSpan]="12">
+                    开发企业
+                </div>
+                <div nz-col [nzSpan]="12">
+                    {{roleData.name}}
+                </div>
+            </div>
+
+            <div nz-row style="height: 30px;">
+                <div nz-col [nzSpan]="12">
+                    是否启用（不启用则无法使用该账户登录）
+                </div>
+            </div>
+
+            <div nz-row style="height: 60px;">
+                <div nz-col [nzSpan]="12">
+                    <nz-switch [(ngModel)]="roleData.switchValue"></nz-switch>
+                </div>
+            </div>
+
+            <div nz-row style="height: 30px;">
+                <div nz-col [nzSpan]="12">
+                    用户名
+                </div>
+            </div>
+
+            <div nz-row style="height: 60px;">
+                <div nz-col [nzSpan]="12">
+                    <input nz-input nzSize="default" [(ngModel)]="roleData.zjh" class="w200" maxlength="50" />
+                </div>
+            </div>
+
+            <div nz-row style="height: 30px;">
+                <div nz-col [nzSpan]="12">
+                    登录密码
+                </div>
+                <div nz-col [nzSpan]="12">
+                    确认密码
+                </div>
+            </div>
+
+            <div nz-row style="height: 60px;">
+                <div nz-col [nzSpan]="12">
+                    <input nz-input nzSize="default" [(ngModel)]="roleData.password" class="w200" maxlength="50" />
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <input nz-input nzSize="default" [(ngModel)]="roleData.passwordSure" class="w200" maxlength="50" />
+                </div>
+            </div>
+        </div>
+    </nz-modal>
+
     <ng-template #rangeTemplate let-range="range" let-total>
         共{{total}}条记录&nbsp;&nbsp;
     </ng-template>
+
 </div>
