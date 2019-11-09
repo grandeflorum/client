@@ -1,0 +1,77 @@
+<div style="height: 100%;">
+    <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="7">
+            修改人：
+            <input nz-input nzSize="default" [(ngModel)]="xgr" class="w200" placeholder="请输入修改人" />
+        </div>
+        <div nz-col [nzSpan]="6">
+            修改理由：
+            <input nz-input nzSize="default" [(ngModel)]="xgyy" class="w200" placeholder="请输入修改理由" />
+        </div>
+
+        <div nz-col [nzSpan]="6">
+            修改内容：
+            <input nz-input nzSize="default" [(ngModel)]="xgnr" class="w200" placeholder="请输入修改内容" />
+        </div>
+        <div nz-col [nzSpan]="5" class="ta_r">
+            <button nz-button nzType="primary" (click)="search()">
+                查询
+            </button>
+            <button nz-button nzType="default" (click)="reset()">
+                重置
+            </button>
+            <button nz-button nzType="default" (click)="back()">
+                返回
+            </button>
+        </div>
+
+
+    </div>
+    <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="24">
+
+        </div>
+    </div>
+
+    <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow" [nzLoading]="Loading"
+        [nzShowTotal]="rangeTemplate" [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger
+        [nzPageSize]="pageSize" [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)"
+        (nzPageSizeChange)="pageSizeChange($event)" (nzCurrentPageDataChange)="currentPageDataChange($event)"
+        [nzScroll]="tableIsScroll">
+        <thead (nzSortChange)="sort($event)">
+            <tr>
+                <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
+                    [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
+                <th>修改人</th>
+                <th>修改理由</th>
+                <th>修改内容</th>
+                <th style="width:30%">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of nestedTable.data; index as index" [ngClass]="{ itemSeleted: data.id == selectId }"
+                (click)="selectItem(data)">
+                <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]"
+                    [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
+                <td title="{{data.xgr}}">{{ data.xgr }}</td>
+                <td title="{{data.xgyy}}">{{ data.xgyy |tooltips:15 }}</td>
+                <td title="{{data.xgnr}}">{{ data.xgnr |tooltips:15}}</td>
+                <td style="width:30%">
+                    <a class="table_a" (click)="view(data)">查看历史合同</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
+
+<!-- <nz-modal  [(nzVisible)]="isVisible"  nzTitle="查看合同历史" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    [nzWidth]="850">
+    <div style="width: 100%;height: 450px;">
+        <ueditor [(ngModel)]="content" #ueditor [config]="config"></ueditor>
+    </div>
+</nz-modal> -->
+
+
+<ng-template #rangeTemplate let-range="range" let-total>
+    共{{total}}条记录&nbsp;&nbsp;
+</ng-template>
