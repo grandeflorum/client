@@ -56,10 +56,10 @@ export class BusinessModulesComponent implements OnInit {
         { name: '楼盘表管理', id: 'lpbgl', route: '/lpbgl', icon: 'dashboard', children: [] },
         { name: '存量房管理', id: 'stockHouse', route: '/stockHouse', icon: 'dashboard', children: [] },
         {
-            name: '合同备案管理', id: 'htbagl', route: '/htbagl', icon: 'dashboard', children: [
+            name: '合同备案管理', id: 'contract', route: '/contract', icon: 'dashboard', children: [
                 { name: '商品房合同备案', id: 'spfhtba', route: '/htbagl/spfhtba', icon: 'dashboard' },
                 { name: '存量房合同备案', id: 'clfhtba', route: '/htbagl/clfhtba', icon: 'dashboard' },
-                { name: '合同模板管理', id: 'htmbgl', route: '/htbagl/htmbgl', icon: 'dashboard' }
+                { name: '合同模板管理', id: 'contractTemplate', route: '/contract/contractTemplate', icon: 'dashboard' }
             ]
         },
         { name: '在建工程抵押管理', id: 'zjgcdygl', route: '/zjgcdygl', icon: 'dashboard', children: [] },

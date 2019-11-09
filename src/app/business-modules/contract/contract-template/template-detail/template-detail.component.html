@@ -1,0 +1,38 @@
+<div style="height: 100%;" id="divheight">
+    <ueditor [(ngModel)]="contractObj.content" #ueditor [config]="config"></ueditor>
+    <div nz-row style="height: 50px;padding: 10px;text-align: right;padding-right: 20px;">
+        <div nz-col [nzSpan]="24">
+            <button nz-button nzType="default" (click)="cancel()">取消</button>
+            <button nz-button nzType="primary" *ngIf="!isDisable" (click)="save()">保存</button>
+        </div>
+    </div>
+</div>
+
+
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="保存" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzWidth]="800">
+
+    <div nz-row>
+        <div nz-col [nzSpan]="12" class="ta_r">
+            <div class="label_div"><span class="clo_r">*</span>修改人：</div>
+            <input nz-input nzSize="default" required [validation]="true" maxlength="25"
+                [(ngModel)]="contractObj.contractTemplateHistory.xgr" class="w200" maxlength="50" />
+        </div>
+    </div>
+    <div nz-row style="margin-top: 20px;">
+        <div nz-col [nzSpan]="24" class="ta_l">
+            <div class="label_div"><span class="clo_r">*</span>修改原因：</div>
+            <textarea style="width: calc(100% - 175px);margin-left: 35px;" maxlength="250" nz-input required
+                [validation]="true" [nzAutosize]="{ minRows: 5, maxRows: 8 }"
+                [(ngModel)]="contractObj.contractTemplateHistory.xgyy" maxlength="500"></textarea>
+        </div>
+    </div>
+    <div nz-row style="margin-top: 20px;">
+        <div nz-col [nzSpan]="24" class="ta_l">
+            <div class="label_div"><span class="clo_r">*</span>修改内容：</div>
+            <textarea style="width: calc(100% - 175px);margin-left: 35px;" maxlength="250" nz-input required
+                [validation]="true" [nzAutosize]="{ minRows: 5, maxRows: 8 }"
+                [(ngModel)]="contractObj.contractTemplateHistory.xgnr" maxlength="500"></textarea>
+        </div>
+    </div>
+</nz-modal>

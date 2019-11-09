@@ -66,6 +66,15 @@ const routes: Routes = [
             { path: '', loadChildren: () => import('./lpbgl/lpbgl.module').then(m => m.LpbglModule) }
         ]
     },
+    {
+        path: 'contract',
+        component: BusinessModulesComponent,
+        canActivate: [AuthGuardService],
+        data: { id: 'A-contractTemplate' },
+        children: [
+            { path: 'contractTemplate', loadChildren: () => import('./contract/contract-template/contract-template.module').then(m => m.ContractTemplateModule) }
+        ]
+    },
     { path: '', pathMatch: 'full', redirectTo: '/home' }
 ];
 
