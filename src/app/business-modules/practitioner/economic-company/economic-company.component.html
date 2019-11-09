@@ -47,11 +47,12 @@
         </div>
     </div>
 
-    <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow" [nzLoading]="Loading" [nzShowTotal]="rangeTemplate"
-        [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize"
-        [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
-        (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
-        <thead (nzSortChange)="sort($event)" [nzFrontPagination]="false">
+    <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow" [nzLoading]="Loading"
+        [nzShowTotal]="rangeTemplate" [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger
+        [nzPageSize]="pageSize" [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)"
+        (nzPageSizeChange)="pageSizeChange($event)" (nzCurrentPageDataChange)="currentPageDataChange($event)"
+        [nzScroll]="tableIsScroll" [nzFrontPagination]="false">
+        <thead (nzSortChange)="sort($event)">
             <tr>
                 <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
                     [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
@@ -96,7 +97,8 @@
 
             <div nz-col [nzSpan]="12" class="ta_r">
                 <div class="label_div"><span class="clo_r">*</span>审核结果</div>
-                <nz-select [(ngModel)]="auditObj.shjg" class="w200" required [validation]="true" name="shjg" nzPlaceHolder="请选择">
+                <nz-select [(ngModel)]="auditObj.shjg" class="w200" required [validation]="true" name="shjg"
+                    nzPlaceHolder="请选择">
                     <nz-option *ngFor="let option of auditList" [nzLabel]="option.name" [nzValue]="option.code">
                     </nz-option>
                 </nz-select>
@@ -129,7 +131,7 @@
         </div>
     </nz-modal>
 
-      <ng-template #rangeTemplate let-range="range" let-total>
-      共{{total}}条记录&nbsp;&nbsp;
+    <ng-template #rangeTemplate let-range="range" let-total>
+        共{{total}}条记录&nbsp;&nbsp;
     </ng-template>
 </div>

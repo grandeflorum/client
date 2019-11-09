@@ -58,6 +58,15 @@ const routes: Routes = [
         ]
     },
     {
+        path: 'houserental',
+        component: BusinessModulesComponent,
+        canActivate: [AuthGuardService],
+        data: { id: 'A-houserental' },
+        children: [
+            { path: '', loadChildren: () => import('./house-rental/houseRental.module').then(m => m.HouseRentalModule) }
+        ]
+    },
+    {
         path: 'lpbgl',
         component: BusinessModulesComponent,
         canActivate: [AuthGuardService],

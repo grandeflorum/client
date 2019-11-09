@@ -7,6 +7,7 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { StaffSercice } from './service/common/staff-service';
 import { UserService } from './service/system/user.service';
 import { ValidationDirective } from '../layout/_directives/validation.directive';
+import { RegionService } from './service/system/region.service';
 
 @Component({
     templateUrl: './business-modules.component.html',
@@ -33,7 +34,8 @@ export class BusinessModulesComponent implements OnInit {
         private router: Router,
         private staffSercice: StaffSercice,
         private modal: NzModalService,
-        private userService: UserService
+        private userService: UserService,
+        private regionService: RegionService
     ) {
 
     }
@@ -65,6 +67,7 @@ export class BusinessModulesComponent implements OnInit {
         { name: '在建工程抵押管理', id: 'zjgcdygl', route: '/zjgcdygl', icon: 'dashboard', children: [] },
         { name: '预查封管理', id: 'ycfgl', route: '/ycfgl', icon: 'dashboard', children: [] },
         { name: '宗地抵押管理', id: 'zddygl', route: '/zddygl', icon: 'dashboard', children: [] },
+        { name: '房屋租赁管理', id: 'houserental', route: '/houserental', icon: 'dashboard', children: [] },
         {
             name: '统计分析', id: 'statistics', route: '/statistics', icon: 'dashboard', children: [
                 { name: '销售排行榜分析', id: 'xsphbfx', route: '/statistics/xsphbfx', icon: 'dashboard' },
@@ -92,6 +95,7 @@ export class BusinessModulesComponent implements OnInit {
         }
 
         this.getAllDictionary();
+        this.getAllRegion();
         this.currentUrl = this.router.url;
 
         this.urlChange();
@@ -138,6 +142,15 @@ export class BusinessModulesComponent implements OnInit {
             this.localstorage.setObject('dictionary', res.msg);
         } else {
             this.msg.create('error', '查询字典表失败');
+        }
+    }
+
+    async getAllRegion() {
+        let res = await this.regionService.getAllRegion();
+        if (res && res.code == 200) {
+            this.localstorage.setObject('region', res.msg);
+        } else {
+            this.msg.create('error', '查询行政区划失败');
         }
     }
 

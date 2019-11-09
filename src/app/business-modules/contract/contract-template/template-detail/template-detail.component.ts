@@ -23,6 +23,7 @@ export class TemplateDetailComponent implements OnInit {
     id: "",
     name: "",
     type: "",
+    content:"",
     contractTemplateHistory: {
       xgyy: "",
       xgnr: "",

@@ -12,18 +12,20 @@ import { ContractService } from "../../service/contract/contract.service";
 })
 export class ContractTemplateComponent implements OnInit {
 
-  config :any;
+  config: any;
   downLoadurl = AppConfig.Configuration.baseUrl + "/ContractTemplate/downloadDocByEditor";
   uploadFileUrl = AppConfig.Configuration.baseUrl + "/ContractTemplate/uploadDoc";
-  @Input() accept = "doc,docx";
+  accept = "doc,docx";
 
   //商品房模板
   goodsHouseTemplate = {
-    id: ""
+    id: "",
+    content:""
   };
   //存量房模板
   stockHouseTemplate = {
-    id: ""
+    id: "",
+    content:""
   };
 
   constructor(
@@ -34,7 +36,7 @@ export class ContractTemplateComponent implements OnInit {
 
   ngOnInit() {
     var ueditorHeight = $('#divheight').height() - 120;
-    this.config= {
+    this.config = {
       readonly: true,
       toolbars: [],
       wordCount: false,
@@ -42,7 +44,7 @@ export class ContractTemplateComponent implements OnInit {
       enableAutoSave: false,
       autoHeightEnabled: false,
       initialFrameWidth: '100%',
-      initialFrameHeight:ueditorHeight
+      initialFrameHeight: ueditorHeight
     };
     //获取商品房模板
     this.getContractTemplateByType(1);
@@ -117,7 +119,7 @@ export class ContractTemplateComponent implements OnInit {
         if (event instanceof HttpResponse) {
           var res: any = event.body;
           if (res && res.code == 200) {
-            this.goodsHouseTemplate=res.msg;
+            this.goodsHouseTemplate = res.msg;
             that.msg.success('上传成功');
           } else {
             this.msg.error('上传失败');
@@ -151,7 +153,7 @@ export class ContractTemplateComponent implements OnInit {
         if (event instanceof HttpResponse) {
           var res: any = event.body;
           if (res && res.code == 200) {
-            this.stockHouseTemplate=res.msg;
+            this.stockHouseTemplate = res.msg;
             that.msg.success('上传成功');
           } else {
             this.msg.error('上传失败');
@@ -164,6 +166,16 @@ export class ContractTemplateComponent implements OnInit {
       }
     );
   }
+
+  beforeUpload = (file: UploadFile): boolean => {
+    var fileName = file.name.split('.');
+    var fileType = fileName[fileName.length - 1].toLowerCase();
+    const isZIP = ( fileType == 'doc' || fileType == 'docx');
+    if (!isZIP) {
+      this.msg.error('请上传doc,docx格式文件');
+      return false;
+    }
+  };
 
   download(type) {
     if (type == 1) {
