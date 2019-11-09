@@ -1110,6 +1110,7 @@ div.edui-box {
     position: absolute;
     top: 28px;
     right: 3px;
+    visibility: hidden;
 }
 
 .edui-default .edui-message{

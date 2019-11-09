@@ -1,6 +1,6 @@
 <div style="height: 100%;">
     <div style="width:50%;float: left;text-align: center;height: 100%;">
-        <div style="text-align: center;margin-top: 30px;height: 100%;">
+        <div style="text-align: center;margin-top: 30px;height: 100%;" id="divheight">
             <span style="font-weight: bold;">商品房买卖合同</span>
             <div style="margin-top: 30px;">
                 <nz-upload  [nzAction]="uploadFileUrl" [nzCustomRequest]="customReqGoodsHouseTemplate" [nzData]="1" [nzShowUploadList]="false" [nzMultiple]="false" [nzAccept]="accept">
@@ -24,8 +24,12 @@
                     查看历史
                 </button>
             </div>
-            <div style="height: calc(100% - 120px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
-
+            <div *ngIf="!goodsHouseTemplate.id" style="height: calc(100% - 120px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
+                <img src="../../../../assets/images/contract.png" style="margin-top: 20%;">
+                <div style="font-weight: bold;margin-top: 20%;">你可以导入或者选择添加来制作合同模板</div>
+            </div>
+            <div *ngIf="goodsHouseTemplate.id" style="height: calc(100% - 120px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
+                <ueditor [(ngModel)]="goodsHouseTemplate.content" #ueditor [config]="config"></ueditor>
             </div>
         </div>
         
@@ -56,8 +60,12 @@
                     查看历史
                 </button>
             </div>
-            <div style="height: calc(100% - 120px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
-
+            <div *ngIf="!goodsHouseTemplate.id" style="height: calc(100% - 120px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
+                <img src="../../../../assets/images/contract.png" style="margin-top: 20%;">
+                <div style="font-weight: bold;margin-top: 20%;">你可以导入或者选择添加来制作合同模板</div>
+            </div>
+            <div *ngIf="goodsHouseTemplate.id" style="height: calc(100% - 120px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
+                <ueditor [(ngModel)]="stockHouseTemplate.content" #ueditor [config]="config"></ueditor>
             </div>
         </div>
         
