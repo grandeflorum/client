@@ -114,31 +114,25 @@
 
     <nz-divider nzText="楼盘表" nzOrientation="left" style="font-size: 18px"></nz-divider>
     
-    <div class="lpb_div" style="width:1000px;margin:0 auto;overflow: auto;">
+    <div class="lpb_div" style="width:980px;margin:0 auto;overflow: auto;">
        <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}">
          <li class="ch_td">楼层数</li>
          <li *ngFor="let data of lpbList.dyList; index as index" [ngStyle]="{'width':data.rowSpan*100+'px'}">{{data.name}}</li>
        </ul>
        <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}" *ngFor="let item of lpbList.cList; index as index">
           <li class="ch_td">{{item.ch}}层</li>
-          <li *ngFor="let hu of item.hList" nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent" (mouseenter)="selectedHuChange(hu)">{{hu.mph}}</li>
+          <li *ngFor="let hu of item.hList" [ngClass]="{'lpb_ydy':hu.status == 1 , 'lpb_ycf':hu.status == 2}" nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent" (mouseenter)="selectedHuChange(hu)">{{hu.mph}}</li>
        </ul>
 
-        <!-- <nz-table #nestedTable [nzData]="lpbData" class="commontable tablescoll_rainbow lpb_table" [nzShowPagination]="false">
-            <thead>
-              <tr>
-                <th style="width:100px;text-align: center">楼层数</th>
-                <th *ngFor="let data of lpbList.dyList; index as index" colspan="data.rowSpan">{{data.name}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of lpbList.cList; index as index">
-                <td class="ch_td">{{item.ch}}层</td>
-                <td *ngFor="let hu of item.hList" nz-popover [nzPopoverContent]="PopoverContent" (mouseenter)="selectedHuChange(hu)">{{hu.mph}}</td>
-              </tr>
-            </tbody>
-          </nz-table> -->
-    </div>    
+    </div>
+    
+    <ul class="lpb_tl">
+      <li class="lpb_wba">未备案</li>
+      <li class="lpb_kxs">可销售</li>
+      <li class="lpb_yba">已备案</li>
+      <li class="lpb_ydy">已抵押</li>
+      <li class="lpb_ycf">已查封</li>
+    </ul>
 
 
 

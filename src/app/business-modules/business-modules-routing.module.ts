@@ -85,6 +85,15 @@ const routes: Routes = [
         ]
     },
     {
+        path: 'ycfgl',
+        component: BusinessModulesComponent,
+        canActivate: [AuthGuardService],
+        data: { id: 'A-ycfgl' },
+        children: [
+            { path: '', loadChildren: () => import('./ycfgl/ycfgl.module').then(m => m.YcfglModule) }
+        ]
+    },
+    {
         path: 'contract',
         component: BusinessModulesComponent,
         canActivate: [AuthGuardService],

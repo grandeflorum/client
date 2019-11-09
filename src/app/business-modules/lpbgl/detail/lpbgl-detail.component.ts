@@ -162,13 +162,14 @@ export class LpbglDetailComponent implements OnInit {
   }
   cancel(){
     var route = "/lpbgl";
+    
     switch (this.moduleType) {
       case 'dy':
         route = '/zjgcdygl';
         break;
       case 'cf':
+        route = '/ycfgl';
         break;
-
       default:
         break;
     }

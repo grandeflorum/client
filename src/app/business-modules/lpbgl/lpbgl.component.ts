@@ -188,8 +188,8 @@ selectItem(data) {
         route = '/zjgcdygl/detail';
         break;
       case 'cf':
+        route = '/ycfgl/detail';
         break;
-
       default:
         break;
     }
