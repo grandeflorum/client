@@ -29,7 +29,7 @@
                 <div style="font-weight: bold;margin-top: 20%;">你可以导入或者选择添加来制作合同模板</div>
             </div>
             <div *ngIf="goodsHouseTemplate.id" style="height: calc(100% - 120px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
-                <ueditor [(ngModel)]="goodsHouseTemplate.content" #ueditor [config]="config"></ueditor>
+                <ueditor [(ngModel)]="goodsHouseTemplate.content"  [config]="config"></ueditor>
             </div>
         </div>
         
@@ -44,13 +44,13 @@
                     </button>
                 </nz-upload>
                
-                <button nz-button nzType="primary" *ngIf="!goodsHouseTemplate.id" (click)="showDetaile(2,1)">
+                <button nz-button nzType="primary" *ngIf="!stockHouseTemplate.id" (click)="showDetaile(2,1)">
                     添加
                 </button>
                 <button nz-button nzType="primary" *ngIf="stockHouseTemplate.id" (click)="showDetaile(2,2)">
                     编辑
                 </button>
-                <button nz-button nzType="primary" *ngIf="goodsHouseTemplate.id" (click)="showDetaile(2,3)">
+                <button nz-button nzType="primary" *ngIf="stockHouseTemplate.id" (click)="showDetaile(2,3)">
                     查看
                 </button>
                 <button nz-button nzType="primary" *ngIf="stockHouseTemplate.id" (click)="download(2)">
@@ -60,12 +60,12 @@
                     查看历史
                 </button>
             </div>
-            <div *ngIf="!goodsHouseTemplate.id" style="height: calc(100% - 120px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
+            <div *ngIf="!stockHouseTemplate.id" style="height: calc(100% - 120px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
                 <img src="../../../../assets/images/contract.png" style="margin-top: 20%;">
                 <div style="font-weight: bold;margin-top: 20%;">你可以导入或者选择添加来制作合同模板</div>
             </div>
-            <div *ngIf="goodsHouseTemplate.id" style="height: calc(100% - 120px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
-                <ueditor [(ngModel)]="stockHouseTemplate.content" #ueditor [config]="config"></ueditor>
+            <div *ngIf="stockHouseTemplate.id" style="height: calc(100% - 120px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
+                <ueditor [(ngModel)]="stockHouseTemplate.content"  [config]="config"></ueditor>
             </div>
         </div>
         
