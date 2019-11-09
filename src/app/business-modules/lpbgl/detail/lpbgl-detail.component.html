@@ -15,8 +15,8 @@
     </div>
 
     <div nz-row style="height: 50px;padding: 10px;">
-      <div nz-col [nzSpan]="8">云海 观澜府</div>
-      <div nz-col [nzSpan]="8">云海 观澜府 9、10幢</div>
+      <div nz-col [nzSpan]="8">{{detailObj.xmmc}}</div>
+      <div nz-col [nzSpan]="8">{{detailObj.jzwmc}}</div>
       <div nz-col [nzSpan]="8"></div>
     </div>
 
@@ -30,7 +30,9 @@
       <div class="lp_title"><i nz-icon nzType="info-circle" nzTheme="outline"></i>楼幢总览</div>
 
       <div class="lp_content">
-        总面积：7337.43，总套数：54，禁售套数：0，抵押套数：0，抵押面积：0，未售面积：7337.43，未售套数：54，未售住宅面积：7337.43，未售住宅套数：54，已售面积：0，已售套数：0，销售额：0，已售住宅面积：0，已售住宅套数：0
+        总面积：{{lpbList.ljzStatistical.zmj}}，总套数：{{lpbList.ljzStatistical.zts}}，禁售套数：{{lpbList.ljzStatistical.jsts}}，抵押套数：{{lpbList.ljzStatistical.dyts}}，抵押面积：{{lpbList.ljzStatistical.dymj}}，
+        未售面积：{{lpbList.ljzStatistical.wsmj}}，未售套数：{{lpbList.ljzStatistical.wsts}}，未售住宅面积：{{lpbList.ljzStatistical.wszzmj}}，未售住宅套数：{{lpbList.ljzStatistical.wszzts}}，已售面积：{{lpbList.ljzStatistical.ysmj}}，已售套数：{{lpbList.ljzStatistical.ysts}}，
+        销售额：{{lpbList.ljzStatistical.xse}}，已售住宅面积：{{lpbList.ljzStatistical.yszzmj}}，已售住宅套数：{{lpbList.ljzStatistical.yszzts}}
       </div>
     </div>
 
@@ -39,24 +41,24 @@
     <div nz-row style="height: 50px;padding: 10px;">
     <div nz-col [nzSpan]="8">
         <div class="label_div">幢编号：</div>
-        <input nz-input nzSize="default" [(ngModel)]="detailObj.zbh" maxlength="50" [disabled]="isDisable" 
-          class="w200" placeholder="请输入幢编号" />
+        <input nz-input nzSize="default" [(ngModel)]="lpbList.zrzh" [title]="lpbList.zrzh" maxlength="50" [disabled]="isDisable" 
+          class="w200"/>
       </div>
 
       <div nz-col [nzSpan]="8">
-        <div class="label_div">幢号：</div>
-        <input nz-input nzSize="default" [(ngModel)]="detailObj.zh" maxlength="50" [disabled]="isDisable" 
-          class="w200" placeholder="请输入幢号" />&nbsp;幢
+        <div class="label_div">实测建筑面积：</div>
+        <input nz-input nzSize="default" [(ngModel)]="lpbList.scjzmj" maxlength="50" [disabled]="isDisable" 
+          class="w200" />&nbsp;㎡
       </div>
 
       <div nz-col [nzSpan]="8">
-        <div class="label_div">最大户数：</div>
-        <input nz-input nzSize="default" [(ngModel)]="detailObj.zdhs" maxlength="50" [disabled]="isDisable" 
-          class="w200" placeholder="请输入最大户数" />
+        <div class="label_div">总层数：</div>
+        <input nz-input nzSize="default" [(ngModel)]="lpbList.zcs" maxlength="50" [disabled]="isDisable" 
+          class="w200"/>
       </div>
     </div>
 
-    <div nz-row style="height: 50px;padding: 10px;">
+    <!-- <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="8">
             <div class="label_div">销售类型：</div>
             <nz-select [(ngModel)]="detailObj.xslx" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择" >
@@ -79,29 +81,19 @@
         </nz-select>
         </div>
 
-    </div>
+    </div> -->
 
     <div nz-row style="height: 50px;padding: 10px;">
-        <div nz-col [nzSpan]="8">
-          <div class="label_div">建筑面积：</div>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.jzmj" [disabled]="isDisable"
-            class="w200" placeholder="请输入建筑面积" />&nbsp;㎡
-        </div>
-        <div nz-col [nzSpan]="8">
-          <div class="label_div">房屋用途：</div>
-          <nz-select [(ngModel)]="detailObj.fwyt" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
-              <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
-              </nz-option>
-          </nz-select>
-        </div>
-        <div nz-col [nzSpan]="8">
-          <div class="label_div">总层数：</div>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.zcs" [disabled]="isDisable" 
-            class="w200" placeholder="请输入总层数" />
-        </div>
+        <div nz-col [nzSpan]="24">
+            <div class="label_div">房屋用途：</div>
+            <nz-select [(ngModel)]="lpbList.fwyt1" class="w200" [disabled]="isDisable" nzAllowClear>
+                <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
+                </nz-option>
+            </nz-select>
+          </div>
       </div>
 
-      <div nz-row style="height: 50px;padding: 10px;">
+      <!-- <div nz-row style="height: 50px;padding: 10px;">
           <div nz-col [nzSpan]="8">
             <div class="label_div">单元信息：</div>
             <input nz-input nzSize="default" [(ngModel)]="detailObj.dyxx" [disabled]="isDisable"
@@ -117,11 +109,36 @@
             <input nz-input nzSize="default" [(ngModel)]="detailObj.tscxx" [disabled]="isDisable" 
               class="w200" placeholder="请输入特殊层信息" />
           </div>
-        </div>
+        </div> -->
 
 
     <nz-divider nzText="楼盘表" nzOrientation="left" style="font-size: 18px"></nz-divider>
+    
+    <div class="lpb_div" style="width:1000px;margin:0 auto;overflow: auto;">
+       <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}">
+         <li class="ch_td">楼层数</li>
+         <li *ngFor="let data of lpbList.dyList; index as index" [ngStyle]="{'width':data.rowSpan*100+'px'}">{{data.name}}</li>
+       </ul>
+       <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}" *ngFor="let item of lpbList.cList; index as index">
+          <li class="ch_td">{{item.ch}}层</li>
+          <li *ngFor="let hu of item.hList" nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent" (mouseenter)="selectedHuChange(hu)">{{hu.mph}}</li>
+       </ul>
 
+        <!-- <nz-table #nestedTable [nzData]="lpbData" class="commontable tablescoll_rainbow lpb_table" [nzShowPagination]="false">
+            <thead>
+              <tr>
+                <th style="width:100px;text-align: center">楼层数</th>
+                <th *ngFor="let data of lpbList.dyList; index as index" colspan="data.rowSpan">{{data.name}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of lpbList.cList; index as index">
+                <td class="ch_td">{{item.ch}}层</td>
+                <td *ngFor="let hu of item.hList" nz-popover [nzPopoverContent]="PopoverContent" (mouseenter)="selectedHuChange(hu)">{{hu.mph}}</td>
+              </tr>
+            </tbody>
+          </nz-table> -->
+    </div>    
 
 
 
@@ -196,3 +213,13 @@
 <nz-modal [(nzVisible)]="isImgVisible" nzTitle="附件预览" (nzOnCancel)="isImgVisible = false" [nzFooter]="null">
   <img src="{{currentImg}}" style="width:100%">
 </nz-modal>
+
+
+<ng-template #PopoverContent>
+  <p>门牌号：{{selectedHu.mph}}</p>
+  <p>层数：{{selectedHu.ch}}</p>
+  <p>单元号：{{selectedHu.dyh}}</p>
+  <p>面积：{{selectedHu.scjzmj}}</p>
+  <p>不动产登记号：{{selectedHu.bdcdyh}}</p>
+  <p>坐落：{{selectedHu.zl}}</p>
+</ng-template>  

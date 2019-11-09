@@ -6,10 +6,10 @@
     </div>
     <div nz-col [nzSpan]="7">
       楼盘名称：
-      <input nz-input nzSize="default" [(ngModel)]="kfqymc" class="w200" placeholder="请输入开发企业名称" />
+      <input nz-input nzSize="default" [(ngModel)]="jzwmc" class="w200" placeholder="请输入楼盘名称" />
     </div>
 
-    <div nz-col [nzSpan]="7">
+    <!-- <div nz-col [nzSpan]="7">
       审核状态：
       <nz-select [(ngModel)]="auditType" class="w200" nzPlaceHolder="请选择">
           <nz-option nzValue="" nzLabel="全部"></nz-option>
@@ -18,7 +18,7 @@
           <nz-option nzValue="2" nzLabel="已审核"></nz-option>
           <nz-option nzValue="3" nzLabel="待修改"></nz-option>
         </nz-select>
-    </div>
+    </div> -->
     <div nz-col [nzSpan]="3" class="ta_r">
       <button nz-button nzType="primary" (click)="search()">
         查询
@@ -49,12 +49,11 @@
           <tr>
             <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
               (nzCheckedChange)="checkAll($event)"></th>
-            <th>楼盘名称</th>
-            <th>项目名称</th>
-            <th>楼幢幢数</th>
+              <th>项目名称</th>
+              <th>楼盘名称</th>
             <th>总套数</th>
             <th>总面积（㎡）</th>
-            <th nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th>
+            <!-- <th nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th> -->
             <th>操作</th>
           </tr>
         </thead>
@@ -63,15 +62,14 @@
             (click)="selectItem(data)">
             <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
               (nzCheckedChange)="refreshStatus()"></td>
-            <td title="{{data.kfqymc}}">{{ data.kfqymc |tooltips:15}}</td>
-            <td title="{{data.xmmc}}">{{ data.xmmc |tooltips:15}}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td [ngClass]="{'cr0':data.auditType==0, 'cr1':data.auditType==1,'cr2':data.auditType==2,'cr3':data.auditType==3}">
+              <td title="{{data.xmmc}}">{{ data.xmmc |tooltips:15}}</td>
+              <td title="{{data.kfqymc}}">{{ data.jzwmc |tooltips:15}}</td>
+            <td>{{data.zts}}</td>
+            <td>{{data.zmj}}</td>
+            <!-- <td [ngClass]="{'cr0':data.auditType==0, 'cr1':data.auditType==1,'cr2':data.auditType==2,'cr3':data.auditType==3}">
                 <div class="point"
                 [ngClass]="{'point0':data.auditType==0, 'point1':data.auditType==1,'point2':data.auditType==2,'point3':data.auditType==3}"
-                ></div>{{ data.auditType|audit }}</td>
+                ></div>{{ data.auditType|audit }}</td> -->
             <td>
               <a class="table_a" (click)="add(2,data)">查看</a>
               <!-- <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" (click)="add(3,data)">编辑</a>

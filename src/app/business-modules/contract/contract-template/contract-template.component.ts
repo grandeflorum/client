@@ -12,6 +12,7 @@ import { ContractService } from "../../service/contract/contract.service";
 })
 export class ContractTemplateComponent implements OnInit {
 
+  config :any;
   downLoadurl = AppConfig.Configuration.baseUrl + "/ContractTemplate/downloadDocByEditor";
   uploadFileUrl = AppConfig.Configuration.baseUrl + "/ContractTemplate/uploadDoc";
   @Input() accept = "doc,docx";
@@ -32,6 +33,17 @@ export class ContractTemplateComponent implements OnInit {
     private contractService: ContractService) { }
 
   ngOnInit() {
+    var ueditorHeight = $('#divheight').height() - 120;
+    this.config= {
+      readonly: true,
+      toolbars: [],
+      wordCount: false,
+      elementPathEnabled: false,
+      enableAutoSave: false,
+      autoHeightEnabled: false,
+      initialFrameWidth: '100%',
+      initialFrameHeight:ueditorHeight
+    };
     //获取商品房模板
     this.getContractTemplateByType(1);
     //获取存量房模板
@@ -105,10 +117,10 @@ export class ContractTemplateComponent implements OnInit {
         if (event instanceof HttpResponse) {
           var res: any = event.body;
           if (res && res.code == 200) {
-
+            this.goodsHouseTemplate=res.msg;
             that.msg.success('上传成功');
           } else {
-            this.msg.error(res.msg);
+            this.msg.error('上传失败');
           }
 
         }
@@ -139,10 +151,10 @@ export class ContractTemplateComponent implements OnInit {
         if (event instanceof HttpResponse) {
           var res: any = event.body;
           if (res && res.code == 200) {
-
+            this.stockHouseTemplate=res.msg;
             that.msg.success('上传成功');
           } else {
-            this.msg.error(res.msg);
+            this.msg.error('上传失败');
           }
 
         }

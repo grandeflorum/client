@@ -5,8 +5,8 @@ import { ValidationDirective } from '../../../layout/_directives/validation.dire
 import { Localstorage } from '../../service/localstorage';
 import { KfxmglService } from '../../service/xmgl/kfxmgl.service';
 import { FileService  } from '../../service/file/file.service';
-import { UtilitiesSercice } from 'src/app/business-modules/service/common/utilities.services';
-
+import { UtilitiesSercice } from '../../service/common/utilities.services';
+import { LpbglService } from '../../service/lpbgl/lpbgl.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 
@@ -24,12 +24,10 @@ export class LpbglDetailComponent implements OnInit {
     {name:'楼盘信息',index:0},
     {name:'测绘材料',index:1},
   ]
-  tabs2 = [
-    {name:'楼幢1',index:0},
-    {name:'楼幢2',index:1},
-  ]
+  tabs2 = []
   qsList = [{name:'1',code:'1'},{name:'2',code:'2'}]
   tabsetIndex = 0;
+  tabsetIndex2 = 0;
   isDisable = false;
   detailId = "";
   detailObj:any = {};
@@ -51,6 +49,13 @@ export class LpbglDetailComponent implements OnInit {
   isImgVisible = false;
   currentImg = "";
 
+  lpbList:any = {
+    ljzStatistical:{}
+  };
+  lpbData = ["hasData"];
+  selectedHu:any = {};
+  rowSpan = 0;
+
   constructor(
     private msg: NzMessageService,
     private router:Router,
@@ -58,7 +63,8 @@ export class LpbglDetailComponent implements OnInit {
     private kfxmglService:KfxmglService,
     private localstorage:Localstorage,
     private fileService:FileService,
-    private utilitiesSercice:UtilitiesSercice
+    private utilitiesSercice:UtilitiesSercice,
+    private lpbglService:LpbglService
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
     this.detailObj.id = this.activatedRoute.snapshot.queryParams.id;
@@ -90,13 +96,46 @@ export class LpbglDetailComponent implements OnInit {
   }
 
   async getProjectById(){
-    var res = await this.kfxmglService.getProjectById(this.detailObj.id);
+    var res = await this.lpbglService.getZrz(this.detailObj.id);
 
     if (res && res.code == 200) {
       this.detailObj=res.msg;
+
+      this.lpbList = this.detailObj.ljzList[0];
+
+      this.lpbList.dyList.forEach((v,k)=>{
+        this.rowSpan+=v.rowSpan;
+      })
+
+      this.detailObj.ljzList.forEach((v,k)=>{
+        this.tabs2.push({
+          name: v.mph,
+          index: k,
+          id:v.id
+        })
+      })
+
      } else {
       this.msg.create('error', '内部服务出错');
     }
+  }
+
+  selectedHuChange(item){
+    this.selectedHu = item;
+  }
+
+  async getLpb(id){
+    this.rowSpan = 0;
+    
+      var res = await this.lpbglService.getLjz(id);
+
+      if(res && res.code == 200){
+        this.lpbList = res.msg;
+        this.lpbList.dyList.forEach((v,k)=>{
+          this.rowSpan+=v.rowSpan;
+        })
+
+        }
   }
 
   async search(){
@@ -113,8 +152,14 @@ export class LpbglDetailComponent implements OnInit {
   tabsetChange(m){
     this.tabsetIndex = m;
   }
+  tabsetChange2(m){
+    console.log(m)
+    var id = this.tabs2[m].id;
+    this.getLpb(id);
+    // this.tabsetIndex2 = m;
+  }
   cancel(){
-    this.router.navigate(['/xmgl/kfxmgl']);
+    this.router.navigate(['/lpbgl']);
   }
 
   pageIndexChange(num) {

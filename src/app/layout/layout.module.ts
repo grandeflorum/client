@@ -21,7 +21,7 @@ import { UEditorModule, UEditorConfig } from "ngx-ueditor";
         NgxEchartsModule,
         UEditorModule.forRoot({
             js:[
-                '../../assets/ueditor/ueditor.all.js',
+                '../../assets/ueditor/ueditor.all.min.js',
                 '../../assets/ueditor/ueditor.config.js'
             ],
             options:{
