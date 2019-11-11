@@ -97,9 +97,12 @@ const routes: Routes = [
         path: 'contract',
         component: BusinessModulesComponent,
         canActivate: [AuthGuardService],
-        data: { id: 'A-contractTemplate' },
+        data: { id: 'A-contract' },
         children: [
-            { path: 'contractTemplate', loadChildren: () => import('./contract/contract-template/contract-template.module').then(m => m.ContractTemplateModule) }
+            { path: 'contractTemplate', loadChildren: () => import('./contract/contract-template/contract-template.module').then(m => m.ContractTemplateModule) },
+            { path: 'houseTrade', loadChildren: () => import('./contract/house-trade/house-trade.module').then(m => m.HouseTradeModule) },
+            { path: 'stockTrade', loadChildren: () => import('./contract/stock-trade/stock-trade.module').then(m => m.StockTradeModule) }
+
         ]
     },
     { path: '', pathMatch: 'full', redirectTo: '/home' }
