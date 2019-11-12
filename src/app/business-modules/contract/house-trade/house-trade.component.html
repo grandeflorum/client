@@ -11,11 +11,9 @@
 
     <div nz-col [nzSpan]="6">
       审核状态：
-      <nz-select [(ngModel)]="currentStatus" class="w200" nzPlaceHolder="请选择">
-        <nz-option nzValue="" nzLabel="全部"></nz-option>
-        <nz-option nzValue="0" nzLabel="未提交"></nz-option>
-        <nz-option nzValue="1" nzLabel="待审核"></nz-option>
-        <nz-option nzValue="2" nzLabel="已审核"></nz-option>
+      <nz-select [(ngModel)]="currentStatus" class="w200"  nzPlaceHolder="请选择">
+        <nz-option *ngFor="let option of auditStatusList" [nzLabel]="option.name" [nzValue]="option.code">
+        </nz-option>
       </nz-select>
     </div>
     <div nz-col [nzSpan]="5" class="ta_r">
