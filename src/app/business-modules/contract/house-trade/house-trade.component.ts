@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { HouseTradeService } from "../../service/contract/house-trade.service";
+import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
+
 
 @Component({
   selector: 'app-house-trade',
@@ -12,6 +14,7 @@ import { HouseTradeService } from "../../service/contract/house-trade.service";
 })
 export class HouseTradeComponent implements OnInit {
 
+  @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
   pageIndex: any = 1;
   totalCount: any;
   pageSize: any = 10;
@@ -22,11 +25,22 @@ export class HouseTradeComponent implements OnInit {
   kfqymc = '';
   xmmc = '';
   currentStatus = '';
-  dataSet=[];
+  dataSet = [];
 
+  auditList: any = [
+    { name: "通过", code: 1 },
+    { name: "不通过", code: 2 }
+  ];
+  //审核对象
+  auditObj: any = {
+    shrq: new Date()
+  };
 
-  isVisible = false;
+  isVisible: any = false;
+  isOkLoading: any = false;
 
+  auditProjectId: any = [];
+  auditName: any;
 
   isAllDisplayDataChecked = false;
   isIndeterminate = false;
@@ -59,7 +73,7 @@ export class HouseTradeComponent implements OnInit {
     if (this.xmmc) {
       option.conditions.push({ key: 'xmmc', value: this.xmmc });
     }
-    if (this.currentStatus||this.currentStatus==="0") {
+    if (this.currentStatus || this.currentStatus === "0") {
       option.conditions.push({ key: 'currentStatus', value: this.currentStatus });
     }
     option.conditions.push({ key: 'sort', value: this.sortList });
@@ -200,6 +214,121 @@ export class HouseTradeComponent implements OnInit {
         type: m
       }
     });
+  }
+
+  //提交审核
+  async auditHouseTrade(id, type) {
+
+    let res = await this.houseTradeService.auditHouseTradeById(id, type);
+
+    if (res && res.code == 200) {
+      this.msg.create('success', '提交审核成功');
+      this.search();
+    } else {
+      this.msg.create('error', '提交审核失败');
+    }
+  }
+
+
+  //审核
+  audit(data) {
+
+    this.isVisible = true;
+    switch (data.currentStatus) {
+      case 2:
+        this.auditName = "受理";
+      case 3:
+        this.auditName = "初审";
+      case 4:
+        this.auditName = "核定";
+      case 5:
+        this.auditName = "登簿";
+        break;
+      default:
+        this.auditName = "审核";
+        break;
+    }
+    this.isOkLoading = false;
+
+    this.auditProjectId = [];
+    this.auditProjectId.push(data.id);
+
+    this.auditObj = {
+      shrq: new Date()
+    };
+
+  }
+
+  handleCancel() {
+    this.isVisible = false;
+  }
+
+  //批量审核
+  btachAudit() {
+    this.auditProjectId = [];
+
+    let flag = false;
+    if (this.listOfDisplayData.length > 0) {
+      this.listOfDisplayData.forEach(element => {
+        if (this.mapOfCheckedId[element.id]) {
+          if (element.auditType != 1) {
+            flag = true;
+          }
+          this.auditProjectId.push(element.id);
+        }
+      });
+    }
+
+    if (this.auditProjectId.length == 0) {
+
+      this.msg.create("warning", "请选择要审核的企业");
+      return;
+    }
+
+    if (flag) {
+      this.msg.create("warning", "只能选择待审核的企业进行审核");
+      return;
+    }
+
+    this.isVisible = true;
+    this.isOkLoading = false;
+
+
+  }
+
+  //审核保存
+  async handleOk() {
+
+    if (!this.FormValidation()) {
+      return;
+    }
+
+    this.isOkLoading = true;
+    var data = {
+      ids: this.auditProjectId,
+      wfAudit: this.auditObj
+    }
+
+    let res = await this.houseTradeService.btachAuditHouseTrade(data);
+    if (res && res.code == 200) {
+      this.msg.create('success', '审核成功');
+      this.isOkLoading = false;
+      this.isVisible = false;
+      this.search();
+    } else {
+      this.msg.create('error', '审核失败');
+    }
+
+  }
+
+  FormValidation() {
+    let isValid = true;
+    this.directives.forEach(d => {
+      if (!d.validationValue()) {
+        isValid = false;
+      }
+    });
+    return isValid;
   }
 
 

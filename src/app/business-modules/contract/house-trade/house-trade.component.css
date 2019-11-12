@@ -1,0 +1,38 @@
+.label_div {
+  float: left;
+  text-align: right;
+  margin-top: 5px;
+  width: 140px;
+}
+.cr0 {
+  color: rgba(0, 0, 0, 0.427451);
+}
+.cr1 {
+  color: #ff9933;
+}
+.cr2 {
+  color: #33cc00;
+}
+.cr3 {
+  color: red;
+}
+.point {
+  float: left;
+  width: 8px;
+  height: 8px;
+  border-radius: 10px;
+  margin-top: 6px;
+  margin-right: 8px;
+}
+.point0 {
+  background: rgba(0, 0, 0, 0.427451);
+}
+.point1 {
+  background: #ff9933;
+}
+.point2 {
+  background: #33cc00;
+}
+.point3 {
+  background: red;
+}
