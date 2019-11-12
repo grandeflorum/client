@@ -235,13 +235,16 @@ export class HouseTradeComponent implements OnInit {
 
     this.isVisible = true;
     switch (data.currentStatus) {
-      case 2:
+      case 1:
         this.auditName = "受理";
-      case 3:
+        break;
+      case 2:
         this.auditName = "初审";
-      case 4:
+        break;
+      case 3:
         this.auditName = "核定";
-      case 5:
+        break;
+      case 4:
         this.auditName = "登簿";
         break;
       default:

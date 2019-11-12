@@ -13,6 +13,7 @@ import { TooltipsPipe } from './_pipes/tooltips.pipe';
 import { UEditorModule, UEditorConfig } from "ngx-ueditor";
 import { LpbglComponent } from '../business-modules/lpbgl/lpbgl.component';
 import { LpbglDetailComponent } from '../business-modules/lpbgl/detail/lpbgl-detail.component';
+import { AuditWorkFlowPipe } from './_pipes/audit-work-flow.pipe';
 @NgModule({
     imports: [
         CommonModule,
@@ -31,8 +32,8 @@ import { LpbglDetailComponent } from '../business-modules/lpbgl/detail/lpbgl-det
             }
         })
     ],
-    declarations: [ValidationDirective, PageHeightDrective, uploadComponent, AttachmentComponent,TooltipsPipe, AuditPipe , LpbglComponent ,LpbglDetailComponent],
-    exports: [ValidationDirective, PageHeightDrective, uploadComponent,UEditorModule,AttachmentComponent, TooltipsPipe,AuditPipe, NgxEchartsModule , LpbglComponent ,LpbglDetailComponent],
+    declarations: [ValidationDirective, PageHeightDrective, uploadComponent, AttachmentComponent,TooltipsPipe, AuditPipe , LpbglComponent ,LpbglDetailComponent, AuditWorkFlowPipe],
+    exports: [ValidationDirective, PageHeightDrective, uploadComponent,UEditorModule,AttachmentComponent, TooltipsPipe,AuditPipe, NgxEchartsModule , LpbglComponent ,LpbglDetailComponent,AuditWorkFlowPipe],
     providers: [],
     entryComponents: []
 })

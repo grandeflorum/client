@@ -76,20 +76,20 @@
         <td>{{ data.buyer }}</td>
         <td>{{ data.rwsj | date:'yyyy-MM-dd'}}</td>
         <td
-          [ngClass]="{'cr0':data.currentStatus==0, 'cr1':data.currentStatus==1,'cr2':data.currentStatus==2,'cr3':data.currentStatus==3}">
+          [ngClass]="{'cr0':data.currentStatus==0, 'cr1':data.currentStatus==1||data.currentStatus==2||data.currentStatus==3||data.currentStatus==4,'cr2':data.currentStatus==5}">
           <div class="point"
-            [ngClass]="{'point0':data.currentStatus==0, 'point1':data.currentStatus==1,'point2':data.currentStatus==2,'point3':data.currentStatus==3}">
-          </div>{{ data.currentStatus|audit }}
+            [ngClass]="{'point0':data.currentStatus==0, 'point1':data.currentStatus==1||data.currentStatus==2||data.currentStatus==3||data.currentStatus==4,'point2':data.currentStatus==5}">
+          </div>{{ data.currentStatus|auditWorkFlow }}
         </td>
         <td style="width:20%">
           <a class="table_a" (click)="add(2,data)">查看</a>
           <a class="table_a" *ngIf="data.isPass==1" (click)="add(3,data)">编辑</a>
           <a class="table_a" *ngIf="data.currentStatus==0"
           (nzOnConfirm)="auditHouseTrade(data.id,1)" nz-popconfirm nzTitle="确定提交审核吗?">提交审核</a>
-          <a class="table_a" *ngIf="data.currentStatus==2" (click)="audit(data)">受理</a>
-          <a class="table_a" *ngIf="data.currentStatus==3" (click)="audit(data)">初审</a>
-          <a class="table_a" *ngIf="data.currentStatus==4" (click)="audit(data)">核定</a>
-          <a class="table_a" *ngIf="data.currentStatus==5" (click)="audit(data)">登簿</a>
+          <a class="table_a" *ngIf="data.currentStatus==1" (click)="audit(data)">受理</a>
+          <a class="table_a" *ngIf="data.currentStatus==2" (click)="audit(data)">初审</a>
+          <a class="table_a" *ngIf="data.currentStatus==3" (click)="audit(data)">核定</a>
+          <a class="table_a" *ngIf="data.currentStatus==4" (click)="audit(data)">登簿</a>
 
           <a class="table_a" (nzOnConfirm)="delete([data.id])" *ngIf="data.currentStatus==0"
             nz-popconfirm nzTitle="确定删除吗?">删除</a>
