@@ -8,7 +8,7 @@ export class FileService {
 
   constructor(private http: HttpRestService) { }
 
-  //查询开发项目信息
+  //根据ref_id和type获取附件(带分页)
   getFileListByRefidAndType(data: any): Promise<any> {
     return this.http.post('/FileInfo/getFileListByRefidAndType', data);
   }
@@ -23,5 +23,10 @@ export class FileService {
 
   deleteByIds(data:any): Promise<any> {
     return this.http.post('/FileInfo/deleteByIds',data);
+  }
+
+  //获取字典表中附件类型附件的数量type(字典表中的type)
+  getAttachDicCount(id,type): Promise<any> {
+    return this.http.get('/FileInfo/getAttachDicCount?id=' + id+"&type="+type);
   }
 }
