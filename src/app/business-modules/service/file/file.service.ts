@@ -24,4 +24,8 @@ export class FileService {
   deleteByIds(data:any): Promise<any> {
     return this.http.post('/FileInfo/deleteByIds',data);
   }
+
+  getAttachDicCount(option): Promise<any> {
+    return this.http.get('/FileInfo/getAttachDicCount?id=' + option.id + '&type=' + option.type);
+  }
 }

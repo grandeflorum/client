@@ -5,16 +5,21 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { HouseTradeComponent } from "./house-trade.component";
+import { HouseTradeDetailComponent } from './detail/house-trade-detail.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HouseTradeComponent
+  },
+  {
+    path: 'detail',
+    component: HouseTradeDetailComponent
   }
 ];
 
 @NgModule({
-  declarations: [HouseTradeComponent],
+  declarations: [HouseTradeComponent , HouseTradeDetailComponent],
   imports: [
     CommonModule,
     FormsModule,

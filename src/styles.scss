@@ -135,6 +135,28 @@ body, html {
 .ant-tabs-bar{
   border-bottom:none;
 }
-.submenu-ul-open .ant-menu-sub{
-  //height:auto !important;
+
+
+.show_balc_right .ant-timeline{
+  padding-left: 45px;
+  margin-top: 30px;
+}
+
+.fileTypeList_ul{
+  .ant-badge-not-a-wrapper:not(.ant-badge-status){
+    float: left;
+    margin-top: 8px;
+  }
+}
+
+.file_type_selected{
+  color:#000 !important;
+
+  span{
+    border-bottom: 2px solid #40a9ff !important;
+  }
+
+  .ant-badge-not-a-wrapper .ant-badge-count{
+    background-color: #40a9ff !important;
+  }
 }

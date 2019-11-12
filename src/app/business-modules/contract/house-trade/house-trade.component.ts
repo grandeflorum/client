@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { HouseTradeService } from "../../service/contract/house-trade.service";
-import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
+import { ValidationDirective } from '../../../layout/_directives/validation.directive';
 
 
 @Component({
@@ -208,7 +208,7 @@ export class HouseTradeComponent implements OnInit {
     //     break;
     // }
 
-    this.router.navigate(['/stockHouse/detail'], {
+    this.router.navigate(['/contract/houseTrade/detail'], {
       queryParams: {
         id: item ? item.id : '',
         type: m
