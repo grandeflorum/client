@@ -8,7 +8,7 @@ export class FileService {
 
   constructor(private http: HttpRestService) { }
 
-  //查询开发项目信息
+  //根据ref_id和type获取附件(带分页)
   getFileListByRefidAndType(data: any): Promise<any> {
     return this.http.post('/FileInfo/getFileListByRefidAndType', data);
   }
