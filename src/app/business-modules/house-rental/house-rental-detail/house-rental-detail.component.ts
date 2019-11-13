@@ -4,6 +4,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Localstorage } from '../../service/localstorage';
 import { HouseRentalService } from '../../service/houserental/houserantal.service';
+import { LpbglService } from '../../service/lpbgl/lpbgl.service';
 
 @Component({
   selector: 'app-house-rental-detail',
@@ -16,6 +17,7 @@ export class HouseRentalDetailComponent implements OnInit {
 
   tabs = [
     { name: '房屋租赁信息', index: 0 },
+    { name: '关联户信息', index: 1 }
   ]
   tabsetIndex = 0;
   detailObj: any = {};
@@ -30,12 +32,17 @@ export class HouseRentalDetailComponent implements OnInit {
     { code: 2, name: "否" }
   ]
 
+  rowSpan: any = 0;
+  lpbList: any = [];
+  selectH: any = "";
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
     private houseRentalService: HouseRentalService,
     private ActivatedRoute: ActivatedRoute,
-    private localstorage: Localstorage
+    private localstorage: Localstorage,
+    private lpbglService: LpbglService
   ) { }
 
   ngOnInit() {
@@ -47,8 +54,17 @@ export class HouseRentalDetailComponent implements OnInit {
     let id = this.ActivatedRoute.snapshot.queryParams["id"];
     let type = this.ActivatedRoute.snapshot.queryParams["type"];
 
+    let pid = this.ActivatedRoute.snapshot.queryParams["pid"];
+    id = pid ? pid : id;
+
+    let glType = this.ActivatedRoute.snapshot.queryParams["glType"];
+    this.tabsetIndex = glType ? 1 : 0;
+
     if (type == 2) {
       this.isDisable = true;
+      this.tabs = [
+        { name: '房屋租赁信息', index: 0 }
+      ]
     }
 
     if (id) {
@@ -83,6 +99,11 @@ export class HouseRentalDetailComponent implements OnInit {
     let data = await this.houseRentalService.getHouseRentalById(id);
     if (data) {
       this.detailObj = data.msg;
+
+      if (this.detailObj.ljzid) {
+        this.selectH = this.detailObj.houseId;
+        this.getLpb(this.detailObj.ljzid);
+      }
     }
   }
 
@@ -90,7 +111,19 @@ export class HouseRentalDetailComponent implements OnInit {
     this.tabsetIndex = m;
   }
 
+  async getLpb(id) {
+    this.rowSpan = 0;
 
+    var res = await this.lpbglService.getLjz(id);
+
+    if (res && res.code == 200) {
+      this.lpbList = res.msg;
+      this.lpbList.dyList.forEach((v, k) => {
+        this.rowSpan += v.rowSpan;
+      })
+
+    }
+  }
 
   FormValidation() {
     let isValid = true;
@@ -122,6 +155,21 @@ export class HouseRentalDetailComponent implements OnInit {
     } else {
       this.msg.create('error', '保存失败');
     }
+  }
+
+  async linkH() {
+    if (!this.selectH) {
+      this.msg.create("warning", "请先选择户");
+      return;
+    }
+
+    let res = await this.houseRentalService.linkH(this.detailObj.id, this.selectH);
+    if (res && res.code == 200) {
+      this.msg.create("success", "关联成功");
+    } else {
+      this.msg.create("error", "关联失败");
+    }
+
   }
 
   quit() {

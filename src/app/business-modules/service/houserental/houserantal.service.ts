@@ -22,4 +22,8 @@ export class HouseRentalService {
     deleteHouseRentalByIds(data): any {
         return this.http.post('/HouseRental/deleteHouseRentalByIds', data);
     }
+
+    linkH(id, hid): any {
+        return this.http.get('/HouseRental/linkH?id=' + id + "&hid=" + hid);
+    }
 }

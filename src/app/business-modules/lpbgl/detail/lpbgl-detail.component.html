@@ -1,9 +1,10 @@
 <div style="height: 100%;">
-    <div class="card-container">
-  <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex" (nzSelectedIndexChange)="tabsetChange($event)">
-    <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
-  </nz-tabset>
-    </div>
+  <div class="card-container">
+    <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex"
+      (nzSelectedIndexChange)="tabsetChange($event)">
+      <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
+    </nz-tabset>
+  </div>
 
   <!-- 基本信息 -->
   <div class="jbxx" *ngIf="tabsetIndex==0">
@@ -21,9 +22,10 @@
     </div>
 
     <div class="card-container">
-        <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex2" (nzSelectedIndexChange)="tabsetChange2($event)">
-          <nz-tab *ngFor="let tab of tabs2" [nzTitle]="tab.name"></nz-tab>
-        </nz-tabset>
+      <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex2"
+        (nzSelectedIndexChange)="tabsetChange2($event)">
+        <nz-tab *ngFor="let tab of tabs2" [nzTitle]="tab.name"></nz-tab>
+      </nz-tabset>
     </div>
 
     <div class="lp_message_wrap">
@@ -39,22 +41,21 @@
     <nz-divider nzText="楼幢信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
     <div nz-row style="height: 50px;padding: 10px;">
-    <div nz-col [nzSpan]="8">
+      <div nz-col [nzSpan]="8">
         <div class="label_div">幢编号：</div>
-        <input nz-input nzSize="default" [(ngModel)]="lpbList.zrzh" [title]="lpbList.zrzh" maxlength="50" [disabled]="isDisable" 
-          class="w200"/>
+        <input nz-input nzSize="default" [(ngModel)]="lpbList.zrzh" [title]="lpbList.zrzh" maxlength="50"
+          [disabled]="isDisable" class="w200" />
       </div>
 
       <div nz-col [nzSpan]="8">
         <div class="label_div">实测建筑面积：</div>
-        <input nz-input nzSize="default" [(ngModel)]="lpbList.scjzmj" maxlength="50" [disabled]="isDisable" 
+        <input nz-input nzSize="default" [(ngModel)]="lpbList.scjzmj" maxlength="50" [disabled]="isDisable"
           class="w200" />&nbsp;㎡
       </div>
 
       <div nz-col [nzSpan]="8">
         <div class="label_div">总层数：</div>
-        <input nz-input nzSize="default" [(ngModel)]="lpbList.zcs" maxlength="50" [disabled]="isDisable" 
-          class="w200"/>
+        <input nz-input nzSize="default" [(ngModel)]="lpbList.zcs" maxlength="50" [disabled]="isDisable" class="w200" />
       </div>
     </div>
 
@@ -84,16 +85,16 @@
     </div> -->
 
     <div nz-row style="height: 50px;padding: 10px;">
-        <div nz-col [nzSpan]="24">
-            <div class="label_div">房屋用途：</div>
-            <nz-select [(ngModel)]="lpbList.fwyt1" class="w200" [disabled]="isDisable" nzAllowClear>
-                <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
-                </nz-option>
-            </nz-select>
-          </div>
+      <div nz-col [nzSpan]="24">
+        <div class="label_div">房屋用途：</div>
+        <nz-select [(ngModel)]="lpbList.fwyt1" class="w200" [disabled]="isDisable" nzAllowClear>
+          <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
+          </nz-option>
+        </nz-select>
       </div>
+    </div>
 
-      <!-- <div nz-row style="height: 50px;padding: 10px;">
+    <!-- <div nz-row style="height: 50px;padding: 10px;">
           <div nz-col [nzSpan]="8">
             <div class="label_div">单元信息：</div>
             <input nz-input nzSize="default" [(ngModel)]="detailObj.dyxx" [disabled]="isDisable"
@@ -113,19 +114,24 @@
 
 
     <nz-divider nzText="楼盘表" nzOrientation="left" style="font-size: 18px"></nz-divider>
-    
+
     <div class="lpb_div" style="width:980px;margin:0 auto;overflow: auto;">
-       <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}">
-         <li class="ch_td">楼层数</li>
-         <li *ngFor="let data of lpbList.dyList; index as index" [ngStyle]="{'width':data.rowSpan*100+'px'}">{{data.name}}</li>
-       </ul>
-       <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}" *ngFor="let item of lpbList.cList; index as index">
-          <li class="ch_td">{{item.ch}}层</li>
-          <li *ngFor="let hu of item.hList" [ngClass]="{'lpb_ydy':hu.status == 1 , 'lpb_ycf':hu.status == 2}" nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent" (mouseenter)="selectedHuChange(hu)">{{hu.mph}}</li>
-       </ul>
+      <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}">
+        <li class="ch_td">楼层数</li>
+        <li *ngFor="let data of lpbList.dyList; index as index" [ngStyle]="{'width':data.rowSpan*100+'px'}">
+          {{data.name}}</li>
+      </ul>
+      <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}" *ngFor="let item of lpbList.cList; index as index">
+        <li class="ch_td">{{item.ch}}层</li>
+        <li *ngFor="let hu of item.hList" [ngClass]="{'lpb_ydy':hu.status == 1 , 'lpb_ycf':hu.status == 2}" nz-popover
+          [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent"
+          (mouseenter)="selectedHuChange(hu)" [ngStyle]="{'border-color':selectH==hu.id?'red':'#ccc'}"
+          (click)="selectH=hu.id">
+          {{hu.mph}}</li>
+      </ul>
 
     </div>
-    
+
     <ul class="lpb_tl">
       <li class="lpb_wba">未备案</li>
       <li class="lpb_kxs">可销售</li>
@@ -137,31 +143,33 @@
 
 
 
-    
+
   </div>
 
   <!-- 附件 -->
   <div class="jbxx" *ngIf="tabsetIndex==1" style="overflow: hidden">
-      <div nz-row style="height: 50px;padding: 10px;">
-        <button nz-button nzType="primary" [nzVisible]="!detailObj.id" [disabled]="!detailObj.id" nz-tooltip nzTooltipTitle="请先保存项目信息" nzTooltipPlacement="bottom" (click)="upload()"><i nz-icon nzType="plus"></i>
-          上传附件
-        </button>
-        <button nz-button nzType="default" *ngIf="!isDisable" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">
-          批量删除
-        </button>
-        <button nz-button nzType="default" *ngIf="!isDisable" (click)="btachDown()">
-            批量下载
-          </button>
-      </div>
+    <div nz-row style="height: 50px;padding: 10px;">
+      <button nz-button nzType="primary" [nzVisible]="!detailObj.id" [disabled]="!detailObj.id" nz-tooltip
+        nzTooltipTitle="请先保存项目信息" nzTooltipPlacement="bottom" (click)="upload()"><i nz-icon nzType="plus"></i>
+        上传附件
+      </button>
+      <button nz-button nzType="default" *ngIf="!isDisable" nz-popconfirm nzTitle="确定删除吗?"
+        (nzOnConfirm)="btachDelete()">
+        批量删除
+      </button>
+      <button nz-button nzType="default" *ngIf="!isDisable" (click)="btachDown()">
+        批量下载
+      </button>
+    </div>
 
-      <nz-table #nestedTable [nzData]="fjList" class="commontable tablescoll_rainbow"  [nzLoading]="Loading"
+    <nz-table #nestedTable [nzData]="fjList" class="commontable tablescoll_rainbow" [nzLoading]="Loading"
       [nzPageIndex]="pageIndex" [nzPageSize]="pageSize" [nzTotal]="totalCount"
       (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
       (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
       <thead>
         <tr>
-          <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
-            (nzCheckedChange)="checkAll($event)"></th>
+          <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
+            [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
           <th>附件名称</th>
           <th>上传日期</th>
           <th>操作</th>
@@ -175,8 +183,11 @@
           <td>{{ data.clientFileName }}</td>
           <td>{{ data.uploadDate | date:'yyyy-MM-dd HH:mm:ss' }}</td>
           <td style="width:30%">
-            <a class="table_a" *ngIf="data.fileSuffix=='jpg' || data.fileSuffix=='jpeg' || data.fileSuffix=='png' || data.fileSuffix=='bmp' ||  data.fileSuffix=='pdf'" (click)="previewImg(data)">查看</a>
-            <a class="table_a" *ngIf="!isDisable"  nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete(data)">删除</a>
+            <a class="table_a"
+              *ngIf="data.fileSuffix=='jpg' || data.fileSuffix=='jpeg' || data.fileSuffix=='png' || data.fileSuffix=='bmp' ||  data.fileSuffix=='pdf'"
+              (click)="previewImg(data)">查看</a>
+            <a class="table_a" *ngIf="!isDisable" nz-popconfirm nzTitle="确定删除吗?"
+              (nzOnConfirm)="btachDelete(data)">删除</a>
             <a class="table_a" (click)="btachDown(data)">下载</a>
           </td>
         </tr>
@@ -191,6 +202,7 @@
   <div nz-row style="height: 50px;padding: 10px;text-align: right;padding-right: 20px;">
     <div nz-col [nzSpan]="24">
       <button nz-button nzType="default" (click)="cancel()">取消</button>
+      <button nz-button nzType="primary" *ngIf="glType" (click)="linkH()">关联户</button>
       <button nz-button nzType="primary" *ngIf="!isDisable&&tabsetIndex==0" (click)="save()">保存</button>
       <!-- <button nz-button nzType="primary" *ngIf="!isDisable" (click)="submit()">提交审核</button> -->
     </div>
@@ -216,4 +228,4 @@
   <p>面积：{{selectedHu.scjzmj}}</p>
   <p>不动产登记号：{{selectedHu.bdcdyh}}</p>
   <p>坐落：{{selectedHu.zl}}</p>
-</ng-template>  
+</ng-template>

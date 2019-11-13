@@ -13,6 +13,8 @@ import * as $ from 'jquery';
 })
 export class LpbglComponent implements OnInit {
   @Input() type = "";
+  @Input() glType = "";
+  @Input() pid = "";
 
   pageIndex: any = 1;
   totalCount: any = 0;
@@ -24,18 +26,18 @@ export class LpbglComponent implements OnInit {
   selectId: any = '';
   xmmc = '';
   jzwmc = '';
-  auditType ="";
+  auditType = "";
   kgrq = '';
   jgrq = '';
   isVisible = false;
 
-  shxxObj:any = {
-    ids:[],
-    wfAudit:{
-      shjg:"1",
-      shry:'',
-      bz:'',
-      shrq:null
+  shxxObj: any = {
+    ids: [],
+    wfAudit: {
+      shjg: "1",
+      shry: '',
+      bz: '',
+      shrq: null
     }
   }
   isAllDisplayDataChecked = false;
@@ -47,9 +49,9 @@ export class LpbglComponent implements OnInit {
 
   constructor(
     private msg: NzMessageService,
-    private router:Router,
-    private kfxmglService:KfxmglService,
-    private lpbglService:LpbglService
+    private router: Router,
+    private kfxmglService: KfxmglService,
+    private lpbglService: LpbglService
   ) { }
 
   ngOnInit() {
@@ -65,7 +67,7 @@ export class LpbglComponent implements OnInit {
       conditions: []
     };
 
-    if(this.type){
+    if (this.type) {
       option.conditions.push({ key: 'type', value: this.type });
     }
 
@@ -88,34 +90,34 @@ export class LpbglComponent implements OnInit {
 
     var res = await this.lpbglService.getBuildingTableList(option);
     this.Loading = false;
-    if(res.code == 200){
+    if (res.code == 200) {
       this.dataSet = res.msg.currentList;
       this.totalCount = res.msg.recordCount;
       this.calculationHeight();
     }
 
     this.operateData();
-    
+
   }
 
-    //排序
-    sort(evt) {
-      let key = evt.key;
-  
-      if (this.sortList.some(x => x.indexOf(key) > -1)) {
-        this.sortList.splice(this.sortList.findIndex(x => x.indexOf(key) > -1), 1);
-      }
-  
-      if (evt.value) {
-        if (evt.value == 'ascend') {
-          this.sortList.push(key);
-        } else if (evt.value == 'descend') {
-          this.sortList.push(key + ' desc');
-        }
-      }
-  
-      this.search();
+  //排序
+  sort(evt) {
+    let key = evt.key;
+
+    if (this.sortList.some(x => x.indexOf(key) > -1)) {
+      this.sortList.splice(this.sortList.findIndex(x => x.indexOf(key) > -1), 1);
     }
+
+    if (evt.value) {
+      if (evt.value == 'ascend') {
+        this.sortList.push(key);
+      } else if (evt.value == 'descend') {
+        this.sortList.push(key + ' desc');
+      }
+    }
+
+    this.search();
+  }
 
 
   pageIndexChange(num) {
@@ -129,14 +131,14 @@ export class LpbglComponent implements OnInit {
     this.search();
   }
 
-  reset() { 
+  reset() {
     this.xmmc = '';
     this.jzwmc = '';
-    this.auditType ="0";
+    this.auditType = "0";
     this.kgrq = '';
     this.jgrq = '';
     this.search();
-    
+
   }
 
   currentPageDataChange($event): void {
@@ -167,7 +169,7 @@ export class LpbglComponent implements OnInit {
   }
 
 
-  onChange(m,date){
+  onChange(m, date) {
     // if(m == 1){
     //   this.kgrq = Moment(date).format('YYYY-MM-DD')
     // }else if(m == 2){
@@ -175,11 +177,11 @@ export class LpbglComponent implements OnInit {
     // }
   }
 
-selectItem(data) {
+  selectItem(data) {
     this.selectId = data.id;
   }
 
-  add(m , item?){
+  add(m, item?) {
 
     var route = "/lpbgl/detail";
 
@@ -194,28 +196,34 @@ selectItem(data) {
         break;
     }
 
+    if (this.glType) {
+      route = '/houserental/lpbdetail';
+    }
+
     this.router.navigate([route], {
       queryParams: {
-        id: item?item.id:'',
+        id: item ? item.id : '',
         moduleType: this.type,
-        type:m
+        type: m,
+        glType: this.glType,
+        pid: this.pid
       }
     });
   }
 
 
-  calculationHeight(){
+  calculationHeight() {
     const bodyHeight = $('body').height()
     const height = this.dataSet.length * 40;
-    if(height > bodyHeight - 380){
-        this.tableIsScroll = {y: bodyHeight - 300 + 'px'}
-    }else{
+    if (height > bodyHeight - 380) {
+      this.tableIsScroll = { y: bodyHeight - 300 + 'px' }
+    } else {
       this.tableIsScroll = null
     }
   }
 
   //删除
-  async btachDelete(item?){
+  async btachDelete(item?) {
     var ids = [];
     if (item) {//单个删除
       ids.push(item.id);
@@ -229,7 +237,7 @@ selectItem(data) {
       }
     }
 
-    if(ids.length==0){
+    if (ids.length == 0) {
       this.msg.warning('请选择需要删除的项目');
       return;
     }
@@ -244,8 +252,8 @@ selectItem(data) {
   }
 
   //提交审核
- async auditSubmit(item , type){
-    var res = await this.kfxmglService.auditProjectById(item.id , type);
+  async auditSubmit(item, type) {
+    var res = await this.kfxmglService.auditProjectById(item.id, type);
     if (res && res.code == 200) {
       this.msg.create('success', '提交审核成功');
       this.search();
@@ -255,22 +263,22 @@ selectItem(data) {
   }
 
   //批量审核 || 单个审核
- async moreAudit(item?){
-  
-  this.shxxObj = {
-    ids:[],
-    wfAudit:{
-      shjg:"1",
-      shry:'',
-      bz:'',
-      shrq:null
-    }
-  }
-   this.shxxObj.ids = [];
+  async moreAudit(item?) {
 
-    if(item){
+    this.shxxObj = {
+      ids: [],
+      wfAudit: {
+        shjg: "1",
+        shry: '',
+        bz: '',
+        shrq: null
+      }
+    }
+    this.shxxObj.ids = [];
+
+    if (item) {
       this.shxxObj.ids.push(item.id);
-    }else{
+    } else {
       if (this.listOfDisplayData.length > 0) {
         this.listOfDisplayData.forEach(element => {
           if (this.mapOfCheckedId[element.id]) {
@@ -280,30 +288,30 @@ selectItem(data) {
       }
     }
 
-    if(this.shxxObj.ids.length == 0){
+    if (this.shxxObj.ids.length == 0) {
       this.msg.warning('请选择需要审核的项目');
       return;
     }
 
     this.isVisible = true;
-}
+  }
 
   //打开审核模态框
-  shxm(){
+  shxm() {
     this.isVisible = true;
     this.shxxObj = {
-      ids:[],
-      wfAudit:{
-        shjg:"1",
-        shry:'',
-        bz:'',
-        shrq:null
+      ids: [],
+      wfAudit: {
+        shjg: "1",
+        shry: '',
+        bz: '',
+        shrq: null
       }
     }
   }
 
-    //审核
-  async handleOk(){
+  //审核
+  async handleOk() {
     var res = await this.kfxmglService.auditProjects(this.shxxObj);
 
     if (res && res.code == 200) {
@@ -316,7 +324,7 @@ selectItem(data) {
   }
 
 
-  handleCancel(){
+  handleCancel() {
     this.isVisible = false;
   }
 

@@ -1,14 +1,15 @@
-import { Component, OnInit, ViewChildren, QueryList , ViewChild , TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ViewChild, TemplateRef } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router , ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ValidationDirective } from '../../../layout/_directives/validation.directive';
 import { Localstorage } from '../../service/localstorage';
 import { KfxmglService } from '../../service/xmgl/kfxmgl.service';
-import { FileService  } from '../../service/file/file.service';
+import { FileService } from '../../service/file/file.service';
 import { UtilitiesSercice } from '../../service/common/utilities.services';
 import { LpbglService } from '../../service/lpbgl/lpbgl.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
+import { HouseRentalService } from '../../service/houserental/houserantal.service';
 
 @Component({
   selector: 'app-lpbgl-detail',
@@ -17,20 +18,20 @@ import * as $ from 'jquery';
 })
 export class LpbglDetailComponent implements OnInit {
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
-  @ViewChild('uploadComponent',{static:false}) uploadComponent ;
+  @ViewChild('uploadComponent', { static: false }) uploadComponent;
 
-  downLoadurl =  AppConfig.Configuration.baseUrl + "/FileInfo/download";
+  downLoadurl = AppConfig.Configuration.baseUrl + "/FileInfo/download";
   tabs = [
-    {name:'楼盘信息',index:0},
-    {name:'测绘材料',index:1},
+    { name: '楼盘信息', index: 0 },
+    { name: '测绘材料', index: 1 },
   ]
   tabs2 = []
-  qsList = [{name:'1',code:'1'},{name:'2',code:'2'}]
+  qsList = [{ name: '1', code: '1' }, { name: '2', code: '2' }]
   tabsetIndex = 0;
   tabsetIndex2 = 0;
   isDisable = false;
   detailId = "";
-  detailObj:any = {};
+  detailObj: any = {};
   selectId = -1;
   fjList = [];
   pageIndex: any = 1;
@@ -45,31 +46,38 @@ export class LpbglDetailComponent implements OnInit {
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
   isVisible = false;
-  dictionaryObj:any = {};
+  dictionaryObj: any = {};
   isImgVisible = false;
   currentImg = "";
 
-  lpbList:any = {
-    ljzStatistical:{}
+  lpbList: any = {
+    ljzStatistical: {}
   };
   lpbData = ["hasData"];
-  selectedHu:any = {};
+  selectedHu: any = {};
   rowSpan = 0;
   moduleType = "";
+  glType = "";
+  selectH = "";
+  pid = "";
 
   constructor(
     private msg: NzMessageService,
-    private router:Router,
-    private activatedRoute:ActivatedRoute,
-    private kfxmglService:KfxmglService,
-    private localstorage:Localstorage,
-    private fileService:FileService,
-    private utilitiesSercice:UtilitiesSercice,
-    private lpbglService:LpbglService
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private kfxmglService: KfxmglService,
+    private localstorage: Localstorage,
+    private fileService: FileService,
+    private utilitiesSercice: UtilitiesSercice,
+    private lpbglService: LpbglService,
+    private houseRentalService: HouseRentalService
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
     this.detailObj.id = this.activatedRoute.snapshot.queryParams.id;
     this.moduleType = this.activatedRoute.snapshot.queryParams.moduleType;
+
+    this.glType = this.activatedRoute.snapshot.queryParams.glType;
+    this.pid = this.activatedRoute.snapshot.queryParams.pid;
 
     switch (type) {
       case '1'://添加
@@ -85,11 +93,11 @@ export class LpbglDetailComponent implements OnInit {
         break;
     }
 
-   }
+  }
 
   ngOnInit() {
     this.dictionaryObj = this.localstorage.getObject("dictionary");
-    if(this.detailObj.id){
+    if (this.detailObj.id) {
       this.getProjectById();
       this.search();
     }
@@ -97,72 +105,72 @@ export class LpbglDetailComponent implements OnInit {
 
   }
 
-  async getProjectById(){
+  async getProjectById() {
     var res = await this.lpbglService.getZrz(this.detailObj.id);
 
     if (res && res.code == 200) {
-      this.detailObj=res.msg;
+      this.detailObj = res.msg;
 
       this.lpbList = this.detailObj.ljzList[0];
 
-      this.lpbList.dyList.forEach((v,k)=>{
-        this.rowSpan+=v.rowSpan;
+      this.lpbList.dyList.forEach((v, k) => {
+        this.rowSpan += v.rowSpan;
       })
 
-      this.detailObj.ljzList.forEach((v,k)=>{
+      this.detailObj.ljzList.forEach((v, k) => {
         this.tabs2.push({
           name: v.mph,
           index: k,
-          id:v.id
+          id: v.id
         })
       })
 
-     } else {
+    } else {
       this.msg.create('error', '内部服务出错');
     }
   }
 
-  selectedHuChange(item){
+  selectedHuChange(item) {
     this.selectedHu = item;
   }
 
-  async getLpb(id){
+  async getLpb(id) {
     this.rowSpan = 0;
-    
-      var res = await this.lpbglService.getLjz(id);
 
-      if(res && res.code == 200){
-        this.lpbList = res.msg;
-        this.lpbList.dyList.forEach((v,k)=>{
-          this.rowSpan+=v.rowSpan;
-        })
+    var res = await this.lpbglService.getLjz(id);
 
-        }
+    if (res && res.code == 200) {
+      this.lpbList = res.msg;
+      this.lpbList.dyList.forEach((v, k) => {
+        this.rowSpan += v.rowSpan;
+      })
+
+    }
   }
 
-  async search(){
+  async search() {
     var res = await this.fileService.getFileListById(this.detailObj.id);
-    if(res&& res.code == 200){
+    if (res && res.code == 200) {
       this.fjList = res.msg;
-      this.totalCount =  res.msg.length;
+      this.totalCount = res.msg.length;
     }
 
     this.calculationHeight();
     this.operateData();
   }
 
-  tabsetChange(m){
+  tabsetChange(m) {
     this.tabsetIndex = m;
   }
-  tabsetChange2(m){
+  tabsetChange2(m) {
     console.log(m)
     var id = this.tabs2[m].id;
     this.getLpb(id);
     // this.tabsetIndex2 = m;
   }
-  cancel(){
+  cancel() {
     var route = "/lpbgl";
-    
+
     switch (this.moduleType) {
       case 'dy':
         route = '/zjgcdygl';
@@ -173,7 +181,20 @@ export class LpbglDetailComponent implements OnInit {
       default:
         break;
     }
-    this.router.navigate([route]);
+
+    if (this.glType) {
+      route = '/houserental/detail';
+      this.router.navigate([route], {
+        queryParams: {
+          glType: this.glType,
+          pid: this.pid
+        }
+      });
+
+    } else {
+      this.router.navigate([route]);
+    }
+
   }
 
   pageIndexChange(num) {
@@ -201,8 +222,8 @@ export class LpbglDetailComponent implements OnInit {
       !this.isAllDisplayDataChecked;
     this.numberOfChecked = this.listOfAllData.filter(item => this.mapOfCheckedId[item.id]).length;
 
-    for(var id in this.mapOfCheckedId){
-        console.log(id)
+    for (var id in this.mapOfCheckedId) {
+      console.log(id)
     }
   }
 
@@ -219,7 +240,7 @@ export class LpbglDetailComponent implements OnInit {
   }
 
 
-  onChange(m,date){
+  onChange(m, date) {
     // if(m == 1){
     //   this.detailObj.kgrq = Moment(date).format('YYYY-MM-DD')
     // }else if(m == 2){
@@ -242,19 +263,19 @@ export class LpbglDetailComponent implements OnInit {
   }
 
 
-  async save(){
+  async save() {
     if (!this.FormValidation()) {
       return;
     }
-    if(!this.detailObj.id){
+    if (!this.detailObj.id) {
       delete this.detailObj.id;
     }
     var res = await this.kfxmglService.saveOrUpdateProject(this.detailObj);
 
     if (res && res.code == 200) {
-      this.detailObj.id=res.msg;
-      if(!this.detailObj.auditType){
-        this.detailObj.auditType=0;
+      this.detailObj.id = res.msg;
+      if (!this.detailObj.auditType) {
+        this.detailObj.auditType = 0;
       }
       this.msg.create('success', '保存成功');
     } else {
@@ -262,99 +283,114 @@ export class LpbglDetailComponent implements OnInit {
     }
   }
 
-  calculationHeight(){
+  calculationHeight() {
     const bodyHeight = $('body').height()
     const height = this.fjList.length * 40;
-    if(height > bodyHeight - 440){
-        this.tableIsScroll = {y: bodyHeight - 400 + 'px'}
-    }else{
+    if (height > bodyHeight - 440) {
+      this.tableIsScroll = { y: bodyHeight - 400 + 'px' }
+    } else {
       this.tableIsScroll = null
     }
   }
 
-  upload(){
+  upload() {
     this.isVisible = true;
     this.uploadComponent.fileList = [];
   }
 
-  handleCancel(){
+  handleCancel() {
     this.isVisible = false;
     this.uploadComponent.fileList = [];
   }
 
-//开始上传
-  handleOk(){
+  //开始上传
+  handleOk() {
     this.uploadComponent.import();
   }
 
-  outer(event){
-    if(event){
+  outer(event) {
+    if (event) {
       this.handleCancel();
       this.search();
     }
   }
 
-  previewImg(item){
-    if(item.fileSuffix != 'pdf'){
+  previewImg(item) {
+    if (item.fileSuffix != 'pdf') {
       this.currentImg = this.downLoadurl + "?id=" + item.id + "&type=0";
       this.isImgVisible = true;
-    }else{
+    } else {
       window.open(this.downLoadurl + "?id=" + item.id + "&type=0");
     }
 
   }
 
-    //删除
-    async btachDelete(item?){
-      var ids = [];
-      if (item) {//单个删除
-        ids.push(item.id);
-      } else {//批量删除
-        if (this.listOfDisplayData.length > 0) {
-          this.listOfDisplayData.forEach(element => {
-            if (this.mapOfCheckedId[element.id]) {
-              ids.push(element.id);
-            }
-          });
-        }
-      }
-
-      if(ids.length==0){
-        this.msg.warning('请选择需要删除的项目');
-        return;
-      }
-
-      var res = await this.fileService.deleteByIds(ids);
-      if (res && res.code == 200) {
-        this.msg.create('success', '删除成功');
-        this.search();
-      } else {
-        this.msg.create('error', '删除失败');
+  //删除
+  async btachDelete(item?) {
+    var ids = [];
+    if (item) {//单个删除
+      ids.push(item.id);
+    } else {//批量删除
+      if (this.listOfDisplayData.length > 0) {
+        this.listOfDisplayData.forEach(element => {
+          if (this.mapOfCheckedId[element.id]) {
+            ids.push(element.id);
+          }
+        });
       }
     }
 
-    //下载
-    btachDown(item?){
-      var ids = [];
-      if (item) {//单个
-        ids.push(item.id);
-      } else {//批量
-        if (this.listOfDisplayData.length > 0) {
-          this.listOfDisplayData.forEach(element => {
-            if (this.mapOfCheckedId[element.id]) {
-              ids.push(element.id);
-            }
-          });
-        }
-      }
-
-      if(ids.length==0){
-        this.msg.warning('请选择需要下载的项目');
-        return;
-      }
-
-      window.location.href = this.downLoadurl + "?id=" + item.id + "&type=0";
+    if (ids.length == 0) {
+      this.msg.warning('请选择需要删除的项目');
+      return;
     }
+
+    var res = await this.fileService.deleteByIds(ids);
+    if (res && res.code == 200) {
+      this.msg.create('success', '删除成功');
+      this.search();
+    } else {
+      this.msg.create('error', '删除失败');
+    }
+  }
+
+  //下载
+  btachDown(item?) {
+    var ids = [];
+    if (item) {//单个
+      ids.push(item.id);
+    } else {//批量
+      if (this.listOfDisplayData.length > 0) {
+        this.listOfDisplayData.forEach(element => {
+          if (this.mapOfCheckedId[element.id]) {
+            ids.push(element.id);
+          }
+        });
+      }
+    }
+
+    if (ids.length == 0) {
+      this.msg.warning('请选择需要下载的项目');
+      return;
+    }
+
+    window.location.href = this.downLoadurl + "?id=" + item.id + "&type=0";
+  }
+
+  async linkH() {
+    if (!this.selectH) {
+      this.msg.create("warning", "请先选择户");
+      return;
+    }
+
+    let res = await this.houseRentalService.linkH(this.pid, this.selectH);
+    if (res && res.code == 200) {
+      this.msg.create("success", "关联成功");
+    } else {
+      this.msg.create("error", "关联失败");
+    }
+
+  }
 
   ngAfterViewInit() {
     var that = this;
