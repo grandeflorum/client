@@ -1,9 +1,10 @@
 <div style="height: 100%;">
+<div class="card-container">
     <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex"
         (nzSelectedIndexChange)="tabsetChange($event)">
         <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
     </nz-tabset>
-
+</div>
 
     <div class="jbxx" *ngIf="tabsetIndex==0">
         <nz-divider nzText="基本信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
