@@ -7,16 +7,16 @@ import { KfxmglService } from '../../../service/xmgl/kfxmgl.service';
 import { FileService  } from '../../../service/file/file.service';
 import { UtilitiesSercice } from '../../../service/common/utilities.services';
 import { LpbglService } from '../../../service/lpbgl/lpbgl.service';
-import { HouseTradeService } from '../../../service/contract/house-trade.service';
+import { StockTradeService } from '../../../service/contract/stock-trade.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 
 @Component({
-  selector: 'app-house-trade-detail',
-  templateUrl: './house-trade-detail.component.html',
-  styleUrls: ['./house-trade-detail.component.scss']
+  selector: 'app-stock-trade-detail',
+  templateUrl: './stock-trade-detail.component.html',
+  styleUrls: ['./stock-trade-detail.component.scss']
 })
-export class HouseTradeDetailComponent implements OnInit {
+export class StockTradeDetailComponent implements OnInit {
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
   @ViewChild('uploadComponent',{static:false}) uploadComponent ;
 
@@ -70,7 +70,7 @@ fileTypeIndex = 0;
     private localstorage:Localstorage,
     private fileService:FileService,
     private utilitiesSercice:UtilitiesSercice,
-    private houseTradeService:HouseTradeService
+    private stockTradeService:StockTradeService
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
     this.detailObj.id = this.activatedRoute.snapshot.queryParams.id;
@@ -103,9 +103,9 @@ fileTypeIndex = 0;
   }
 
   async getDetail(){
-    var res = await this.houseTradeService.getHouseTradeById(this.detailObj.id);
+    var res = await this.stockTradeService.getStockTradeById(this.detailObj.id);
     if (res && res.code == 200) {
-      this.detailObj = res.msg;
+      this.detailObj=res.msg;
 
       if(this.detailObj.wfAuditList.length>0){
         this.detailObj.wfAuditList.forEach((v,k)=>{
@@ -175,7 +175,7 @@ fileTypeIndex = 0;
   }
 
   cancel(){
-    var route = "/contract/houseTrade";
+    var route = "/contract/stockTrade";
     
     // switch (this.moduleType) {
     //   case 'dy':
@@ -263,7 +263,7 @@ fileTypeIndex = 0;
     if(!this.detailObj.id){
       delete this.detailObj.id;
     }
-    var res = await this.houseTradeService.saveOrUpdateHouseTrade(this.detailObj);
+    var res = await this.stockTradeService.saveOrUpdateStockTrade(this.detailObj);
 
     if (res && res.code == 200) {
       this.detailObj.id=res.msg;

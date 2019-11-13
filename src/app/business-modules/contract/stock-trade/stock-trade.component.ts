@@ -217,7 +217,7 @@ export class StockTradeComponent implements OnInit {
     //     break;
     // }
 
-    this.router.navigate(['/stockHouse/detail'], {
+    this.router.navigate(['/contract/stockTrade/detail'], {
       queryParams: {
         id: item ? item.id : '',
         type: m

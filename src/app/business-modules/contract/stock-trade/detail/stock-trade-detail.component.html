@@ -40,32 +40,83 @@
   
    <div nz-row style="height: 50px;padding: 10px;">
     <div nz-col [nzSpan]="12">
-        <div class="label_div">购买人：</div>
-        <input nz-input nzSize="default" [(ngModel)]="detailObj.buyer" [title]="detailObj.buyer" maxlength="50" [disabled]="isDisable" 
+        <div class="label_div">甲方：</div>
+        <input nz-input nzSize="default" [(ngModel)]="detailObj.jf" [title]="detailObj.jf" maxlength="50" [disabled]="isDisable" 
           class="w200"/>
       </div>
   
       <div nz-col [nzSpan]="12">
-        <div class="label_div">身份证号：</div>
-        <input nz-input nzSize="default" [(ngModel)]="detailObj.sfzh" [title]="detailObj.sfzh" maxlength="50" [disabled]="isDisable" 
+        <div class="label_div">甲方联系地址：</div>
+        <input nz-input nzSize="default" [(ngModel)]="detailObj.jflxdz" [title]="detailObj.jflxdz" maxlength="50" [disabled]="isDisable" 
           class="w200" />
       </div>
   </div>
 
   <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="12">
-          <div class="label_div">联系地址：</div>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.lxdz" [title]="detailObj.lxdz" maxlength="50" [disabled]="isDisable" 
+          <div class="label_div">甲方证件类型：</div>
+          <nz-select [(ngModel)]="detailObj.jfzjlx" class="w200" [disabled]="isDisable" nzAllowClear
+                    nzPlaceHolder="请选择">
+                    <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name"
+                        [nzValue]="option.code">
+                    </nz-option>
+                </nz-select>
+
+        </div>
+    
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">甲方证件号码：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.jfzjhm" [title]="detailObj.jfzjhm" maxlength="50" [disabled]="isDisable" 
+            class="w200" />
+        </div>
+    </div>
+
+    <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="12">
+          <div class="label_div">甲方联系电话：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.jflxdh" [title]="detailObj.jflxdh" maxlength="50" [disabled]="isDisable" 
             class="w200"/>
         </div>
     
         <div nz-col [nzSpan]="12">
-          <div class="label_div">预售许可证：</div>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.ysxkz" [title]="detailObj.ysxkz" maxlength="50" [disabled]="isDisable" 
+          <div class="label_div">乙方：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.yf" [title]="detailObj.yf" maxlength="50" [disabled]="isDisable" 
             class="w200" />
         </div>
     </div>
-  
+
+    <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="12">
+          <div class="label_div">乙方联系地址：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.yflxdz" [title]="detailObj.yflxdz" maxlength="50" [disabled]="isDisable" 
+            class="w200"/>
+        </div>
+    
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">乙方证件类型：</div>
+          <nz-select [(ngModel)]="detailObj.yfzjlx" class="w200" [disabled]="isDisable" nzAllowClear
+                    nzPlaceHolder="请选择">
+                    <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name"
+                        [nzValue]="option.code">
+                    </nz-option>
+                </nz-select>
+
+        </div>
+    </div>
+
+    <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="12">
+          <div class="label_div">乙方证件号码：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.yfzjhm" [title]="detailObj.yfzjhm" maxlength="50" [disabled]="isDisable" 
+            class="w200"/>
+        </div>
+    
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">乙方联系电话：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.yflxdh" [title]="detailObj.yflxdh" maxlength="50" [disabled]="isDisable" 
+            class="w200" />
+        </div>
+    </div>
 
   
   

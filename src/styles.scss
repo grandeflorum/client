@@ -72,6 +72,10 @@ body, html {
       text-align: left;
     }
   }
+
+  .itemSeleted{
+    background-color:#e6f7ff !important;
+  }
   
   .tablescoll_rainbow thead {
     display: table;
@@ -159,4 +163,36 @@ body, html {
   .ant-badge-not-a-wrapper .ant-badge-count{
     background-color: #40a9ff !important;
   }
+}
+
+.list_content_wrap{
+  height:100%;
+  padding:24px;
+}
+
+.card-container .ant-tabs-card {
+  background: #f0f2f5;
+}
+
+.card-container  .ant-tabs-card .ant-tabs-bar {
+  border-color: #fff;
+}
+
+.card-container .ant-tabs-card .ant-tabs-bar .ant-tabs-tab {
+  border-color: transparent;
+  background: transparent;
+}
+
+.card-container  .ant-tabs-card .ant-tabs-bar .ant-tabs-tab-active {
+  border-color: #fff;
+  background: #fff;
+}
+
+.card-container  .ant-tabs-card .ant-tabs-bar {
+  margin:0;
+}
+
+.jbxx{
+  height: calc(100% - 90px) !important;
+  padding:0 20px;
 }
