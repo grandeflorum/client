@@ -30,6 +30,16 @@ export class StockTradeComponent implements OnInit {
     { name: "通过", code: 1 },
     { name: "不通过", code: 2 }
   ];
+  auditStatusList:any=[
+    {name:"全部",code:""},
+    {name:"未提交",code:"0"},
+    {name:"待受理",code:"1"},
+    {name:"待初审",code:"2"},
+    {name:"待核定",code:"3"},
+    {name:"待登簿",code:"4"},
+    {name:"已备案",code:"5"},
+
+  ]
   //审核对象
   auditObj: any = {
     shrq: new Date()

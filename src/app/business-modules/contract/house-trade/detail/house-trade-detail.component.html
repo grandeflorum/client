@@ -1,0 +1,181 @@
+<div class="content_wrap">
+    <div class="card-container">
+  <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex" (nzSelectedIndexChange)="tabsetChange($event)">
+    <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
+  </nz-tabset>
+    </div>
+
+    <div *ngIf="tabsetIndex==0" style="width:100%;height:calc(100% - 90px);overflow: auto">
+  <!-- 基本信息 -->
+  <div class="jbxx left_wrap" [ngClass]="{'show_balc_lfet':showBalc}">
+      <nz-divider nzText="基本信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
+
+      <div nz-row style="height: 50px;padding: 10px;">
+          <div nz-col [nzSpan]="12">
+              <div class="label_div">单价：</div>
+              <input nz-input nzSize="default" [(ngModel)]="detailObj.dj" [title]="detailObj.dj" maxlength="50" [disabled]="isDisable" 
+                class="w200"/>
+            </div>
+        
+            <div nz-col [nzSpan]="12">
+              <div class="label_div">总价：</div>
+              <input nz-input nzSize="default" [(ngModel)]="detailObj.zj" [title]="detailObj.zj" maxlength="50" [disabled]="isDisable" 
+                class="w200" />
+            </div>
+        </div>
+  
+    <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="12">
+          <div class="label_div">入网时间：</div>
+          <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.rwsj" [disabled]="isDisable" >
+              </nz-date-picker>
+        </div>
+  
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">合同备案号：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.htbah" [title]="detailObj.htbah" maxlength="50" disabled 
+            class="w200" placeholder="登簿完成后自动生成"/>
+        </div>
+   </div>
+  
+   <div nz-row style="height: 50px;padding: 10px;">
+    <div nz-col [nzSpan]="12">
+        <div class="label_div">购买人：</div>
+        <input nz-input nzSize="default" [(ngModel)]="detailObj.buyer" [title]="detailObj.buyer" maxlength="50" [disabled]="isDisable" 
+          class="w200"/>
+      </div>
+  
+      <div nz-col [nzSpan]="12">
+        <div class="label_div">身份证号：</div>
+        <input nz-input nzSize="default" [(ngModel)]="detailObj.sfzh" [title]="detailObj.sfzh" maxlength="50" [disabled]="isDisable" 
+          class="w200" />
+      </div>
+  </div>
+
+  <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="12">
+          <div class="label_div">联系地址：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.lxdz" [title]="detailObj.lxdz" maxlength="50" [disabled]="isDisable" 
+            class="w200"/>
+        </div>
+    
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">预售许可证：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.ysxkz" [title]="detailObj.ysxkz" maxlength="50" [disabled]="isDisable" 
+            class="w200" />
+        </div>
+    </div>
+  
+
+  
+  
+  </div>
+  
+  <!-- 备案流程 -->
+  <div class="jbxx right_wrap" [ngClass]="{'show_balc_right':showBalc}">
+  
+    <i *ngIf="!showBalc" class="left_icon" nz-icon nzType="left" nzTheme="outline" (click)="showBalc=!showBalc"></i>
+    <i *ngIf="showBalc" class="right_icon" nz-icon nzType="right" nzTheme="outline" (click)="showBalc=!showBalc"></i>
+    <div *ngIf="!showBalc" class="ba_title" (click)="showBalc=!showBalc">备案流程</div>
+  
+  
+    <nz-divider *ngIf="showBalc" nzText="备案流程" nzOrientation="left" style="font-size: 18px"></nz-divider>
+  
+    <nz-timeline *ngIf="showBalc">
+      <nz-timeline-item *ngFor = "let item of timeline; index as index" [nzColor]="detailObj.currentStatus>=item.state?'green':'gray'">
+       <p>{{item.name}}</p>
+      </nz-timeline-item>
+  
+    </nz-timeline>
+  
+  </div>
+    </div>
+
+
+  <div *ngIf="tabsetIndex==1" style="width:100%;height:calc(100% - 90px);overflow: auto;background: #fff">
+
+  <div class="file_left">
+    <ul class="fileTypeList_ul">
+      <li *ngFor="let item of fileTypeList;index as index" (click)="fileTypeIndexChange(index)"[ngClass]="{'file_type_selected':fileTypeIndex == index}"><nz-badge [nzCount]="item.count" nzShowZero [nzStyle]="{ backgroundColor: '#a0a0a0', color: '#fff' , marginRight:'10px'}"></nz-badge><span>{{item.name}}</span></li>
+    </ul>
+  </div>  
+
+  <!-- 附件 -->
+  <div class="jbxx file_right" >
+      <div nz-row style="height: 50px;padding: 10px;">
+        <button nz-button nzType="primary" [nzVisible]="!detailObj.id" [disabled]="!detailObj.id" nz-tooltip nzTooltipTitle="请先保存合同信息" nzTooltipPlacement="bottom" (click)="upload()"><i nz-icon nzType="plus"></i>
+          上传附件
+        </button>
+        <button nz-button nzType="default" *ngIf="!isDisable" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">
+          批量删除
+        </button>
+        <button nz-button nzType="default" *ngIf="!isDisable" (click)="btachDown()">
+            批量下载
+          </button>
+      </div>
+
+      <nz-table #nestedTable [nzData]="fjList" class="commontable tablescoll_rainbow"  [nzLoading]="Loading"
+      [nzPageIndex]="pageIndex" [nzPageSize]="pageSize" [nzTotal]="totalCount"
+      (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
+      (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
+      <thead>
+        <tr>
+          <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
+            (nzCheckedChange)="checkAll($event)"></th>
+          <th>附件名称</th>
+          <th>上传日期</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of nestedTable.data; index as index" [ngClass]="{ itemSeleted: data.id == selectId }"
+          (click)="selectItem(data)">
+          <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
+            (nzCheckedChange)="refreshStatus()"></td>
+          <td>{{ data.clientFileName }}</td>
+          <td>{{ data.uploadDate | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td style="width:30%">
+            <a class="table_a" *ngIf="data.fileSuffix=='jpg' || data.fileSuffix=='jpeg' || data.fileSuffix=='png' || data.fileSuffix=='bmp' ||  data.fileSuffix=='pdf'" (click)="previewImg(data)">查看</a>
+            <a class="table_a" *ngIf="!isDisable"  nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete(data)">删除</a>
+            <a class="table_a" (click)="btachDown(data)">下载</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  </div>
+
+
+
+<div style="width:100%;height: 50px;padding: 10px;text-align: right;padding-right: 20px;float:left">
+    <div nz-row>
+        <div nz-col [nzSpan]="24">
+          <button nz-button nzType="default" (click)="cancel()">取消</button>
+          <button nz-button nzType="primary" *ngIf="!isDisable&&tabsetIndex==0" (click)="save()">保存</button>
+          <!-- <button nz-button nzType="primary" *ngIf="!isDisable" (click)="submit()">提交审核</button> -->
+        </div>
+    
+      </div>
+</div>
+
+
+
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <app-upload #uploadComponent [refid]="detailObj.id" [type]="fileType" (outer)="outer($event)"></app-upload>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isImgVisible" nzTitle="附件预览" (nzOnCancel)="isImgVisible = false" [nzFooter]="null">
+  <img src="{{currentImg}}" style="width:100%">
+</nz-modal>
+
+
+<ng-template #PopoverContent>
+  <p>门牌号：{{selectedHu.mph}}</p>
+  <p>层数：{{selectedHu.ch}}</p>
+  <p>单元号：{{selectedHu.dyh}}</p>
+  <p>面积：{{selectedHu.scjzmj}}</p>
+  <p>不动产登记号：{{selectedHu.bdcdyh}}</p>
+  <p>坐落：{{selectedHu.zl}}</p>
+</ng-template>  
