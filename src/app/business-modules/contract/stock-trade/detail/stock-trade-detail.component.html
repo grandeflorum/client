@@ -135,6 +135,7 @@
     <nz-timeline *ngIf="showBalc">
       <nz-timeline-item *ngFor = "let item of timeline; index as index" [nzColor]="detailObj.currentStatus>=item.state?'green':'gray'">
        <p>{{item.name}}</p>
+       <p style="margin-bottom: 0">{{detailObj.wfAuditList[index] ? detailObj.wfAuditList[index].shrq : ''}}</p>
       </nz-timeline-item>
   
     </nz-timeline>

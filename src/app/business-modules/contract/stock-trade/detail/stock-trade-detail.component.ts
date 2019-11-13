@@ -106,6 +106,16 @@ fileTypeIndex = 0;
     var res = await this.stockTradeService.getStockTradeById(this.detailObj.id);
     if (res && res.code == 200) {
       this.detailObj=res.msg;
+
+      if(this.detailObj.wfAuditList.length>0){
+        this.detailObj.wfAuditList.forEach((v,k)=>{
+          if( v.shrq){
+            v.shrq = Moment(v.shrq).format('YYYY-MM-DD')
+          }
+          
+        })
+
+      }
      } else {
       this.msg.create('error', '内部服务错误');
     }
