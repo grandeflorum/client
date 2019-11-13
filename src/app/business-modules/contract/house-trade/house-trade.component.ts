@@ -5,6 +5,7 @@ import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { HouseTradeService } from "../../service/contract/house-trade.service";
 import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
+import { UtilitiesSercice } from '../../service/common/utilities.services';
 
 
 @Component({
@@ -52,7 +53,8 @@ export class HouseTradeComponent implements OnInit {
   constructor(
     private msg: NzMessageService,
     private router: Router,
-    private houseTradeService: HouseTradeService
+    private houseTradeService: HouseTradeService,
+    private utilitiesSercice: UtilitiesSercice
   ) { }
 
   ngOnInit() {
@@ -351,6 +353,19 @@ export class HouseTradeComponent implements OnInit {
     $(window).resize(function () {
       that.calculationHeight()
     })
+  }
+
+  //打印
+  print() {
+
+    if (!this.selectId) {
+      this.msg.create("warning", "请选择列表项");
+      return;
+    }
+
+    let url = AppConfig.Configuration.baseUrl + "/HouseTrade/printHt?id=" + this.selectId;
+    url = this.utilitiesSercice.wrapUrl(url);
+    window.open(url, '_blank');
   }
 
 }
