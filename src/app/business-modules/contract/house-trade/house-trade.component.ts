@@ -32,14 +32,14 @@ export class HouseTradeComponent implements OnInit {
     { name: "通过", code: 1 },
     { name: "不通过", code: 2 }
   ];
-  auditStatusList:any=[
-    {name:"全部",code:""},
-    {name:"未提交",code:"0"},
-    {name:"待受理",code:"1"},
-    {name:"待初审",code:"2"},
-    {name:"待核定",code:"3"},
-    {name:"待登簿",code:"4"},
-    {name:"已备案",code:"5"},
+  auditStatusList: any = [
+    { name: "全部", code: "" },
+    { name: "未提交", code: "0" },
+    { name: "待受理", code: "1" },
+    { name: "待初审", code: "2" },
+    { name: "待核定", code: "3" },
+    { name: "待登簿", code: "4" },
+    { name: "已备案", code: "5" },
 
   ]
   //审核对象
@@ -373,9 +373,14 @@ export class HouseTradeComponent implements OnInit {
       return;
     }
 
-    let url = AppConfig.Configuration.baseUrl + "/HouseTrade/printHt?id=" + this.selectId;
+    let url = AppConfig.Configuration.baseUrl + "/HouseTrade/printHt?id=" + this.selectId + "&type=1";
     url = this.utilitiesSercice.wrapUrl(url);
     window.open(url, '_blank');
+  }
+
+  perview() {
+    let url = AppConfig.Configuration.baseUrl + "/HouseTrade/printHt?id=" + this.selectId + "&type=2";
+    window.open('assets/usermanual/web/viewer.html?url=' + this.utilitiesSercice.wrapUrl(url), "_blank");
   }
 
 }
