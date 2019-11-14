@@ -197,10 +197,10 @@ body, html {
   padding:0 20px;
 }
 
-.ant-input{
+.ant-input , .ant-select{
   color:#40a9ff;
 }
 
-.ant-input[disabled]{
+.ant-input[disabled] , .ant-select-disabled{
   color:rgb(0, 0, 0);
 }
