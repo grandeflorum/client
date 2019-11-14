@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { IconsProviderModule } from './icons-provider.module';
 
@@ -36,6 +36,7 @@ registerLocaleData(zh);
     ReactiveFormsModule
   ],
   providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: ExceptionInterceptorService, multi: true },
     { provide: NZ_I18N, useValue: zh_CN },
     AuthGuardService
