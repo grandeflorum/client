@@ -21,6 +21,7 @@ export class HouseRentalDetailComponent implements OnInit {
   ]
   tabsetIndex = 0;
   detailObj: any = {};
+  selectedHu: any = {};
 
   isDisable: any = false;
   dictionaryObj: any = [];
@@ -182,6 +183,10 @@ export class HouseRentalDetailComponent implements OnInit {
 
   ngAfterViewInit() {
 
+  }
+
+  selectedHuChange(item) {
+    this.selectedHu = item;
   }
 
 }

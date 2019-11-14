@@ -1,9 +1,9 @@
 <div style="height: 100%;">
     <div class="card-container">
-    <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex"
-        (nzSelectedIndexChange)="tabsetChange($event)">
-        <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
-    </nz-tabset>
+        <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex"
+            (nzSelectedIndexChange)="tabsetChange($event)">
+            <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
+        </nz-tabset>
     </div>
 
     <div class="jbxx" *ngIf="tabsetIndex==0">
@@ -170,7 +170,7 @@
                 <li class="lpb_yba">已备案</li>
                 <li class="lpb_ydy">已抵押</li>
                 <li class="lpb_ycf">已查封</li>
-              </ul>
+            </ul>
         </div>
     </div>
 
@@ -187,3 +187,13 @@
     </div>
 
 </div>
+
+
+<ng-template #PopoverContent>
+    <p>门牌号：{{selectedHu.mph}}</p>
+    <p>层数：{{selectedHu.ch}}</p>
+    <p>单元号：{{selectedHu.dyh}}</p>
+    <p>面积：{{selectedHu.scjzmj}}</p>
+    <p>不动产登记号：{{selectedHu.bdcdyh}}</p>
+    <p>坐落：{{selectedHu.zl}}</p>
+</ng-template>
