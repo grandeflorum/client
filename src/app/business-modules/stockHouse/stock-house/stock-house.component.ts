@@ -141,6 +141,7 @@ export class StockHouseComponent implements OnInit {
     if (res && res.code == 200) {
 
       this.dataSet = res.msg.currentList;
+      this.totalCount = res.msg.recordCount;
 
       this.listOfAllData.forEach(item => (this.mapOfCheckedId[item.id] = false));
       this.refreshStatus();

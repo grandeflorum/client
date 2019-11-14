@@ -159,6 +159,7 @@ export class HouseTradeComponent implements OnInit {
     if (res && res.code == 200) {
 
       this.dataSet = res.msg.currentList;
+      this.totalCount = res.msg.recordCount;
 
       this.listOfAllData.forEach(item => (this.mapOfCheckedId[item.id] = false));
       this.refreshStatus();
@@ -349,7 +350,7 @@ export class HouseTradeComponent implements OnInit {
 
   calculationHeight() {
     const bodyHeight = $('body').height()
-    const height = this.dataSet.length * 40;
+    const height = this.dataSet.length * 50;
     if (height > bodyHeight - 350) {
       this.tableIsScroll = { y: bodyHeight - 350 + 'px' }
     } else {

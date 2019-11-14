@@ -111,7 +111,7 @@ export class EmployeeListComponent implements OnInit {
 
   alculationHeight() {
     const bodyHeight = $('body').height()
-    const height = this.dataSet.length * 40;
+    const height = this.dataSet.length * 50;
     if (height > bodyHeight - 350) {
       this.tableIsScroll = { y: bodyHeight - 350 + 'px' }
     } else {

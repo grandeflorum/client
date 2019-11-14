@@ -214,7 +214,7 @@ export class LpbglComponent implements OnInit {
 
   calculationHeight() {
     const bodyHeight = $('body').height()
-    const height = this.dataSet.length * 40;
+    const height = this.dataSet.length * 50;
     if (height > bodyHeight - 300) {
       this.tableIsScroll = { y: bodyHeight - 300 + 'px' }
     } else {
