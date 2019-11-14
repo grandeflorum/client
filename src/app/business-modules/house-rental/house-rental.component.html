@@ -1,18 +1,18 @@
 <div class="list_content_wrap">
     <div nz-row style="height: 50px;padding: 10px;">
-        <div nz-col [nzSpan]="5">
+        <div nz-col [nzSpan]="8">
             所属区域：
             <nz-tree-select [nzDropdownStyle]="{ 'max-height': '300px' }" class="w150" nzPlaceHolder="请选择行政区划"
                 [nzNodes]="regionTreeNodes" [nzDefaultExpandAll]="true" [nzAllowClear]="true" [(ngModel)]="regioncode"
                 nzShowExpand>
             </nz-tree-select>
         </div>
-        <div nz-col [nzSpan]="5">
+        <div nz-col [nzSpan]="8">
             详细地址：
             <input nz-input nzSize="default" [(ngModel)]="address" class="w150" placeholder="请输入详细地址" />
         </div>
 
-        <div nz-col [nzSpan]="5">
+        <div nz-col [nzSpan]="8">
             用途
             <nz-select [(ngModel)]="usetype" class="w150" nzPlaceHolder="请选择">
                 <nz-option nzValue="" nzLabel="全部"></nz-option>
@@ -20,27 +20,31 @@
                 </nz-option>
             </nz-select>
         </div>
+</div>
 
-        <div nz-col [nzSpan]="5">
-            是否装修：
-            <nz-select [(ngModel)]="isdecorated" class="w150" nzPlaceHolder="请选择">
-                <nz-option nzValue="" nzLabel="全部"></nz-option>
-                <nz-option nzValue="1" nzLabel="是"></nz-option>
-                <nz-option nzValue="2" nzLabel="否"></nz-option>
-            </nz-select>
+    <div nz-row style="height: 50px;padding: 10px;">
+          
+    
+            <div nz-col [nzSpan]="8">
+                是否装修：
+                <nz-select [(ngModel)]="isdecorated" class="w150" nzPlaceHolder="请选择">
+                    <nz-option nzValue="" nzLabel="全部"></nz-option>
+                    <nz-option nzValue="1" nzLabel="是"></nz-option>
+                    <nz-option nzValue="2" nzLabel="否"></nz-option>
+                </nz-select>
+            </div>
+            <div>
+    
+            </div>
+            <div nz-col [nzSpan]="16" class="ta_r">
+                <button nz-button nzType="primary" (click)="search()">
+                    查询
+                </button>
+                <button nz-button nzType="default" (click)="reset()">
+                    重置
+                </button>
+            </div>
         </div>
-        <div>
-
-        </div>
-        <div nz-col [nzSpan]="4" class="ta_r">
-            <button nz-button nzType="primary" (click)="search()">
-                查询
-            </button>
-            <button nz-button nzType="default" (click)="reset()">
-                重置
-            </button>
-        </div>
-    </div>
 
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="24">

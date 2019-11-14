@@ -1,19 +1,24 @@
-<div style="height: 100%;">
+<div class="list_content_wrap">
     <div nz-row style="height: 50px;padding: 10px;">
-        <div nz-col [nzSpan]="7">
+        <div nz-col [nzSpan]="8">
             修改人：
-            <input nz-input nzSize="default" [(ngModel)]="xgr" class="w200" placeholder="请输入修改人" />
+            <input nz-input nzSize="default" [(ngModel)]="xgr" class="w150" placeholder="请输入修改人" />
         </div>
-        <div nz-col [nzSpan]="6">
+        <div nz-col [nzSpan]="8">
             修改理由：
-            <input nz-input nzSize="default" [(ngModel)]="xgyy" class="w200" placeholder="请输入修改理由" />
+            <input nz-input nzSize="default" [(ngModel)]="xgyy" class="w150" placeholder="请输入修改理由" />
         </div>
 
-        <div nz-col [nzSpan]="6">
+        <div nz-col [nzSpan]="8">
             修改内容：
-            <input nz-input nzSize="default" [(ngModel)]="xgnr" class="w200" placeholder="请输入修改内容" />
+            <input nz-input nzSize="default" [(ngModel)]="xgnr" class="w150" placeholder="请输入修改内容" />
+</div>
+<div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="8">
+            修改内容：
+            <input nz-input nzSize="default" [(ngModel)]="xgnr" class="w150" placeholder="请输入修改内容" />
         </div>
-        <div nz-col [nzSpan]="5" class="ta_r">
+        <div nz-col [nzSpan]="16" class="ta_r">
             <button nz-button nzType="primary" (click)="search()">
                 查询
             </button>
@@ -24,9 +29,7 @@
                 返回
             </button>
         </div>
-
-
-    </div>
+</div>
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="24">
 
