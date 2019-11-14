@@ -135,12 +135,12 @@
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>开工日期：</div>
-        <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.kgrq" (ngModelChange)="onChange(1,$event)"  required [validation]="true">
+        <nz-date-picker class="w200" [nzAllowClear]="false" [disabled]="isDisable" [(ngModel)]="detailObj.kgrq" (ngModelChange)="onChange(1,$event)"  required [validation]="true">
         </nz-date-picker>
       </div>
       <div nz-col [nzSpan]="16">
         <div class="label_div"><span class="clo_r">*</span>竣工日期：</div>
-        <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.jgrq" (ngModelChange)="onChange(2,$event)"  required [validation]="true">
+        <nz-date-picker class="w200" [nzAllowClear]="false" [disabled]="isDisable" [(ngModel)]="detailObj.jgrq" (ngModelChange)="onChange(2,$event)"  required [validation]="true">
         </nz-date-picker>
       </div>
     </div>
