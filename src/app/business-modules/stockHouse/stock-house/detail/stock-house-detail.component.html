@@ -70,7 +70,7 @@
                 <div style="text-align: center;" class="label_div"><span class="clo_r">*</span>与产权人关系</div>
             </div>
             <div nz-col [nzSpan]="4">
-                <button nz-button nzType="primary" (click)="addpeople()">添加</button>
+                <button nz-button nzType="primary"  [disabled]="isDisable" (click)="addpeople()">添加</button>
             </div>
         </div>
         <div *ngFor="let item of detailObj.relationShips;index as index" nz-row style="height: 50px;padding: 10px;">
