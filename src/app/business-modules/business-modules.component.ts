@@ -41,7 +41,7 @@ export class BusinessModulesComponent implements OnInit {
     }
 
     menuList = [
-        { name: '首页', id: 'sy', route: '/home', icon: 'dashboard', children: [] },
+        // { name: '首页', id: 'sy', route: '/home', icon: 'dashboard', children: [] },
         {
             name: '从业主体管理', id: 'practitioner', route: '/practitioner', icon: 'dashboard', children: [
                 { name: '开发企业管理', id: 'company', route: '/practitioner/company', icon: 'dashboard' },

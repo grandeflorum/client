@@ -257,7 +257,7 @@ export class LoginComponent implements OnInit {
         JSON.stringify(data.msg.permission)
       );
       sessionStorage.setItem('AUTH_ID', data.msg.ticket);
-      this.router.navigate(['/home']);
+      this.router.navigate(['/practitioner/company']);
     } else {
       this.loginMessage = '用户名密码错误';
     }
