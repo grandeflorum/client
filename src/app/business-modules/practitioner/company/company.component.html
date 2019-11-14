@@ -101,7 +101,7 @@
 
             <div nz-col [nzSpan]="12" class="ta_r">
                 <div class="label_div"><span class="clo_r">*</span>审核结果</div>
-                <nz-select [(ngModel)]="auditObj.shjg" class="w200" required [validation]="true" name="shjg"
+                <nz-select [(ngModel)]="auditObj.shjg" class="w200T" required [validation]="true" name="shjg"
                     nzPlaceHolder="请选择">
                     <nz-option *ngFor="let option of auditList" [nzLabel]="option.name" [nzValue]="option.code">
                     </nz-option>
@@ -114,12 +114,12 @@
 
             <div nz-col [nzSpan]="12" class="ta_r">
                 <div class="label_div">审核人</div>
-                <input nz-input nzSize="default" [(ngModel)]="auditObj.shry" class="w200" maxlength="50" />
+                <input nz-input nzSize="default" [(ngModel)]="auditObj.shry" class="w200T" maxlength="50" />
             </div>
 
             <div nz-col [nzSpan]="12" class="ta_r">
                 <div class="label_div">审核日期</div>
-                <nz-date-picker class="w200" [nzStyle]="{'width':'200px'}" [(ngModel)]="auditObj.shrq"
+                <nz-date-picker class="w200T" [nzStyle]="{'width':'200px'}" [(ngModel)]="auditObj.shrq"
                     placeholder="请输入审核日期">
                 </nz-date-picker>
             </div>
@@ -176,7 +176,7 @@
 
             <div nz-row style="height: 60px;">
                 <div nz-col [nzSpan]="12">
-                    <input nz-input nzSize="default" [(ngModel)]="roleData.zjh" class="w200" maxlength="50" />
+                    <input nz-input nzSize="default" [(ngModel)]="roleData.zjh" class="w200T" maxlength="50" />
                 </div>
             </div>
 
@@ -191,10 +191,10 @@
 
             <div nz-row style="height: 60px;">
                 <div nz-col [nzSpan]="12">
-                    <input nz-input nzSize="default" [(ngModel)]="roleData.password" class="w200" maxlength="50" />
+                    <input nz-input nzSize="default" [(ngModel)]="roleData.password" class="w200T" maxlength="50" />
                 </div>
                 <div nz-col [nzSpan]="12">
-                    <input nz-input nzSize="default" [(ngModel)]="roleData.passwordSure" class="w200" maxlength="50" />
+                    <input nz-input nzSize="default" [(ngModel)]="roleData.passwordSure" class="w200T" maxlength="50" />
                 </div>
             </div>
         </div>

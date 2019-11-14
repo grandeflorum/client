@@ -2,23 +2,23 @@
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="7">
             产权人姓名：
-            <input nz-input nzSize="default" [(ngModel)]="cqrxm" class="w200" placeholder="请输入产权人姓名" />
+            <input nz-input nzSize="default" [(ngModel)]="cqrxm" class="w150" placeholder="请输入产权人姓名" />
         </div>
-        <div nz-col [nzSpan]="6">
+        <div nz-col [nzSpan]="7">
             房屋坐落：
-            <input nz-input nzSize="default" [(ngModel)]="address" class="w200" placeholder="请输入房屋坐落" />
+            <input nz-input nzSize="default" [(ngModel)]="address" class="w150" placeholder="请输入房屋坐落" />
         </div>
 
         <div nz-col [nzSpan]="6">
             审核状态：
-            <nz-select [(ngModel)]="auditType" class="w200" nzPlaceHolder="请选择">
+            <nz-select [(ngModel)]="auditType" class="w150" nzPlaceHolder="请选择">
                 <nz-option nzValue="" nzLabel="全部"></nz-option>
                 <nz-option nzValue="0" nzLabel="未提交"></nz-option>
                 <nz-option nzValue="1" nzLabel="待审核"></nz-option>
                 <nz-option nzValue="2" nzLabel="已审核"></nz-option>
             </nz-select>
         </div>
-        <div nz-col [nzSpan]="5" class="ta_r">
+        <div nz-col [nzSpan]="4" class="ta_r">
             <button nz-button nzType="primary" (click)="search()">
                 查询
             </button>
