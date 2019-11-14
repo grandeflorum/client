@@ -196,3 +196,11 @@ body, html {
   height: calc(100% - 90px) !important;
   padding:0 20px;
 }
+
+.ant-input{
+  color:#40a9ff;
+}
+
+.ant-input[disabled]{
+  color:rgb(0, 0, 0);
+}
