@@ -1,10 +1,10 @@
 <div style="height: 100%;">
-<div class="card-container">
-    <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex"
-        (nzSelectedIndexChange)="tabsetChange($event)">
-        <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
-    </nz-tabset>
-</div>
+    <div class="card-container">
+        <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex"
+            (nzSelectedIndexChange)="tabsetChange($event)">
+            <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
+        </nz-tabset>
+    </div>
 
     <div class="jbxx" *ngIf="tabsetIndex==0">
         <nz-divider nzText="基本信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
@@ -32,7 +32,8 @@
 
             <div nz-col [nzSpan]="8">
                 <div class="label_div">企业类型：</div>
-                <nz-select [(ngModel)]="detailObj.qylx" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+                <nz-select [(ngModel)]="detailObj.qylx" class="w200" [disabled]="isDisable" nzAllowClear
+                    nzPlaceHolder="请选择">
                     <nz-option *ngFor="let option of dictionaryObj.qylx" [nzLabel]="option.name"
                         [nzValue]="option.code">
                     </nz-option>
@@ -59,7 +60,8 @@
 
             <div nz-col [nzSpan]="8">
                 <div class="label_div">所属地区：</div>
-                <nz-select class="w200" [(ngModel)]="parentCode" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+                <nz-select class="w200" [(ngModel)]="parentCode" [disabled]="isDisable" nzAllowClear
+                    nzPlaceHolder="请选择">
                     <nz-option nzValue="1" nzLabel="企业1"></nz-option>
                     <nz-option nzValue="2" nzLabel="企业2"></nz-option>
                 </nz-select>
@@ -67,7 +69,8 @@
 
             <div nz-col [nzSpan]="16">
                 <div class="label_div">详细地址：</div>
-                <nz-select class="w200" [(ngModel)]="detailObj.regioncode" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+                <nz-select class="w200" [(ngModel)]="detailObj.regioncode" [disabled]="isDisable" nzAllowClear
+                    nzPlaceHolder="请选择">
                     <nz-option nzValue="1" nzLabel="企业1"></nz-option>
                     <nz-option nzValue="2" nzLabel="企业2"></nz-option>
                 </nz-select>
@@ -141,7 +144,8 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div">证件类型：</div>
 
-                <nz-select [(ngModel)]="detailObj.zjlx" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+                <nz-select [(ngModel)]="detailObj.zjlx" class="w200" [disabled]="isDisable" nzAllowClear
+                    nzPlaceHolder="请选择">
                     <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name"
                         [nzValue]="option.code">
                     </nz-option>
@@ -162,7 +166,8 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div">备案等级：</div>
 
-                <nz-select [(ngModel)]="detailObj.zzdj" [disabled]="isDisable" class="w200" nzAllowClear nzPlaceHolder="请选择">
+                <nz-select [(ngModel)]="detailObj.zzdj" [disabled]="isDisable" class="w200" nzAllowClear
+                    nzPlaceHolder="请选择">
                     <nz-option *ngFor="let option of dictionaryObj.zzdj" [nzLabel]="option.name"
                         [nzValue]="option.code">
                     </nz-option>
@@ -184,7 +189,8 @@
 
         </div>
 
-        <app-attachment [fileList]="fileList" [isDisable]="isDisable" [refid]="detailObj.id" #attachmentComponent> </app-attachment>
+        <app-attachment [fileList]="fileList" [isDisable]="isDisable" [refid]="detailObj.id" #attachmentComponent>
+        </app-attachment>
 
         <nz-divider nzText="备注" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
@@ -201,7 +207,7 @@
     <div nz-row style="height: 50px;padding: 10px;text-align: right;padding-right: 20px;">
         <div nz-col [nzSpan]="24">
             <button nz-button nzType="default" (click)="quit()">取消</button>
-            <button nz-button nzType="primary" (click)="save()">保存</button>
+            <button *ngIf="!isDisable" nz-button nzType="primary" (click)="save()">保存</button>
             <!-- <button nz-button nzType="primary" (click)="submit()">提交审核</button> -->
         </div>
 

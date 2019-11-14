@@ -35,7 +35,7 @@
       <button nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">
         批量删除
       </button>
-      <button nz-button nzType="default" (click)="btachAudit()">
+      <button nz-button nzType="default" *ngIf="false" (click)="btachAudit()">
         批量审核
       </button>
 
