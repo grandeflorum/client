@@ -2,16 +2,16 @@
   <div nz-row style="height: 50px;padding: 10px;">
     <div nz-col [nzSpan]="7">
       开发企业名称:
-      <input nz-input nzSize="default" [(ngModel)]="kfqymc" class="w200" placeholder="请输入开发企业名称" />
+      <input nz-input nzSize="default" [(ngModel)]="kfqymc" class="w150" placeholder="请输入开发企业名称" />
     </div>
     <div nz-col [nzSpan]="6">
       项目名称：
-      <input nz-input nzSize="default" [(ngModel)]="xmmc" class="w200" placeholder="请输入项目名称" />
+      <input nz-input nzSize="default" [(ngModel)]="xmmc" class="w150" placeholder="请输入项目名称" />
     </div>
 
     <div nz-col [nzSpan]="6">
       审核状态：
-      <nz-select [(ngModel)]="currentStatus" class="w200"  nzPlaceHolder="请选择">
+      <nz-select [(ngModel)]="currentStatus" class="w150"  nzPlaceHolder="请选择">
         <nz-option *ngFor="let option of auditStatusList" [nzLabel]="option.name" [nzValue]="option.code">
         </nz-option>
       </nz-select>
