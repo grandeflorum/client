@@ -21,7 +21,9 @@
       <div nz-col [nzSpan]="8"></div>
     </div>
 
-    <div class="card-container">
+    <div style="width:calc(100% + 40px);height:25px;background:#f0f2f5;position: relative;left:-20px"></div>
+
+    <div class="card-container" style="width:calc(100% + 40px);position: relative;left:-20px">
       <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex2"
         (nzSelectedIndexChange)="tabsetChange2($event)">
         <nz-tab *ngFor="let tab of tabs2" [nzTitle]="tab.name"></nz-tab>
