@@ -12,7 +12,7 @@ import * as $ from 'jquery';
   styleUrls: ['./upload.component.scss']
 })
 export class uploadComponent implements OnInit {
-  @Input() accept = "xls,xlsx,doc,pdf,docx,image/png,image/jpg,image/jpeg,image/gif,image/bmp";
+  // @Input() accept = "'xls,xlsx,doc,pdf,docx,image/png,image/jpg,image/jpeg,image/gif,image/bmp'";
   @Input() type = "0";
   @Input() refid = "";
 

@@ -29,6 +29,9 @@ export class EmployeeDetailComponent implements OnInit {
   id: string;
   module: string;
 
+  regionList: any = [];
+  regionTreeNodes: any = [];
+  
   //附件
   fileList: any = [];
 
@@ -48,10 +51,35 @@ export class EmployeeDetailComponent implements OnInit {
 
     this.isDisable = type == 'see';
 
+    this.regionList = this.localstorage.getObject("region");
+    this.regionTreeNodes = this.generateTree2(this.regionList, null);
+
     if (this.id) {
       this.getViewData();
       this.getAtatchment();
     }
+  }
+
+  generateTree2(data, parentCode) {
+    const itemArr: any[] = [];
+    for (var i = 0; i < data.length; i++) {
+      var node = data[i];
+      if (node.parentCode == parentCode) {
+        let newNode: any;
+        newNode = {
+          key: node.code,
+          title: node.name
+        };
+        let children = this.generateTree2(data, node.code);
+        if (children.length > 0) {
+          newNode.children = children;
+        } else {
+          newNode.isLeaf = true;
+        }
+        itemArr.push(newNode);
+      }
+    }
+    return itemArr;
   }
 
   ngOnInit() {

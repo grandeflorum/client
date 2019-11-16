@@ -1,12 +1,12 @@
 <div style="height: 100%;">
-        <div class="card-container">
-    <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex"
-        (nzSelectedIndexChange)="tabsetChange($event)">
-        <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
-    </nz-tabset>
-        </div>
+    <div class="card-container">
+        <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex"
+            (nzSelectedIndexChange)="tabsetChange($event)">
+            <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
+        </nz-tabset>
+    </div>
 
-    <div class="jbxx" *ngIf="tabsetIndex==0">
+    <div class="jbxx" [hidden]="tabsetIndex!=0">
         <nz-divider nzText="基本信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
         <div nz-row style="height: 50px;padding: 10px;">
@@ -59,23 +59,17 @@
         <div nz-row style="height: 50px;padding: 10px;">
 
             <div nz-col [nzSpan]="8">
-                <div class="label_div">所属地区：</div>
-                <nz-select class="w200" [(ngModel)]="parentCode" [disabled]="isDisable" nzAllowClear
-                    nzPlaceHolder="请选择">
-                    <nz-option nzValue="1" nzLabel="企业1"></nz-option>
-                    <nz-option nzValue="2" nzLabel="企业2"></nz-option>
-                </nz-select>
+                <div class="label_div">行政区划：</div>
+                <nz-tree-select [nzDropdownStyle]="{ 'max-height': '300px' }" class="w200" [disabled]="isDisable"
+                    nzPlaceHolder="请选择行政区划" [nzNodes]="regionTreeNodes" [nzDefaultExpandAll]="true"
+                    [nzAllowClear]="true" [(ngModel)]="detailObj.regioncode" nzShowExpand>
+                </nz-tree-select>
             </div>
 
             <div nz-col [nzSpan]="16">
                 <div class="label_div">详细地址：</div>
-                <nz-select class="w200" [(ngModel)]="detailObj.regioncode" [disabled]="isDisable" nzAllowClear
-                    nzPlaceHolder="请选择">
-                    <nz-option nzValue="1" nzLabel="企业1"></nz-option>
-                    <nz-option nzValue="2" nzLabel="企业2"></nz-option>
-                </nz-select>
-                <input style="margin-left: 10px;    width: calc(100% - 390px);" nz-input nzSize="default"
-                    [(ngModel)]="detailObj.address" [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
+                <input style="width: calc(100% - 235px);" nz-input nzSize="default" [(ngModel)]="detailObj.address"
+                    [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
 
             </div>
 
@@ -117,15 +111,17 @@
             </div>
 
             <div nz-col [nzSpan]="8">
-                <div class="clearfix" style="position: absolute;top:-20px;">
-                    <nz-upload [nzAction]="uploadFileUrl" nzListType="picture-card" [nzCustomRequest]="customReq"
-                        [nzFileList]="fileLogoList" [nzShowButton]="fileLogoList.length < 1&&!isDisable" [nzShowUploadList]="false">
+                <div class="clearfix logo-div" [ngStyle]="{'margin-top':fileLogoList.length>0?'-20px':'0px'}">
+                    <nz-upload [nzAction]=" uploadFileUrl" nzListType="picture-card" [nzCustomRequest]="customReq"
+                        [nzBeforeUpload]="beforeUpload" [nzFileList]="fileLogoList"
+                        [nzShowButton]="fileLogoList.length < 1&&!isDisable" [nzShowUploadList]="false">
                         <i nz-icon nzType="plus"></i>
-                        <div class="ant-upload-text">Upload</div>
+                        <div class="ant-upload-text">上传</div>
                     </nz-upload>
 
                     <div style="width: 100px; height: 100px;border: 1px solid #cccccc;" *ngIf="fileLogoList.length>0">
-                        <i nz-icon *ngIf="!isDisable" type="close" style=" color: red;    font-size: 16px;" class="deleteicon" theme="outline" nz-popconfirm nzTitle="确定删除吗?"
+                        <i nz-icon *ngIf="!isDisable" type="close" style=" color: red;    font-size: 16px;"
+                            class="deleteicon" theme="outline" nz-popconfirm nzTitle="确定删除吗?"
                             (nzOnConfirm)="handleDelete()"></i>
                         <img style="width: 100px;height: 100px; padding: 4px;" [src]="preUrl" />
                     </div>
@@ -181,9 +177,9 @@
             </div>
 
             <div nz-col [nzSpan]="8">
-                <div class="label_div">证件号：</div>
+                <div class="label_div"><span class="clo_r">*</span>证件号：</div>
                 <input nz-input nzSize="default" [(ngModel)]="detailObj.zjh" [disabled]="isDisable" class="w200"
-                    maxlength="20" placeholder="请输入证件号" />
+                    maxlength="20" placeholder="请输入证件号" name="zjh" required [validation]="true" />
             </div>
 
         </div>

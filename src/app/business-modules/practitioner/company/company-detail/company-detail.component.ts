@@ -50,6 +50,9 @@ export class CompanyDetailComponent implements OnInit {
   uploadFileUrl = AppConfig.Configuration.baseUrl + "/FileInfo/upload";
   preUrl: any = "";
 
+  regionList: any = [];
+  regionTreeNodes: any = [];
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -63,6 +66,10 @@ export class CompanyDetailComponent implements OnInit {
   ngOnInit() {
 
     this.dictionaryObj = this.localstorage.getObject("dictionary");
+
+    this.regionList = this.localstorage.getObject("region");
+    this.regionTreeNodes = this.generateTree2(this.regionList, null);
+
     let id = this.ActivatedRoute.snapshot.queryParams["id"];
     this.companyId = id;
     let type = this.ActivatedRoute.snapshot.queryParams["type"];
@@ -82,6 +89,28 @@ export class CompanyDetailComponent implements OnInit {
       this.getCompanyById(id);
       this.getAtatchment(id);
     }
+  }
+
+  generateTree2(data, parentCode) {
+    const itemArr: any[] = [];
+    for (var i = 0; i < data.length; i++) {
+      var node = data[i];
+      if (node.parentCode == parentCode) {
+        let newNode: any;
+        newNode = {
+          key: node.code,
+          title: node.name
+        };
+        let children = this.generateTree2(data, node.code);
+        if (children.length > 0) {
+          newNode.children = children;
+        } else {
+          newNode.isLeaf = true;
+        }
+        itemArr.push(newNode);
+      }
+    }
+    return itemArr;
   }
 
   async getAtatchment(id) {
@@ -158,9 +187,15 @@ export class CompanyDetailComponent implements OnInit {
     let res = await this.companyService.saveOrUpdateCompany(this.detailObj);
 
     if (res && res.code == 200) {
-      this.detailObj.id = res.msg;
-      this.companyId = res.msg;
-      this.msg.create('success', '保存成功');
+
+      if (res.msg == "repeat") {
+        this.msg.create('warning', '企业名称重复');
+      } else {
+        this.detailObj.id = res.msg;
+        this.companyId = res.msg;
+        this.msg.create('success', '保存成功');
+      }
+
     } else {
       this.msg.create('error', '保存失败');
     }
@@ -193,6 +228,19 @@ export class CompanyDetailComponent implements OnInit {
       this.msg.create('error', '删除失败');
     }
   }
+
+  beforeUpload = (file: UploadFile): boolean => {
+    var fileName = file.name.split('.');
+    var fileType = fileName[fileName.length - 1].toLowerCase();
+
+    const isTp = (fileType == 'png' || fileType == 'jpg' || fileType == 'jpeg' || fileType == 'bmp');
+    if (!isTp) {
+      this.msg.error('请上传png,jpg,jpeg,bmp格式文件');
+      return false;
+    }
+
+    return true;
+  };
 
   customReq = (item: UploadXHRArgs) => {
 
