@@ -13,6 +13,49 @@
 
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="12">
+          <div class="label_div">项目名称：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.xmmc" [title]="detailObj.xmmc" 
+            [disabled]="true" class="w200" />
+        </div>
+
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">建筑物名称：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.jzwmc" [title]="detailObj.jzwmc"
+            [disabled]="true" class="w200" />
+        </div>
+      </div>
+
+      <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">幢号：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.zh" [title]="detailObj.zh" 
+            [disabled]="true" class="w200" />
+        </div>
+
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">单元号：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.dyh" [title]="detailObj.dyh" 
+            [disabled]="true" class="w200" />
+        </div>
+      </div>
+      <div nz-row style="height: 50px;padding: 10px;">
+
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">层号：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.ch" [title]="detailObj.ch"
+            [disabled]="true" class="w200" />
+        </div>
+
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">房号：</div>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.fh" [title]="detailObj.fh" 
+            [disabled]="true" class="w200" />
+        </div>
+       
+      </div>
+
+      <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="12">
           <div class="label_div">单价：</div>
           <input nz-input nzSize="default" [(ngModel)]="detailObj.dj" [title]="detailObj.dj" maxlength="50"
             [disabled]="isDisable" class="w200" />

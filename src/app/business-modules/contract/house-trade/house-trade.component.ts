@@ -23,7 +23,7 @@ export class HouseTradeComponent implements OnInit {
   tableIsScroll = null;
   sortList: any = [];
   selectId: any = '';
-  kfqymc = '';
+  jzwmc = '';
   xmmc = '';
   currentStatus = '';
   dataSet = [];
@@ -79,8 +79,8 @@ export class HouseTradeComponent implements OnInit {
       conditions: []
     };
 
-    if (this.kfqymc) {
-      option.conditions.push({ key: 'kfqymc', value: this.kfqymc });
+    if (this.jzwmc) {
+      option.conditions.push({ key: 'jzwmc', value: this.jzwmc });
     }
     if (this.xmmc) {
       option.conditions.push({ key: 'xmmc', value: this.xmmc });
@@ -126,7 +126,7 @@ export class HouseTradeComponent implements OnInit {
   }
 
   reset() {
-    this.kfqymc = '';
+    this.jzwmc = '';
     this.xmmc = '';
     this.currentStatus = '';
     this.search();

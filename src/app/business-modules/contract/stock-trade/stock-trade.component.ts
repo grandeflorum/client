@@ -21,7 +21,7 @@ export class StockTradeComponent implements OnInit {
   tableIsScroll = null;
   sortList: any = [];
   selectId: any = '';
-  kfqymc = '';
+  jzwmc = '';
   xmmc = '';
   currentStatus = '';
   dataSet = [];
@@ -76,8 +76,8 @@ export class StockTradeComponent implements OnInit {
       conditions: []
     };
 
-    if (this.kfqymc) {
-      option.conditions.push({ key: 'kfqymc', value: this.kfqymc });
+    if (this.jzwmc) {
+      option.conditions.push({ key: 'jzwmc', value: this.jzwmc });
     }
     if (this.xmmc) {
       option.conditions.push({ key: 'xmmc', value: this.xmmc });
@@ -123,7 +123,7 @@ export class StockTradeComponent implements OnInit {
   }
 
   reset() {
-    this.kfqymc = '';
+    this.jzwmc = '';
     this.xmmc = '';
     this.currentStatus = '';
     this.search();

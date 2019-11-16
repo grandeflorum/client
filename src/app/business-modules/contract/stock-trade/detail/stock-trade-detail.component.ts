@@ -168,6 +168,18 @@ selectH: any = "";
 
     let res = await this.stockTradeService.linkH(this.detailObj.id, this.selectH);
     if (res && res.code == 200) {
+      this.lpbList.cList.forEach(cinfo => {
+        if(cinfo&&cinfo.hList.length>0){
+          cinfo.hList.forEach(hinfo => {
+            if(hinfo.id==this.selectH){
+              this.detailObj.dyh=hinfo.dyh;
+              this.detailObj.ch=hinfo.ch;
+              this.detailObj.fh=hinfo.mph;
+            }
+          });
+        }
+        
+      });
       this.msg.create("success", "关联成功");
     } else {
       this.msg.create("error", "关联失败");
