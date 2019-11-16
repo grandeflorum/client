@@ -24,6 +24,7 @@ export class StockTradeDetailComponent implements OnInit {
   tabs = [
     {name:'合同信息',index:0},
     {name:'附件',index:1},
+    { name: '关联户信息', index: 2 }
   ]
   tabsetIndex = 0;
   isDisable = false;
@@ -63,6 +64,12 @@ timeline = [
 fileTypeList = [];
 fileTypeIndex = 0;
 
+rowSpan: any = 0;
+lpbList: any = [];
+selectH: any = "";
+
+
+
   constructor(
     private msg: NzMessageService,
     private router:Router,
@@ -70,11 +77,26 @@ fileTypeIndex = 0;
     private localstorage:Localstorage,
     private fileService:FileService,
     private utilitiesSercice:UtilitiesSercice,
-    private stockTradeService:StockTradeService
+    private stockTradeService:StockTradeService,
+    private lpbglService: LpbglService
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
     this.detailObj.id = this.activatedRoute.snapshot.queryParams.id;
     this.moduleType = this.activatedRoute.snapshot.queryParams.moduleType;
+
+    let pid = this.activatedRoute.snapshot.queryParams["pid"];
+    this.detailObj.id = pid ? pid : this.detailObj.id;
+
+    let glType = this.activatedRoute.snapshot.queryParams["glType"];
+    this.tabsetIndex = glType ? 2 : 0;
+
+    if (type == 2) {
+      this.isDisable = true;
+      this.tabs = [
+        { name: '合同信息', index: 0 },
+        { name: '附件', index: 1 },
+      ]
+    }
 
     switch (type) {
       case '1'://添加
@@ -116,9 +138,41 @@ fileTypeIndex = 0;
         })
 
       }
+      if (this.detailObj.ljzid) {
+        this.selectH = this.detailObj.houseId;
+        this.getLpb(this.detailObj.ljzid);
+      }
      } else {
       this.msg.create('error', '内部服务错误');
     }
+  }
+
+  async getLpb(id) {
+    this.rowSpan = 0;
+
+    var res = await this.lpbglService.getLjz(id);
+
+    if (res && res.code == 200) {
+      this.lpbList = res.msg;
+      this.lpbList.dyList.forEach((v, k) => {
+        this.rowSpan += v.rowSpan;
+      })
+
+    }
+  }
+  async linkH() {
+    if (!this.selectH) {
+      this.msg.create("warning", "请先选择户");
+      return;
+    }
+
+    let res = await this.stockTradeService.linkH(this.detailObj.id, this.selectH);
+    if (res && res.code == 200) {
+      this.msg.create("success", "关联成功");
+    } else {
+      this.msg.create("error", "关联失败");
+    }
+
   }
 
   fileTypeIndexChange(index){

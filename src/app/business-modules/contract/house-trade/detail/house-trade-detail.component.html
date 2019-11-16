@@ -67,6 +67,35 @@
         </div>
       </div>
 
+      <div *ngIf="detailObj.ljzid">
+        <nz-divider nzText="楼盘表" nzOrientation="left" style="font-size: 18px"></nz-divider>
+
+        <div class="lpb_div" style="width:980px;margin:0 auto;overflow: auto;">
+            <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}">
+                <li class="ch_td">楼层数</li>
+                <li *ngFor="let data of lpbList.dyList; index as index" [ngStyle]="{'width':data.rowSpan*100+'px'}">
+                    {{data.name}}</li>
+            </ul>
+            <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}" *ngFor="let item of lpbList.cList; index as index">
+                <li class="ch_td">{{item.ch}}层</li>
+                <li *ngFor="let hu of item.hList" [ngClass]="{'lpb_ydy':hu.status == 1 , 'lpb_ycf':hu.status == 2}"
+                    nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent"
+                    (mouseenter)="selectedHuChange(hu)" [ngStyle]="{'border-color':selectH==hu.id?'red':'#ccc'}"
+                    (click)="selectH=hu.id">
+                    {{hu.mph}}</li>
+            </ul>
+
+        </div>
+
+        <ul class="lpb_tl">
+            <li class="lpb_wba">未备案</li>
+            <li class="lpb_kxs">可销售</li>
+            <li class="lpb_yba">已备案</li>
+            <li class="lpb_ydy">已抵押</li>
+            <li class="lpb_ycf">已查封</li>
+          </ul>
+    </div>
+
 
 
 
@@ -160,6 +189,10 @@
     </div>
   </div>
 
+  <div class="jbxx" *ngIf="tabsetIndex==2">
+    <app-lpbgl [glType]="'houseTrade'" [pid]="detailObj.id"></app-lpbgl>
+</div>
+
 
 
   <div style="width:100%;height: 50px;padding: 10px;text-align: right;padding-right: 20px;float:left">
@@ -167,7 +200,7 @@
       <div nz-col [nzSpan]="24">
         <button nz-button nzType="default" (click)="cancel()">取消</button>
         <button nz-button nzType="primary" *ngIf="!isDisable&&tabsetIndex==0" (click)="save()">保存</button>
-        <!-- <button nz-button nzType="primary" *ngIf="!isDisable" (click)="submit()">提交审核</button> -->
+        <button nz-button nzType="primary" *ngIf="!isDisable&&detailObj.ljzid" (click)="linkH()">关联户</button>
       </div>
 
     </div>
