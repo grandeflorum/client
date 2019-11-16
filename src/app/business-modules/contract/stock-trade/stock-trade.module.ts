@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { StockTradeComponent } from "./stock-trade.component";
 import { StockTradeDetailComponent } from './detail/stock-trade-detail.component';
+import { LpbglDetailComponent } from '../../lpbgl/detail/lpbgl-detail.component';
+
 
 const routes: Routes = [
   {
@@ -15,6 +17,10 @@ const routes: Routes = [
   {
     path: 'detail',
     component: StockTradeDetailComponent
+  },
+  {
+      path: 'lpbdetail',
+      component: LpbglDetailComponent
   }
 ];
 

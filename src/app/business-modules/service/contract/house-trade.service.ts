@@ -24,13 +24,17 @@ export class HouseTradeService {
     return this.http.post('/HouseTrade/deleteHouseTradeByIds', data);
   }
 
-  btachAuditHouseTrade(data):any {
+  btachAuditHouseTrade(data): any {
     return this.http.post('/HouseTrade/btachAuditHouseTrade', data);
   }
 
   auditHouseTradeById(id, type): any {
     return this.http.get('/HouseTrade/auditHouseTradeById?id=' + id + "&type=" + type);
-}
+  }
+
+  linkH(id, hid): any {
+    return this.http.get('/HouseTrade/linkH?id=' + id + "&hid=" + hid);
+  }
 
 
 }

@@ -24,13 +24,17 @@ export class StockTradeService {
     return this.http.post('/StockTrade/deleteStockTradeByIds', data);
   }
 
-  btachAuditStockTrade(data):any {
+  btachAuditStockTrade(data): any {
     return this.http.post('/StockTrade/btachAuditStockTrade', data);
   }
 
   auditStockTradeById(id, type): any {
     return this.http.get('/StockTrade/auditStockTradeById?id=' + id + "&type=" + type);
-}
+  }
+
+  linkH(id, hid): any {
+    return this.http.get('/StockTrade/linkH?id=' + id + "&hid=" + hid);
+  }
 
 
 }
