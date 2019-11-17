@@ -8,7 +8,7 @@
 
     <div nz-col [nzSpan]="8">
       所属类目：
-      <nz-select [(ngModel)]="sslm" class="w200" nzAllowClear nzPlaceHolder="请选择">
+      <nz-select [(ngModel)]="sslm" class="w200" nzAllowClear nzPlaceHolder="请选择"  (ngModelChange)="search()">
         <nz-option nzLabel="全部" nzValue=""></nz-option>
         <nz-option *ngFor="let option of dictionaryObj.xmsc" [nzLabel]="option.name" [nzValue]="option.code">
         </nz-option>
