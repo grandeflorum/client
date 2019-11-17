@@ -48,6 +48,9 @@ export class KfxmglDetailComponent implements OnInit {
   isImgVisible = false;
   currentImg = "";
 
+  regionList: any = [];
+  regionTreeNodes: any = [];
+
   constructor(
     private msg: NzMessageService,
     private router:Router,
@@ -78,12 +81,37 @@ export class KfxmglDetailComponent implements OnInit {
 
   ngOnInit() {
     this.dictionaryObj = this.localstorage.getObject("dictionary");
+    this.regionList = this.localstorage.getObject("region");
+    this.regionTreeNodes = this.generateTree2(this.regionList, null);
     if(this.detailObj.id){
       this.getProjectById();
       this.search();
     }
 
 
+  }
+
+  
+  generateTree2(data, parentCode) {
+    const itemArr: any[] = [];
+    for (var i = 0; i < data.length; i++) {
+      var node = data[i];
+      if (node.parentCode == parentCode) {
+        let newNode: any;
+        newNode = {
+          key: node.code,
+          title: node.name
+        };
+        let children = this.generateTree2(data, node.code);
+        if (children.length > 0) {
+          newNode.children = children;
+        } else {
+          newNode.isLeaf = true;
+        }
+        itemArr.push(newNode);
+      }
+    }
+    return itemArr;
   }
 
   async getProjectById(){

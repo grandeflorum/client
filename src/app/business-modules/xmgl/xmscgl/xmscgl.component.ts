@@ -75,7 +75,7 @@ export class XmscglComponent implements OnInit {
 
     console.log(option)
 
-    var res = await this.fileService.getFileListByRefidAndType(option);
+    var res = await this.kfxmglService.getProjectDialog(option);
     this.Loading = false;
     if(res.code == 200){
       this.dataSet = res.msg.currentList;
@@ -99,6 +99,8 @@ export class XmscglComponent implements OnInit {
   }
 
   reset() {
+    this.sslm = "";
+    this.txt = "";
     this.search();
   }
 

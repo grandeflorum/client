@@ -46,3 +46,7 @@
 .point3{
     background: red;
 }
+
+.datapicker-width ::ng-deep  .ant-calendar-picker .ant-calendar-picker-input {
+    width: 200px;
+}

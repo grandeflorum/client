@@ -37,4 +37,9 @@ export class KfxmglService {
     return this.http.get('/Project/auditProjectById?id=' + id + '&type=' + type);
   }
 
+   //获取项目开发手册
+   getProjectDialog(data: any): any {
+    return this.http.post('/Project/getProjectDialog', data);
+  }
+
 }

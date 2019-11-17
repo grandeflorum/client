@@ -25,11 +25,11 @@
   <div nz-row style="height: 50px;padding: 10px;">
     <div nz-col [nzSpan]="8">
       开工日期：
-      <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="kgrq" (ngModelChange)="onChange(1,$event)"></nz-date-picker>
+      <nz-date-picker class="datapicker-width" [nzAllowClear]="true" [(ngModel)]="kgrq" (ngModelChange)="onChange(1,$event)"></nz-date-picker>
     </div>
     <div nz-col [nzSpan]="8">
       &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;竣工日期：
-      <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="jgrq" (ngModelChange)="onChange(2,$event)"></nz-date-picker>
+      <nz-date-picker class="datapicker-width" [nzAllowClear]="true" [(ngModel)]="jgrq" (ngModelChange)="onChange(2,$event)"></nz-date-picker>
     </div>
     <div nz-col [nzSpan]="8" class="ta_r">
       <button nz-button nzType="primary" (click)="search()">
@@ -60,7 +60,8 @@
               (nzCheckedChange)="checkAll($event)"></th>
             <th>项目名称</th>
             <th>开发企业名称</th>
-            <!-- <th>已建楼幢</th> -->
+            <th>开工日期</th>
+            <th>竣工日期</th>
             <th nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th>
             <th>操作</th>
           </tr>
@@ -72,7 +73,8 @@
               (nzCheckedChange)="refreshStatus()"></td>
             <td title="{{data.xmmc}}">{{ data.xmmc |tooltips:15}}</td>
             <td title="{{data.kfqymc}}">{{ data.kfqymc |tooltips:15}}</td>
-            <!-- <td>{{ data.yjld }}</td> -->
+            <td >{{ data.kgrq | date:'yyyy-MM-dd'}}</td>
+            <td >{{ data.jgrq | date:'yyyy-MM-dd'}}</td>
             <td [ngClass]="{'cr0':data.auditType==0, 'cr1':data.auditType==1,'cr2':data.auditType==2,'cr3':data.auditType==3}">
                 <div class="point"
                 [ngClass]="{'point0':data.auditType==0, 'point1':data.auditType==1,'point2':data.auditType==2,'point3':data.auditType==3}"

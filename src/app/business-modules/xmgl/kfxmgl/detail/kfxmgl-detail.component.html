@@ -68,27 +68,18 @@
 
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="8">
-        <div class="label_div"><span class="clo_r">*</span>所属地区：</div>
-        <span>
-          <nz-select [(ngModel)]="detailObj.regionCode" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择"  required [validation]="true">
-            <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
-            </nz-option>
-        </nz-select>
-        </span>
-        
+        <div class="label_div">行政区划：</div>
+        <nz-tree-select [nzDropdownStyle]="{ 'max-height': '300px' }" class="w200" [disabled]="isDisable"
+            nzPlaceHolder="请选择行政区划" [nzNodes]="regionTreeNodes" [nzDefaultExpandAll]="true"
+            [nzAllowClear]="true" [(ngModel)]="detailObj.regionCode" nzShowExpand>
+        </nz-tree-select>
       </div>
+
       <div nz-col [nzSpan]="16">
-        <div class="label_div"><span class="clo_r">*</span>项目地址：</div>
-        <span>
-          <nz-select [(ngModel)]="detailObj.regionCode" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择"  required [validation]="true">
-            <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
-            </nz-option>
-        </nz-select>
-      </span>
-      <span>
-        <input nz-input nzSize="default" [(ngModel)]="detailObj.address" class="w200" placeholder="请输入" [disabled]="isDisable"
-          required [validation]="true" maxlength="100"/>
-      </span>
+          <div class="label_div">详细地址：</div>
+          <input style="width: calc(100% - 235px);" nz-input nzSize="default" [(ngModel)]="detailObj.address"
+              [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
+
       </div>
     </div>
 
@@ -106,7 +97,7 @@
         <span>
           <input nz-input nzSize="default" [(ngModel)]="detailObj.zdmj" [disabled]="isDisable" maxlength="10" required [validation]="true"
         [validationType]="'areaNumber'"
-          class="w200" placeholder="请输入占地面积" />
+          class="w200" placeholder="请输入占地面积" />㎡
         </span>
         
       </div>
@@ -226,9 +217,8 @@
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>总建筑面积：</div>
-        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.zjzmj" [disabled]="isDisable" maxlength="10" required [validation]="true" [validationType]="'areaNumber'"
-          class="w200" placeholder="请输入总建筑面积" /></span>
-       
+        <input nz-input nzSize="default" [(ngModel)]="detailObj.zjzmj" [disabled]="isDisable" maxlength="10" required [validation]="true" [validationType]="'areaNumber'"
+          class="w200" placeholder="请输入总建筑面积" />㎡
       </div>
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>住宅面积：</div>

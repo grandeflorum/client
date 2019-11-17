@@ -126,7 +126,7 @@ export class KfxmglComponent implements OnInit {
   reset() { 
     this.xmmc = '';
     this.kfqymc = '';
-    this.auditType ="0";
+    this.auditType ="";
     this.kgrq = '';
     this.jgrq = '';
     this.search();
