@@ -97,16 +97,17 @@
         <span>
           <input nz-input nzSize="default" [(ngModel)]="detailObj.zdmj" [disabled]="isDisable" maxlength="10" required [validation]="true"
         [validationType]="'areaNumber'"
-          class="w200" placeholder="请输入占地面积" />㎡
+          class="w200" placeholder="请输入占地面积" />
         </span>
-        
+        &nbsp;㎡
       </div>
       <div nz-col [nzSpan]="8">
         <div class="label_div">土地投资：</div>
         <span>
           <input nz-input nzSize="default" [(ngModel)]="detailObj.tdtz" maxlength="10" [disabled]="isDisable" [validation]="true" [validationType]="'nullMoney'"
           class="w200" placeholder="请输入土地投资" />
-        </span>&nbsp;万元
+        </span>
+        &nbsp;万元
        
       </div>
     </div>
@@ -205,7 +206,7 @@
 
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="24">
-        <div class="label_div"><span class="clo_r">*</span>土地使用证批准时间：</div>
+        <div class="label_div" style="width:150px"><span class="clo_r">*</span>土地使用证批准时间：</div>
         <span><nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.pzsj"  required [validation]="true">
         </nz-date-picker></span>
         
@@ -217,19 +218,22 @@
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>总建筑面积：</div>
-        <input nz-input nzSize="default" [(ngModel)]="detailObj.zjzmj" [disabled]="isDisable" maxlength="10" required [validation]="true" [validationType]="'areaNumber'"
-          class="w200" placeholder="请输入总建筑面积" />㎡
+        <span><input nz-input nzSize="default" [(ngModel)]="detailObj.zjzmj" [disabled]="isDisable" maxlength="10" required [validation]="true" [validationType]="'areaNumber'"
+          class="w200" placeholder="请输入总建筑面积" /></span>
+        &nbsp;㎡
       </div>
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>住宅面积：</div>
         <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.zzmj" [disabled]="isDisable" maxlength="10" required [validation]="true" [validationType]="'areaNumber'"
-          class="w200" placeholder="请输入住宅面积" /></span>&nbsp;㎡
+          class="w200" placeholder="请输入住宅面积" /></span>
+          &nbsp;㎡
        
       </div>
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>套数：</div>
         <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.zzts" [disabled]="isDisable" maxlength="4" required [validation]="true" [validationType]="'nullnumber'"
-          class="w200" placeholder="请输入套数" /></span>&nbsp;套
+          class="w200" placeholder="请输入套数" /></span>
+          &nbsp;套
        
       </div>
     </div>
