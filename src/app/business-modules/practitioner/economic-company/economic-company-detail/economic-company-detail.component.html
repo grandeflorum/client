@@ -6,7 +6,7 @@
         </nz-tabset>
     </div>
 
-    <div class="jbxx" *ngIf="tabsetIndex==0">
+    <div class="jbxx" [hidden]="tabsetIndex!=0">
         <nz-divider nzText="基本信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
         <div nz-row style="height: 50px;padding: 10px;">
@@ -59,23 +59,17 @@
         <div nz-row style="height: 50px;padding: 10px;">
 
             <div nz-col [nzSpan]="8">
-                <div class="label_div">所属地区：</div>
-                <nz-select class="w200" [(ngModel)]="parentCode" [disabled]="isDisable" nzAllowClear
-                    nzPlaceHolder="请选择">
-                    <nz-option nzValue="1" nzLabel="企业1"></nz-option>
-                    <nz-option nzValue="2" nzLabel="企业2"></nz-option>
-                </nz-select>
+                <div class="label_div">行政区划：</div>
+                <nz-tree-select [nzDropdownStyle]="{ 'max-height': '300px' }" class="w200" [disabled]="isDisable"
+                    nzPlaceHolder="请选择行政区划" [nzNodes]="regionTreeNodes" [nzDefaultExpandAll]="true"
+                    [nzAllowClear]="true" [(ngModel)]="detailObj.regioncode" nzShowExpand>
+                </nz-tree-select>
             </div>
 
             <div nz-col [nzSpan]="16">
                 <div class="label_div">详细地址：</div>
-                <nz-select class="w200" [(ngModel)]="detailObj.regioncode" [disabled]="isDisable" nzAllowClear
-                    nzPlaceHolder="请选择">
-                    <nz-option nzValue="1" nzLabel="企业1"></nz-option>
-                    <nz-option nzValue="2" nzLabel="企业2"></nz-option>
-                </nz-select>
-                <input style="margin-left: 10px;    width: calc(100% - 390px);" nz-input nzSize="default"
-                    [(ngModel)]="detailObj.address" [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
+                <input style="width: calc(100% - 235px);" nz-input nzSize="default" [(ngModel)]="detailObj.address"
+                    [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
 
             </div>
 
@@ -153,9 +147,9 @@
             </div>
 
             <div nz-col [nzSpan]="8">
-                <div class="label_div">证件号：</div>
+                <div class="label_div"><span class="clo_r">*</span>证件号：</div>
                 <input nz-input nzSize="default" [(ngModel)]="detailObj.zjh" [disabled]="isDisable" class="w200"
-                    maxlength="20" placeholder="请输入证件号" />
+                    maxlength="20" placeholder="请输入证件号" name="zjh" required [validation]="true" />
             </div>
 
         </div>

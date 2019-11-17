@@ -10,6 +10,9 @@ import { LpbglService } from '../../service/lpbgl/lpbgl.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { HouseRentalService } from '../../service/houserental/houserantal.service';
+import { HouseTradeService } from "../../service/contract/house-trade.service";
+import { StockTradeService } from "../../service/contract/stock-trade.service";
+
 
 @Component({
   selector: 'app-lpbgl-detail',
@@ -70,7 +73,9 @@ export class LpbglDetailComponent implements OnInit {
     private fileService: FileService,
     private utilitiesSercice: UtilitiesSercice,
     private lpbglService: LpbglService,
-    private houseRentalService: HouseRentalService
+    private houseRentalService: HouseRentalService,
+    private houseTradeService:HouseTradeService,
+    private stockTradeService:StockTradeService
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
     this.detailObj.id = this.activatedRoute.snapshot.queryParams.id;
@@ -183,7 +188,14 @@ export class LpbglDetailComponent implements OnInit {
     }
 
     if (this.glType) {
-      route = '/houserental/detail';
+
+      if (this.glType == "houseRental") {
+        route = '/houserental/detail';
+      } else if (this.glType == "houseTrade") {
+        route = '/contract/houseTrade/detail';
+      } else if (this.glType == "stockTrade") {
+        route = '/contract/stockTrade/detail';
+      }
       this.router.navigate([route], {
         queryParams: {
           glType: this.glType,
@@ -383,12 +395,23 @@ export class LpbglDetailComponent implements OnInit {
       return;
     }
 
-    let res = await this.houseRentalService.linkH(this.pid, this.selectH);
-    if (res && res.code == 200) {
-      this.msg.create("success", "关联成功");
-    } else {
-      this.msg.create("error", "关联失败");
+    if(this.glType){
+      let res ;
+      if(this.glType=="houseRental"){
+        res = await this.houseRentalService.linkH(this.pid, this.selectH);
+      }else if(this.glType=="houseTrade"){
+        res = await this.houseTradeService.linkH(this.pid, this.selectH);
+      }else if(this.glType=="stockTrade"){
+        res = await this.stockTradeService.linkH(this.pid, this.selectH);
+      }
+      
+      if (res && res.code == 200) {
+        this.msg.create("success", "关联成功");
+      } else {
+        this.msg.create("error", "关联失败");
+      }
     }
+    
 
   }
 
