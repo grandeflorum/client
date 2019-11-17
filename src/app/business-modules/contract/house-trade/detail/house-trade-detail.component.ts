@@ -116,8 +116,9 @@ export class HouseTradeDetailComponent implements OnInit {
     this.dictionaryObj = this.localstorage.getObject("dictionary");
     if (this.detailObj.id) {
       this.getDetail();
-      this.search();
     }
+    this.search();
+
 
 
   }
@@ -224,12 +225,18 @@ export class HouseTradeDetailComponent implements OnInit {
         { key: 'type', value: this.fileType }
       ]
     };
-    var res = await this.fileService.getFileListByRefidAndType(option2);
+    if(!this.detailObj.id){
+      this.fjList = [];
+      this.totalCount = 0;
+    }else{
+      var res = await this.fileService.getFileListByRefidAndType(option2);
 
-    if (res.code == 200) {
-      this.fjList = res.msg.currentList;
-      this.totalCount = res.msg.recordCount;
+      if (res.code == 200) {
+        this.fjList = res.msg.currentList;
+        this.totalCount = res.msg.recordCount;
+      }
     }
+    
 
     this.calculationHeight();
     this.operateData();
