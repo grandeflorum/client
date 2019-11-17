@@ -258,6 +258,17 @@ selectItem(data) {
         window.location.href = this.downLoadurl + "?id=" + item.id + "&type=0";
       }
 
+      findTypeName(type){
+        var typeName = "";
+        this.dictionaryObj.xmsc.forEach((v,k)=>{
+          if(v.code == type){
+            typeName = v.name
+          }
+        })
+
+        return typeName;
+      }
+
   ngAfterViewInit() {
     var that = this;
     $(window).resize(function () {

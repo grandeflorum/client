@@ -223,7 +223,7 @@
   <!-- 附件 -->
   <div class="jbxx" *ngIf="tabsetIndex==1" style="overflow: hidden">
       <div nz-row style="height: 50px;padding: 10px;">
-        <button nz-button nzType="primary" [nzVisible]="!detailObj.id" [disabled]="!detailObj.id" nz-tooltip nzTooltipTitle="请先保存项目信息" nzTooltipPlacement="bottom" (click)="upload()"><i nz-icon nzType="plus"></i>
+        <button *ngIf="!isDisable" nz-button nzType="primary" [nzVisible]="!detailObj.id" [disabled]="!detailObj.id" nz-tooltip nzTooltipTitle="请先保存项目信息" nzTooltipPlacement="bottom" (click)="upload()"><i nz-icon nzType="plus"></i>
           上传附件
         </button>
         <button nz-button nzType="default" *ngIf="!isDisable" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">

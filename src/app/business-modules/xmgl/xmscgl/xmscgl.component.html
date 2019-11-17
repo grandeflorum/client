@@ -2,14 +2,14 @@
   <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="12">
         所属类目：
-        <nz-select [(ngModel)]="sslm" style="width:400px" nzAllowClear nzPlaceHolder="请选择">
+        <nz-select [(ngModel)]="sslm" style="width:400px" nzAllowClear nzPlaceHolder="请选择" (ngModelChange)="search()">
             <nz-option nzLabel="全部" nzValue=""></nz-option>
             <nz-option *ngFor="let option of dictionaryObj.xmsc" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
         </nz-select>
       </div>
     <div nz-col [nzSpan]="12">
-      <nz-input-group nzSearch  [nzAddOnAfter]="suffixButton">
+      <nz-input-group nzSearch  [nzAddOnAfter]="suffixButton" style="width:250px">
         <input type="text" nz-input placeholder="请输入" [(ngModel)]="txt"/>
       </nz-input-group>
       <ng-template #suffixButton>
@@ -36,8 +36,8 @@
             <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
               (nzCheckedChange)="checkAll($event)"></th>
             <th>项目名称</th>
+            <th>所属类目</th>
             <th>上传时间</th>
-
             <th>操作</th>
           </tr>
         </thead>
@@ -47,6 +47,7 @@
             <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
               (nzCheckedChange)="refreshStatus()"></td>
             <td>{{ data.clientFileName }}</td>
+            <td class="text_ellipsis" [title]="findTypeName(data.fileType)">{{findTypeName(data.fileType)}}</td>
             <td>{{ data.uploadDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
            <td>
               <a class="table_a"  *ngIf="data.fileSuffix=='jpg' || data.fileSuffix=='jpeg' || data.fileSuffix=='png' || data.fileSuffix=='bmp' ||  data.fileSuffix=='pdf'" (click)="previewImg(data)">查看</a>

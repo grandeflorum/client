@@ -116,10 +116,18 @@ body, html {
 
   .w200 {
     width: 200px;
+
+    .ant-calendar-picker {
+      width: 200px;
+    }
   }
 
-  .w150{
+  .w150 {
     width: 150px;
+
+    .ant-calendar-picker {
+      width: 150px;
+    }
   }
   
   [nz-button] {
@@ -203,4 +211,9 @@ body, html {
 
 .ant-input[disabled] , .ant-select-disabled{
   color:rgb(0, 0, 0);
+}
+.text_ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
