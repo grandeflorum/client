@@ -16,6 +16,7 @@
                 <nz-option nzValue="0" nzLabel="未提交"></nz-option>
                 <nz-option nzValue="1" nzLabel="待审核"></nz-option>
                 <nz-option nzValue="2" nzLabel="已审核"></nz-option>
+                <nz-option nzValue="3" nzLabel="待修改"></nz-option>
             </nz-select>
         </div>
         <div nz-col [nzSpan]="4" class="ta_r">
@@ -65,8 +66,8 @@
                 (click)="selectItem(data)">
                 <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]"
                     [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
-                <td>{{ data.cqrxm }}</td>
-                <td>{{ data.address }}</td>
+                <td title="{{data.cqrxm}}">{{ data.cqrxm |tooltips:15}}</td>
+                <td title="{{data.address}}">{{ data.address |tooltips:15}}</td>
                 <td>{{ data.fx }}</td>
                 <td>{{ data.jzmj }}</td>
                 <td

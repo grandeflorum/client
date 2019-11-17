@@ -49,6 +49,9 @@ export class StockHouseDetailComponent implements OnInit {
   isImgVisible = false;
   currentImg = "";
 
+  regionList: any = [];
+  regionTreeNodes: any = [];
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -90,6 +93,31 @@ export class StockHouseDetailComponent implements OnInit {
     this.genderList = dic.gender;
     this.fxList=dic.fx;
     this.cqrgxList=dic.cqrgx;
+    this.regionList = this.localstorage.getObject("region");
+    this.regionTreeNodes = this.generateTree2(this.regionList, null);
+
+  }
+
+  generateTree2(data, parentCode) {
+    const itemArr: any[] = [];
+    for (var i = 0; i < data.length; i++) {
+      var node = data[i];
+      if (node.parentCode == parentCode) {
+        let newNode: any;
+        newNode = {
+          key: node.code,
+          title: node.name
+        };
+        let children = this.generateTree2(data, node.code);
+        if (children.length > 0) {
+          newNode.children = children;
+        } else {
+          newNode.isLeaf = true;
+        }
+        itemArr.push(newNode);
+      }
+    }
+    return itemArr;
   }
 
   async getStockHouseById() {
