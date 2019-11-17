@@ -185,7 +185,7 @@
     <!-- 附件 -->
     <div class="jbxx file_right">
       <div nz-row style="height: 50px;padding: 10px;">
-        <button nz-button nzType="primary" [nzVisible]="!detailObj.id" [disabled]="!detailObj.id" nz-tooltip
+        <button *ngIf="!isDisable" nz-button nzType="primary" [nzVisible]="!detailObj.id" [disabled]="!detailObj.id" nz-tooltip
           nzTooltipTitle="请先保存合同信息" nzTooltipPlacement="bottom" (click)="upload()"><i nz-icon nzType="plus"></i>
           上传附件
         </button>
