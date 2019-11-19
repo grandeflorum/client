@@ -111,7 +111,14 @@ const routes: Routes = [
         canActivate: [AuthGuardService],
         data: { id: 'A-zddygl' },
         children: [
-            { path: '', loadChildren: () => import('./zddygl/zddygl.module').then(m => m.ZddyglModule) }
+            { path: '', loadChildren: () => import('./zddygl/zddygl.module').then(m => m.ZddyglModule) }]
+    }, {
+        path: 'statistics',
+        component: BusinessModulesComponent,
+        canActivate: [AuthGuardService],
+        data: { id: 'A-statistics' },
+        children: [
+            { path: 'xsphbfx', loadChildren: () => import('./statistics/xsphbfx/xsphbfx.module').then(m => m.XsphbfxModule) },
         ]
     },
     { path: '', pathMatch: 'full', redirectTo: '/login' }
