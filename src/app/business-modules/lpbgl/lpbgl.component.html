@@ -41,46 +41,47 @@
       </div>
     </div> -->
 
-      <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow" [nzFrontPagination]="false"  [nzLoading]="Loading"  [nzShowTotal]="rangeTemplate"
-        [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize" [nzTotal]="totalCount"
-        (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
-        (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
-        <thead (nzSortChange)="sort($event)">
-          <tr>
-            <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
-              (nzCheckedChange)="checkAll($event)"></th>
-              <th>项目名称</th>
-              <th>楼盘名称</th>
-            <th>总套数</th>
-            <th>总面积（㎡）</th>
-            <!-- <th nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th> -->
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of nestedTable.data; index as index" [ngClass]="{ itemSeleted: data.id == selectId }"
-            (click)="selectItem(data)">
-            <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
-              (nzCheckedChange)="refreshStatus()"></td>
-              <td title="{{data.xmmc}}">{{ data.xmmc |tooltips:15}}</td>
-              <td title="{{data.kfqymc}}">{{ data.jzwmc |tooltips:15}}</td>
-            <td>{{data.zts}}</td>
-            <td>{{data.zmj}}</td>
-            <!-- <td [ngClass]="{'cr0':data.auditType==0, 'cr1':data.auditType==1,'cr2':data.auditType==2,'cr3':data.auditType==3}">
+  <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow" [nzFrontPagination]="false"
+    [nzLoading]="Loading" [nzShowTotal]="rangeTemplate" [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper
+    nzShowSizeChanger [nzPageSize]="pageSize" [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)"
+    (nzPageSizeChange)="pageSizeChange($event)" (nzCurrentPageDataChange)="currentPageDataChange($event)"
+    [nzScroll]="tableIsScroll">
+    <thead (nzSortChange)="sort($event)">
+      <tr>
+        <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
+          (nzCheckedChange)="checkAll($event)"></th>
+        <th>项目名称</th>
+        <th>楼盘名称</th>
+        <th>总套数</th>
+        <th>总面积（㎡）</th>
+        <!-- <th nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th> -->
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nestedTable.data; index as index" [ngClass]="{ itemSeleted: data.id == selectId }"
+        (click)="selectItem(data)">
+        <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
+          (nzCheckedChange)="refreshStatus()"></td>
+        <td title="{{data.xmmc}}">{{ data.xmmc |tooltips:15}}</td>
+        <td title="{{data.kfqymc}}">{{ data.jzwmc |tooltips:15}}</td>
+        <td>{{data.zts}}</td>
+        <td>{{data.zmj}}</td>
+        <!-- <td [ngClass]="{'cr0':data.auditType==0, 'cr1':data.auditType==1,'cr2':data.auditType==2,'cr3':data.auditType==3}">
                 <div class="point"
                 [ngClass]="{'point0':data.auditType==0, 'point1':data.auditType==1,'point2':data.auditType==2,'point3':data.auditType==3}"
                 ></div>{{ data.auditType|audit }}</td> -->
-            <td>
-              <a class="table_a" (click)="add(2,data)">查看</a>
-              <!-- <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" (click)="add(3,data)">编辑</a>
+        <td>
+          <a class="table_a" (click)="add(2,data)">查看</a>
+          <!-- <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" (click)="add(3,data)">编辑</a>
               <a class="table_a"  *ngIf="data.auditType==1" (click)="moreAudit(data)">审核</a>
               <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete(data)">删除</a>
               <a class="table_a" *ngIf="data.auditType==0 || data.auditType == 3"  nz-popconfirm nzTitle="确定提交审核吗?"
               (nzOnConfirm)="auditSubmit(data , 1)">提交审核</a> -->
-            </td>
-          </tr>
-        </tbody>
-      </nz-table>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
 </div>
 
 <!-- <nz-modal [(nzVisible)]="isVisible" nzTitle="审核" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
@@ -115,6 +116,5 @@
 </nz-modal> -->
 
 <ng-template #rangeTemplate let-range="range" let-total>
-   共{{total}}条记录&nbsp;&nbsp;
+  共{{total}}条记录&nbsp;&nbsp;
 </ng-template>
-

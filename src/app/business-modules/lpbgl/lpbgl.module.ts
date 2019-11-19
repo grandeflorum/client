@@ -22,11 +22,10 @@ const routes: Routes = [
     declarations: [],
     imports: [
         CommonModule,
-        FormsModule, 
+        FormsModule,
         LayoutModule,
         NgZorroAntdModule,
-        RouterModule.forChild(routes),
-        
+        RouterModule.forChild(routes)
     ],
     exports: [RouterModule],
     entryComponents: []

@@ -105,6 +105,15 @@ const routes: Routes = [
 
         ]
     },
+    {
+        path: 'zddygl',
+        component: BusinessModulesComponent,
+        canActivate: [AuthGuardService],
+        data: { id: 'A-zddygl' },
+        children: [
+            { path: '', loadChildren: () => import('./zddygl/zddygl.module').then(m => m.ZddyglModule) }
+        ]
+    },
     { path: '', pathMatch: 'full', redirectTo: '/login' }
 ];
 

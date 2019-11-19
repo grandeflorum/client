@@ -9,6 +9,8 @@
   <!-- 基本信息 -->
   <div class="jbxx" *ngIf="tabsetIndex==0">
     <nz-divider nzText="基本信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
+    <button style="float: right;z-index: 1000;" nz-button nzType="primary" *ngIf="glType=='zddygl'"
+      (click)="restrictedProperty('1')">限制楼盘销售</button>
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="8">项目名称</div>
       <div nz-col [nzSpan]="8">楼盘名称</div>
@@ -28,8 +30,9 @@
         (nzSelectedIndexChange)="tabsetChange2($event)">
         <nz-tab *ngFor="let tab of tabs2" [nzTitle]="tab.name"></nz-tab>
       </nz-tabset>
+      <button style="position: absolute;right: 20px;top: -10px;" nz-button nzType="primary" *ngIf="glType=='zddygl'"
+        (click)="restrictedProperty('2')">限制幢销售</button>
     </div>
-
     <div class="lp_message_wrap">
       <div class="lp_title"><i nz-icon nzType="info-circle" nzTheme="outline"></i>楼幢总览</div>
 
@@ -204,7 +207,7 @@
   <div nz-row style="height: 50px;padding: 10px;text-align: right;padding-right: 20px;">
     <div nz-col [nzSpan]="24">
       <button nz-button nzType="default" (click)="cancel()">取消</button>
-      <button nz-button nzType="primary" *ngIf="glType" (click)="linkH()">关联户</button>
+      <button nz-button nzType="primary" *ngIf="glType=='houseRental'" (click)="linkH()">关联户</button>
       <button nz-button nzType="primary" *ngIf="!isDisable&&tabsetIndex==0" (click)="save()">保存</button>
       <!-- <button nz-button nzType="primary" *ngIf="!isDisable" (click)="submit()">提交审核</button> -->
     </div>

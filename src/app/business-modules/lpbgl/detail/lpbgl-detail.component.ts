@@ -12,6 +12,7 @@ import * as $ from 'jquery';
 import { HouseRentalService } from '../../service/houserental/houserantal.service';
 import { HouseTradeService } from "../../service/contract/house-trade.service";
 import { StockTradeService } from "../../service/contract/stock-trade.service";
+import { ZddyglService } from '../../service/zddygl/zddygl.service';
 
 
 @Component({
@@ -74,8 +75,9 @@ export class LpbglDetailComponent implements OnInit {
     private utilitiesSercice: UtilitiesSercice,
     private lpbglService: LpbglService,
     private houseRentalService: HouseRentalService,
-    private houseTradeService:HouseTradeService,
-    private stockTradeService:StockTradeService
+    private houseTradeService: HouseTradeService,
+    private stockTradeService: StockTradeService,
+    private zddyglService: ZddyglService
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
     this.detailObj.id = this.activatedRoute.snapshot.queryParams.id;
@@ -195,6 +197,8 @@ export class LpbglDetailComponent implements OnInit {
         route = '/contract/houseTrade/detail';
       } else if (this.glType == "stockTrade") {
         route = '/contract/stockTrade/detail';
+      } else if (this.glType == 'zddygl') {
+        route = '/zddygl/detail';
       }
       this.router.navigate([route], {
         queryParams: {
@@ -293,6 +297,25 @@ export class LpbglDetailComponent implements OnInit {
     } else {
       this.msg.create('error', '保存失败');
     }
+  }
+
+  async restrictedProperty(type) {
+    let zh;
+
+    if (type == '1') {
+      zh = this.detailObj.zrzh;
+    } else if (type == '2') {
+      zh = this.lpbList.ljzh;
+    }
+
+    let res = await this.zddyglService.restrictedProperty(this.pid, zh, type);
+
+    if (res && res.code == 200) {
+      this.msg.create('success', '限制成功');
+    } else {
+      this.msg.create('error', '限制失败');
+    }
+
   }
 
   calculationHeight() {
@@ -395,23 +418,23 @@ export class LpbglDetailComponent implements OnInit {
       return;
     }
 
-    if(this.glType){
-      let res ;
-      if(this.glType=="houseRental"){
+    if (this.glType) {
+      let res;
+      if (this.glType == "houseRental") {
         res = await this.houseRentalService.linkH(this.pid, this.selectH);
-      }else if(this.glType=="houseTrade"){
+      } else if (this.glType == "houseTrade") {
         res = await this.houseTradeService.linkH(this.pid, this.selectH);
-      }else if(this.glType=="stockTrade"){
+      } else if (this.glType == "stockTrade") {
         res = await this.stockTradeService.linkH(this.pid, this.selectH);
       }
-      
+
       if (res && res.code == 200) {
         this.msg.create("success", "关联成功");
       } else {
         this.msg.create("error", "关联失败");
       }
     }
-    
+
 
   }
 

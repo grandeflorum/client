@@ -1,0 +1,113 @@
+.label_div{
+    float:left;
+    text-align: right;
+    margin-top:5px;
+    width:140px;
+}
+.jbxx{
+    height:calc(100% - 80px);
+    overflow: auto;
+}
+
+.deleteicon{
+   
+    position: absolute;
+    right: 2px;
+
+    cursor: pointer;
+  }
+.w200 {
+    width: 150px!important;
+  }
+
+  i[nz-icon] {
+    font-size: 32px;
+    color: #999;
+  }
+  .ant-upload-text {
+    margin-top: 8px;
+    color: #666;
+  }
+
+ 
+  .lpb_div{
+    ul{
+      overflow: hidden;
+      margin-bottom:0;
+      width:20000px;
+    }
+    li{
+      width:100px;
+      height:30px;
+      text-align: center;
+      line-height: 30px;
+      list-style: none;
+      float:left;
+      border:1px solid #ccc;
+  
+      &:hover{
+        background: #e6f7ff;
+      }
+    }
+  }
+  
+  .ch_td{
+    width:100px;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 550;
+  }
+  
+  .lpb_tl{
+    li{
+      width:100px;
+      height:30px;
+      text-align: center;
+      line-height: 30px;
+      list-style: none;
+      float: left;
+      margin-top:20px;
+      border: 1px solid #ccc;
+    }
+  }
+  
+  .lpb_wba{
+      background: #fff;
+  }
+  .lpb_kxs{
+    background: #00ccff;
+    color:#fff;
+  }
+  .lpb_yba{
+    background: #ffcc33;
+    color:#fff;
+  }
+  .lpb_ydy{
+    background: #ff99cc;
+    color:#fff;
+  }
+  .lpb_ycf{
+    background: #d7d7d7;
+  }
+  
+  
+    .card-container ::ng-deep .ant-tabs-card {
+      background: #f5f5f5;
+    }
+  
+    .card-container ::ng-deep .ant-tabs-card .ant-tabs-bar {
+      border-color: #fff;
+    }
+  
+    .card-container ::ng-deep .ant-tabs-card .ant-tabs-bar .ant-tabs-tab {
+      border-color: transparent;
+      background: transparent;
+    }
+  
+    .card-container ::ng-deep .ant-tabs-card .ant-tabs-bar .ant-tabs-tab-active {
+      border-color: #fff;
+      background: #fff;
+    }
+  
+    .card-container ::ng-deep .ant-tabs-card .ant-tabs-bar {
+      margin:0;
+    }

@@ -1,0 +1,105 @@
+<div class="list_content_wrap">
+    <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="8">
+            不动产单元号:
+            <input nz-input nzSize="default" [(ngModel)]="bdcdyh" class="w150" placeholder="请输入不动产单元号" />
+        </div>
+        <div nz-col [nzSpan]="8">
+            抵押不动产类型:
+            <nz-select [(ngModel)]="dybdclx" class="w150" nzAllowClear nzPlaceHolder="请选择">
+                <nz-option *ngFor="let option of dictionaryObj.dybdclx" [nzLabel]="option.name"
+                    [nzValue]="option.code.toString()">
+                </nz-option>
+            </nz-select>
+        </div>
+
+        <div nz-col [nzSpan]="8">
+            在建建筑物坐落:
+            <input nz-input nzSize="default" [(ngModel)]="zjjzwzl" class="w150" placeholder="请输入在建建筑物坐落" />
+        </div>
+    </div>
+
+    <div nz-row style="height: 50px;padding: 10px;">
+
+
+        <div nz-col [nzSpan]="8">
+            状态:
+            <nz-select [(ngModel)]="dy_type" class="w150" nzPlaceHolder="请选择">
+                <nz-option nzValue="" nzLabel="全部"></nz-option>
+                <nz-option nzValue="0" nzLabel="未抵押"></nz-option>
+                <nz-option nzValue="1" nzLabel="已抵押（楼盘）"></nz-option>
+                <nz-option nzValue="2" nzLabel="已抵押（幢）"></nz-option>
+            </nz-select>
+        </div>
+        <div>
+
+        </div>
+        <div nz-col [nzSpan]="16" class="ta_r">
+            <button nz-button nzType="primary" (click)="search()">
+                查询
+            </button>
+            <button nz-button nzType="default" (click)="reset()">
+                重置
+            </button>
+        </div>
+    </div>
+
+    <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="24">
+            <button nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
+                添加
+            </button>
+            <button nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">
+                批量删除
+            </button>
+        </div>
+    </div>
+
+    <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow" [nzLoading]="Loading"
+        [nzShowTotal]="rangeTemplate" [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger
+        [nzPageSize]="pageSize" [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)"
+        (nzPageSizeChange)="pageSizeChange($event)" (nzCurrentPageDataChange)="currentPageDataChange($event)"
+        [nzScroll]="tableIsScroll" [nzFrontPagination]="false">
+        <thead (nzSortChange)="sort($event)">
+            <tr>
+                <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
+                    [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
+                <th>不动产单元号</th>
+                <th>抵押不动产类型</th>
+                <th>抵押方式</th>
+                <th>在建建筑物坐落</th>
+                <th nzShowSort nzSortKey="zmj">总面积（㎡）</th>
+                <th nzShowSort nzSortKey="dy_type">状态</th>
+                <th style="width:20%">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of nestedTable.data; index as index" [ngClass]="{ itemSeleted: data.id == selectId }"
+                (click)="selectItem(data)">
+                <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]"
+                    [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
+                <td title="{{data.bdcdyh}}">{{ data.bdcdyh |tooltips:15}}</td>
+                <td title="{{data.dybdclxName}}">{{ data.dybdclxName |tooltips:15}}</td>
+                <td>{{ data.dyfsName }}</td>
+                <td title="{{data.zjjzwzl}}">{{ data.zjjzwzl|tooltips:15 }}</td>
+                <td>{{ data.zmj }}</td>
+                <td [ngStyle]="{'color':data.dyType==0?'#868686':'#FF0000'}">
+                    <img *ngIf="data.dyType!=0" style="margin-top:-3px;" src="../../../../assets/images/lock.png">
+                    {{ data.dyType==0?'未抵押':data.dyType==1?'已抵押（楼盘）':'已抵押（幢）' }}</td>
+                <td style=" width:20%">
+                    <a class="table_a" (click)="add(2,data)">查看</a>
+                    <a class="table_a" (click)="add(3,data)">编辑</a>
+                    <a class="table_a" nz-popconfirm nzTitle="确定注销抵押吗?"
+                        (nzOnConfirm)="restrictedProperty(data.id)">注销抵押</a>
+                    <!-- <a class="table_a" nz-popconfirm nzTitle="确定抵押楼盘吗?" (nzOnConfirm)="delete([data.id])">抵押楼盘</a> -->
+                    <a class="table_a" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="delete([data.id])">删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+
+    <ng-template #rangeTemplate let-range="range" let-total>
+        共{{total}}条记录&nbsp;&nbsp;
+    </ng-template>
+
+</div>

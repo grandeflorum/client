@@ -197,16 +197,18 @@ export class LpbglComponent implements OnInit {
     }
 
     if (this.glType) {
-      if(!this.pid){
+      if (!this.pid) {
         this.msg.create('error', '请先保存信息再关联户');
         return false;
       }
-      if(this.glType=="houseRental"){
+      if (this.glType == "houseRental") {
         route = '/houserental/lpbdetail';
-      }else if(this.glType=="houseTrade"){
+      } else if (this.glType == "houseTrade") {
         route = '/contract/houseTrade/lpbdetail';
-      }else if(this.glType=="stockTrade"){
+      } else if (this.glType == "stockTrade") {
         route = '/contract/stockTrade/lpbdetail';
+      } else if (this.glType == "zddygl") {
+        route = '/zddygl/lpbdetail';
       }
     }
 
