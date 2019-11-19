@@ -68,13 +68,13 @@ export class BusinessModulesComponent implements OnInit {
         { name: '预查封管理', id: 'ycfgl', route: '/ycfgl', icon: 'dashboard', children: [] },
         // { name: '宗地抵押管理', id: 'zddygl', route: '/zddygl', icon: 'dashboard', children: [] },
         { name: '房屋租赁管理', id: 'houserental', route: '/houserental', icon: 'dashboard', children: [] },
-        // {
-        //     name: '统计分析', id: 'statistics', route: '/statistics', icon: 'dashboard', children: [
-        //         { name: '销售排行榜分析', id: 'xsphbfx', route: '/statistics/xsphbfx', icon: 'dashboard' },
-        //         { name: '时间查询统计分析', id: 'sjcxtjfx', route: '/statistics/sjcxtjfx', icon: 'dashboard' },
-        //         { name: '交易汇总信息分析', id: 'jyhzxxfx', route: '/statistics/jyhzxxfx', icon: 'dashboard' }
-        //     ]
-        // },
+        {
+            name: '统计分析', id: 'statistics', route: '/statistics', icon: 'dashboard', children: [
+                { name: '销售排行榜分析', id: 'xsphbfx', route: '/statistics/xsphbfx', icon: 'dashboard' },
+                { name: '时间查询统计分析', id: 'sjcxtjfx', route: '/statistics/sjcxtjfx', icon: 'dashboard' },
+                { name: '交易汇总信息分析', id: 'jyhzxxfx', route: '/statistics/jyhzxxfx', icon: 'dashboard' }
+            ]
+        },
         {
             name: '系统管理', id: 'system', route: '/system', icon: 'dashboard', children: [
                 { name: '组织机构', id: 'organization', route: '/system/organization', icon: 'dashboard' },
