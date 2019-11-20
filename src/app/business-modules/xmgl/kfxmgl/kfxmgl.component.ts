@@ -73,10 +73,12 @@ export class KfxmglComponent implements OnInit {
       option.conditions.push({ key: 'auditType', value: this.auditType });
     }
     if (this.kgrq) {
-      option.conditions.push({ key: 'kgrq', value: this.kgrq });
+      var str = new Date(this.kgrq).getFullYear().toString() + "/" + (new Date(this.kgrq).getMonth() + 1).toString() + "/" + new Date(this.kgrq).getDate().toString() + " 00:00:00";
+      option.conditions.push({ key: 'kgrq', value:str  });
     }
     if (this.jgrq) {
-      option.conditions.push({ key: 'jgrq', value: this.jgrq });
+      var str = new Date(this.jgrq).getFullYear().toString() + "/" + (new Date(this.jgrq).getMonth() + 1).toString() + "/" + new Date(this.jgrq).getDate().toString() + " 23:59:59";
+      option.conditions.push({ key: 'jgrq', value:str });
     }
     option.conditions.push({ key: 'sort', value: this.sortList });
 
