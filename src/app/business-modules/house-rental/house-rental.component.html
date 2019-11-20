@@ -66,13 +66,13 @@
             <tr>
                 <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
                     [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
-                <th>房屋出租编号</th>
+                <th style="width:20%">房屋出租编号</th>
                 <th>联系人</th>
                 <th>所属区域</th>
                 <th nzShowSort nzSortKey="area">面积</th>
                 <th nzShowSort nzSortKey="rental">租金</th>
                 <th nzShowSort nzSortKey="houseage">房龄</th>
-                <th style="width:30%">操作</th>
+                <th style="width:20%">操作</th>
             </tr>
         </thead>
         <tbody>
@@ -80,13 +80,13 @@
                 (click)="selectItem(data)">
                 <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]"
                     [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
-                <td title="{{data.serialnumber}}">{{ data.serialnumber |tooltips:15}}</td>
+                <td style="width:20%" title="{{data.serialnumber}}">{{ data.serialnumber}}</td>
                 <td title="{{data.linker}}">{{ data.linker |tooltips:15}}</td>
                 <td>{{ data.regionName }}</td>
                 <td>{{ data.area }}</td>
                 <td>{{ data.rental }}</td>
                 <td>{{ data.houseage }}</td>
-                <td style="width:30%">
+                <td style="width:20%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
                     <a class="table_a" (click)="add(3,data)">编辑</a>
                     <a class="table_a" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="delete([data.id])">删除</a>

@@ -12,9 +12,8 @@
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>房屋出租编号：</div>
-        <span> <input nz-input name="fwczbh" nzSize="default" [(ngModel)]="detailObj.serialnumber"
-            [disabled]="isDisable" required [validation]="true" class="w200" maxlength="25"
-            placeholder="请输入房屋出租编号" /></span>
+        <span> <input nz-input name="fwczbh" nzSize="default" [(ngModel)]="detailObj.serialnumber" disabled class="w200"
+            maxlength="25" placeholder="保存后自动生成" title="{{detailObj.serialnumber}}"/></span>
 
       </div>
       <div nz-col [nzSpan]="8">
