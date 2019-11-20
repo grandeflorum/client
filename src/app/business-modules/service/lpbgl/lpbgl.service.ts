@@ -5,7 +5,7 @@ import { HttpRestService } from '../http-rest.service';
   providedIn: 'root'
 })
 export class LpbglService {
-  constructor(private http: HttpRestService) {}
+  constructor(private http: HttpRestService) { }
 
   //获取楼盘表列表
   getBuildingTableList(param): any {
@@ -22,6 +22,8 @@ export class LpbglService {
     return this.http.get('/BuildingTable/getLjz?id=' + id);
   }
 
-
+  getInfoByZh(zh, type): any {
+    return this.http.get('/BuildingTable/getInfoByZh?ZH=' + zh + '&Type=' + type);
+  }
 
 }

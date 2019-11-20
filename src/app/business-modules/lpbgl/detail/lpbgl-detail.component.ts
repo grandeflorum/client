@@ -24,6 +24,8 @@ export class LpbglDetailComponent implements OnInit {
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
   @ViewChild('uploadComponent', { static: false }) uploadComponent;
 
+  @ViewChild('lpbdetail', { static: false }) lpbdetail;
+
   downLoadurl = AppConfig.Configuration.baseUrl + "/FileInfo/download";
   tabs = [
     { name: '楼盘信息', index: 0 },
@@ -117,6 +119,10 @@ export class LpbglDetailComponent implements OnInit {
 
     if (res && res.code == 200) {
       this.detailObj = res.msg;
+
+      if (this.lpbdetail) {
+        this.lpbdetail.init(res.msg);
+      }
 
       this.lpbList = this.detailObj.ljzList[0];
 
@@ -413,6 +419,11 @@ export class LpbglDetailComponent implements OnInit {
   }
 
   async linkH() {
+
+    if (this.lpbdetail) {
+      this.selectH = this.lpbdetail.selectH;
+    }
+
     if (!this.selectH) {
       this.msg.create("warning", "请先选择户");
       return;

@@ -7,7 +7,7 @@
   </div>
 
   <!-- 基本信息 -->
-  <div class="jbxx" *ngIf="tabsetIndex==0">
+  <!-- <div class="jbxx" *ngIf="tabsetIndex==33">
     <nz-divider nzText="基本信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
     <button style="float: right;z-index: 1000;" nz-button nzType="primary" *ngIf="glType=='zddygl'"
       (click)="restrictedProperty('1')">限制楼盘销售</button>
@@ -62,9 +62,9 @@
         <div class="label_div">总层数：</div>
         <input nz-input nzSize="default" [(ngModel)]="lpbList.zcs" maxlength="50" [disabled]="isDisable" class="w200" />
       </div>
-    </div>
+    </div> -->
 
-    <!-- <div nz-row style="height: 50px;padding: 10px;">
+  <!-- <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="8">
             <div class="label_div">销售类型：</div>
             <nz-select [(ngModel)]="detailObj.xslx" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择" >
@@ -89,7 +89,7 @@
 
     </div> -->
 
-    <div nz-row style="height: 50px;padding: 10px;">
+  <!-- <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="24">
         <div class="label_div">房屋用途：</div>
         <nz-select [(ngModel)]="lpbList.fwyt1" class="w200" [disabled]="isDisable" nzAllowClear>
@@ -97,9 +97,9 @@
           </nz-option>
         </nz-select>
       </div>
-    </div>
+    </div> -->
 
-    <!-- <div nz-row style="height: 50px;padding: 10px;">
+  <!-- <div nz-row style="height: 50px;padding: 10px;">
           <div nz-col [nzSpan]="8">
             <div class="label_div">单元信息：</div>
             <input nz-input nzSize="default" [(ngModel)]="detailObj.dyxx" [disabled]="isDisable"
@@ -118,7 +118,7 @@
         </div> -->
 
 
-    <nz-divider nzText="楼盘表" nzOrientation="left" style="font-size: 18px"></nz-divider>
+  <!-- <nz-divider nzText="楼盘表" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
     <div class="lpb_div" style="width:980px;margin:0 auto;overflow: auto;">
       <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}">
@@ -149,7 +149,13 @@
 
 
 
+  </div> -->
+
+  <div class="jbxx" *ngIf="tabsetIndex==0">
+    <app-lpb-detail #lpbdetail [glType]="glType" (restrictedProperty)="restrictedProperty($event)">
+    </app-lpb-detail>
   </div>
+
 
   <!-- 附件 -->
   <div class="jbxx" *ngIf="tabsetIndex==1" style="overflow: hidden">
@@ -226,11 +232,11 @@
 </nz-modal>
 
 
-<ng-template #PopoverContent>
+<!-- <ng-template #PopoverContent>
   <p>门牌号：{{selectedHu.mph}}</p>
   <p>层数：{{selectedHu.ch}}</p>
   <p>单元号：{{selectedHu.dyh}}</p>
   <p>面积：{{selectedHu.scjzmj}}</p>
   <p>不动产登记号：{{selectedHu.bdcdyh}}</p>
   <p>坐落：{{selectedHu.zl}}</p>
-</ng-template>
+</ng-template> -->

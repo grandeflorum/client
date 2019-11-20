@@ -4,6 +4,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
 import { ZddyglService } from '../../service/zddygl/zddygl.service';
+import { LpbglService } from '../../service/lpbgl/lpbgl.service';
 
 @Component({
   selector: 'app-zddygl-detail',
@@ -13,6 +14,8 @@ import { ZddyglService } from '../../service/zddygl/zddygl.service';
 export class ZddyglDetailComponent implements OnInit {
 
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
+
+  @ViewChild('lpbdetail', { static: false }) lpbdetail;
 
   tabs = [
     { name: '抵押宗地信息', index: 0 },
@@ -35,13 +38,15 @@ export class ZddyglDetailComponent implements OnInit {
   rowSpan: any = 0;
   lpbList: any = [];
   selectH: any = "";
+  type: number;
 
   constructor(
     private msg: NzMessageService,
     private router: Router,
     private zddyglService: ZddyglService,
     private ActivatedRoute: ActivatedRoute,
-    private localstorage: Localstorage
+    private localstorage: Localstorage,
+    private lpbglService: LpbglService
   ) { }
 
   ngOnInit() {
@@ -51,7 +56,7 @@ export class ZddyglDetailComponent implements OnInit {
 
     this.regionTreeNodes = this.generateTree2(this.regionList, null);
     let id = this.ActivatedRoute.snapshot.queryParams["id"];
-    let type = this.ActivatedRoute.snapshot.queryParams["type"];
+    this.type = this.ActivatedRoute.snapshot.queryParams["type"];
 
     let pid = this.ActivatedRoute.snapshot.queryParams["pid"];
     id = pid ? pid : id;
@@ -59,15 +64,15 @@ export class ZddyglDetailComponent implements OnInit {
     let glType = this.ActivatedRoute.snapshot.queryParams["glType"];
     this.tabsetIndex = glType ? 1 : 0;
 
-    if (type == 2) {
+    if (this.type == 2) {
       this.isDisable = true;
       this.tabs = [
         { name: '抵押宗地信息', index: 0 }
       ]
-    } else if (type == 3 || glType || pid) {
+    } else if (this.type == 3 || glType || pid) {
       this.tabs = [
         { name: '抵押宗地信息', index: 0 },
-        { name: '楼盘信息', index: 1 }
+        { name: '关联楼盘', index: 1 }
       ]
     }
 
@@ -103,11 +108,32 @@ export class ZddyglDetailComponent implements OnInit {
     let data = await this.zddyglService.getZddyglById(id);
     if (data) {
       this.detailObj = data.msg;
+
+
+      if (this.detailObj.dyType != 0) {
+        this.tabs.push(
+          { name: this.detailObj.dyType == 1 ? '楼盘信息' : '幢信息', index: 1 }
+        );
+      }
     }
   }
 
-  tabsetChange(m) {
+  async tabsetChange(m) {
     this.tabsetIndex = m;
+
+    if ((m == 1 && this.type == 2) || m == 2) {
+      let res = await this.lpbglService.getInfoByZh(this.detailObj.dyType == 1 ? this.detailObj.zrzh : this.detailObj.ljzh, this.detailObj.dyType);
+
+      if (res && res.code == 200) {
+        if (this.detailObj.dyType == 1) {
+          if (this.lpbdetail) {
+            this.lpbdetail.init(res.msg);
+          }
+        } else if (this.detailObj.dyType == 2) {
+          this.lpbdetail.init1(res.msg);
+        }
+      }
+    }
   }
 
   FormValidation() {

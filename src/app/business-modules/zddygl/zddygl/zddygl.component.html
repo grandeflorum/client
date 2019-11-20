@@ -89,7 +89,7 @@
                 <td style=" width:20%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
                     <a class="table_a" (click)="add(3,data)">编辑</a>
-                    <a class="table_a" nz-popconfirm nzTitle="确定注销抵押吗?"
+                    <a *ngIf="data.dyType!=0" class="table_a" nz-popconfirm nzTitle="确定注销抵押吗?"
                         (nzOnConfirm)="restrictedProperty(data.id)">注销抵押</a>
                     <!-- <a class="table_a" nz-popconfirm nzTitle="确定抵押楼盘吗?" (nzOnConfirm)="delete([data.id])">抵押楼盘</a> -->
                     <a class="table_a" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="delete([data.id])">删除</a>

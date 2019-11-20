@@ -207,8 +207,12 @@
             [disabled]="isDisable"></textarea>
     </div>
 
-    <div class="jbxx" *ngIf="tabsetIndex==1">
+    <div class="jbxx" *ngIf="tabsetIndex==1&&type!=2">
         <app-lpbgl glType="zddygl" [pid]="detailObj.id"></app-lpbgl>
+    </div>
+
+    <div class="jbxx" *ngIf="(tabsetIndex==1&&type==2)||tabsetIndex==2">
+        <app-lpb-detail #lpbdetail></app-lpb-detail>
     </div>
 
     <div nz-row style="height: 50px;padding: 10px;text-align: right;padding-right: 20px;">
