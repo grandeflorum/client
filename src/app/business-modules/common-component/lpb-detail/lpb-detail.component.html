@@ -121,7 +121,7 @@
         </ul>
         <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}" *ngFor="let item of lpbList.cList; index as index">
             <li class="ch_td">{{item.ch}}层</li>
-            <li *ngFor="let hu of item.hList" [ngClass]="{'lpb_ydy':hu.status == 1 , 'lpb_ycf':hu.status == 2}"
+            <li *ngFor="let hu of item.hList" [ngClass]="{'lpb_ydy':(moduleType=='dy'&&hu.status == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.status == 1) , 'lpb_ycf':(moduleType=='cf'&&hu.cfStatus == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.cfStatus == 1) }"
                 nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent"
                 (mouseenter)="selectedHuChange(hu)" [ngStyle]="{'border-color':selectH==hu.id?'red':'#ccc'}"
                 (click)="selectH=hu.id">

@@ -10,6 +10,7 @@ import { Localstorage } from '../../service/localstorage';
 export class LpbDetailComponent implements OnInit {
 
   @Input() glType: string;
+  @Input() moduleType:string;
   @Output() restrictedProperty = new EventEmitter<string>();
 
   zrzShow: boolean = true;
@@ -23,7 +24,7 @@ export class LpbDetailComponent implements OnInit {
   rowSpan = 0;
   dictionaryObj: any = {};
   selectedHu: any = {};
-  selectH: string;
+  selectH: string = "1";
 
   constructor(
     private lpbglService: LpbglService,
