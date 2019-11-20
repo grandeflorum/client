@@ -71,8 +71,8 @@ export class BusinessModulesComponent implements OnInit {
         {
             name: '统计分析', id: 'statistics', route: '/statistics', icon: 'dashboard', children: [
                 { name: '销售排行榜分析', id: 'xsphbfx', route: '/statistics/xsphbfx', icon: 'dashboard' },
-                { name: '时间查询统计分析', id: 'sjcxtjfx', route: '/statistics/sjcxtjfx', icon: 'dashboard' },
-                { name: '交易汇总信息分析', id: 'jyhzxxfx', route: '/statistics/jyhzxxfx', icon: 'dashboard' }
+                // { name: '时间查询统计分析', id: 'sjcxtjfx', route: '/statistics/sjcxtjfx', icon: 'dashboard' },
+                // { name: '交易汇总信息分析', id: 'jyhzxxfx', route: '/statistics/jyhzxxfx', icon: 'dashboard' }
             ]
         },
         {

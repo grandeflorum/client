@@ -137,9 +137,11 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">企业网址：</div>
         <span>
-          <nz-input-group nzAddOnBefore="Http://" nzAddOnAfter=".com" class="w200">
+          <!-- <nz-input-group nzAddOnBefore="Http://" nzAddOnAfter=".com" class="w200">
             <input type="text" nz-input [(ngModel)]="detailObj.qywz" [disabled]="isDisable" maxlength="100" />
-          </nz-input-group>
+          </nz-input-group> -->
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.qywz" [disabled]="isDisable" class="w200"
+            maxlength="30" placeholder="请输入企业网址" />
         </span>
 
       </div>
