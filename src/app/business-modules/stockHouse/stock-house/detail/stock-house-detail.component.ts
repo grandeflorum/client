@@ -43,8 +43,9 @@ export class StockHouseDetailComponent implements OnInit {
   numberOfChecked = 0;
   isVisible = false;
   genderList = [];
-  fxList=[];
-  cqrgxList=[];
+  fxList = [];
+  cqrgxList = [];
+  gyfsList = [];
 
   isImgVisible = false;
   currentImg = "";
@@ -91,8 +92,9 @@ export class StockHouseDetailComponent implements OnInit {
     let dic = this.localstorage.getObject("dictionary");
 
     this.genderList = dic.gender;
-    this.fxList=dic.fx;
-    this.cqrgxList=dic.cqrgx;
+    this.fxList = dic.fx;
+    this.cqrgxList = dic.cqrgx;
+    this.gyfsList = dic.gyfs;
     this.regionList = this.localstorage.getObject("region");
     this.regionTreeNodes = this.generateTree2(this.regionList, null);
 
@@ -123,7 +125,7 @@ export class StockHouseDetailComponent implements OnInit {
   async getStockHouseById() {
 
     let data = await this.stockHouseService.getStockHouseById(this.detailObj.id);
-    if (data&&data.code==200) {
+    if (data && data.code == 200) {
       this.detailObj = data.msg;
       if (!this.detailObj.relationShips) {
         this.detailObj.relationShips = [];
@@ -217,19 +219,28 @@ export class StockHouseDetailComponent implements OnInit {
   }
 
 
+  sfzhChange(item) {
+    if (/^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/.test(item.sfzh)) {
+      let s = parseFloat(item.sfzh[16]);
+
+      item.gender = s % 2 == 0 ? 2 : 1;
+    }
+  }
+
+
   async save() {
     if (!this.FormValidation()) {
       return;
     }
-    if(!this.detailObj.id){
+    if (!this.detailObj.id) {
       delete this.detailObj.id;
     }
     let res = await this.stockHouseService.saveOrUpdateStockHouse(this.detailObj);
 
     if (res && res.code == 200) {
       this.detailObj.id = res.msg;
-      if(!this.detailObj.auditType){
-        this.detailObj.auditType=0;
+      if (!this.detailObj.auditType) {
+        this.detailObj.auditType = 0;
       }
       this.msg.create('success', '保存成功');
     } else {
@@ -312,12 +323,12 @@ export class StockHouseDetailComponent implements OnInit {
     }
 
     var res = await this.fileService.deleteByIds(ids);
-      if (res && res.code == 200) {
-        this.msg.create('success', '删除成功');
-        this.search();
-      } else {
-        this.msg.create('error', '删除失败');
-      }
+    if (res && res.code == 200) {
+      this.msg.create('success', '删除成功');
+      this.search();
+    } else {
+      this.msg.create('error', '删除失败');
+    }
   }
 
   //下载
