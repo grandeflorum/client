@@ -60,6 +60,8 @@ export class HouseTradeComponent implements OnInit {
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
 
+  userinfo: any = {};
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -68,6 +70,8 @@ export class HouseTradeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
+    this.auditObj.shry = this.userinfo ? this.userinfo.realname : null;
     this.search();
   }
 
@@ -270,7 +274,8 @@ export class HouseTradeComponent implements OnInit {
     this.auditProjectId.push(data.id);
 
     this.auditObj = {
-      shrq: new Date()
+      shrq: new Date(),
+      shry: this.userinfo ? this.userinfo.realname : null
     };
 
   }

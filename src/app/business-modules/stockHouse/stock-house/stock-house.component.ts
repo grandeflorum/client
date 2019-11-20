@@ -21,18 +21,18 @@ export class StockHouseComponent implements OnInit {
   cqrxm = '';
   address = '';
   auditType = '';
-  dataSet=[];
+  dataSet = [];
 
 
   isVisible = false;
 
-  shxxObj:any = {
-    ids:[],
-    wfAudit:{
-      shjg:"1",
-      shry:'',
-      bz:'',
-      shrq:null
+  shxxObj: any = {
+    ids: [],
+    wfAudit: {
+      shjg: "1",
+      shry: '',
+      bz: '',
+      shrq: null
     }
   }
 
@@ -43,6 +43,9 @@ export class StockHouseComponent implements OnInit {
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
 
+
+  userinfo: any = {};
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -50,6 +53,10 @@ export class StockHouseComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
+    this.shxxObj.wfAudit.shry = this.userinfo ? this.userinfo.realname : null;
+
     this.search();
   }
 
@@ -67,7 +74,7 @@ export class StockHouseComponent implements OnInit {
     if (this.address) {
       option.conditions.push({ key: 'address', value: this.address });
     }
-    if (this.auditType||this.auditType==="0") {
+    if (this.auditType || this.auditType === "0") {
       option.conditions.push({ key: 'auditType', value: this.auditType });
     }
     option.conditions.push({ key: 'sort', value: this.sortList });
@@ -234,22 +241,22 @@ export class StockHouseComponent implements OnInit {
   }
 
   //批量审核 || 单个审核
- async moreAudit(item?){
-  
-  this.shxxObj = {
-    ids:[],
-    wfAudit:{
-      shjg:"1",
-      shry:'',
-      bz:'',
-      shrq:new Date()
-    }
-  }
-   this.shxxObj.ids = [];
+  async moreAudit(item?) {
 
-    if(item){
+    this.shxxObj = {
+      ids: [],
+      wfAudit: {
+        shjg: "1",
+        shry: this.userinfo ? this.userinfo.realname : null,
+        bz: '',
+        shrq: new Date()
+      }
+    }
+    this.shxxObj.ids = [];
+
+    if (item) {
       this.shxxObj.ids.push(item.id);
-    }else{
+    } else {
       if (this.listOfDisplayData.length > 0) {
         this.listOfDisplayData.forEach(element => {
           if (this.mapOfCheckedId[element.id]) {
@@ -259,30 +266,30 @@ export class StockHouseComponent implements OnInit {
       }
     }
 
-    if(this.shxxObj.ids.length == 0){
+    if (this.shxxObj.ids.length == 0) {
       this.msg.warning('请选择需要审核的项目');
       return;
     }
 
     this.isVisible = true;
-}
+  }
 
   //打开审核模态框
-  shxm(){
+  shxm() {
     this.isVisible = true;
     this.shxxObj = {
-      ids:[],
-      wfAudit:{
-        shjg:"1",
-        shry:'',
-        bz:'',
-        shrq:null
+      ids: [],
+      wfAudit: {
+        shjg: "1",
+        shry: this.userinfo ? this.userinfo.realname : null,
+        bz: '',
+        shrq: null
       }
     }
   }
 
-    //审核
-  async handleOk(){
+  //审核
+  async handleOk() {
     var res = await this.stockHouseService.auditStockHouses(this.shxxObj);
     if (res && res.code == 200) {
       this.msg.create('success', '审核成功');
@@ -294,7 +301,7 @@ export class StockHouseComponent implements OnInit {
   }
 
 
-  handleCancel(){
+  handleCancel() {
     this.isVisible = false;
   }
 

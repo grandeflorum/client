@@ -65,13 +65,13 @@
 
         <div nz-row style="height: 50px;padding: 10px;">
 
-            <div nz-col [nzSpan]="8">
+            <!-- <div nz-col [nzSpan]="8">
                 <div class="label_div">行政区划：</div>
                 <nz-tree-select [nzDropdownStyle]="{ 'max-height': '300px' }" class="w200" [disabled]="isDisable"
                     nzPlaceHolder="请选择行政区划" [nzNodes]="regionTreeNodes" [nzDefaultExpandAll]="true"
                     [nzAllowClear]="true" [(ngModel)]="employee.regioncode" nzShowExpand>
                 </nz-tree-select>
-            </div>
+            </div> -->
 
             <div nz-col [nzSpan]="16">
                 <div class="label_div">详细地址：</div>
@@ -118,14 +118,15 @@
             </div>
         </div>
 
-        <app-attachment [fileList]="fileList" [isDisable]="isDisable" [refid]="employee.id" #attachmentComponent> </app-attachment>
+        <app-attachment [fileList]="fileList" [isDisable]="isDisable" [refid]="employee.id" #attachmentComponent>
+        </app-attachment>
 
         <nz-divider nzText="备注" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
         <textarea [disabled]="isDisable" maxlength="500" nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }"
             [(ngModel)]="employee.bz"></textarea>
 
-        
+
     </div>
 
     <div nz-row style="height: 50px;padding: 10px;text-align: right;padding-right: 20px;">

@@ -35,6 +35,7 @@ export class EconomicCompanyComponent implements OnInit {
   numberOfChecked = 0;
 
   dictionaryObj: any = [];
+  userinfo: any = {};
 
   auditList: any = [
     { name: "通过", code: 1 },
@@ -61,6 +62,8 @@ export class EconomicCompanyComponent implements OnInit {
   ngOnInit() {
 
     this.dictionaryObj = this.localstorage.getObject("dictionary");
+    this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
+    this.auditObj.shry = this.userinfo ? this.userinfo.realname : null;
     this.search();
   }
 
@@ -217,7 +220,8 @@ export class EconomicCompanyComponent implements OnInit {
     this.auditProjectId.push(data.id);
 
     this.auditObj = {
-      shrq: new Date()
+      shrq: new Date(),
+      shry: this.userinfo ? this.userinfo.realname : null
     };
 
   }

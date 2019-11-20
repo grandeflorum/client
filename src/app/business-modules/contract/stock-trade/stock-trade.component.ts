@@ -30,14 +30,14 @@ export class StockTradeComponent implements OnInit {
     { name: "通过", code: 1 },
     { name: "不通过", code: 2 }
   ];
-  auditStatusList:any=[
-    {name:"全部",code:""},
-    {name:"未提交",code:"0"},
-    {name:"待受理",code:"1"},
-    {name:"待初审",code:"2"},
-    {name:"待核定",code:"3"},
-    {name:"待登簿",code:"4"},
-    {name:"已备案",code:"5"},
+  auditStatusList: any = [
+    { name: "全部", code: "" },
+    { name: "未提交", code: "0" },
+    { name: "待受理", code: "1" },
+    { name: "待初审", code: "2" },
+    { name: "待核定", code: "3" },
+    { name: "待登簿", code: "4" },
+    { name: "已备案", code: "5" },
 
   ]
   //审核对象
@@ -58,6 +58,9 @@ export class StockTradeComponent implements OnInit {
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
 
+
+  userinfo: any = {};
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -65,6 +68,10 @@ export class StockTradeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
+    this.auditObj.shry = this.userinfo ? this.userinfo.realname : null;
+
     this.search();
   }
 
@@ -267,7 +274,8 @@ export class StockTradeComponent implements OnInit {
     this.auditProjectId.push(data.id);
 
     this.auditObj = {
-      shrq: new Date()
+      shrq: new Date(),
+      shry: this.userinfo ? this.userinfo.realname : null
     };
 
   }

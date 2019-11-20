@@ -66,6 +66,8 @@ export class CompanyComponent implements OnInit {
 
   roleData: any = {};
 
+  userinfo: any = {};
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -77,6 +79,8 @@ export class CompanyComponent implements OnInit {
   ngOnInit() {
 
     this.dictionaryObj = this.localstorage.getObject("dictionary");
+    this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
+    this.auditObj.shry = this.userinfo ? this.userinfo.realname : null;
     this.search();
   }
 
@@ -234,7 +238,8 @@ export class CompanyComponent implements OnInit {
     this.auditProjectId.push(data.id);
 
     this.auditObj = {
-      shrq: new Date()
+      shrq: new Date(),
+      shry: this.userinfo ? this.userinfo.realname : null
     };
 
   }

@@ -72,31 +72,6 @@
     <div nz-row style="height: 50px;padding: 10px;">
 
       <div nz-col [nzSpan]="8">
-        <div class="label_div">行政区划：</div>
-        <span>
-          <nz-tree-select [nzDropdownStyle]="{ 'max-height': '300px' }" class="w200" [disabled]="isDisable"
-            nzPlaceHolder="请选择行政区划" [nzNodes]="regionTreeNodes" [nzDefaultExpandAll]="true" [nzAllowClear]="true"
-            [(ngModel)]="detailObj.regioncode" nzShowExpand>
-          </nz-tree-select>
-        </span>
-
-      </div>
-
-      <div nz-col [nzSpan]="16">
-        <div class="label_div">详细地址：</div>
-        <span>
-          <input style="width: calc(100% - 235px);" nz-input nzSize="default" [(ngModel)]="detailObj.address"
-            [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
-
-        </span>
-
-      </div>
-
-    </div>
-
-    <div nz-row style="height: 50px;padding: 10px;">
-
-      <div nz-col [nzSpan]="8">
         <div class="label_div">邮政编码：</div>
         <span>
           <input nz-input nzSize="default" [(ngModel)]="detailObj.yzbm" [disabled]="isDisable" class="w200"
@@ -182,6 +157,31 @@
         <span>
           <input nz-input nzSize="default" [(ngModel)]="detailObj.zgbm" [disabled]="isDisable" class="w200"
             maxlength="30" placeholder="请输入主管部门" />
+        </span>
+
+      </div>
+
+    </div>
+
+    <div nz-row style="height: 50px;padding: 10px;">
+
+      <!-- <div nz-col [nzSpan]="8">
+        <div class="label_div">行政区划：</div>
+        <span>
+          <nz-tree-select [nzDropdownStyle]="{ 'max-height': '300px' }" class="w200" [disabled]="isDisable"
+            nzPlaceHolder="请选择行政区划" [nzNodes]="regionTreeNodes" [nzDefaultExpandAll]="true" [nzAllowClear]="true"
+            [(ngModel)]="detailObj.regioncode" nzShowExpand>
+          </nz-tree-select>
+        </span>
+
+      </div> -->
+
+      <div nz-col [nzSpan]="16">
+        <div class="label_div">详细地址：</div>
+        <span>
+          <input style="width: calc(100% - 235px);" nz-input nzSize="default" [(ngModel)]="detailObj.address"
+            [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
+
         </span>
 
       </div>

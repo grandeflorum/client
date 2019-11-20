@@ -13,7 +13,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>房屋出租编号：</div>
         <span> <input nz-input name="fwczbh" nzSize="default" [(ngModel)]="detailObj.serialnumber" disabled class="w200"
-            maxlength="25" placeholder="保存后自动生成" title="{{detailObj.serialnumber}}"/></span>
+            maxlength="25" placeholder="保存后自动生成" title="{{detailObj.serialnumber}}" /></span>
 
       </div>
       <div nz-col [nzSpan]="8">
@@ -35,14 +35,22 @@
     <div nz-row style="height: 50px;padding: 10px;">
 
       <div nz-col [nzSpan]="8">
-        <div class="label_div"><span class="clo_r">*</span>行政区划：</div>
+        <!-- <div class="label_div"><span class="clo_r">*</span>行政区划：</div>
         <span>
           <nz-tree-select [nzDropdownStyle]="{ 'max-height': '300px' }" class="w200" [disabled]="isDisable"
             nzPlaceHolder="请选择行政区划" [nzNodes]="regionTreeNodes" [nzDefaultExpandAll]="true" [nzAllowClear]="true"
             [(ngModel)]="detailObj.regioncode" nzShowExpand>
           </nz-tree-select>
-        </span>
+        </span> -->
 
+        <div class="label_div">房屋用途：</div>
+        <span>
+          <nz-select [(ngModel)]="detailObj.usetype" class="w200" [disabled]="isDisable" nzAllowClear
+            nzPlaceHolder="请选择">
+            <nz-option *ngFor="let option of dictionaryObj.fwyt" [nzLabel]="option.name" [nzValue]="option.code">
+            </nz-option>
+          </nz-select>
+        </span>
       </div>
 
       <div nz-col [nzSpan]="8">
@@ -163,17 +171,10 @@
 
       </div>
 
-      <div nz-col [nzSpan]="8">
-        <div class="label_div">房屋用途：</div>
-        <span>
-          <nz-select [(ngModel)]="detailObj.usetype" class="w200" [disabled]="isDisable" nzAllowClear
-            nzPlaceHolder="请选择">
-            <nz-option *ngFor="let option of dictionaryObj.fwyt" [nzLabel]="option.name" [nzValue]="option.code">
-            </nz-option>
-          </nz-select>
-        </span>
+      <!-- <div nz-col [nzSpan]="8">
+        
 
-      </div>
+      </div> -->
 
     </div>
 

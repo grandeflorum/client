@@ -23,18 +23,18 @@ export class KfxmglComponent implements OnInit {
   selectId: any = '';
   xmmc = '';
   kfqymc = '';
-  auditType ="";
+  auditType = "";
   kgrq = '';
   jgrq = '';
   isVisible = false;
 
-  shxxObj:any = {
-    ids:[],
-    wfAudit:{
-      shjg:"1",
-      shry:'',
-      bz:'',
-      shrq:null
+  shxxObj: any = {
+    ids: [],
+    wfAudit: {
+      shjg: "1",
+      shry: '',
+      bz: '',
+      shrq: null
     }
   }
   isAllDisplayDataChecked = false;
@@ -44,14 +44,17 @@ export class KfxmglComponent implements OnInit {
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
 
+  userinfo: any = {};
+
   constructor(
     private msg: NzMessageService,
-    private router:Router,
-    private kfxmglService:KfxmglService
+    private router: Router,
+    private kfxmglService: KfxmglService
   ) { }
 
   ngOnInit() {
-
+    this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
+    this.shxxObj.wfAudit.shry = this.userinfo ? this.userinfo.realname : null;
     this.search();
   }
 
@@ -69,7 +72,7 @@ export class KfxmglComponent implements OnInit {
     if (this.kfqymc) {
       option.conditions.push({ key: 'kfqymc', value: this.kfqymc });
     }
-    if (this.auditType||this.auditType==="0") {
+    if (this.auditType || this.auditType === "0") {
       option.conditions.push({ key: 'auditType', value: this.auditType });
     }
     if (this.kgrq) {
@@ -82,34 +85,34 @@ export class KfxmglComponent implements OnInit {
 
     var res = await this.kfxmglService.getProjectList(option);
     this.Loading = false;
-    if(res.code == 200){
+    if (res.code == 200) {
       this.dataSet = res.msg.currentList;
       this.totalCount = res.msg.recordCount;
       this.calculationHeight();
     }
 
     this.operateData();
-    
+
   }
 
-    //排序
-    sort(evt) {
-      let key = evt.key;
-  
-      if (this.sortList.some(x => x.indexOf(key) > -1)) {
-        this.sortList.splice(this.sortList.findIndex(x => x.indexOf(key) > -1), 1);
-      }
-  
-      if (evt.value) {
-        if (evt.value == 'ascend') {
-          this.sortList.push(key);
-        } else if (evt.value == 'descend') {
-          this.sortList.push(key + ' desc');
-        }
-      }
-  
-      this.search();
+  //排序
+  sort(evt) {
+    let key = evt.key;
+
+    if (this.sortList.some(x => x.indexOf(key) > -1)) {
+      this.sortList.splice(this.sortList.findIndex(x => x.indexOf(key) > -1), 1);
     }
+
+    if (evt.value) {
+      if (evt.value == 'ascend') {
+        this.sortList.push(key);
+      } else if (evt.value == 'descend') {
+        this.sortList.push(key + ' desc');
+      }
+    }
+
+    this.search();
+  }
 
 
   pageIndexChange(num) {
@@ -123,14 +126,14 @@ export class KfxmglComponent implements OnInit {
     this.search();
   }
 
-  reset() { 
+  reset() {
     this.xmmc = '';
     this.kfqymc = '';
-    this.auditType ="";
+    this.auditType = "";
     this.kgrq = '';
     this.jgrq = '';
     this.search();
-    
+
   }
 
   currentPageDataChange($event): void {
@@ -161,7 +164,7 @@ export class KfxmglComponent implements OnInit {
   }
 
 
-  onChange(m,date){
+  onChange(m, date) {
     // if(m == 1){
     //   this.kgrq = Moment(date).format('YYYY-MM-DD')
     // }else if(m == 2){
@@ -169,11 +172,11 @@ export class KfxmglComponent implements OnInit {
     // }
   }
 
-selectItem(data) {
+  selectItem(data) {
     this.selectId = data.id;
   }
 
-  add(m , item?){
+  add(m, item?) {
     // switch (m) {
     //   case 1://添加
     //     break;
@@ -187,25 +190,25 @@ selectItem(data) {
 
     this.router.navigate(['/xmgl/kfxmgl/detail'], {
       queryParams: {
-        id: item?item.id:'',
-        type:m
+        id: item ? item.id : '',
+        type: m
       }
     });
   }
 
 
-  calculationHeight(){
+  calculationHeight() {
     const bodyHeight = $('body').height()
     const height = this.dataSet.length * 40;
-    if(height > bodyHeight - 450){
-        this.tableIsScroll = {y: bodyHeight - 400 + 'px'}
-    }else{
+    if (height > bodyHeight - 450) {
+      this.tableIsScroll = { y: bodyHeight - 400 + 'px' }
+    } else {
       this.tableIsScroll = null
     }
   }
 
   //删除
-  async btachDelete(item?){
+  async btachDelete(item?) {
     var ids = [];
     if (item) {//单个删除
       ids.push(item.id);
@@ -219,7 +222,7 @@ selectItem(data) {
       }
     }
 
-    if(ids.length==0){
+    if (ids.length == 0) {
       this.msg.warning('请选择需要删除的项目');
       return;
     }
@@ -234,8 +237,8 @@ selectItem(data) {
   }
 
   //提交审核
- async auditSubmit(item , type){
-    var res = await this.kfxmglService.auditProjectById(item.id , type);
+  async auditSubmit(item, type) {
+    var res = await this.kfxmglService.auditProjectById(item.id, type);
     if (res && res.code == 200) {
       this.msg.create('success', '提交审核成功');
       this.search();
@@ -245,22 +248,22 @@ selectItem(data) {
   }
 
   //批量审核 || 单个审核
- async moreAudit(item?){
-  
-  this.shxxObj = {
-    ids:[],
-    wfAudit:{
-      shjg:"1",
-      shry:'',
-      bz:'',
-      shrq:new Date()
-    }
-  }
-   this.shxxObj.ids = [];
+  async moreAudit(item?) {
 
-    if(item){
+    this.shxxObj = {
+      ids: [],
+      wfAudit: {
+        shjg: "1",
+        shry: this.userinfo ? this.userinfo.realname : null,
+        bz: '',
+        shrq: new Date()
+      }
+    }
+    this.shxxObj.ids = [];
+
+    if (item) {
       this.shxxObj.ids.push(item.id);
-    }else{
+    } else {
       if (this.listOfDisplayData.length > 0) {
         this.listOfDisplayData.forEach(element => {
           if (this.mapOfCheckedId[element.id]) {
@@ -270,30 +273,30 @@ selectItem(data) {
       }
     }
 
-    if(this.shxxObj.ids.length == 0){
+    if (this.shxxObj.ids.length == 0) {
       this.msg.warning('请选择需要审核的项目');
       return;
     }
 
     this.isVisible = true;
-}
+  }
 
   //打开审核模态框
-  shxm(){
+  shxm() {
     this.isVisible = true;
     this.shxxObj = {
-      ids:[],
-      wfAudit:{
-        shjg:"1",
-        shry:'',
-        bz:'',
-        shrq:null
+      ids: [],
+      wfAudit: {
+        shjg: "1",
+        shry: this.userinfo ? this.userinfo.realname : null,
+        bz: '',
+        shrq: null
       }
     }
   }
 
-    //审核
-  async handleOk(){
+  //审核
+  async handleOk() {
     var res = await this.kfxmglService.auditProjects(this.shxxObj);
 
     if (res && res.code == 200) {
@@ -306,7 +309,7 @@ selectItem(data) {
   }
 
 
-  handleCancel(){
+  handleCancel() {
     this.isVisible = false;
   }
 
