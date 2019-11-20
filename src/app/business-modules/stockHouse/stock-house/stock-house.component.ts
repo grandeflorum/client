@@ -242,7 +242,7 @@ export class StockHouseComponent implements OnInit {
       shjg:"1",
       shry:'',
       bz:'',
-      shrq:null
+      shrq:new Date()
     }
   }
    this.shxxObj.ids = [];

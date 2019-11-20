@@ -63,7 +63,7 @@
             <th>开工日期</th>
             <th>竣工日期</th>
             <th nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th>
-            <th>操作</th>
+            <th style="width: 20%;">操作</th>
           </tr>
         </thead>
         <tbody>
@@ -79,7 +79,7 @@
                 <div class="point"
                 [ngClass]="{'point0':data.auditType==0, 'point1':data.auditType==1,'point2':data.auditType==2,'point3':data.auditType==3}"
                 ></div>{{ data.auditType|audit }}</td>
-            <td>
+            <td style="width: 20%;">
               <a class="table_a" (click)="add(2,data)">查看</a>
               <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" (click)="add(3,data)">编辑</a>
               <a class="table_a"  *ngIf="data.auditType==1" (click)="moreAudit(data)">审核</a>
@@ -95,7 +95,7 @@
 <nz-modal [(nzVisible)]="isVisible" nzTitle="审核" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"  [nzWidth]="800">
   <div nz-row style="height: 60px;">
     <div nz-col [nzSpan]="12" class="ta_r">
-      <div class="label_div">审核结果：</div>
+      <div class="label_div"><span class="clo_r">*</span>审核结果：</div>
       <nz-select [(ngModel)]="shxxObj.wfAudit.shjg" class="w200" nzPlaceHolder="请选择">
         <nz-option nzValue="1" nzLabel="通过"></nz-option>
         <nz-option nzValue="2" nzLabel="不通过"></nz-option>

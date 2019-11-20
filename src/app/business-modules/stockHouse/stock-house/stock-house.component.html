@@ -93,7 +93,7 @@
 <nz-modal [(nzVisible)]="isVisible" nzTitle="审核" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzWidth]="800">
     <div nz-row style="height: 60px;">
         <div nz-col [nzSpan]="12" class="ta_r">
-            <div class="label_div">审核结果：</div>
+            <div class="label_div"><span class="clo_r">*</span>审核结果：</div>
             <nz-select [(ngModel)]="shxxObj.wfAudit.shjg" class="w200" nzPlaceHolder="请选择">
                 <nz-option nzValue="1" nzLabel="通过"></nz-option>
                 <nz-option nzValue="2" nzLabel="不通过"></nz-option>

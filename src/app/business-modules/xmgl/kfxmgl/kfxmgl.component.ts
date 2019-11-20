@@ -253,7 +253,7 @@ selectItem(data) {
       shjg:"1",
       shry:'',
       bz:'',
-      shrq:null
+      shrq:new Date()
     }
   }
    this.shxxObj.ids = [];
