@@ -75,7 +75,7 @@
 
       <div nz-col [nzSpan]="8">
         <div class="label_div">许可证号：</div>
-        <input nz-input nzSize="default" [(ngModel)]="detailObj.xkzh" maxlength="50" [disabled]="isDisable" 
+        <input nz-input nzSize="default" [(ngModel)]="detailObj.xkzh" maxlength="50" [disabled]="isDisable"
           class="w200" placeholder="请输入许可证号" />
       </div>
 
@@ -107,12 +107,12 @@
           </div>
           <div nz-col [nzSpan]="8">
             <div class="label_div">特殊层号：</div>
-            <input nz-input nzSize="default" [(ngModel)]="detailObj.tsch" [disabled]="isDisable" 
+            <input nz-input nzSize="default" [(ngModel)]="detailObj.tsch" [disabled]="isDisable"
               class="w200" placeholder="请输入特殊层号" />
           </div>
           <div nz-col [nzSpan]="8">
             <div class="label_div">特殊层信息：</div>
-            <input nz-input nzSize="default" [(ngModel)]="detailObj.tscxx" [disabled]="isDisable" 
+            <input nz-input nzSize="default" [(ngModel)]="detailObj.tscxx" [disabled]="isDisable"
               class="w200" placeholder="请输入特殊层信息" />
           </div>
         </div> -->
@@ -213,7 +213,7 @@
   <div nz-row style="height: 50px;padding: 10px;text-align: right;padding-right: 20px;">
     <div nz-col [nzSpan]="24">
       <button nz-button nzType="default" (click)="cancel()">返回</button>
-      <button nz-button nzType="primary" *ngIf="glType=='houseRental'" (click)="linkH()">关联户</button>
+      <button nz-button nzType="primary" *ngIf="glType&&glType!='zddygl'" (click)="linkH()">关联户</button>
       <button nz-button nzType="primary" *ngIf="!isDisable&&tabsetIndex==0" (click)="save()">保存</button>
       <!-- <button nz-button nzType="primary" *ngIf="!isDisable" (click)="submit()">提交审核</button> -->
     </div>
