@@ -338,7 +338,11 @@ export class HouseTradeDetailComponent implements OnInit {
     var res = await this.houseTradeService.saveOrUpdateHouseTrade(this.detailObj);
 
     if (res && res.code == 200) {
-      this.detailObj.id = res.msg;
+      if(!this.detailObj.id){
+        this.detailObj.id = res.msg.id;
+        this.detailObj.sysDate = res.msg.sysDate;
+        this.detailObj.currentStatus = res.msg.currentStatus;
+      }
 
       this.msg.create('success', '保存成功');
     } else {
