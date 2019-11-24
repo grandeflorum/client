@@ -121,7 +121,8 @@
         </ul>
         <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}" *ngFor="let item of lpbList.cList; index as index">
             <li class="ch_td">{{item.ch}}层</li>
-            <li *ngFor="let hu of item.hList" [ngClass]="{'lpb_ydy':(moduleType=='dy'&&hu.status == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.status == 1) , 'lpb_ycf':(moduleType=='cf'&&hu.cfStatus == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.cfStatus == 1) }"
+            <li *ngFor="let hu of item.hList"
+                [ngClass]="{'lpb_ydy':(moduleType=='dy'&&hu.status == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.status == 1) , 'lpb_ycf':(moduleType=='cf'&&hu.cfStatus == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.cfStatus == 1) }"
                 nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent"
                 (mouseenter)="selectedHuChange(hu)" [ngStyle]="{'border-color':selectH==hu.id?'red':'#ccc'}"
                 (click)="selectH=hu.id">
@@ -151,4 +152,6 @@
     <p>面积：{{selectedHu.scjzmj}}</p>
     <p>不动产登记号：{{selectedHu.bdcdyh}}</p>
     <p>坐落：{{selectedHu.zl}}</p>
+    <p *ngIf="selectedHu.tradeType>0" style="height: 20px;"><button nz-button nzType="primary" (click)="perview()"
+            style="float: right;">预览合同</button></p>
 </ng-template>

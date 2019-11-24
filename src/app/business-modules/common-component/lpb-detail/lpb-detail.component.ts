@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { LpbglService } from '../../service/lpbgl/lpbgl.service';
 import { Localstorage } from '../../service/localstorage';
+import { UtilitiesSercice } from '../../service/common/utilities.services';
 
 @Component({
   selector: 'app-lpb-detail',
@@ -29,6 +30,7 @@ export class LpbDetailComponent implements OnInit {
   constructor(
     private lpbglService: LpbglService,
     private localstorage: Localstorage,
+    private utilitiesSercice:UtilitiesSercice
   ) { }
 
   ngOnInit() {
@@ -94,6 +96,12 @@ export class LpbDetailComponent implements OnInit {
       })
 
     }
+  }
+
+  perview(){
+    let url = AppConfig.Configuration.baseUrl + "/BuildingTable/printHt?id=" + this.selectedHu.id + "&type="+this.selectedHu.tradeType;
+    url = this.utilitiesSercice.wrapUrl(url);
+    window.open('assets/usermanual/web/viewer.html?url=' + this.utilitiesSercice.wrapUrl(url), "_blank");
   }
 
 }
