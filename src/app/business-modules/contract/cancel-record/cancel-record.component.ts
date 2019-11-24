@@ -13,18 +13,6 @@ import { UtilitiesSercice } from '../../service/common/utilities.services';
 })
 export class CancelRecordComponent implements OnInit {
 
-  constructor(
-    private msg: NzMessageService,
-    private router: Router,
-    private houseTradeService: HouseTradeService,
-    private utilitiesSercice: UtilitiesSercice
-  ) { }
-
-  ngOnInit() {
-    this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
-    this.search();
-  }
-
   tabs = [
     { name: '商品房注销记录', index: 0 },
     { name: '存量房注销记录', index: 1 }
@@ -33,6 +21,7 @@ export class CancelRecordComponent implements OnInit {
 
   tabsetChange(m) {
     this.tabsetIndex = m;
+    this.search();
   }
 
   pageIndex: any = 1;
@@ -48,12 +37,6 @@ export class CancelRecordComponent implements OnInit {
   isVisible: any = false;
   isOkLoading: any = false;
 
-  auditProjectId: any = [];
-  auditName: any;
-  auditResultVisible:any=true;
-  auditPeople:any;
-  auditdate:any;
-
   isAllDisplayDataChecked = false;
   isIndeterminate = false;
   listOfDisplayData = [];
@@ -63,7 +46,21 @@ export class CancelRecordComponent implements OnInit {
 
   userinfo: any = {};
 
- 
+  ksrq = '';
+  jsrq = '';
+  htbh = '';
+
+  constructor(
+    private msg: NzMessageService,
+    private router: Router,
+    private houseTradeService: HouseTradeService,
+    private utilitiesSercice: UtilitiesSercice
+  ) { }
+
+  ngOnInit() {
+    this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
+    this.search();
+  }
 
   async search() {
     this.Loading = true;
@@ -73,15 +70,22 @@ export class CancelRecordComponent implements OnInit {
       conditions: []
     };
 
-    // if (this.jzwmc) {
-    //   option.conditions.push({ key: 'jzwmc', value: this.jzwmc });
-    // }
-    // if (this.xmmc) {
-    //   option.conditions.push({ key: 'xmmc', value: this.xmmc });
-    // }
-    // if (this.currentStatus || this.currentStatus === "0") {
-    //   option.conditions.push({ key: 'currentStatus', value: this.currentStatus });
-    // }
+    if(this.tabsetIndex==0){
+      option.conditions.push({ key: 'zxlx', value: "HouseTrade" });
+    }else if(this.tabsetIndex==1){
+      option.conditions.push({ key: 'zxlx', value: "StockTrade" });
+    }
+    if (this.htbh) {
+      option.conditions.push({ key: 'htbh', value: this.htbh });
+    }
+    if (this.ksrq) {
+      var str = new Date(this.ksrq).getFullYear().toString() + "/" + (new Date(this.ksrq).getMonth() + 1).toString() + "/" + new Date(this.ksrq).getDate().toString() + " 00:00:00";
+      option.conditions.push({ key: 'ksrq', value:str  });
+    }
+    if (this.jsrq) {
+      var str = new Date(this.jsrq).getFullYear().toString() + "/" + (new Date(this.jsrq).getMonth() + 1).toString() + "/" + new Date(this.jsrq).getDate().toString() + " 23:59:59";
+      option.conditions.push({ key: 'jsrq', value:str });
+    }
     option.conditions.push({ key: 'sort', value: this.sortList });
     this.operateData(option);
     this.Loading = false;

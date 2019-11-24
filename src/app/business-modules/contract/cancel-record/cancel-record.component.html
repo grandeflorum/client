@@ -6,25 +6,21 @@
         </nz-tabset>
     </div>
 
-    <div style="width:100%;height:calc(100% - 90px);overflow: auto">
+    <div style="width:100%;height:calc(100% - 40px);">
         <div nz-row style="height: 50px;padding: 10px;">
+            <div nz-col [nzSpan]="6">
+                合同编号:
+                <input nz-input nzSize="default" [(ngModel)]="htbh" class="w150" placeholder="请输入合同编号" />
+            </div>
             <div nz-col [nzSpan]="7">
-                建筑物名称:
-                <input nz-input nzSize="default" [(ngModel)]="jzwmc" class="w150" placeholder="请输入建筑物名称" />
+                开始日期：
+                <nz-date-picker class="datapicker-width" [nzAllowClear]="true" [(ngModel)]="ksrq"></nz-date-picker>
             </div>
-            <div nz-col [nzSpan]="6">
-                项目名称：
-                <input nz-input nzSize="default" [(ngModel)]="xmmc" class="w150" placeholder="请输入项目名称" />
+            <div nz-col [nzSpan]="7">
+                结束日期：
+                <nz-date-picker class="datapicker-width" [nzAllowClear]="true" [(ngModel)]="jsrq"></nz-date-picker>
             </div>
-
-            <div nz-col [nzSpan]="6">
-                审核状态：
-                <nz-select [(ngModel)]="currentStatus" class="w150" nzPlaceHolder="请选择">
-                    <nz-option *ngFor="let option of auditStatusList" [nzLabel]="option.name" [nzValue]="option.code">
-                    </nz-option>
-                </nz-select>
-            </div>
-            <div nz-col [nzSpan]="5" class="ta_r">
+            <div nz-col [nzSpan]="4" class="ta_r">
                 <button nz-button nzType="primary" (click)="search()">
                     查询
                 </button>
