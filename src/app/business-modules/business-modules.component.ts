@@ -61,6 +61,7 @@ export class BusinessModulesComponent implements OnInit {
             name: '合同备案管理', id: 'contract', route: '/contract', icon: 'dashboard', children: [
                 { name: '商品房合同备案', id: 'houseTrade', route: '/contract/houseTrade', icon: 'dashboard' },
                 { name: '存量房合同备案', id: 'stockTrade', route: '/contract/stockTrade', icon: 'dashboard' },
+                { name: '注销记录', id: 'cancelRecord', route: '/contract/cancelRecord', icon: 'dashboard' },
                 { name: '合同模板管理', id: 'contractTemplate', route: '/contract/contractTemplate', icon: 'dashboard' }
             ]
         },

@@ -1,0 +1,76 @@
+<div class="list_content_wrap">
+    <div class="card-container">
+        <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex"
+            (nzSelectedIndexChange)="tabsetChange($event)">
+            <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
+        </nz-tabset>
+    </div>
+
+    <div style="width:100%;height:calc(100% - 90px);overflow: auto">
+        <div nz-row style="height: 50px;padding: 10px;">
+            <div nz-col [nzSpan]="7">
+                建筑物名称:
+                <input nz-input nzSize="default" [(ngModel)]="jzwmc" class="w150" placeholder="请输入建筑物名称" />
+            </div>
+            <div nz-col [nzSpan]="6">
+                项目名称：
+                <input nz-input nzSize="default" [(ngModel)]="xmmc" class="w150" placeholder="请输入项目名称" />
+            </div>
+
+            <div nz-col [nzSpan]="6">
+                审核状态：
+                <nz-select [(ngModel)]="currentStatus" class="w150" nzPlaceHolder="请选择">
+                    <nz-option *ngFor="let option of auditStatusList" [nzLabel]="option.name" [nzValue]="option.code">
+                    </nz-option>
+                </nz-select>
+            </div>
+            <div nz-col [nzSpan]="5" class="ta_r">
+                <button nz-button nzType="primary" (click)="search()">
+                    查询
+                </button>
+                <button nz-button nzType="default" (click)="reset()">
+                    重置
+                </button>
+            </div>
+
+
+        </div>
+
+        <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow" [nzLoading]="Loading"
+            [nzShowTotal]="rangeTemplate" [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger
+            [nzPageSize]="pageSize" [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)"
+            (nzPageSizeChange)="pageSizeChange($event)" (nzCurrentPageDataChange)="currentPageDataChange($event)"
+            [nzScroll]="tableIsScroll" [nzFrontPagination]="false">
+            <thead (nzSortChange)="sort($event)">
+                <tr>
+                    <th style="width:5%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
+                        [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
+                    <th>合同编号</th>
+                    <th>产权证号</th>
+                    <th>产权人（卖方）</th>
+                    <th>购买人</th>
+                    <th>注销日期</th>
+                    <th>注销理由</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of nestedTable.data; index as index"
+                    [ngClass]="{ itemSeleted: data.id == selectId }" (click)="selectItem(data)">
+                    <td style="width:5%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]"
+                        [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
+                    <td>{{ data.htbh }}</td>
+                    <td>{{ data.cqzh }}</td>
+                    <td>{{ data.cqr }}</td>
+                    <td>{{ data.gmr }}</td>
+                    <td>{{ data.zxrq | date:'yyyy-MM-dd'}}</td>
+                    <td>{{ data.zxly }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+
+</div>
+
+<ng-template #rangeTemplate let-range="range" let-total>
+    共{{total}}条记录&nbsp;&nbsp;
+</ng-template>
