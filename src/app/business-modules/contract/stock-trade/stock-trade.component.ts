@@ -50,6 +50,9 @@ export class StockTradeComponent implements OnInit {
 
   auditProjectId: any = [];
   auditName: any;
+  auditResultVisible:any=true;
+  auditPeople:any;
+  auditdate:any;
 
   isAllDisplayDataChecked = false;
   isIndeterminate = false;
@@ -254,18 +257,39 @@ export class StockTradeComponent implements OnInit {
     switch (data.currentStatus) {
       case 1:
         this.auditName = "受理";
+        this.auditResultVisible=true;
+        this.auditPeople="审核人";
+        this.auditdate="审核日期";
         break;
       case 2:
         this.auditName = "初审";
+        this.auditResultVisible=true;
+        this.auditPeople="审核人";
+        this.auditdate="审核日期";
         break;
       case 3:
         this.auditName = "核定";
+        this.auditResultVisible=true;
+        this.auditPeople="审核人";
+        this.auditdate="审核日期";
         break;
       case 4:
         this.auditName = "登簿";
+        this.auditResultVisible=true;
+        this.auditPeople="审核人";
+        this.auditdate="审核日期";
+        break;
+      case 5:
+        this.auditName = "注销";
+        this.auditResultVisible=false;
+        this.auditPeople="注销人";
+        this.auditdate="注销日期";
         break;
       default:
         this.auditName = "审核";
+        this.auditResultVisible=true;
+        this.auditPeople="审核人";
+        this.auditdate="审核日期";
         break;
     }
     this.isOkLoading = false;
