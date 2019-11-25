@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NzMessageService, UploadFile, UploadXHRArgs } from 'ng-zorro-antd';
 import { HttpRequest, HttpEventType, HttpResponse, HttpClient, HttpEvent } from '@angular/common/http';
 import { ContractService } from "../../service/contract/contract.service";
+import { Localstorage } from '../../service/localstorage';
 
 
 @Component({
@@ -20,21 +21,55 @@ export class ContractTemplateComponent implements OnInit {
   //商品房模板
   goodsHouseTemplate = {
     id: "",
-    content:""
+    content: ""
   };
   //存量房模板
   stockHouseTemplate = {
     id: "",
-    content:""
+    content: ""
   };
 
   constructor(
     private router: Router,
     private http: HttpClient,
     private msg: NzMessageService,
+    private localstorage: Localstorage,
     private contractService: ContractService) { }
 
+  //添加权限
+  canzsgc: boolean = false;
+  cantjsh: boolean = false;
+  cansh: boolean = false;
+
+  getRoles() {
+    let roles = this.localstorage.getObject("roles");
+
+    if (roles) {
+      if (roles.some(x => x == '管理员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '录入员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+      }
+
+      if (roles.some(x => x == '审核员')) {
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
+        this.canzsgc = true;
+      }
+    }
+  }
+
   ngOnInit() {
+
+    this.getRoles();
+
     var ueditorHeight = $('#divheight').height() - 120;
     this.config = {
       readonly: true,
@@ -170,7 +205,7 @@ export class ContractTemplateComponent implements OnInit {
   beforeUpload = (file: UploadFile): boolean => {
     var fileName = file.name.split('.');
     var fileType = fileName[fileName.length - 1].toLowerCase();
-    const isZIP = ( fileType == 'doc' || fileType == 'docx');
+    const isZIP = (fileType == 'doc' || fileType == 'docx');
     if (!isZIP) {
       this.msg.error('请上传doc,docx格式文件');
       return false;

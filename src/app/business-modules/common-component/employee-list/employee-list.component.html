@@ -34,11 +34,11 @@
 
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="24">
-            <button *ngIf="companyId&&operatorType!='2'" (click)="addEmployee(null,'add')" nz-button nzType="primary"><i
-                    nz-icon nzType="plus"></i>
+            <button *ngIf="companyId&&operatorType!='2'&&canzsgc" (click)="addEmployee(null,'add')" nz-button
+                nzType="primary"><i nz-icon nzType="plus"></i>
                 添加
             </button>
-            <button *ngIf="companyId&&operatorType!='2'" nz-button nzType="default" (click)="deleteAll()">
+            <button *ngIf="companyId&&operatorType!='2'&&canzsgc" nz-button nzType="default" (click)="deleteAll()">
                 批量删除
             </button>
             <!-- <button nz-button nzType="default">
@@ -89,8 +89,9 @@
                 </td>
                 <td style="width:20%">
                     <a (click)="addEmployee(data,'see')" class=" table_a">查看</a>
-                    <a *ngIf="companyId&&operatorType!='2'" (click)="addEmployee(data,'edit')" class=" table_a">编辑</a>
-                    <a *ngIf="companyId&&operatorType!='2'" (click)="delete([data.id])" class="table_a">删除</a>
+                    <a *ngIf="companyId&&operatorType!='2'&&canzsgc" (click)="addEmployee(data,'edit')"
+                        class=" table_a">编辑</a>
+                    <a *ngIf="companyId&&operatorType!='2'&&canzsgc" (click)="delete([data.id])" class="table_a">删除</a>
                 </td>
             </tr>
         </tbody>

@@ -13,9 +13,9 @@ import * as $ from 'jquery';
   styleUrls: ['./xmscgl.component.scss']
 })
 export class XmscglComponent implements OnInit {
-  @ViewChild('uploadComponent',{static:false}) uploadComponent ;
+  @ViewChild('uploadComponent', { static: false }) uploadComponent;
 
-  downLoadurl =  AppConfig.Configuration.baseUrl + "/FileInfo/download";
+  downLoadurl = AppConfig.Configuration.baseUrl + "/FileInfo/download";
 
   pageIndex: any = 1;
   totalCount: any;
@@ -37,20 +37,51 @@ export class XmscglComponent implements OnInit {
 
   sslm = "";
   txt = "";
-  dictionaryObj:any = {};
+  dictionaryObj: any = {};
   isImgVisible = false;
   currentImg = "";
   modalSslm = "";
 
   constructor(
     private msg: NzMessageService,
-    private router:Router,
-    private kfxmglService:KfxmglService,
-    private localstorage:Localstorage,
-    private fileService:FileService
+    private router: Router,
+    private kfxmglService: KfxmglService,
+    private localstorage: Localstorage,
+    private fileService: FileService
   ) { }
 
+  //添加权限
+  canzsgc: boolean = false;
+  cantjsh: boolean = false;
+  cansh: boolean = false;
+
+  getRoles() {
+    let roles = this.localstorage.getObject("roles");
+
+    if (roles) {
+      if (roles.some(x => x == '管理员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '录入员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+      }
+
+      if (roles.some(x => x == '审核员')) {
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
+        this.canzsgc = true;
+      }
+    }
+  }
+
   ngOnInit() {
+    this.getRoles();
     this.dictionaryObj = this.localstorage.getObject("dictionary");
     this.search();
   }
@@ -77,7 +108,7 @@ export class XmscglComponent implements OnInit {
 
     var res = await this.kfxmglService.getProjectDialog(option);
     this.Loading = false;
-    if(res.code == 200){
+    if (res.code == 200) {
       this.dataSet = res.msg.currentList;
       this.totalCount = res.msg.recordCount;
     }
@@ -134,27 +165,27 @@ export class XmscglComponent implements OnInit {
 
 
 
-selectItem(data) {
+  selectItem(data) {
     this.selectId = data.id;
   }
 
-  add(){
+  add() {
     this.isVisible = true;
   }
 
 
-  calculationHeight(){
+  calculationHeight() {
     const bodyHeight = $('body').height()
     const height = this.dataSet.length * 40;
-    if(height > bodyHeight - 400){
-        this.tableIsScroll = {y: bodyHeight - 350 + 'px'}
-    }else{
+    if (height > bodyHeight - 400) {
+      this.tableIsScroll = { y: bodyHeight - 350 + 'px' }
+    } else {
       this.tableIsScroll = null
     }
   }
 
   //删除
-  async btachDelete(item?){
+  async btachDelete(item?) {
     var ids = [];
     if (item) {//单个删除
       ids.push(item.id);
@@ -168,7 +199,7 @@ selectItem(data) {
       }
     }
 
-    if(ids.length==0){
+    if (ids.length == 0) {
       this.msg.warning('请选择需要删除的附件');
       return;
     }
@@ -185,91 +216,91 @@ selectItem(data) {
 
 
   //批量审核 || 单个审核
- async moreDown(item){
+  async moreDown(item) {
 
 
-   var ids = [];
+    var ids = [];
 
-    if(item){
+    if (item) {
       ids.push(item.id);
-    }else{
+    } else {
 
     }
 
-    if(ids.length == 0){
+    if (ids.length == 0) {
       this.msg.warning('请选择需要下载的项目');
       return;
     }
 
     this.isVisible = true;
-}
+  }
 
 
-   handleOk(){
-     if(this.modalSslm || this.modalSslm=="0"){
+  handleOk() {
+    if (this.modalSslm || this.modalSslm == "0") {
       this.uploadComponent.import();
-     }else{
-       this.msg.warning('请选择所属类别');
-     }
+    } else {
+      this.msg.warning('请选择所属类别');
+    }
 
   }
 
 
-  handleCancel(){
+  handleCancel() {
     this.isVisible = false;
     this.uploadComponent.fileList = [];
   }
 
-  outer(event){
-    if(event){
+  outer(event) {
+    if (event) {
       this.handleCancel();
       this.search();
     }
   }
 
-  previewImg(item){
-    if(item.fileSuffix != 'pdf'){
+  previewImg(item) {
+    if (item.fileSuffix != 'pdf') {
       this.currentImg = this.downLoadurl + "?id=" + item.id + "&type=0";
       this.isImgVisible = true;
-    }else{
+    } else {
       window.open(this.downLoadurl + "?id=" + item.id + "&type=0");
     }
 
   }
 
-      //下载
-      btachDown(item?){
-        var ids = [];
-        if (item) {//单个
-          ids.push(item.id);
-        } else {//批量
-          if (this.listOfDisplayData.length > 0) {
-            this.listOfDisplayData.forEach(element => {
-              if (this.mapOfCheckedId[element.id]) {
-                ids.push(element.id);
-              }
-            });
+  //下载
+  btachDown(item?) {
+    var ids = [];
+    if (item) {//单个
+      ids.push(item.id);
+    } else {//批量
+      if (this.listOfDisplayData.length > 0) {
+        this.listOfDisplayData.forEach(element => {
+          if (this.mapOfCheckedId[element.id]) {
+            ids.push(element.id);
           }
-        }
-
-        if(ids.length==0){
-          this.msg.warning('请选择需要下载的项目');
-          return;
-        }
-
-        window.location.href = this.downLoadurl + "?id=" + item.id + "&type=0";
+        });
       }
+    }
 
-      findTypeName(type){
-        var typeName = "";
-        this.dictionaryObj.xmsc.forEach((v,k)=>{
-          if(v.code == type){
-            typeName = v.name
-          }
-        })
+    if (ids.length == 0) {
+      this.msg.warning('请选择需要下载的项目');
+      return;
+    }
 
-        return typeName;
+    window.location.href = this.downLoadurl + "?id=" + item.id + "&type=0";
+  }
+
+  findTypeName(type) {
+    var typeName = "";
+    this.dictionaryObj.xmsc.forEach((v, k) => {
+      if (v.code == type) {
+        typeName = v.name
       }
+    })
+
+    return typeName;
+  }
 
   ngAfterViewInit() {
     var that = this;

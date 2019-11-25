@@ -35,13 +35,14 @@
 
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="24">
-            <button nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
+            <button *ngIf="canzsgc" nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
                 添加
             </button>
-            <button nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">
+            <button *ngIf="canzsgc" nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?"
+                (nzOnConfirm)="btachDelete()">
                 批量删除
             </button>
-            <button nz-button nzType="default" (click)="btachAudit()">
+            <button *ngIf="cansh" nz-button nzType="default" (click)="btachAudit()">
                 批量审核
             </button>
         </div>
@@ -79,12 +80,14 @@
                 </td>
                 <td style="width:30%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
-                    <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" (click)="add(3,data)">编辑</a>
-                    <a class="table_a" *ngIf="data.auditType==1" (click)="audit(data)">审核</a>
-                    <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" nz-popconfirm nzTitle="确定删除吗?"
-                        (nzOnConfirm)="delete([data.id])">删除</a>
-                    <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" nz-popconfirm nzTitle="确定提交审核吗?"
-                        (nzOnConfirm)="auditCompany(data.id,1)">提交审核</a>
+                    <a class="table_a" (click)="rolemanage(data)" *ngIf="data.auditType==2&&cantjsh">权限管理</a>
+                    <a class="table_a" *ngIf="(data.auditType==0||data.auditType==3)&&canzsgc"
+                        (click)="add(3,data)">编辑</a>
+                    <a class="table_a" *ngIf="data.auditType==1&&cansh" (click)="audit(data)">审核</a>
+                    <a class="table_a" *ngIf="(data.auditType==0||data.auditType==3)&&canzsgc" nz-popconfirm
+                        nzTitle="确定删除吗?" (nzOnConfirm)="delete([data.id])">删除</a>
+                    <a class="table_a" *ngIf="(data.auditType==0||data.auditType==3)&&cantjsh" nz-popconfirm
+                        nzTitle="确定提交审核吗?" (nzOnConfirm)="auditCompany(data.id,1)">提交审核</a>
                 </td>
             </tr>
         </tbody>
@@ -127,6 +130,71 @@
                 <div class="label_div">备注</div>
                 <textarea style="width: calc(100% - 175px);margin-left: 35px;" nz-input
                     [nzAutosize]="{ minRows: 5, maxRows: 8 }" [(ngModel)]="auditObj.bz" maxlength="500"></textarea>
+            </div>
+        </div>
+    </nz-modal>
+
+    <nz-modal [(nzVisible)]="isVisibleRole" nzTitle="权限管理" (nzOnCancel)="isVisibleRole=false" (nzOnOk)="handleOkRole()"
+        [nzOkLoading]="isOkLoadingRole" [nzWidth]="700">
+        <div style="padding: 20px;">
+            <div nz-row style="height: 30px;">
+                <div nz-col [nzSpan]="12">
+                    用户角色
+                </div>
+                <div nz-col [nzSpan]="12">
+                    企业名称
+                </div>
+            </div>
+
+            <div nz-row style="height: 60px;">
+                <div nz-col [nzSpan]="12">
+                    经纪企业
+                </div>
+                <div nz-col [nzSpan]="12">
+                    {{roleData.name}}
+                </div>
+            </div>
+
+            <div nz-row style="height: 30px;">
+                <div nz-col [nzSpan]="12">
+                    是否启用（不启用则无法使用该账户登录）
+                </div>
+            </div>
+
+            <div nz-row style="height: 60px;">
+                <div nz-col [nzSpan]="12">
+                    <nz-switch [(ngModel)]="roleData.switchValue"></nz-switch>
+                </div>
+            </div>
+
+            <div nz-row style="height: 30px;">
+                <div nz-col [nzSpan]="12">
+                    用户名
+                </div>
+            </div>
+
+            <div nz-row style="height: 60px;">
+                <div nz-col [nzSpan]="12">
+                    <input nz-input nzSize="default" [(ngModel)]="roleData.zjh" class="w200T" maxlength="50" />
+                </div>
+            </div>
+
+            <div nz-row style="height: 30px;">
+                <div nz-col [nzSpan]="12">
+                    登录密码
+                </div>
+                <div nz-col [nzSpan]="12">
+                    确认密码
+                </div>
+            </div>
+
+            <div nz-row style="height: 60px;">
+                <div nz-col [nzSpan]="12">
+                    <input nz-input nzSize="default" [(ngModel)]="roleData.password" class="w200T" maxlength="50" />
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <input nz-input nzSize="default" [(ngModel)]="roleData.passwordSure" class="w200T" maxlength="50" />
+                </div>
             </div>
         </div>
     </nz-modal>

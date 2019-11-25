@@ -76,8 +76,41 @@ export class CompanyComponent implements OnInit {
     private userService: UserService
   ) { }
 
-  ngOnInit() {
 
+
+  //添加权限
+  canzsgc: boolean = false;
+  cantjsh: boolean = false;
+  cansh: boolean = false;
+
+  getRoles() {
+    let roles = this.localstorage.getObject("roles");
+
+    if (roles) {
+      if (roles.some(x => x == '管理员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '录入员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+      }
+
+      if (roles.some(x => x == '审核员')) {
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
+        this.canzsgc = true;
+      }
+    }
+  }
+
+
+  ngOnInit() {
+    this.getRoles();
     this.dictionaryObj = this.localstorage.getObject("dictionary");
     this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
     this.auditObj.shry = this.userinfo ? this.userinfo.realname : null;

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { KfxmglService } from '../../service/xmgl/kfxmgl.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
+import { Localstorage } from '../../service/localstorage';
 
 @Component({
   selector: 'app-kfxmgl',
@@ -49,10 +50,42 @@ export class KfxmglComponent implements OnInit {
   constructor(
     private msg: NzMessageService,
     private router: Router,
-    private kfxmglService: KfxmglService
+    private kfxmglService: KfxmglService,
+    private localstorage: Localstorage,
   ) { }
 
+  //添加权限
+  canzsgc: boolean = false;
+  cantjsh: boolean = false;
+  cansh: boolean = false;
+
+  getRoles() {
+    let roles = this.localstorage.getObject("roles");
+
+    if (roles) {
+      if (roles.some(x => x == '管理员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '录入员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+      }
+
+      if (roles.some(x => x == '审核员')) {
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
+        this.canzsgc = true;
+      }
+    }
+  }
+
   ngOnInit() {
+    this.getRoles();
     this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
     this.shxxObj.wfAudit.shry = this.userinfo ? this.userinfo.realname : null;
     this.search();
@@ -77,11 +110,11 @@ export class KfxmglComponent implements OnInit {
     }
     if (this.kgrq) {
       var str = new Date(this.kgrq).getFullYear().toString() + "/" + (new Date(this.kgrq).getMonth() + 1).toString() + "/" + new Date(this.kgrq).getDate().toString() + " 00:00:00";
-      option.conditions.push({ key: 'kgrq', value:str  });
+      option.conditions.push({ key: 'kgrq', value: str });
     }
     if (this.jgrq) {
       var str = new Date(this.jgrq).getFullYear().toString() + "/" + (new Date(this.jgrq).getMonth() + 1).toString() + "/" + new Date(this.jgrq).getDate().toString() + " 23:59:59";
-      option.conditions.push({ key: 'jgrq', value:str });
+      option.conditions.push({ key: 'jgrq', value: str });
     }
     option.conditions.push({ key: 'sort', value: this.sortList });
 

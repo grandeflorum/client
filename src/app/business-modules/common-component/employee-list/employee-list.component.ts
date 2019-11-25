@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { EmployeeService } from '../../service/employee/employee.service';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
+import { Localstorage } from '../../service/localstorage';
 
 @Component({
   selector: 'app-employee-list',
@@ -43,10 +44,44 @@ export class EmployeeListComponent implements OnInit {
     private employeeService: EmployeeService,
     private msg: NzMessageService,
     private router: Router,
-    private NzModalService: NzModalService
+    private NzModalService: NzModalService,
+    private localstorage: Localstorage,
   ) { }
 
+
+  //添加权限
+  canzsgc: boolean = false;
+  cantjsh: boolean = false;
+  cansh: boolean = false;
+
+  getRoles() {
+    let roles = this.localstorage.getObject("roles");
+
+    if (roles) {
+      if (roles.some(x => x == '管理员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '录入员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+      }
+
+      if (roles.some(x => x == '审核员')) {
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
+        this.canzsgc = true;
+      }
+    }
+  }
+
   ngOnInit() {
+    this.getRoles();
+
     this.search();
   }
 

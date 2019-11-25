@@ -29,13 +29,13 @@
   </div>
   <div nz-row style="height: 50px;padding: 10px;">
     <div nz-col [nzSpan]="24">
-      <button nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
+      <button *ngIf="canzsgc" nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
         添加
       </button>
-      <button nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">
+      <button *ngIf="canzsgc" nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">
         批量删除
       </button>
-      <button nz-button nzType="default" *ngIf="false" (click)="btachAudit()">
+      <button nz-button nzType="default" *ngIf="false&&cansh" (click)="btachAudit()">
         批量审核
       </button>
 
@@ -92,16 +92,16 @@
         </td>
         <td style="width:20%">
           <a class="table_a" (click)="add(2,data)">查看</a>
-          <a class="table_a" *ngIf="data.isPass==2||data.currentStatus==0" (click)="add(3,data)">编辑</a>
-          <a class="table_a" *ngIf="data.currentStatus==0" (nzOnConfirm)="audit(data)" nz-popconfirm
+          <a class="table_a" *ngIf="(data.isPass==2||data.currentStatus==0)&&canzsgc" (click)="add(3,data)">编辑</a>
+          <a class="table_a" *ngIf="data.currentStatus==0&&cantjsh" (nzOnConfirm)="audit(data)" nz-popconfirm
             nzTitle="确定提交审核吗?">提交审核</a>
-          <a class="table_a" *ngIf="data.currentStatus==1" (click)="audit(data)">受理</a>
-          <a class="table_a" *ngIf="data.currentStatus==2" (click)="audit(data)">初审</a>
-          <a class="table_a" *ngIf="data.currentStatus==3" (click)="audit(data)">核定</a>
-          <a class="table_a" *ngIf="data.currentStatus==4" (click)="audit(data)">登簿</a>
-          <a class="table_a" *ngIf="data.currentStatus==5&&data.isCancel!=1" (click)="audit(data)">注销</a>
+          <a class="table_a" *ngIf="data.currentStatus==1&&cansh" (click)="audit(data)">受理</a>
+          <a class="table_a" *ngIf="data.currentStatus==2&&cansh" (click)="audit(data)">初审</a>
+          <a class="table_a" *ngIf="data.currentStatus==3&&cansh" (click)="audit(data)">核定</a>
+          <a class="table_a" *ngIf="data.currentStatus==4&&cansh" (click)="audit(data)">登簿</a>
+          <a class="table_a" *ngIf="data.currentStatus==5&&data.isCancel!=1&&cansh" (click)="audit(data)">注销</a>
 
-          <a class="table_a" (nzOnConfirm)="delete([data.id])" *ngIf="data.currentStatus==0" nz-popconfirm
+          <a class="table_a" (nzOnConfirm)="delete([data.id])" *ngIf="data.currentStatus==0&&canzsgc" nz-popconfirm
             nzTitle="确定删除吗?">删除</a>
 
         </td>

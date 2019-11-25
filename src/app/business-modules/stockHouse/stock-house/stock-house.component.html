@@ -32,13 +32,14 @@
     </div>
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="24">
-            <button nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
+            <button *ngIf="canzsgc" nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
                 添加
             </button>
-            <button nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">
+            <button *ngIf="canzsgc" nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?"
+                (nzOnConfirm)="btachDelete()">
                 批量删除
             </button>
-            <button nz-button nzType="default" nz-popconfirm nzTitle="确定审核吗?" (nzOnConfirm)="moreAudit()">
+            <button *ngIf="cansh" nz-button nzType="default" nz-popconfirm nzTitle="确定审核吗?" (nzOnConfirm)="moreAudit()">
                 批量审核
             </button>
         </div>
@@ -78,11 +79,12 @@
                 </td>
                 <td style="width:30%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
-                    <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" (click)="add(3,data)">编辑</a>
-                    <a class="table_a" *ngIf="data.auditType==1" (click)="moreAudit(data)">审核</a>
-                    <a class="table_a" (nzOnConfirm)="delete([data.id])" *ngIf="data.auditType==0||data.auditType==3"
-                        nz-popconfirm nzTitle="确定删除吗?">删除</a>
-                    <a class="table_a" *ngIf="data.auditType==0||data.auditType==3"
+                    <a class="table_a" *ngIf="(data.auditType==0||data.auditType==3)&&canzsgc"
+                        (click)="add(3,data)">编辑</a>
+                    <a class="table_a" *ngIf="data.auditType==1&&cansh" (click)="moreAudit(data)">审核</a>
+                    <a class="table_a" (nzOnConfirm)="delete([data.id])"
+                        *ngIf="(data.auditType==0||data.auditType==3)&&canzsgc" nz-popconfirm nzTitle="确定删除吗?">删除</a>
+                    <a class="table_a" *ngIf="(data.auditType==0||data.auditType==3)&&cantjsh"
                         (nzOnConfirm)="auditCompany(data.id,1)" nz-popconfirm nzTitle="确定提交审核吗?">提交审核</a>
                 </td>
             </tr>

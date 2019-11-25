@@ -5,6 +5,7 @@ import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { StockTradeService } from "../../service/contract/stock-trade.service";
 import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
+import { Localstorage } from '../../service/localstorage';
 
 @Component({
   selector: 'app-stock-trade',
@@ -50,9 +51,9 @@ export class StockTradeComponent implements OnInit {
 
   auditProjectId: any = [];
   auditName: any;
-  auditResultVisible:any=true;
-  auditPeople:any;
-  auditdate:any;
+  auditResultVisible: any = true;
+  auditPeople: any;
+  auditdate: any;
 
   isAllDisplayDataChecked = false;
   isIndeterminate = false;
@@ -67,11 +68,42 @@ export class StockTradeComponent implements OnInit {
   constructor(
     private msg: NzMessageService,
     private router: Router,
+    private localstorage: Localstorage,
     private stockTradeService: StockTradeService
   ) { }
 
-  ngOnInit() {
+  //添加权限
+  canzsgc: boolean = false;
+  cantjsh: boolean = false;
+  cansh: boolean = false;
 
+  getRoles() {
+    let roles = this.localstorage.getObject("roles");
+
+    if (roles) {
+      if (roles.some(x => x == '管理员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '录入员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+      }
+
+      if (roles.some(x => x == '审核员')) {
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
+        this.canzsgc = true;
+      }
+    }
+  }
+
+  ngOnInit() {
+    this.getRoles();
     this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
     this.auditObj.shry = this.userinfo ? this.userinfo.realname : null;
 
@@ -257,39 +289,39 @@ export class StockTradeComponent implements OnInit {
     switch (data.currentStatus) {
       case 1:
         this.auditName = "受理";
-        this.auditResultVisible=true;
-        this.auditPeople="审核人";
-        this.auditdate="审核日期";
+        this.auditResultVisible = true;
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
         break;
       case 2:
         this.auditName = "初审";
-        this.auditResultVisible=true;
-        this.auditPeople="审核人";
-        this.auditdate="审核日期";
+        this.auditResultVisible = true;
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
         break;
       case 3:
         this.auditName = "核定";
-        this.auditResultVisible=true;
-        this.auditPeople="审核人";
-        this.auditdate="审核日期";
+        this.auditResultVisible = true;
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
         break;
       case 4:
         this.auditName = "登簿";
-        this.auditResultVisible=true;
-        this.auditPeople="审核人";
-        this.auditdate="审核日期";
+        this.auditResultVisible = true;
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
         break;
       case 5:
         this.auditName = "注销";
-        this.auditResultVisible=false;
-        this.auditPeople="注销人";
-        this.auditdate="注销日期";
+        this.auditResultVisible = false;
+        this.auditPeople = "注销人";
+        this.auditdate = "注销日期";
         break;
       default:
         this.auditName = "审核";
-        this.auditResultVisible=true;
-        this.auditPeople="审核人";
-        this.auditdate="审核日期";
+        this.auditResultVisible = true;
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
         break;
     }
     this.isOkLoading = false;
