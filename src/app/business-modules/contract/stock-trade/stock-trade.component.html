@@ -1,12 +1,13 @@
 <div class="list_content_wrap">
   <div nz-row style="height: 50px;padding: 10px;">
-    <div nz-col [nzSpan]="7">
-      建筑物名称:
-      <input nz-input nzSize="default" [(ngModel)]="jzwmc" class="w150" placeholder="请输入建筑物名称名称" />
-    </div>
     <div nz-col [nzSpan]="6">
       项目名称：
       <input nz-input nzSize="default" [(ngModel)]="xmmc" class="w150" placeholder="请输入项目名称" />
+    </div>
+
+    <div nz-col [nzSpan]="7">
+      建筑物名称:
+      <input nz-input nzSize="default" [(ngModel)]="jzwmc" class="w150" placeholder="请输入建筑物名称名称" />
     </div>
 
     <div nz-col [nzSpan]="6">
@@ -50,8 +51,8 @@
       <tr>
         <th style="width:5%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
           (nzCheckedChange)="checkAll($event)"></th>
-        <th>建筑物名称</th>
         <th>项目名称</th>
+        <th>建筑物名称</th>
         <th>幢号</th>
         <th>房号</th>
         <th>合同备案号</th>
@@ -65,8 +66,8 @@
         (click)="selectItem(data)">
         <td style="width:5%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
           (nzCheckedChange)="refreshStatus()"></td>
-        <td>{{ data.jzwmc }}</td>
         <td>{{ data.xmmc }}</td>
+        <td>{{ data.jzwmc }}</td>
         <td>{{ data.zh }}</td>
         <td>{{ data.fh }}</td>
         <td>{{ data.htbah }}</td>

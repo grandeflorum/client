@@ -10,7 +10,7 @@
         <div nz-row style="height: 50px;padding: 10px;">
             <div nz-col [nzSpan]="6">
                 合同编号:
-                <input nz-input nzSize="default" [(ngModel)]="htbh" class="w150" placeholder="请输入合同编号" />
+                <input nz-input nzSize="default" [(ngModel)]="htbah" class="w150" placeholder="请输入合同编号" />
             </div>
             <div nz-col [nzSpan]="7">
                 开始日期：
@@ -42,7 +42,7 @@
                     <th style="width:5%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
                         [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
                     <th>合同编号</th>
-                    <th>产权证号</th>
+                    <th>坐落</th>
                     <th>产权人（卖方）</th>
                     <th>购买人</th>
                     <th>注销日期</th>
@@ -54,12 +54,12 @@
                     [ngClass]="{ itemSeleted: data.id == selectId }" (click)="selectItem(data)">
                     <td style="width:5%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]"
                         [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
-                    <td>{{ data.htbh }}</td>
-                    <td>{{ data.cqzh }}</td>
-                    <td>{{ data.cqr }}</td>
-                    <td>{{ data.gmr }}</td>
+                    <td title="{{data.htbah}}">{{ data.htbah |tooltips:15}}</td>
+                    <td title="{{data.zl}}">{{ data.zl |tooltips:15}}</td>
+                    <td title="{{data.cqr}}">{{ data.cqr |tooltips:15}}</td>
+                    <td title="{{data.gmr}}">{{ data.gmr |tooltips:15}}</td>
                     <td>{{ data.zxrq | date:'yyyy-MM-dd'}}</td>
-                    <td>{{ data.zxly }}</td>
+                    <td title="{{data.zxly}}">{{ data.zxly | tooltips:15}}</td>
                 </tr>
             </tbody>
         </nz-table>

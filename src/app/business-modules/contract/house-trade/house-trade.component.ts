@@ -130,7 +130,6 @@ export class HouseTradeComponent implements OnInit {
     }
     option.conditions.push({ key: 'sort', value: this.sortList });
     this.operateData(option);
-    this.Loading = false;
     this.calculationHeight();
   }
 
@@ -197,7 +196,7 @@ export class HouseTradeComponent implements OnInit {
     let res = await this.houseTradeService.getHouseTradeList(option);
 
     if (res && res.code == 200) {
-
+      this.Loading = false;
       this.dataSet = res.msg.currentList;
       this.totalCount = res.msg.recordCount;
 
@@ -206,6 +205,7 @@ export class HouseTradeComponent implements OnInit {
 
       this.calculationHeight();
     } else {
+      this.Loading = false;
       this.msg.create('error', '查询失败');
     }
   }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { HouseTradeService } from "../../service/contract/house-trade.service";
+import { StockTradeService } from "../../service/contract/stock-trade.service";
 import { UtilitiesSercice } from '../../service/common/utilities.services';
 
 @Component({
@@ -33,8 +34,7 @@ export class CancelRecordComponent implements OnInit {
   selectId: any = '';
   dataSet = [];
 
-  
-  isVisible: any = false;
+
   isOkLoading: any = false;
 
   isAllDisplayDataChecked = false;
@@ -48,12 +48,13 @@ export class CancelRecordComponent implements OnInit {
 
   ksrq = '';
   jsrq = '';
-  htbh = '';
+  htbah = '';
 
   constructor(
     private msg: NzMessageService,
     private router: Router,
     private houseTradeService: HouseTradeService,
+    private StockTradeService: StockTradeService,
     private utilitiesSercice: UtilitiesSercice
   ) { }
 
@@ -70,25 +71,20 @@ export class CancelRecordComponent implements OnInit {
       conditions: []
     };
 
-    if(this.tabsetIndex==0){
-      option.conditions.push({ key: 'zxlx', value: "HouseTrade" });
-    }else if(this.tabsetIndex==1){
-      option.conditions.push({ key: 'zxlx', value: "StockTrade" });
-    }
-    if (this.htbh) {
-      option.conditions.push({ key: 'htbh', value: this.htbh });
+
+    if (this.htbah) {
+      option.conditions.push({ key: 'htbah', value: this.htbah });
     }
     if (this.ksrq) {
       var str = new Date(this.ksrq).getFullYear().toString() + "/" + (new Date(this.ksrq).getMonth() + 1).toString() + "/" + new Date(this.ksrq).getDate().toString() + " 00:00:00";
-      option.conditions.push({ key: 'ksrq', value:str  });
+      option.conditions.push({ key: 'ksrq', value: str });
     }
     if (this.jsrq) {
       var str = new Date(this.jsrq).getFullYear().toString() + "/" + (new Date(this.jsrq).getMonth() + 1).toString() + "/" + new Date(this.jsrq).getDate().toString() + " 23:59:59";
-      option.conditions.push({ key: 'jsrq', value:str });
+      option.conditions.push({ key: 'jsrq', value: str });
     }
     option.conditions.push({ key: 'sort', value: this.sortList });
     this.operateData(option);
-    this.Loading = false;
     this.calculationHeight();
   }
 
@@ -124,6 +120,9 @@ export class CancelRecordComponent implements OnInit {
   }
 
   reset() {
+    this.htbah="";
+    this.ksrq="";
+    this.jsrq="";
     this.search();
 
   }
@@ -149,10 +148,15 @@ export class CancelRecordComponent implements OnInit {
   }
 
   async operateData(option) {
-    let res = await this.houseTradeService.getHouseTradeList(option);
+    let res;
+    if (this.tabsetIndex == 0) {
+      res = await this.houseTradeService.getHouseTradeCancelList(option);
+    } else if (this.tabsetIndex == 1) {
+      res = await this.StockTradeService.getStockTradeCancelList(option);
+    }
 
     if (res && res.code == 200) {
-
+      this.Loading = false;
       this.dataSet = res.msg.currentList;
       this.totalCount = res.msg.recordCount;
 
@@ -161,6 +165,9 @@ export class CancelRecordComponent implements OnInit {
 
       this.calculationHeight();
     } else {
+      this.dataSet=[];
+      this.totalCount=0;
+      this.Loading = false;
       this.msg.create('error', '查询失败');
     }
   }

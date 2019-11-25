@@ -5,8 +5,6 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { CancelRecordComponent } from "./cancel-record.component";
-import { HouseTradeComponent } from "../house-trade/house-trade.component";
-import { StockTradeComponent } from "../stock-trade/stock-trade.component";
 
 
 const routes: Routes = [
@@ -17,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [CancelRecordComponent, HouseTradeComponent, StockTradeComponent],
+  declarations: [CancelRecordComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -25,6 +23,6 @@ const routes: Routes = [
     NgZorroAntdModule,
     RouterModule.forChild(routes),
   ],
-  exports: [RouterModule, HouseTradeComponent, StockTradeComponent]
+  exports: [RouterModule]
 })
 export class CancelRecordModule { }

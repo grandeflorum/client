@@ -12,6 +12,10 @@ export class StockTradeService {
     return this.http.post('/StockTrade/getStockTradeList', data);
   }
 
+  getStockTradeCancelList(data): any {
+    return this.http.post('/StockTrade/getStockTradeCancelList', data);
+  }
+
   saveOrUpdateStockTrade(data): any {
     return this.http.post('/StockTrade/saveOrUpdateStockTrade', data);
   }
