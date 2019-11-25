@@ -224,7 +224,22 @@
 </div>
 
 <nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-  <app-upload #uploadComponent [refid]="detailObj.id" (outer)="outer($event)"></app-upload>
+  <!-- <app-upload #uploadComponent [refid]="detailObj.id" (outer)="outer($event)"></app-upload> -->
+  <div nz-row style="height: 50px;padding: 10px;">
+    <div nz-col [nzSpan]="24">
+      所属类目：
+      <nz-select [(ngModel)]="modalSslm" style="width:300px" nzAllowClear nzPlaceHolder="请选择">
+        <nz-option nzLabel="全部" nzValue=""></nz-option>
+        <nz-option *ngFor="let option of dictionaryObj.xmsc" [nzLabel]="option.name" [nzValue]="option.code">
+        </nz-option>
+      </nz-select>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSpan]="24">
+      <app-upload [type]="modalSslm" [refid]="detailObj.id" (outer)="outer($event)" #uploadComponent></app-upload>
+    </div>
+  </div>
 </nz-modal>
 
 <nz-modal [(nzVisible)]="isImgVisible" nzTitle="附件预览" (nzOnCancel)="isImgVisible = false" [nzFooter]="null">
