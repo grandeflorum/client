@@ -96,6 +96,8 @@ export class MenuComponent implements OnInit {
           name: node.name,
           parentId: parentId,
           code: node.code,
+          menuLevel: node.menuLevel,
+          menuOrder: node.menuOrder,
           level: 0,
           expand: false,
           children: this.generateTree(data, node.id)

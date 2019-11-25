@@ -5,7 +5,7 @@ import { HttpRestService } from '../http-rest.service';
   providedIn: 'root'
 })
 export class MenuService {
-  constructor(private http: HttpRestService) {}
+  constructor(private http: HttpRestService) { }
 
   getAllMenu(): any {
     return this.http.post('/SystemMenu/getAllMenu', null);
@@ -19,4 +19,9 @@ export class MenuService {
   deleteMenuByIds(ids): any {
     return this.http.post('/SystemMenu/deleteMenuByIds', ids);
   }
+
+  getUserMenu(): any {
+    return this.http.post('/SystemMenu/getUserMenu', null);
+  }
+
 }

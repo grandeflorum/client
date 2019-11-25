@@ -98,6 +98,8 @@ export class OrganizationComponent implements OnInit {
           parentId: parentId,
           code: node.code,
           level: 0,
+          menuLevel: 0,
+          menuOrder: 0,
           expand: false,
           children: this.generateTree(data, node.id)
         };

@@ -8,6 +8,7 @@ import { ValidationDirective } from '../layout/_directives/validation.directive'
 import { NzMessageService } from 'ng-zorro-antd';
 import { OrganizationService } from '../business-modules/service/system/organization.service';
 import { RoleService } from '../business-modules/service/system/role.service';
+import { MenuService } from '../business-modules/service/system/menu.service';
 
 @Component({
   selector: 'app-login',
@@ -110,7 +111,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private userService: UserService, private staffSercice: StaffSercice
     , private router: Router, private localstorage: Localstorage,
-    private msg: NzMessageService, private roleService: RoleService,
+    private msg: NzMessageService, private roleService: RoleService, private menuService: MenuService,
     private orgService: OrganizationService) { }
 
   ngOnInit(): void {
@@ -258,12 +259,72 @@ export class LoginComponent implements OnInit {
       );
       sessionStorage.setItem('AUTH_ID', data.msg.ticket);
       sessionStorage.setItem('userinfo', JSON.stringify(data.msg.userinfo));
-      this.router.navigate(['/practitioner/company']);
+      this.getUserMenu();
     } else {
       this.loginMessage = '用户名密码错误';
     }
 
 
+  }
+
+
+  async getUserMenu() {
+    let res = await this.menuService.getUserMenu();
+
+    if (res && res.code == 200) {
+      let menuList = this.createMenuTree(res.msg);
+
+      sessionStorage.setItem('menu', JSON.stringify(menuList));
+
+      if (menuList && menuList.length > 0) {
+        let select = menuList[0];
+
+        if (select.children && select.children.length > 0) {
+          select = select.children[0];
+        }
+
+        this.router.navigate([select.route]);
+      } else {
+        this.msg.create('error', '该账号没有任何菜单权限');
+      }
+
+    } else {
+      this.msg.create('error', res.msg);
+    }
+  }
+
+  createMenuTree(data) {
+    let res = [];
+
+    if (data && data.length > 0) {
+      let oneMenuList = data.filter(x => x.parentId == '0');
+      let twoMenuList = data.filter(x => x.parentId != '0');
+
+      oneMenuList && oneMenuList.forEach(x => {
+        res.push({
+          name: x.name,
+          id: x.id,
+          route: '/' + x.code,
+          icon: 'dashboard',
+          children: []
+        })
+      });
+
+      twoMenuList && twoMenuList.forEach(x => {
+        if (res.some(y => y.id == x.parentId)) {
+          let oneSelect = res.find(y => y.id == x.parentId);
+
+          oneSelect.children.push({
+            name: x.name,
+            id: x.id,
+            route: '/' + x.code.replace(':', '/'),
+            icon: 'dashboard'
+          })
+        }
+      });
+    }
+
+    return res;
   }
 
   //注册
