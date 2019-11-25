@@ -13,8 +13,11 @@ export class HttpRestService {
 
     getHeader() {
         this.AUTH_ID = sessionStorage.getItem('AUTH_ID');
-
-        this.headers = new HttpHeaders({ 'AUTH_ID': this.AUTH_ID });
+        if (this.AUTH_ID) {
+            this.headers = new HttpHeaders({ 'AUTH_ID': this.AUTH_ID });
+        } else {
+            this.headers = new HttpHeaders();
+        }
     }
 
     get<T>(url) {
