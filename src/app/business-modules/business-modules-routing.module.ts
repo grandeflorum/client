@@ -101,7 +101,8 @@ const routes: Routes = [
         children: [
             { path: 'contractTemplate', loadChildren: () => import('./contract/contract-template/contract-template.module').then(m => m.ContractTemplateModule) },
             { path: 'houseTrade', loadChildren: () => import('./contract/house-trade/house-trade.module').then(m => m.HouseTradeModule) },
-            { path: 'stockTrade', loadChildren: () => import('./contract/stock-trade/stock-trade.module').then(m => m.StockTradeModule) }
+            { path: 'stockTrade', loadChildren: () => import('./contract/stock-trade/stock-trade.module').then(m => m.StockTradeModule) },
+            { path: 'cancelRecord', loadChildren: () => import('./contract/cancel-record/cancel-record.module').then(m => m.CancelRecordModule) }
 
         ]
     },

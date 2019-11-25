@@ -438,6 +438,28 @@ selectH: any = "";
       window.location.href = this.downLoadurl + "?id=" + item.id + "&type=0";
     }
 
+    addpeople() {
+      if (!this.detailObj.relationShips) {
+        this.detailObj.relationShips = [];
+      }
+      var newpeople = {};
+      this.detailObj.relationShips.push(newpeople);
+    }
+  
+    deletepeople(obj, i) {
+      this.detailObj.relationShips.splice(i, 1);
+    }
+
+    nameChange(){
+      if(this.detailObj&&this.detailObj.relationShips&&this.detailObj.relationShips.length>0){
+        var name="";
+        this.detailObj.relationShips.forEach(element => {
+          name+=element.name+",";
+        });
+        this.detailObj.yf=name.substring(0,name.length-1);
+      }
+    }
+
   ngAfterViewInit() {
     var that = this;
     $(window).resize(function () {

@@ -75,7 +75,9 @@
           [ngClass]="{'cr0':data.currentStatus==0, 'cr1':data.currentStatus==1||data.currentStatus==2||data.currentStatus==3||data.currentStatus==4,'cr2':data.currentStatus==5}">
           <div class="point"
             [ngClass]="{'point0':data.currentStatus==0, 'point1':data.currentStatus==1||data.currentStatus==2||data.currentStatus==3||data.currentStatus==4,'point2':data.currentStatus==5}">
-          </div>{{ data.currentStatus|auditWorkFlow }}
+          </div>
+          <p style="margin: auto;" *ngIf="!data.isCancel">{{ data.currentStatus|auditWorkFlow }}</p>
+          <p style="margin: auto;" *ngIf="data.isCancel&&data.isCancel==1">未备案</p>
         </td>
         <td style="width:20%">
           <a class="table_a" (click)="add(2,data)">查看</a>
@@ -86,6 +88,7 @@
           <a class="table_a" *ngIf="data.currentStatus==2" (click)="audit(data)">初审</a>
           <a class="table_a" *ngIf="data.currentStatus==3" (click)="audit(data)">核定</a>
           <a class="table_a" *ngIf="data.currentStatus==4" (click)="audit(data)">登簿</a>
+          <a class="table_a" *ngIf="data.currentStatus==5&&data.isCancel!=1" (click)="audit(data)">注销</a>
 
           <a class="table_a" (nzOnConfirm)="delete([data.id])" *ngIf="data.currentStatus==0" nz-popconfirm
             nzTitle="确定删除吗?">删除</a>
@@ -99,7 +102,7 @@
 <nz-modal [(nzVisible)]="isVisible" nzTitle="{{auditName}}" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
   [nzOkLoading]="isOkLoading" [nzWidth]="800">
 
-  <div nz-row style="height: 60px;">
+  <div *ngIf="auditResultVisible"  nz-row style="height: 60px;">
 
     <div nz-col [nzSpan]="12" class="ta_r">
       <div class="label_div"><span class="clo_r">*</span>审核结果</div>
@@ -114,16 +117,24 @@
   <div nz-row style="height: 60px;">
 
     <div nz-col [nzSpan]="12" class="ta_r">
-      <div class="label_div">审核人</div>
+      <div class="label_div">{{auditPeople}}</div>
       <input nz-input nzSize="default" [(ngModel)]="auditObj.shry" class="w200" maxlength="50" />
     </div>
 
     <div nz-col [nzSpan]="12" class="ta_r">
-      <div class="label_div">审核日期</div>
+      <div class="label_div">{{auditdate}}</div>
       <nz-date-picker class="w200" [nzStyle]="{'width':'200px'}" [(ngModel)]="auditObj.shrq" placeholder="请输入审核日期">
       </nz-date-picker>
     </div>
 
+  </div>
+
+  <div style="margin-bottom: 10px;" *ngIf="!auditResultVisible" nz-row>
+    <div nz-col [nzSpan]="24" class="ta_l">
+      <div class="label_div">注销理由</div>
+      <textarea style="width: calc(100% - 175px);margin-left: 35px;" nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }"
+        [(ngModel)]="auditObj.zxly" maxlength="500"></textarea>
+    </div>
   </div>
 
   <div nz-row>
