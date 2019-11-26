@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList ,ViewChild} from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import * as Moment from 'moment';
@@ -7,6 +7,8 @@ import { HouseTradeService } from "../../service/contract/house-trade.service";
 import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
 import { UtilitiesSercice } from '../../service/common/utilities.services';
 import { Localstorage } from '../../service/localstorage';
+import { AttachmentComponent } from 'src/app/layout/_components/attachment/attachment.component';
+
 
 
 @Component({
@@ -17,6 +19,8 @@ import { Localstorage } from '../../service/localstorage';
 export class HouseTradeComponent implements OnInit {
 
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
+  @ViewChild('attachmentComponent', { static: false }) attachmentComponent: AttachmentComponent;
+
   pageIndex: any = 1;
   totalCount: any;
   pageSize: any = 10;
@@ -48,7 +52,7 @@ export class HouseTradeComponent implements OnInit {
     shrq: new Date()
   };
 
-  isVisible: any = false;
+  auditIsVisible: any = false;
   isOkLoading: any = false;
 
   auditProjectId: any = [];
@@ -65,6 +69,10 @@ export class HouseTradeComponent implements OnInit {
   numberOfChecked = 0;
 
   userinfo: any = {};
+
+  isVisible: any = false;
+
+  fileList: any = [];
 
   constructor(
     private msg: NzMessageService,
@@ -286,7 +294,7 @@ export class HouseTradeComponent implements OnInit {
   //审核
   audit(data) {
 
-    this.isVisible = true;
+    this.auditIsVisible = true;
     switch (data.currentStatus) {
       case 1:
         this.auditName = "受理";
@@ -338,7 +346,7 @@ export class HouseTradeComponent implements OnInit {
   }
 
   handleCancel() {
-    this.isVisible = false;
+    this.auditIsVisible = false;
   }
 
   //批量审核
@@ -368,7 +376,7 @@ export class HouseTradeComponent implements OnInit {
       return;
     }
 
-    this.isVisible = true;
+    this.auditIsVisible = true;
     this.isOkLoading = false;
 
 
@@ -387,11 +395,20 @@ export class HouseTradeComponent implements OnInit {
       wfAudit: this.auditObj
     }
 
+    if(!this.auditResultVisible){
+      if(!data.wfAudit.fileInfoList){
+        data.wfAudit.fileInfoList=[];
+      }
+      this.attachmentComponent.fileList.forEach(element => {
+        data.wfAudit.fileInfoList.push({ id: element.uid });
+      });
+    }
+
     let res = await this.houseTradeService.btachAuditHouseTrade(data);
     if (res && res.code == 200) {
       this.msg.create('success', '审核成功');
       this.isOkLoading = false;
-      this.isVisible = false;
+      this.auditIsVisible = false;
       this.search();
     } else {
       this.msg.create('error', '审核失败');

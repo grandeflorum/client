@@ -100,7 +100,7 @@
   </nz-table>
 </div>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="{{auditName}}" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+<nz-modal [(nzVisible)]="auditIsVisible" nzTitle="{{auditName}}" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
   [nzOkLoading]="isOkLoading" [nzWidth]="800">
 
   <div *ngIf="auditResultVisible" nz-row style="height: 60px;">
@@ -143,6 +143,17 @@
       <div class="label_div">备注</div>
       <textarea style="width: calc(100% - 175px);margin-left: 35px;" nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }"
         [(ngModel)]="auditObj.bz" maxlength="500"></textarea>
+    </div>
+  </div>
+
+  <div nz-row *ngIf="!auditResultVisible">
+    <div nz-col [nzSpan]="24" class="ta_l">
+      <div class="label_div">附件</div>
+      <div style="float: left;width: calc(100% - 175px);margin-left: 35px;">
+        <app-attachment  [fileList]="fileList"  #attachmentComponent>
+        </app-attachment>
+      </div>
+
     </div>
   </div>
 </nz-modal>
