@@ -68,6 +68,8 @@ export class HouseTradeDetailComponent implements OnInit {
   lpbList: any = [];
   selectH: any = "";
 
+  isbusy=false;
+
 
   constructor(
     private msg: NzMessageService,
@@ -137,7 +139,7 @@ export class HouseTradeDetailComponent implements OnInit {
         })
 
       }
-      
+
       if (this.detailObj.ljzid) {
         this.selectH = this.detailObj.houseId;
         this.getLpb(this.detailObj.ljzid);
@@ -179,7 +181,7 @@ export class HouseTradeDetailComponent implements OnInit {
             }
           });
         }
-        
+
       });
       this.msg.create("success", "关联成功");
     } else {
@@ -236,7 +238,7 @@ export class HouseTradeDetailComponent implements OnInit {
         this.totalCount = res.msg.recordCount;
       }
     }
-    
+
 
     this.calculationHeight();
     this.operateData();
@@ -335,8 +337,13 @@ export class HouseTradeDetailComponent implements OnInit {
     if (!this.detailObj.id) {
       delete this.detailObj.id;
     }
+    if(this.isbusy){
+      this.msg.create('error', '数据正在保存，请勿重复点击');
+      return;
+    }
+    this.isbusy=true;
     var res = await this.houseTradeService.saveOrUpdateHouseTrade(this.detailObj);
-
+    this.isbusy=false;
     if (res && res.code == 200) {
       if(!this.detailObj.id){
         this.detailObj.id = res.msg.id;

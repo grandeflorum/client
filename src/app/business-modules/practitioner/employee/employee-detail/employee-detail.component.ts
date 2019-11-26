@@ -31,9 +31,11 @@ export class EmployeeDetailComponent implements OnInit {
 
   regionList: any = [];
   regionTreeNodes: any = [];
-  
+
   //附件
   fileList: any = [];
+
+  isbusy=false;
 
   constructor(
     private localstorage: Localstorage,
@@ -148,7 +150,11 @@ export class EmployeeDetailComponent implements OnInit {
       this.employee.fileInfoList.push({ id: element.uid });
     });
 
-
+    if(this.isbusy){
+      this.msg.create('error', '数据正在保存，请勿重复点击');
+      return;
+    }
+    this.isbusy=true;
     let res;
 
     if (this.id) {
@@ -156,7 +162,7 @@ export class EmployeeDetailComponent implements OnInit {
     } else {
       res = await this.employeeService.addEmployee(this.employee);
     }
-
+    this.isbusy=false;
     if (res.code === 200) {
       this.id = res.msg.id;
       this.employee.id = res.msg.id;

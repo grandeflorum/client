@@ -35,6 +35,8 @@ export class EconomicCompanyDetailComponent implements OnInit {
   regionList: any = [];
   regionTreeNodes: any = [];
 
+  isbusy=false;
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -149,13 +151,26 @@ export class EconomicCompanyDetailComponent implements OnInit {
     });
 
     this.detailObj.companyType = 2;
-
+    if(this.isbusy){
+      this.msg.create('error', '数据正在保存，请勿重复点击');
+      return;
+    }
+    this.isbusy=true;
     let res = await this.companyService.saveOrUpdateCompany(this.detailObj);
-
+    this.isbusy=false;
     if (res && res.code == 200) {
-      this.detailObj.id = res.msg;
-      this.companyId = res.msg;
-      this.msg.create('success', '保存成功');
+      if (res.msg == "repeat") {
+        this.msg.create('warning', '经纪企业名称重复');
+      }else{
+        if(res.msg){
+          this.detailObj.id = res.msg.id;
+          this.companyId = res.msg.id;
+          this.detailObj.auditType=res.msg.auditType;
+          this.detailObj.sysDate=res.msg.sysDate;
+        }
+        this.msg.create('success', '保存成功');
+      }
+
     } else {
       this.msg.create('error', '保存失败');
     }
