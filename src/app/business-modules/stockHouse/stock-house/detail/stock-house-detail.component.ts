@@ -235,7 +235,7 @@ export class StockHouseDetailComponent implements OnInit {
       return;
     }
     if(this.isbusy){
-      this.msg.create('error', '数据正在报错，请勿重复点击');
+      this.msg.create('error', '数据正在保存，请勿重复点击');
       return;
     }
     this.isbusy=true;

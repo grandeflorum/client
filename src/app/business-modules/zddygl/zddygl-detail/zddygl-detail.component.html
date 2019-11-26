@@ -218,7 +218,7 @@
     <div nz-row style="height: 50px;padding: 10px;text-align: right;padding-right: 20px;">
         <div nz-col [nzSpan]="24">
             <button nz-button nzType="default" (click)="quit()">返回</button>
-            <button *ngIf="!isDisable" nz-button nzType="primary" (click)="save()">保存</button>
+            <button *ngIf="!isDisable" nz-button nzType="primary" [disabled]="isbusy" (click)="save()">保存</button>
             <button *ngIf="!isDisable&&detailObj.id&&detailObj.bdcdyh" style="float: left;" nz-button nzType="primary"
                 (click)="linkDyxxByBdcdyh()">自动关联宗地所在项目楼盘</button>
         </div>
