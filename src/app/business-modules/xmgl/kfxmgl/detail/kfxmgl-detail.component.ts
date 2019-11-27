@@ -51,6 +51,8 @@ export class KfxmglDetailComponent implements OnInit {
   regionList: any = [];
   regionTreeNodes: any = [];
 
+  isbusy=false;
+
   constructor(
     private msg: NzMessageService,
     private router:Router,
@@ -91,7 +93,7 @@ export class KfxmglDetailComponent implements OnInit {
 
   }
 
-  
+
   generateTree2(data, parentCode) {
     const itemArr: any[] = [];
     for (var i = 0; i < data.length; i++) {
@@ -220,8 +222,13 @@ export class KfxmglDetailComponent implements OnInit {
     if(!this.detailObj.id){
       delete this.detailObj.id;
     }
+    if(this.isbusy){
+      this.msg.create('error', '数据正在保存，请勿重复点击');
+      return;
+    }
+    this.isbusy=true;
     var res = await this.kfxmglService.saveOrUpdateProject(this.detailObj);
-
+    this.isbusy=false;
     if (res && res.code == 200) {
       this.detailObj.id=res.msg;
       if(!this.detailObj.auditType){

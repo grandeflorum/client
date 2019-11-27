@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList,ViewChild} from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { StockTradeService } from "../../service/contract/stock-trade.service";
 import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
+import { Localstorage } from '../../service/localstorage';
+import { AttachmentComponent } from 'src/app/layout/_components/attachment/attachment.component';
 
 @Component({
   selector: 'app-stock-trade',
@@ -14,6 +16,7 @@ import { ValidationDirective } from 'src/app/layout/_directives/validation.direc
 export class StockTradeComponent implements OnInit {
 
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
+  @ViewChild('attachmentComponent', { static: false }) attachmentComponent: AttachmentComponent;
   pageIndex: any = 1;
   totalCount: any;
   pageSize: any = 10;
@@ -45,14 +48,14 @@ export class StockTradeComponent implements OnInit {
     shrq: new Date()
   };
 
-  isVisible: any = false;
+  auditIsVisible: any = false;
   isOkLoading: any = false;
 
   auditProjectId: any = [];
   auditName: any;
-  auditResultVisible:any=true;
-  auditPeople:any;
-  auditdate:any;
+  auditResultVisible: any = true;
+  auditPeople: any;
+  auditdate: any;
 
   isAllDisplayDataChecked = false;
   isIndeterminate = false;
@@ -64,14 +67,49 @@ export class StockTradeComponent implements OnInit {
 
   userinfo: any = {};
 
+  isVisible: any = false;
+
+  fileList: any = [];
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
+    private localstorage: Localstorage,
     private stockTradeService: StockTradeService
   ) { }
 
-  ngOnInit() {
+  //添加权限
+  canzsgc: boolean = false;
+  cantjsh: boolean = false;
+  cansh: boolean = false;
 
+  getRoles() {
+    let roles = this.localstorage.getObject("roles");
+
+    if (roles) {
+      if (roles.some(x => x == '管理员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '录入员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+      }
+
+      if (roles.some(x => x == '审核员')) {
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
+        this.canzsgc = true;
+      }
+    }
+  }
+
+  ngOnInit() {
+    this.getRoles();
     this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
     this.auditObj.shry = this.userinfo ? this.userinfo.realname : null;
 
@@ -97,7 +135,6 @@ export class StockTradeComponent implements OnInit {
     }
     option.conditions.push({ key: 'sort', value: this.sortList });
     this.operateData(option);
-    this.Loading = false;
     this.calculationHeight();
   }
 
@@ -164,7 +201,7 @@ export class StockTradeComponent implements OnInit {
     let res = await this.stockTradeService.getStockTradeList(option);
 
     if (res && res.code == 200) {
-
+      this.Loading = false;
       this.dataSet = res.msg.currentList;
       this.totalCount = res.msg.recordCount;
 
@@ -173,6 +210,7 @@ export class StockTradeComponent implements OnInit {
 
       this.calculationHeight();
     } else {
+      this.Loading = false;
       this.msg.create('error', '查询失败');
     }
   }
@@ -253,43 +291,43 @@ export class StockTradeComponent implements OnInit {
   //审核
   audit(data) {
 
-    this.isVisible = true;
+    this.auditIsVisible = true;
     switch (data.currentStatus) {
       case 1:
         this.auditName = "受理";
-        this.auditResultVisible=true;
-        this.auditPeople="审核人";
-        this.auditdate="审核日期";
+        this.auditResultVisible = true;
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
         break;
       case 2:
         this.auditName = "初审";
-        this.auditResultVisible=true;
-        this.auditPeople="审核人";
-        this.auditdate="审核日期";
+        this.auditResultVisible = true;
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
         break;
       case 3:
         this.auditName = "核定";
-        this.auditResultVisible=true;
-        this.auditPeople="审核人";
-        this.auditdate="审核日期";
+        this.auditResultVisible = true;
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
         break;
       case 4:
         this.auditName = "登簿";
-        this.auditResultVisible=true;
-        this.auditPeople="审核人";
-        this.auditdate="审核日期";
+        this.auditResultVisible = true;
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
         break;
       case 5:
         this.auditName = "注销";
-        this.auditResultVisible=false;
-        this.auditPeople="注销人";
-        this.auditdate="注销日期";
+        this.auditResultVisible = false;
+        this.auditPeople = "注销人";
+        this.auditdate = "注销日期";
         break;
       default:
         this.auditName = "审核";
-        this.auditResultVisible=true;
-        this.auditPeople="审核人";
-        this.auditdate="审核日期";
+        this.auditResultVisible = true;
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
         break;
     }
     this.isOkLoading = false;
@@ -305,7 +343,7 @@ export class StockTradeComponent implements OnInit {
   }
 
   handleCancel() {
-    this.isVisible = false;
+    this.auditIsVisible = false;
   }
 
   //批量审核
@@ -335,7 +373,7 @@ export class StockTradeComponent implements OnInit {
       return;
     }
 
-    this.isVisible = true;
+    this.auditIsVisible = true;
     this.isOkLoading = false;
 
 
@@ -353,12 +391,20 @@ export class StockTradeComponent implements OnInit {
       ids: this.auditProjectId,
       wfAudit: this.auditObj
     }
+    if(!this.auditResultVisible){
+      if(!data.wfAudit.fileInfoList){
+        data.wfAudit.fileInfoList=[];
+      }
+      this.attachmentComponent.fileList.forEach(element => {
+        data.wfAudit.fileInfoList.push({ id: element.uid });
+      });
+    }
 
     let res = await this.stockTradeService.btachAuditStockTrade(data);
     if (res && res.code == 200) {
       this.msg.create('success', '审核成功');
       this.isOkLoading = false;
-      this.isVisible = false;
+      this.auditIsVisible = false;
       this.search();
     } else {
       this.msg.create('error', '审核失败');

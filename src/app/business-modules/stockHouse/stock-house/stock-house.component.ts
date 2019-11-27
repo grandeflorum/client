@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { StockHouseService } from "../../service/stockHouse/stock-house.service";
+import { Localstorage } from '../../service/localstorage';
 
 @Component({
   selector: 'app-stock-house',
@@ -49,11 +50,42 @@ export class StockHouseComponent implements OnInit {
   constructor(
     private msg: NzMessageService,
     private router: Router,
+    private localstorage: Localstorage,
     private stockHouseService: StockHouseService
   ) { }
 
-  ngOnInit() {
+  //添加权限
+  canzsgc: boolean = false;
+  cantjsh: boolean = false;
+  cansh: boolean = false;
 
+  getRoles() {
+    let roles = this.localstorage.getObject("roles");
+
+    if (roles) {
+      if (roles.some(x => x == '管理员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '录入员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+      }
+
+      if (roles.some(x => x == '审核员')) {
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
+        this.canzsgc = true;
+      }
+    }
+  }
+
+  ngOnInit() {
+    this.getRoles();
     this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
     this.shxxObj.wfAudit.shry = this.userinfo ? this.userinfo.realname : null;
 
@@ -79,7 +111,6 @@ export class StockHouseComponent implements OnInit {
     }
     option.conditions.push({ key: 'sort', value: this.sortList });
     this.operateData(option);
-    this.Loading = false;
     this.calculationHeight();
   }
 
@@ -146,7 +177,7 @@ export class StockHouseComponent implements OnInit {
     let res = await this.stockHouseService.getStockHouseList(option);
 
     if (res && res.code == 200) {
-
+      this.Loading = false;
       this.dataSet = res.msg.currentList;
       this.totalCount = res.msg.recordCount;
 
@@ -155,6 +186,7 @@ export class StockHouseComponent implements OnInit {
 
       this.calculationHeight();
     } else {
+      this.Loading = false;
       this.msg.create('error', '查询失败');
     }
   }

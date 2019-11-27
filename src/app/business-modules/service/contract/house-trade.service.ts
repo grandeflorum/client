@@ -12,6 +12,10 @@ export class HouseTradeService {
     return this.http.post('/HouseTrade/getHouseTradeList', data);
   }
 
+  getHouseTradeCancelList(data): any {
+    return this.http.post('/HouseTrade/getHouseTradeCancelList', data);
+  }
+
   saveOrUpdateHouseTrade(data): any {
     return this.http.post('/HouseTrade/saveOrUpdateHouseTrade', data);
   }

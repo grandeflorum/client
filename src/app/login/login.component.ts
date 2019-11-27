@@ -257,6 +257,9 @@ export class LoginComponent implements OnInit {
         'permission',
         JSON.stringify(data.msg.permission)
       );
+
+      this.localstorage.setObject("roles", data.msg.roles);
+
       sessionStorage.setItem('AUTH_ID', data.msg.ticket);
       sessionStorage.setItem('userinfo', JSON.stringify(data.msg.userinfo));
       this.getUserMenu();

@@ -4,6 +4,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { CompanyService } from '../../service/practitioner/company.service';
 import { Localstorage } from '../../service/localstorage';
+import { UserService } from '../../service/system/user.service';
 
 @Component({
   selector: 'app-economic-company',
@@ -16,6 +17,7 @@ export class EconomicCompanyComponent implements OnInit {
   pageIndex: any = 1;
   totalCount: any;
   pageSize: any = 10;
+  total: any;
   Loading = false;
   tableIsScroll = null;
   dataSet: any = [
@@ -52,15 +54,56 @@ export class EconomicCompanyComponent implements OnInit {
 
   auditProjectId: any = [];
 
+  //权限管理
+  isVisibleRole: any = false;
+  isOkLoadingRole: any = false;
+
+  roleData: any = {};
+
+  arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
     private companyService: CompanyService,
-    private localstorage: Localstorage
+    private localstorage: Localstorage,
+    private userService: UserService
   ) { }
 
-  ngOnInit() {
+  //添加权限
+  canzsgc: boolean = false;
+  cantjsh: boolean = false;
+  cansh: boolean = false;
 
+  getRoles() {
+    let roles = this.localstorage.getObject("roles");
+
+    if (roles) {
+      if (roles.some(x => x == '管理员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '录入员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+      }
+
+      if (roles.some(x => x == '审核员')) {
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
+        this.canzsgc = true;
+      }
+    }
+  }
+
+  ngOnInit() {
+    this.getRoles();
     this.dictionaryObj = this.localstorage.getObject("dictionary");
     this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
     this.auditObj.shry = this.userinfo ? this.userinfo.realname : null;
@@ -333,6 +376,76 @@ export class EconomicCompanyComponent implements OnInit {
       }
     });
     return isValid;
+  }
+
+  rolemanage(data) {
+
+    this.isVisibleRole = true;
+    this.roleData = {
+      name: data.qymc,
+      zjh: data.zjh,
+      switchValue: true
+    };
+
+    this.roleData.password = this.getPassword();
+
+  }
+
+  getPassword() {
+    let password = "";
+    for (let i = 0; i < 6; i++) {
+
+      let x = Math.floor((Math.random() * 62));
+      password += this.arr[x];
+    }
+
+    if (! /^(?=.*[a-zA-Z])(?=.*\d)[^]{6,50}$/.test(password)) {
+      return this.getPassword();
+    }
+
+    return password;
+  }
+
+  async handleOkRole() {
+
+    if (!this.roleData.zjh) {
+      this.msg.create("warning", "用户名不能为空");
+      return;
+    }
+    if (!this.roleData.password) {
+      this.msg.create("warning", "密码不能为空");
+      return;
+    }
+    if (this.roleData.password != this.roleData.passwordSure) {
+      this.msg.create("warning", "确定密码与原密码不一致");
+      return;
+    }
+
+    let res = await this.userService.findUserByUsername(this.roleData.zjh);
+
+    if (res && res.code == 200) {
+
+      if (res.msg) {
+        this.msg.create("warning", "账号已存在");
+      } else {
+
+        let data = {
+          username: this.roleData.zjh,
+          password: this.roleData.password,
+          realname: this.roleData.name,
+          isVaild: this.roleData.switchValue ? 1 : 2
+        }
+
+        let resRole = await this.userService.insertRoleManage(data);
+        if (resRole && resRole.code == 200) {
+          this.msg.create("success", "注册成功");
+        } else {
+          this.msg.create("error", "注册失败");
+        }
+      }
+    }
+
+
   }
 
 

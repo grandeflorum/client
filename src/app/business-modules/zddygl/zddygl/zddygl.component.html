@@ -46,10 +46,11 @@
 
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="24">
-            <button nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
+            <button *ngIf="canzsgc" nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
                 添加
             </button>
-            <button nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">
+            <button *ngIf="canzsgc" nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?"
+                (nzOnConfirm)="btachDelete()">
                 批量删除
             </button>
         </div>
@@ -88,11 +89,12 @@
                     {{ data.dyType==0?'未抵押':data.dyType==1?'已抵押（楼盘）':'已抵押（幢）' }}</td>
                 <td style=" width:20%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
-                    <a class="table_a" (click)="add(3,data)">编辑</a>
-                    <a *ngIf="data.dyType!=0" class="table_a" nz-popconfirm nzTitle="确定注销抵押吗?"
+                    <a *ngIf="canzsgc" class="table_a" (click)="add(3,data)">编辑</a>
+                    <a *ngIf="data.dyType!=0&&cansh" class="table_a" nz-popconfirm nzTitle="确定注销抵押吗?"
                         (nzOnConfirm)="restrictedProperty(data.id)">注销抵押</a>
                     <!-- <a class="table_a" nz-popconfirm nzTitle="确定抵押楼盘吗?" (nzOnConfirm)="delete([data.id])">抵押楼盘</a> -->
-                    <a class="table_a" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="delete([data.id])">删除</a>
+                    <a *ngIf="canzsgc" class="table_a" nz-popconfirm nzTitle="确定删除吗?"
+                        (nzOnConfirm)="delete([data.id])">删除</a>
                 </td>
             </tr>
         </tbody>

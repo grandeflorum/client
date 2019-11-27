@@ -37,6 +37,8 @@ export class HouseRentalDetailComponent implements OnInit {
   lpbList: any = [];
   selectH: any = "";
 
+  isbusy=false;
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -147,8 +149,13 @@ export class HouseRentalDetailComponent implements OnInit {
       this.msg.create("warning", "请选择新政区划");
       return;
     }
+    if(this.isbusy){
+      this.msg.create('error', '数据正在保存，请勿重复点击');
+      return;
+    }
+    this.isbusy=true;
     let res = await this.houseRentalService.SaveOrUpdateHouseRental(this.detailObj);
-
+    this.isbusy=false;
     if (res && res.code == 200) {
       this.detailObj.id = res.msg;
       this.quit();

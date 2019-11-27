@@ -68,7 +68,7 @@ rowSpan: any = 0;
 lpbList: any = [];
 selectH: any = "";
 
-
+isbusy=false;
 
   constructor(
     private msg: NzMessageService,
@@ -134,7 +134,7 @@ selectH: any = "";
           if( v.shrq){
             v.shrq = Moment(v.shrq).format('YYYY-MM-DD')
           }
-          
+
         })
 
       }
@@ -178,7 +178,7 @@ selectH: any = "";
             }
           });
         }
-        
+
       });
       this.msg.create("success", "关联成功");
     } else {
@@ -242,7 +242,7 @@ selectH: any = "";
 
   cancel(){
     var route = "/contract/stockTrade";
-    
+
     // switch (this.moduleType) {
     //   case 'dy':
     //     route = '/zjgcdygl';
@@ -329,15 +329,20 @@ selectH: any = "";
     if(!this.detailObj.id){
       delete this.detailObj.id;
     }
+    if(this.isbusy){
+      this.msg.create('error', '数据正在保存，请勿重复点击');
+      return;
+    }
+    this.isbusy=true;
     var res = await this.stockTradeService.saveOrUpdateStockTrade(this.detailObj);
-
+    this.isbusy=false;
     if (res && res.code == 200) {
       if(!this.detailObj.id){
         this.detailObj.id = res.msg.id;
         this.detailObj.sysDate = res.msg.sysDate;
         this.detailObj.currentStatus = res.msg.currentStatus;
       }
-      
+
       this.msg.create('success', '保存成功');
     } else {
       this.msg.create('error', '保存失败');
@@ -445,7 +450,7 @@ selectH: any = "";
       var newpeople = {};
       this.detailObj.relationShips.push(newpeople);
     }
-  
+
     deletepeople(obj, i) {
       this.detailObj.relationShips.splice(i, 1);
     }

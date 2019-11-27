@@ -53,6 +53,8 @@ export class StockHouseDetailComponent implements OnInit {
   regionList: any = [];
   regionTreeNodes: any = [];
 
+  isbusy=false;
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -232,11 +234,16 @@ export class StockHouseDetailComponent implements OnInit {
     if (!this.FormValidation()) {
       return;
     }
+    if(this.isbusy){
+      this.msg.create('error', '数据正在保存，请勿重复点击');
+      return;
+    }
+    this.isbusy=true;
     if (!this.detailObj.id) {
       delete this.detailObj.id;
     }
     let res = await this.stockHouseService.saveOrUpdateStockHouse(this.detailObj);
-
+    this.isbusy=false;
     if (res && res.code == 200) {
       this.detailObj.id = res.msg;
       if (!this.detailObj.auditType) {

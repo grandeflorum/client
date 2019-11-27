@@ -40,6 +40,8 @@ export class ZddyglDetailComponent implements OnInit {
   selectH: any = "";
   type: number;
 
+  isbusy=false;
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -163,9 +165,13 @@ export class ZddyglDetailComponent implements OnInit {
     if (!this.FormValidation()) {
       return;
     }
-
+    if(this.isbusy){
+      this.msg.create('error', '数据正在保存，请勿重复点击');
+      return;
+    }
+    this.isbusy=true;
     let res = await this.zddyglService.SaveOrUpdateZddygl(this.detailObj);
-
+    this.isbusy=false;
     if (res && res.code == 200) {
       this.detailObj.id = res.msg;
       this.quit();

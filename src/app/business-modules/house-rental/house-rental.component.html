@@ -20,38 +20,39 @@
                 </nz-option>
             </nz-select>
         </div>
-</div>
+    </div>
 
     <div nz-row style="height: 50px;padding: 10px;">
-          
-    
-            <div nz-col [nzSpan]="8">
-                是否装修：
-                <nz-select [(ngModel)]="isdecorated" class="w150" nzPlaceHolder="请选择">
-                    <nz-option nzValue="" nzLabel="全部"></nz-option>
-                    <nz-option nzValue="1" nzLabel="是"></nz-option>
-                    <nz-option nzValue="2" nzLabel="否"></nz-option>
-                </nz-select>
-            </div>
-            <div>
-    
-            </div>
-            <div nz-col [nzSpan]="16" class="ta_r">
-                <button nz-button nzType="primary" (click)="search()">
-                    查询
-                </button>
-                <button nz-button nzType="default" (click)="reset()">
-                    重置
-                </button>
-            </div>
+
+
+        <div nz-col [nzSpan]="8">
+            是否装修：
+            <nz-select [(ngModel)]="isdecorated" class="w150" nzPlaceHolder="请选择">
+                <nz-option nzValue="" nzLabel="全部"></nz-option>
+                <nz-option nzValue="1" nzLabel="是"></nz-option>
+                <nz-option nzValue="2" nzLabel="否"></nz-option>
+            </nz-select>
         </div>
+        <div>
+
+        </div>
+        <div nz-col [nzSpan]="16" class="ta_r">
+            <button nz-button nzType="primary" (click)="search()">
+                查询
+            </button>
+            <button nz-button nzType="default" (click)="reset()">
+                重置
+            </button>
+        </div>
+    </div>
 
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="24">
-            <button nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
+            <button *ngIf="canzsgc" nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
                 添加
             </button>
-            <button nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">
+            <button *ngIf="canzsgc" nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?"
+                (nzOnConfirm)="btachDelete()">
                 批量删除
             </button>
         </div>
@@ -88,8 +89,9 @@
                 <td>{{ data.houseage }}</td>
                 <td style="width:20%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
-                    <a class="table_a" (click)="add(3,data)">编辑</a>
-                    <a class="table_a" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="delete([data.id])">删除</a>
+                    <a *ngIf="canzsgc" class="table_a" (click)="add(3,data)">编辑</a>
+                    <a *ngIf="canzsgc" class="table_a" nz-popconfirm nzTitle="确定删除吗?"
+                        (nzOnConfirm)="delete([data.id])">删除</a>
                 </td>
             </tr>
         </tbody>

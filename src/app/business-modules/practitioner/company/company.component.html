@@ -35,13 +35,14 @@
 
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="24">
-            <button nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
+            <button *ngIf="canzsgc" nz-button nzType="primary" (click)="add(1)"><i nz-icon nzType="plus"></i>
                 添加
             </button>
-            <button nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete()">
+            <button *ngIf="canzsgc" nz-button nzType="default" nz-popconfirm nzTitle="确定删除吗?"
+                (nzOnConfirm)="btachDelete()">
                 批量删除
             </button>
-            <button nz-button nzType="default" (click)="btachAudit()">
+            <button *ngIf="cansh" nz-button nzType="default" (click)="btachAudit()">
                 批量审核
             </button>
         </div>
@@ -57,7 +58,7 @@
                 <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
                     [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
                 <th>开发企业名称</th>
-                <th>企业法人</th>
+                <th>企业法人代表</th>
                 <th>联系电话</th>
                 <th>资质证书号</th>
                 <th>资质有效时间</th>
@@ -83,13 +84,14 @@
                 </td>
                 <td style="width:30%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
-                    <a class="table_a" (click)="rolemanage(data)" *ngIf="data.auditType==2">权限管理</a>
-                    <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" (click)="add(3,data)">编辑</a>
-                    <a class="table_a" *ngIf="data.auditType==1" (click)="audit(data)">审核</a>
-                    <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" nz-popconfirm nzTitle="确定删除吗?"
-                        (nzOnConfirm)="delete([data.id])">删除</a>
-                    <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" nz-popconfirm nzTitle="确定提交审核吗?"
-                        (nzOnConfirm)="auditCompany(data.id,1)">提交审核</a>
+                    <a class="table_a" (click)="rolemanage(data)" *ngIf="data.auditType==2&&cantjsh">权限管理</a>
+                    <a class="table_a" *ngIf="(data.auditType==0||data.auditType==3)&&canzsgc"
+                        (click)="add(3,data)">编辑</a>
+                    <a class="table_a" *ngIf="data.auditType==1&&cansh" (click)="audit(data)">审核</a>
+                    <a class="table_a" *ngIf="(data.auditType==0||data.auditType==3)&&canzsgc" nz-popconfirm
+                        nzTitle="确定删除吗?" (nzOnConfirm)="delete([data.id])">删除</a>
+                    <a class="table_a" *ngIf="(data.auditType==0||data.auditType==3)&&cantjsh" nz-popconfirm
+                        nzTitle="确定提交审核吗?" (nzOnConfirm)="auditCompany(data.id,1)">提交审核</a>
                 </td>
             </tr>
         </tbody>
