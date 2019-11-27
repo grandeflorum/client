@@ -39,13 +39,13 @@
         批量审核
       </button>
 
-      <button nz-button nzType="primary" (click)="perview()" style="float: right;">
+      <!-- <button nz-button nzType="primary" (click)="perview()" style="float: right;">
         预览
       </button>
 
       <button nz-button nzType="primary" (click)="print()" style="float: right;">
         打印
-      </button>
+      </button> -->
 
     </div>
   </div>
@@ -100,6 +100,9 @@
           <a class="table_a" *ngIf="data.currentStatus==3" (click)="audit(data)">核定</a>
           <a class="table_a" *ngIf="data.currentStatus==4" (click)="audit(data)">登簿</a>
           <a class="table_a" *ngIf="data.currentStatus==5&&data.isCancel!=1" (click)="audit(data)">注销</a>
+
+          <a class="table_a" *ngIf="data.currentStatus==5&&!data.isCancel" (click)="perview(data)">预览</a>
+          <a class="table_a" *ngIf="data.currentStatus==5&&!data.isCancel" (click)="print(data)">打印</a>
 
           <a class="table_a" (nzOnConfirm)="delete([data.id])" *ngIf="data.currentStatus==0" nz-popconfirm
             nzTitle="确定删除吗?">删除</a>

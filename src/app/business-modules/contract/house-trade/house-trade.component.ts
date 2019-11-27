@@ -396,20 +396,15 @@ export class HouseTradeComponent implements OnInit {
   }
 
   //打印
-  print() {
+  print(data) {
 
-    if (!this.selectId) {
-      this.msg.create("warning", "请选择列表项");
-      return;
-    }
-
-    let url = AppConfig.Configuration.baseUrl + "/HouseTrade/printHt?id=" + this.selectId + "&type=1";
+    let url = AppConfig.Configuration.baseUrl + "/HouseTrade/printHt?id=" + data.id + "&type=1";
     url = this.utilitiesSercice.wrapUrl(url);
     window.open(url, '_blank');
   }
 
-  perview() {
-    let url = AppConfig.Configuration.baseUrl + "/HouseTrade/printHt?id=" + this.selectId + "&type=2";
+  perview(data) {
+    let url = AppConfig.Configuration.baseUrl + "/HouseTrade/printHt?id=" + data.id + "&type=2";
     window.open('assets/usermanual/web/viewer.html?url=' + this.utilitiesSercice.wrapUrl(url), "_blank");
   }
 
