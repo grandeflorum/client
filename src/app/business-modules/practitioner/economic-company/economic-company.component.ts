@@ -432,6 +432,7 @@ export class EconomicCompanyComponent implements OnInit {
         let data = {
           username: this.roleData.zjh,
           password: this.roleData.password,
+          card: this.roleData.zjh,
           realname: this.roleData.name,
           isVaild: this.roleData.switchValue ? 1 : 2
         }

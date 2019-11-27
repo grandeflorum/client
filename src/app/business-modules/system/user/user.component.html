@@ -18,7 +18,7 @@
       <button nz-button nzType="primary" style="margin-right: 10px;" (click)="search()">
         查询
       </button>
-      <button nz-button nzType="default"  (click)="reset()">
+      <button nz-button nzType="default" (click)="reset()">
         重置
       </button>
     </div>
@@ -104,6 +104,14 @@
           <span class="clo_r">*</span>真实姓名：
           <input nz-input [disabled]="isDisable" style="width:calc(100% - 100px)" required [validation]="true"
             nzSize="default" [(ngModel)]="currentUser.realname" class="w200" [validationType]="'maxlength'"
+            [validationLenth]="50" />
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>身份证号：
+          <input nz-input [disabled]="isDisable" style="width:calc(100% - 100px)" required [validation]="true"
+            nzSize="default" [(ngModel)]="currentUser.card" class="w200" [validationType]="'idcard'"
             [validationLenth]="50" />
         </div>
       </div>
