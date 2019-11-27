@@ -150,10 +150,18 @@ export class RoleComponent implements OnInit {
 
     this.isOkLoading = true;
     let list = [];
-    for (let i = 0; i < this.roleMenuList1.length; i++) {
-      let id = this.roleMenuList1[i].key;
-      list.push(this.allMenuList.find(myObj => myObj.id === id));
+    if(this.roleMenuList1.length>0){
+      for (let i = 0; i < this.roleMenuList1.length; i++) {
+        let id = this.roleMenuList1[i].key;
+        list.push(this.allMenuList.find(myObj => myObj.id === id));
+      }
+    }else{
+      for (let i = 0; i < this.ckeckedRoleMenuList.length; i++) {
+        let id = this.ckeckedRoleMenuList[i];
+        list.push(this.allMenuList.find(myObj => myObj.id === id));
+      }
     }
+    
     this.currentRole.roleMenuList = list;
     let res = await this.roleService.saveOrUpdateRole(this.currentRole);
     this.isOkLoading = false;

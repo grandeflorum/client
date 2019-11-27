@@ -386,16 +386,31 @@ export class CompanyComponent implements OnInit {
     return isValid;
   }
 
-  rolemanage(data) {
+  async rolemanage(data) {
 
     this.isVisibleRole = true;
-    this.roleData = {
-      name: data.qymc,
-      zjh: data.zjh,
-      switchValue: true
-    };
 
-    this.roleData.password = this.getPassword();
+    let res = await this.userService.findUserByUsername(data.zjh);
+
+    if (res && res.code == 200) {
+
+      this.roleData = {
+        id: res.msg.id,
+        name: data.qymc,
+        zjh: res.msg.username,
+        password: res.msg.password,
+        switchValue: res.msg.isVaild == 1 ? true : false
+      };
+    } else {
+      this.roleData = {
+        name: data.qymc,
+        zjh: data.zjh,
+        switchValue: true
+      };
+
+      this.roleData.password = this.getPassword();
+    }
+
 
   }
 
@@ -429,31 +444,21 @@ export class CompanyComponent implements OnInit {
       return;
     }
 
-    let res = await this.userService.findUserByUsername(this.roleData.zjh);
-
-    if (res && res.code == 200) {
-
-      if (res.msg) {
-        this.msg.create("warning", "账号已存在");
-      } else {
-
-        let data = {
-          username: this.roleData.zjh,
-          password: this.roleData.password,
-          realname: this.roleData.name,
-          isVaild: this.roleData.switchValue ? 1 : 2
-        }
-
-        let resRole = await this.userService.insertRoleManage(data);
-        if (resRole && resRole.code == 200) {
-          this.msg.create("success", "注册成功");
-        } else {
-          this.msg.create("error", "注册失败");
-        }
-      }
+    let data = {
+      id: this.roleData.id,
+      username: this.roleData.zjh,
+      password: this.roleData.password,
+      realname: this.roleData.name,
+      isVaild: this.roleData.switchValue ? 1 : 2
     }
 
-
+    let resRole = await this.userService.insertRoleManage(data);
+    if (resRole && resRole.code == 200) {
+      this.msg.create("success", "注册成功");
+      this.isVisibleRole = false;
+    } else {
+      this.msg.create("error", resRole.msg);
+    }
   }
 
 }
