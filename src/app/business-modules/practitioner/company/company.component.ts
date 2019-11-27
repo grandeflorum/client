@@ -449,7 +449,8 @@ export class CompanyComponent implements OnInit {
       username: this.roleData.zjh,
       password: this.roleData.password,
       realname: this.roleData.name,
-      isVaild: this.roleData.switchValue ? 1 : 2
+      isVaild: this.roleData.switchValue ? 1 : 2,
+      card: this.roleData.zjh,
     }
 
     let resRole = await this.userService.insertRoleManage(data);

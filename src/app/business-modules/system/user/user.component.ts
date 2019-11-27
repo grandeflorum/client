@@ -207,7 +207,7 @@ export class UserComponent implements OnInit {
       this.msg.create('success', '保存成功');
       this.search();
     } else {
-      this.msg.create('error', '保存失败');
+      this.msg.create('error', res.msg ? res.msg : '保存失败');
     }
 
   }
