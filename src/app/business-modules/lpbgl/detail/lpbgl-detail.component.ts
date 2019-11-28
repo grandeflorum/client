@@ -66,7 +66,8 @@ export class LpbglDetailComponent implements OnInit {
   glType = "";
   selectH = "";
   pid = "";
-
+  modalSslm = "";
+  
   constructor(
     private msg: NzMessageService,
     private router: Router,
