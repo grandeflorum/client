@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList,ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ViewChild } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import * as Moment from 'moment';
@@ -7,6 +7,7 @@ import { StockTradeService } from "../../service/contract/stock-trade.service";
 import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
 import { Localstorage } from '../../service/localstorage';
 import { AttachmentComponent } from 'src/app/layout/_components/attachment/attachment.component';
+import { UtilitiesSercice } from '../../service/common/utilities.services';
 
 @Component({
   selector: 'app-stock-trade',
@@ -75,7 +76,8 @@ export class StockTradeComponent implements OnInit {
     private msg: NzMessageService,
     private router: Router,
     private localstorage: Localstorage,
-    private stockTradeService: StockTradeService
+    private stockTradeService: StockTradeService,
+    private utilitiesSercice: UtilitiesSercice
   ) { }
 
   //添加权限
@@ -391,9 +393,9 @@ export class StockTradeComponent implements OnInit {
       ids: this.auditProjectId,
       wfAudit: this.auditObj
     }
-    if(!this.auditResultVisible){
-      if(!data.wfAudit.fileInfoList){
-        data.wfAudit.fileInfoList=[];
+    if (!this.auditResultVisible) {
+      if (!data.wfAudit.fileInfoList) {
+        data.wfAudit.fileInfoList = [];
       }
       this.attachmentComponent.fileList.forEach(element => {
         data.wfAudit.fileInfoList.push({ id: element.uid });
@@ -431,6 +433,21 @@ export class StockTradeComponent implements OnInit {
     } else {
       this.tableIsScroll = null
     }
+  }
+
+  //打印
+  print(data) {
+
+    let url = AppConfig.Configuration.baseUrl + "/StockTrade/printHt?id=" + data.id;
+    url = this.utilitiesSercice.wrapUrl(url);
+    window.open(url, '_blank');
+  }
+
+  async perview(data) {
+
+    let url = AppConfig.Configuration.baseUrl + "/StockTrade/previewHt?id=" + data.id;
+    url = this.utilitiesSercice.wrapUrl(url);
+    window.open(url, '_blank');
   }
 
 

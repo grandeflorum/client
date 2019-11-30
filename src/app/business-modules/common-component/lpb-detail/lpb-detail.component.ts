@@ -99,9 +99,11 @@ export class LpbDetailComponent implements OnInit {
   }
 
   perview(){
+    
     let url = AppConfig.Configuration.baseUrl + "/BuildingTable/printHt?id=" + this.selectedHu.id + "&type="+this.selectedHu.tradeType;
     url = this.utilitiesSercice.wrapUrl(url);
-    window.open('assets/usermanual/web/viewer.html?url=' + this.utilitiesSercice.wrapUrl(url), "_blank");
+    window.open(url, '_blank');
+    
   }
 
 }

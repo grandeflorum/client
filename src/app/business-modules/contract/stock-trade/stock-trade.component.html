@@ -91,6 +91,9 @@
           <a class="table_a" *ngIf="data.currentStatus==4&&cansh" (click)="audit(data)">登簿</a>
           <a class="table_a" *ngIf="(data.currentStatus==5&&data.isCancel!=1)&&cansh" (click)="audit(data)">注销</a>
 
+          <a class="table_a" *ngIf="data.currentStatus==5&&!data.isCancel" (click)="perview(data)">预览</a>
+          <a class="table_a" *ngIf="data.currentStatus==5&&!data.isCancel" (click)="print(data)">打印</a>
+
           <a class="table_a" (nzOnConfirm)="delete([data.id])" *ngIf="data.currentStatus==0&&canzsgc" nz-popconfirm
             nzTitle="确定删除吗?">删除</a>
 

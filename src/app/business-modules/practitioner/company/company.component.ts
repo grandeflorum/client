@@ -392,7 +392,7 @@ export class CompanyComponent implements OnInit {
 
     let res = await this.userService.findUserByUsername(data.zjh);
 
-    if (res && res.code == 200) {
+    if (res && res.msg && res.code == 200) {
 
       this.roleData = {
         id: res.msg.id,
@@ -450,10 +450,10 @@ export class CompanyComponent implements OnInit {
       password: this.roleData.password,
       realname: this.roleData.name,
       isVaild: this.roleData.switchValue ? 1 : 2,
-      card: this.roleData.zjh,
+      card: this.roleData.zjh
     }
 
-    let resRole = await this.userService.insertRoleManage(data);
+    let resRole = await this.userService.insertRoleManage(data, 1);
     if (resRole && resRole.code == 200) {
       this.msg.create("success", "注册成功");
       this.isVisibleRole = false;

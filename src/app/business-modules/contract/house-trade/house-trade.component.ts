@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList ,ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ViewChild } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import * as Moment from 'moment';
@@ -74,6 +74,10 @@ export class HouseTradeComponent implements OnInit {
 
   fileList: any = [];
 
+  config: any;
+  htVisible: any = false;
+  htContent: any = "";
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -113,6 +117,17 @@ export class HouseTradeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.config = {
+      readonly: true,
+      toolbars: [],
+      wordCount: false,
+      elementPathEnabled: false,
+      enableAutoSave: false,
+      autoHeightEnabled: false,
+      initialFrameWidth: 550,
+      initialFrameHeight: 300
+    };
+
     this.getRoles();
     this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
     this.auditObj.shry = this.userinfo ? this.userinfo.realname : null;
@@ -395,9 +410,9 @@ export class HouseTradeComponent implements OnInit {
       wfAudit: this.auditObj
     }
 
-    if(!this.auditResultVisible){
-      if(!data.wfAudit.fileInfoList){
-        data.wfAudit.fileInfoList=[];
+    if (!this.auditResultVisible) {
+      if (!data.wfAudit.fileInfoList) {
+        data.wfAudit.fileInfoList = [];
       }
       this.attachmentComponent.fileList.forEach(element => {
         data.wfAudit.fileInfoList.push({ id: element.uid });
@@ -448,14 +463,24 @@ export class HouseTradeComponent implements OnInit {
   //打印
   print(data) {
 
-    let url = AppConfig.Configuration.baseUrl + "/HouseTrade/printHt?id=" + data.id + "&type=1";
+    let url = AppConfig.Configuration.baseUrl + "/HouseTrade/printHt?id=" + data.id;
     url = this.utilitiesSercice.wrapUrl(url);
     window.open(url, '_blank');
   }
 
-  perview(data) {
-    let url = AppConfig.Configuration.baseUrl + "/HouseTrade/printHt?id=" + data.id + "&type=2";
-    window.open('assets/usermanual/web/viewer.html?url=' + this.utilitiesSercice.wrapUrl(url), "_blank");
+  async perview(data) {
+
+    // var that = this;
+
+    // let res = await this.houseTradeService.previewHt(data.id);
+    // if (res && res.code == 200) {
+    //   that.htVisible = true;
+    //   that.htContent = res.msg;
+    // }
+
+    let url = AppConfig.Configuration.baseUrl + "/HouseTrade/previewHt?id=" + data.id;
+    url = this.utilitiesSercice.wrapUrl(url);
+    window.open(url, '_blank');
   }
 
 }
