@@ -171,6 +171,9 @@
 
 </nz-modal>
 
+<nz-modal [(nzVisible)]="htVisible" nzTitle="预览" (nzOnCancel)="htVisible=false" [nzOkText]="null">
+  <ueditor [(ngModel)]="htContent" [config]="config"></ueditor>
+</nz-modal>
 
 <ng-template #rangeTemplate let-range="range" let-total>
   共{{total}}条记录&nbsp;&nbsp;
