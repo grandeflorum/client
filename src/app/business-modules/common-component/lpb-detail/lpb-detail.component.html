@@ -115,12 +115,12 @@
 
     <div class="lpb_div" style="width:980px;margin:0 auto;overflow: auto;">
         <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}">
-            <li class="ch_td">楼层数</li>
-            <li *ngFor="let data of lpbList.dyList; index as index" [ngStyle]="{'width':data.rowSpan*100+'px'}">
+            <li class="ch_td" style="background: #fff">楼层数</li>
+            <li style="background: #fff;color: rgba(0, 0, 0, 0.85) " *ngFor="let data of lpbList.dyList; index as index" [ngStyle]="{'width':data.rowSpan*100+'px'}">
                 {{data.name}}</li>
         </ul>
         <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}" *ngFor="let item of lpbList.cList; index as index">
-            <li class="ch_td">{{item.ch}}层</li>
+            <li class="ch_td" style="background: #fff">{{item.ch}}层</li>
             <li *ngFor="let hu of item.hList"
                 [ngClass]="{'lpb_ydy':(moduleType=='dy'&&hu.status == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.status == 1) , 'lpb_ycf':(moduleType=='cf'&&hu.cfStatus == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.cfStatus == 1) }"
                 nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent"
