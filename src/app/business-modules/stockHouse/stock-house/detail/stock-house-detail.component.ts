@@ -53,7 +53,7 @@ export class StockHouseDetailComponent implements OnInit {
   regionList: any = [];
   regionTreeNodes: any = [];
 
-  isbusy=false;
+  isbusy = false;
 
   constructor(
     private msg: NzMessageService,
@@ -87,6 +87,8 @@ export class StockHouseDetailComponent implements OnInit {
     if (this.detailObj.id) {
       this.getStockHouseById();
       this.search();
+
+      this.tabs.push({ name: '关联企业', index: 2 });
     }
   }
 
@@ -234,21 +236,26 @@ export class StockHouseDetailComponent implements OnInit {
     if (!this.FormValidation()) {
       return;
     }
-    if(this.isbusy){
+    if (this.isbusy) {
       this.msg.create('error', '数据正在保存，请勿重复点击');
       return;
     }
-    this.isbusy=true;
+    this.isbusy = true;
     if (!this.detailObj.id) {
       delete this.detailObj.id;
     }
     let res = await this.stockHouseService.saveOrUpdateStockHouse(this.detailObj);
-    this.isbusy=false;
+    this.isbusy = false;
     if (res && res.code == 200) {
       this.detailObj.id = res.msg;
       if (!this.detailObj.auditType) {
         this.detailObj.auditType = 0;
       }
+
+      if (!this.tabs.some(x => x.index == 2)) {
+        this.tabs.push({ name: '关联企业', index: 2 });
+      }
+
       this.msg.create('success', '保存成功');
     } else {
       this.msg.create('error', '保存失败');

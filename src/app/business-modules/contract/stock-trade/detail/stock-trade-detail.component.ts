@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChildren, QueryList , ViewChild , TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ViewChild, TemplateRef } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router , ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ValidationDirective } from '../../../../layout/_directives/validation.directive';
 import { Localstorage } from '../../../service/localstorage';
 import { KfxmglService } from '../../../service/xmgl/kfxmgl.service';
-import { FileService  } from '../../../service/file/file.service';
+import { FileService } from '../../../service/file/file.service';
 import { UtilitiesSercice } from '../../../service/common/utilities.services';
 import { LpbglService } from '../../../service/lpbgl/lpbgl.service';
 import { StockTradeService } from '../../../service/contract/stock-trade.service';
@@ -18,17 +18,18 @@ import * as $ from 'jquery';
 })
 export class StockTradeDetailComponent implements OnInit {
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
-  @ViewChild('uploadComponent',{static:false}) uploadComponent ;
+  @ViewChild('uploadComponent', { static: false }) uploadComponent;
 
-  downLoadurl =  AppConfig.Configuration.baseUrl + "/FileInfo/download";
+  downLoadurl = AppConfig.Configuration.baseUrl + "/FileInfo/download";
   tabs = [
-    {name:'合同信息',index:0},
-    {name:'附件',index:1},
-    { name: '关联户信息', index: 2 }
+    { name: '合同信息', index: 0 },
+    { name: '附件', index: 1 },
+    { name: '关联户信息', index: 2 },
+    // { name: '关联企业', index: 3 }
   ]
   tabsetIndex = 0;
   isDisable = false;
-  detailObj:any = {};
+  detailObj: any = {};
   selectId = -1;
   fjList = [];
   pageIndex: any = 1;
@@ -43,41 +44,44 @@ export class StockTradeDetailComponent implements OnInit {
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
   isVisible = false;
-  dictionaryObj:any = {};
+  dictionaryObj: any = {};
   isImgVisible = false;
   currentImg = "";
 
 
-  selectedHu:any = {};
+  selectedHu: any = {};
   moduleType = "";
   fileType = 0;
 
-showBalc = false;
-timeline = [
-  {name:'基础信息录入',state:0},
-  {name:'受理',state:1},
-  {name:'初审',state:2},
-  {name:'核定',state:3},
-  {name:'登簿',state:4},
-  {name:'生成合同',state:5}
-]
-fileTypeList = [];
-fileTypeIndex = 0;
+  showBalc = false;
+  timeline = [
+    { name: '基础信息录入', state: 0 },
+    { name: '受理', state: 1 },
+    { name: '初审', state: 2 },
+    { name: '核定', state: 3 },
+    { name: '登簿', state: 4 },
+    { name: '生成合同', state: 5 }
+  ]
+  fileTypeList = [];
+  fileTypeIndex = 0;
 
-rowSpan: any = 0;
-lpbList: any = [];
-selectH: any = "";
+  rowSpan: any = 0;
+  lpbList: any = [];
+  selectH: any = "";
 
-isbusy=false;
+  isbusy = false;
+
+
+  associatedCompanyShow: boolean = false;
 
   constructor(
     private msg: NzMessageService,
-    private router:Router,
-    private activatedRoute:ActivatedRoute,
-    private localstorage:Localstorage,
-    private fileService:FileService,
-    private utilitiesSercice:UtilitiesSercice,
-    private stockTradeService:StockTradeService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private localstorage: Localstorage,
+    private fileService: FileService,
+    private utilitiesSercice: UtilitiesSercice,
+    private stockTradeService: StockTradeService,
     private lpbglService: LpbglService
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
@@ -95,7 +99,12 @@ isbusy=false;
       this.tabs = [
         { name: '合同信息', index: 0 },
         { name: '附件', index: 1 },
+        { name: '关联企业', index: 2 }
       ]
+
+      this.associatedCompanyShow = true;
+    } else if (type == 3) {
+      this.tabs.push({ name: '关联企业', index: 3 });
     }
 
     switch (type) {
@@ -112,11 +121,11 @@ isbusy=false;
         break;
     }
 
-   }
+  }
 
   ngOnInit() {
     this.dictionaryObj = this.localstorage.getObject("dictionary");
-    if(this.detailObj.id){
+    if (this.detailObj.id) {
       this.getDetail();
       this.search();
     }
@@ -124,14 +133,14 @@ isbusy=false;
 
   }
 
-  async getDetail(){
+  async getDetail() {
     var res = await this.stockTradeService.getStockTradeById(this.detailObj.id);
     if (res && res.code == 200) {
-      this.detailObj=res.msg;
+      this.detailObj = res.msg;
 
-      if(this.detailObj.wfAuditList.length>0){
-        this.detailObj.wfAuditList.forEach((v,k)=>{
-          if( v.shrq){
+      if (this.detailObj.wfAuditList.length > 0) {
+        this.detailObj.wfAuditList.forEach((v, k) => {
+          if (v.shrq) {
             v.shrq = Moment(v.shrq).format('YYYY-MM-DD')
           }
 
@@ -142,7 +151,7 @@ isbusy=false;
         this.selectH = this.detailObj.houseId;
         this.getLpb(this.detailObj.ljzid);
       }
-     } else {
+    } else {
       this.msg.create('error', '内部服务错误');
     }
   }
@@ -169,12 +178,12 @@ isbusy=false;
     let res = await this.stockTradeService.linkH(this.detailObj.id, this.selectH);
     if (res && res.code == 200) {
       this.lpbList.cList.forEach(cinfo => {
-        if(cinfo&&cinfo.hList.length>0){
+        if (cinfo && cinfo.hList.length > 0) {
           cinfo.hList.forEach(hinfo => {
-            if(hinfo.id==this.selectH){
-              this.detailObj.dyh=hinfo.dyh;
-              this.detailObj.ch=hinfo.ch;
-              this.detailObj.fh=hinfo.mph;
+            if (hinfo.id == this.selectH) {
+              this.detailObj.dyh = hinfo.dyh;
+              this.detailObj.ch = hinfo.ch;
+              this.detailObj.fh = hinfo.mph;
             }
           });
         }
@@ -187,47 +196,47 @@ isbusy=false;
 
   }
 
-  fileTypeIndexChange(index){
-      this.fileTypeIndex = index;
-      this.fileType = this.fileTypeList[this.fileTypeIndex].code;
-      this.getFileList();
+  fileTypeIndexChange(index) {
+    this.fileTypeIndex = index;
+    this.fileType = this.fileTypeList[this.fileTypeIndex].code;
+    this.getFileList();
   }
 
 
 
-  selectedHuChange(item){
+  selectedHuChange(item) {
     this.selectedHu = item;
   }
 
 
 
-  async search(){
+  async search() {
     var option = {
-      id:this.detailObj.id,
-      type:'htfj'
+      id: this.detailObj.id,
+      type: 'htfj'
     }
 
     var res = await this.fileService.getAttachDicCount(option);
-        if(res&& res.code == 200){
-            this.fileTypeList = res.msg;
-            this.fileType = this.fileTypeList[this.fileTypeIndex].code;
-            this.getFileList();
-        }
+    if (res && res.code == 200) {
+      this.fileTypeList = res.msg;
+      this.fileType = this.fileTypeList[this.fileTypeIndex].code;
+      this.getFileList();
+    }
 
   }
 
-  async getFileList(){
+  async getFileList() {
     var option2 = {
       pageNo: this.pageIndex,
       pageSize: this.pageSize,
       conditions: [
-        { key: 'refid', value: this.detailObj.id},
-        { key: 'type', value:  this.fileType }
+        { key: 'refid', value: this.detailObj.id },
+        { key: 'type', value: this.fileType }
       ]
     };
     var res = await this.fileService.getFileListByRefidAndType(option2);
 
-    if(res.code == 200){
+    if (res.code == 200) {
       this.fjList = res.msg.currentList;
       this.totalCount = res.msg.recordCount;
     }
@@ -236,11 +245,11 @@ isbusy=false;
     this.operateData();
   }
 
-  tabsetChange(m){
+  tabsetChange(m) {
     this.tabsetIndex = m;
   }
 
-  cancel(){
+  cancel() {
     var route = "/contract/stockTrade";
 
     // switch (this.moduleType) {
@@ -281,8 +290,8 @@ isbusy=false;
       !this.isAllDisplayDataChecked;
     this.numberOfChecked = this.listOfAllData.filter(item => this.mapOfCheckedId[item.id]).length;
 
-    for(var id in this.mapOfCheckedId){
-        console.log(id)
+    for (var id in this.mapOfCheckedId) {
+      console.log(id)
     }
   }
 
@@ -299,7 +308,7 @@ isbusy=false;
   }
 
 
-  onChange(m,date){
+  onChange(m, date) {
     // if(m == 1){
     //   this.detailObj.kgrq = Moment(date).format('YYYY-MM-DD')
     // }else if(m == 2){
@@ -322,25 +331,29 @@ isbusy=false;
   }
 
 
-  async save(){
+  async save() {
     if (!this.FormValidation()) {
       return;
     }
-    if(!this.detailObj.id){
+    if (!this.detailObj.id) {
       delete this.detailObj.id;
     }
-    if(this.isbusy){
+    if (this.isbusy) {
       this.msg.create('error', '数据正在保存，请勿重复点击');
       return;
     }
-    this.isbusy=true;
+    this.isbusy = true;
     var res = await this.stockTradeService.saveOrUpdateStockTrade(this.detailObj);
-    this.isbusy=false;
+    this.isbusy = false;
     if (res && res.code == 200) {
-      if(!this.detailObj.id){
+      if (!this.detailObj.id) {
         this.detailObj.id = res.msg.id;
         this.detailObj.sysDate = res.msg.sysDate;
         this.detailObj.currentStatus = res.msg.currentStatus;
+      }
+
+      if (!this.tabs.some(x => x.index == 3)) {
+        this.tabs.push({ name: '关联企业', index: 3 });
       }
 
       this.msg.create('success', '保存成功');
@@ -349,121 +362,121 @@ isbusy=false;
     }
   }
 
-  calculationHeight(){
+  calculationHeight() {
     const bodyHeight = $('body').height()
     const height = this.fjList.length * 40;
-    if(height > bodyHeight - 440){
-        this.tableIsScroll = {y: bodyHeight - 400 + 'px'}
-    }else{
+    if (height > bodyHeight - 440) {
+      this.tableIsScroll = { y: bodyHeight - 400 + 'px' }
+    } else {
       this.tableIsScroll = null
     }
   }
 
-  upload(){
+  upload() {
     this.isVisible = true;
     this.uploadComponent.fileList = [];
   }
 
-  handleCancel(){
+  handleCancel() {
     this.isVisible = false;
     this.uploadComponent.fileList = [];
   }
 
-//开始上传
-  handleOk(){
+  //开始上传
+  handleOk() {
     this.uploadComponent.import();
   }
 
-  outer(event){
-    if(event){
+  outer(event) {
+    if (event) {
       this.handleCancel();
       this.search();
     }
   }
 
-  previewImg(item){
-    if(item.fileSuffix != 'pdf'){
+  previewImg(item) {
+    if (item.fileSuffix != 'pdf') {
       this.currentImg = this.downLoadurl + "?id=" + item.id + "&type=0";
       this.isImgVisible = true;
-    }else{
+    } else {
       window.open(this.downLoadurl + "?id=" + item.id + "&type=0");
     }
 
   }
 
-    //删除
-    async btachDelete(item?){
-      var ids = [];
-      if (item) {//单个删除
-        ids.push(item.id);
-      } else {//批量删除
-        if (this.listOfDisplayData.length > 0) {
-          this.listOfDisplayData.forEach(element => {
-            if (this.mapOfCheckedId[element.id]) {
-              ids.push(element.id);
-            }
-          });
-        }
-      }
-
-      if(ids.length==0){
-        this.msg.warning('请选择需要删除的项目');
-        return;
-      }
-
-      var res = await this.fileService.deleteByIds(ids);
-      if (res && res.code == 200) {
-        this.msg.create('success', '删除成功');
-        this.search();
-      } else {
-        this.msg.create('error', '删除失败');
-      }
-    }
-
-    //下载
-    btachDown(item?){
-      var ids = [];
-      if (item) {//单个
-        ids.push(item.id);
-      } else {//批量
-        if (this.listOfDisplayData.length > 0) {
-          this.listOfDisplayData.forEach(element => {
-            if (this.mapOfCheckedId[element.id]) {
-              ids.push(element.id);
-            }
-          });
-        }
-      }
-
-      if(ids.length==0){
-        this.msg.warning('请选择需要下载的项目');
-        return;
-      }
-
-      window.location.href = this.downLoadurl + "?id=" + item.id + "&type=0";
-    }
-
-    addpeople() {
-      if (!this.detailObj.relationShips) {
-        this.detailObj.relationShips = [];
-      }
-      var newpeople = {};
-      this.detailObj.relationShips.push(newpeople);
-    }
-
-    deletepeople(obj, i) {
-      this.detailObj.relationShips.splice(i, 1);
-    }
-
-    nameChange(){
-      if(this.detailObj&&this.detailObj.relationShips&&this.detailObj.relationShips.length>0){
-        var name="";
-        this.detailObj.relationShips.forEach(element => {
-          name+=element.name+",";
+  //删除
+  async btachDelete(item?) {
+    var ids = [];
+    if (item) {//单个删除
+      ids.push(item.id);
+    } else {//批量删除
+      if (this.listOfDisplayData.length > 0) {
+        this.listOfDisplayData.forEach(element => {
+          if (this.mapOfCheckedId[element.id]) {
+            ids.push(element.id);
+          }
         });
-        this.detailObj.yf=name.substring(0,name.length-1);
       }
     }
+
+    if (ids.length == 0) {
+      this.msg.warning('请选择需要删除的项目');
+      return;
+    }
+
+    var res = await this.fileService.deleteByIds(ids);
+    if (res && res.code == 200) {
+      this.msg.create('success', '删除成功');
+      this.search();
+    } else {
+      this.msg.create('error', '删除失败');
+    }
+  }
+
+  //下载
+  btachDown(item?) {
+    var ids = [];
+    if (item) {//单个
+      ids.push(item.id);
+    } else {//批量
+      if (this.listOfDisplayData.length > 0) {
+        this.listOfDisplayData.forEach(element => {
+          if (this.mapOfCheckedId[element.id]) {
+            ids.push(element.id);
+          }
+        });
+      }
+    }
+
+    if (ids.length == 0) {
+      this.msg.warning('请选择需要下载的项目');
+      return;
+    }
+
+    window.location.href = this.downLoadurl + "?id=" + item.id + "&type=0";
+  }
+
+  addpeople() {
+    if (!this.detailObj.relationShips) {
+      this.detailObj.relationShips = [];
+    }
+    var newpeople = {};
+    this.detailObj.relationShips.push(newpeople);
+  }
+
+  deletepeople(obj, i) {
+    this.detailObj.relationShips.splice(i, 1);
+  }
+
+  nameChange() {
+    if (this.detailObj && this.detailObj.relationShips && this.detailObj.relationShips.length > 0) {
+      var name = "";
+      this.detailObj.relationShips.forEach(element => {
+        name += element.name + ",";
+      });
+      this.detailObj.yf = name.substring(0, name.length - 1);
+    }
+  }
 
   ngAfterViewInit() {
     var that = this;

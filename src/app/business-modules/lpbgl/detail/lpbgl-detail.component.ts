@@ -30,6 +30,7 @@ export class LpbglDetailComponent implements OnInit {
   tabs = [
     { name: '楼盘信息', index: 0 },
     { name: '测绘材料', index: 1 },
+    // { name: '关联企业', index: 2 }
   ]
   tabs2 = []
   qsList = [{ name: '1', code: '1' }, { name: '2', code: '2' }]

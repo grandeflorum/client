@@ -15,6 +15,7 @@ import { LpbglComponent } from '../business-modules/lpbgl/lpbgl.component';
 import { LpbglDetailComponent } from '../business-modules/lpbgl/detail/lpbgl-detail.component';
 import { AuditWorkFlowPipe } from './_pipes/audit-work-flow.pipe';
 import { LpbDetailComponent } from '../business-modules/common-component/lpb-detail/lpb-detail.component';
+import { AssociatedCompanyComponent } from '../business-modules/common-component/associated-company/associated-company.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -33,8 +34,8 @@ import { LpbDetailComponent } from '../business-modules/common-component/lpb-det
             }
         })
     ],
-    declarations: [ValidationDirective, PageHeightDrective, uploadComponent, AttachmentComponent, TooltipsPipe, AuditPipe, LpbglComponent, LpbglDetailComponent, AuditWorkFlowPipe, LpbDetailComponent],
-    exports: [ValidationDirective, PageHeightDrective, uploadComponent, UEditorModule, AttachmentComponent, TooltipsPipe, AuditPipe, NgxEchartsModule, LpbglComponent, LpbglDetailComponent, AuditWorkFlowPipe, LpbDetailComponent],
+    declarations: [ValidationDirective, PageHeightDrective, uploadComponent, AttachmentComponent, TooltipsPipe, AuditPipe, LpbglComponent, LpbglDetailComponent, AuditWorkFlowPipe, LpbDetailComponent, AssociatedCompanyComponent],
+    exports: [ValidationDirective, PageHeightDrective, uploadComponent, UEditorModule, AttachmentComponent, TooltipsPipe, AuditPipe, NgxEchartsModule, LpbglComponent, LpbglDetailComponent, AuditWorkFlowPipe, LpbDetailComponent, AssociatedCompanyComponent],
     providers: [],
     entryComponents: []
 })

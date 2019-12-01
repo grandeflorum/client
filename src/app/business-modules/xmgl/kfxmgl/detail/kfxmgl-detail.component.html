@@ -44,8 +44,18 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>开发企业名称：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.kfqymc" class="w200" maxlength="100"
-            placeholder="请输入开发企业名称" [disabled]="isDisable" required [validation]="true" />
+          <!-- <input nz-input nzSize="default" [(ngModel)]="detailObj.kfqymc" class="w200" maxlength="100"
+            placeholder="请输入开发企业名称" [disabled]="isDisable" required [validation]="true" /> -->
+
+          <nz-select class="w200" (ngModelChange)="selectChange($event)" [disabled]="isDisable" nzPlaceHolder="选择开发企业"
+            nzShowSearch nzServerSearch [(ngModel)]="detailObj.companyId" (nzOnSearch)="onSearch($event)">
+            <ng-container *ngFor="let o of companyList">
+              <nz-option *ngIf="!companyLoading" [nzValue]="o.id" [nzLabel]="o.qymc"></nz-option>
+            </ng-container>
+            <nz-option *ngIf="companyLoading" nzDisabled nzCustomContent>
+              <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+            </nz-option>
+          </nz-select>
         </span>
 
       </div>
@@ -337,6 +347,11 @@
     </nz-table>
   </div>
 
+  <!-- <div class="jbxx" *ngIf="tabsetIndex==2&&detailObj.id" style="overflow: hidden">
+    <app-associated-company [associatedid]="detailObj.id" modulename="kfxmgl" [selectShow]="!isDisable">
+    </app-associated-company>
+  </div> -->
+
 
 
 
@@ -344,7 +359,8 @@
   <div nz-row style="height: 50px;padding: 10px;text-align: right;padding-right: 20px;">
     <div nz-col [nzSpan]="24">
       <button nz-button nzType="default" (click)="cancel()">返回</button>
-      <button nz-button nzType="primary" *ngIf="!isDisable&&tabsetIndex==0" [disabled]="isbusy" (click)="save()">保存</button>
+      <button nz-button nzType="primary" *ngIf="!isDisable&&tabsetIndex==0" [disabled]="isbusy"
+        (click)="save()">保存</button>
       <!-- <button nz-button nzType="primary" *ngIf="!isDisable" (click)="submit()">提交审核</button> -->
     </div>
 

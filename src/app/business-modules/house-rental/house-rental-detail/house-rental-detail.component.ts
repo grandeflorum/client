@@ -37,7 +37,9 @@ export class HouseRentalDetailComponent implements OnInit {
   lpbList: any = [];
   selectH: any = "";
 
-  isbusy=false;
+  isbusy = false;
+
+  associatedCompanyShow: boolean = false;
 
   constructor(
     private msg: NzMessageService,
@@ -66,8 +68,13 @@ export class HouseRentalDetailComponent implements OnInit {
     if (type == 2) {
       this.isDisable = true;
       this.tabs = [
-        { name: '房屋租赁信息', index: 0 }
+        { name: '房屋租赁信息', index: 0 },
+        { name: '关联企业', index: 1 }
       ]
+
+      this.associatedCompanyShow = true;
+    } else if (type == 3) {
+      this.tabs.push({ name: '关联企业', index: 2 });
     }
 
     if (id) {
@@ -149,15 +156,20 @@ export class HouseRentalDetailComponent implements OnInit {
       this.msg.create("warning", "请选择新政区划");
       return;
     }
-    if(this.isbusy){
+    if (this.isbusy) {
       this.msg.create('error', '数据正在保存，请勿重复点击');
       return;
     }
-    this.isbusy=true;
+    this.isbusy = true;
     let res = await this.houseRentalService.SaveOrUpdateHouseRental(this.detailObj);
-    this.isbusy=false;
+    this.isbusy = false;
     if (res && res.code == 200) {
       this.detailObj.id = res.msg;
+
+      if (!this.tabs.some(x => x.index == 2)) {
+        this.tabs.push({ name: '关联企业', index: 2 });
+      }
+
       this.quit();
       this.msg.create('success', '保存成功');
     } else {

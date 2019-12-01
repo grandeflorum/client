@@ -208,8 +208,13 @@
     </div>
   </div>
 
-  <div class="jbxx" *ngIf="tabsetIndex==1">
+  <div class="jbxx" *ngIf="tabsetIndex==1&&!associatedCompanyShow">
     <app-lpbgl [glType]="'houseRental'" [pid]="detailObj.id"></app-lpbgl>
+  </div>
+
+  <div class="jbxx" *ngIf="(tabsetIndex==1&&associatedCompanyShow)||tabsetIndex==2" style="overflow: hidden">
+    <app-associated-company [associatedid]="detailObj.id" modulename="houseRental" [selectShow]="!isDisable">
+    </app-associated-company>
   </div>
 
   <div nz-row style="height: 50px;padding: 10px;text-align: right;padding-right: 20px;">

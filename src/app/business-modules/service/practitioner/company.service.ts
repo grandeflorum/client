@@ -28,7 +28,34 @@ export class CompanyService {
     }
 
     //批量审核
-    btachAuditCompany(data):any{
+    btachAuditCompany(data): any {
         return this.http.post('/Company/btachAuditCompany', data);
     }
+
+
+    /**
+     * 添加关联关系
+     */
+    SaveOrUpdateAssociatedCompany(data): any {
+        return this.http.post('/Company/SaveOrUpdateAssociatedCompany', data);
+    }
+
+    /**
+     * 获取关联关系
+     * @param id 
+     * @param moduleName 
+     */
+    GetAssociatedCompany(id, moduleName): any {
+        return this.http.get('/Company/GetAssociatedCompany?id=' + id + '&module=' + moduleName);
+    }
+
+
+    /**
+     * 取消关联关系
+     * @param data 
+     */
+    DeleteAssociatedCompany(data): any {
+        return this.http.post('/Company/DeleteAssociatedCompany', data);
+    }
+
 }

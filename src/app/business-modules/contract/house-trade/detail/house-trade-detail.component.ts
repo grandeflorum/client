@@ -24,7 +24,8 @@ export class HouseTradeDetailComponent implements OnInit {
   tabs = [
     { name: '合同信息', index: 0 },
     { name: '附件', index: 1 },
-    { name: '关联户信息', index: 2 }
+    { name: '关联户信息', index: 2 },
+    // { name: '关联企业', index: 3 }
   ]
   tabsetIndex = 0;
   isDisable = false;
@@ -68,8 +69,11 @@ export class HouseTradeDetailComponent implements OnInit {
   lpbList: any = [];
   selectH: any = "";
 
-  isbusy=false;
+  isbusy = false;
 
+
+
+  associatedCompanyShow: boolean = false;
 
   constructor(
     private msg: NzMessageService,
@@ -95,7 +99,12 @@ export class HouseTradeDetailComponent implements OnInit {
       this.tabs = [
         { name: '合同信息', index: 0 },
         { name: '附件', index: 1 },
+        { name: '关联企业', index: 2 }
       ]
+
+      this.associatedCompanyShow = true;
+    } else if (type == 3) {
+      this.tabs.push({ name: '关联企业', index: 3 });
     }
 
     switch (type) {
@@ -172,12 +181,12 @@ export class HouseTradeDetailComponent implements OnInit {
     let res = await this.houseTradeService.linkH(this.detailObj.id, this.selectH);
     if (res && res.code == 200) {
       this.lpbList.cList.forEach(cinfo => {
-        if(cinfo&&cinfo.hList.length>0){
+        if (cinfo && cinfo.hList.length > 0) {
           cinfo.hList.forEach(hinfo => {
-            if(hinfo.id==this.selectH){
-              this.detailObj.dyh=hinfo.dyh;
-              this.detailObj.ch=hinfo.ch;
-              this.detailObj.fh=hinfo.mph;
+            if (hinfo.id == this.selectH) {
+              this.detailObj.dyh = hinfo.dyh;
+              this.detailObj.ch = hinfo.ch;
+              this.detailObj.fh = hinfo.mph;
             }
           });
         }
@@ -227,10 +236,10 @@ export class HouseTradeDetailComponent implements OnInit {
         { key: 'type', value: this.fileType }
       ]
     };
-    if(!this.detailObj.id){
+    if (!this.detailObj.id) {
       this.fjList = [];
       this.totalCount = 0;
-    }else{
+    } else {
       var res = await this.fileService.getFileListByRefidAndType(option2);
 
       if (res.code == 200) {
@@ -337,18 +346,23 @@ export class HouseTradeDetailComponent implements OnInit {
     if (!this.detailObj.id) {
       delete this.detailObj.id;
     }
-    if(this.isbusy){
+    if (this.isbusy) {
       this.msg.create('error', '数据正在保存，请勿重复点击');
       return;
     }
-    this.isbusy=true;
+    this.isbusy = true;
     var res = await this.houseTradeService.saveOrUpdateHouseTrade(this.detailObj);
-    this.isbusy=false;
+    this.isbusy = false;
     if (res && res.code == 200) {
-      if(!this.detailObj.id){
+      if (!this.detailObj.id) {
         this.detailObj.id = res.msg.id;
         this.detailObj.sysDate = res.msg.sysDate;
         this.detailObj.currentStatus = res.msg.currentStatus;
+      }
+
+
+      if (!this.tabs.some(x => x.index == 3)) {
+        this.tabs.push({ name: '关联企业', index: 3 });
       }
 
       this.msg.create('success', '保存成功');
@@ -463,13 +477,13 @@ export class HouseTradeDetailComponent implements OnInit {
     this.detailObj.relationShips.splice(i, 1);
   }
 
-  nameChange(){
-    if(this.detailObj&&this.detailObj.relationShips&&this.detailObj.relationShips.length>0){
-      var name="";
+  nameChange() {
+    if (this.detailObj && this.detailObj.relationShips && this.detailObj.relationShips.length > 0) {
+      var name = "";
       this.detailObj.relationShips.forEach(element => {
-        name+=element.name+",";
+        name += element.name + ",";
       });
-      this.detailObj.buyer=name.substring(0,name.length-1);
+      this.detailObj.buyer = name.substring(0, name.length - 1);
     }
   }
 

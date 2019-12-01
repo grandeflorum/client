@@ -91,14 +91,14 @@
       <div nz-row style="height: 60px;">
         <div class="ta_r">
           <span class="clo_r">*</span>用户名：
-          <input nz-input style="width:calc(100% - 100px)" name="username" required [validation]="true" nzSize="default"
+          <input nz-input style="width:calc(100% - 150px)" name="username" required [validation]="true" nzSize="default"
             [(ngModel)]="registerUser.username" class="w200" [validationType]="'maxlength'" [validationLenth]="50" />
         </div>
       </div>
       <div nz-row style="height: 60px;">
         <div class="ta_r">
           <span class="clo_r">*</span>密码：
-          <input type="password" maxlength="50" nz-input style="width:calc(100% - 100px)" required [validation]="true"
+          <input type="password" maxlength="50" nz-input style="width:calc(100% - 150px)" required [validation]="true"
             [validationType]="'password'" nzSize="default" [(ngModel)]="registerUser.password" class="w200"
             name="password" />
         </div>
@@ -106,7 +106,7 @@
       <div nz-row style="height: 60px;">
         <div class="ta_r">
           <span class="clo_r">*</span>确认密码：
-          <input type="password" maxlength="50" nz-input style="width:calc(100% - 100px)" required [validation]="true"
+          <input type="password" maxlength="50" nz-input style="width:calc(100% - 150px)" required [validation]="true"
             [validationType]="'password'" nzSize="default" [(ngModel)]="comfirmPassword" class="w200"
             name="comfirmPassword" />
         </div>
@@ -117,25 +117,64 @@
       <div nz-row style="height: 60px;">
         <div class="ta_r">
           <span class="clo_r">*</span>真实姓名：
-          <input nz-input style="width:calc(100% - 100px)" required [validation]="true" nzSize="default"
+          <input nz-input style="width:calc(100% - 150px)" required [validation]="true" nzSize="default"
             [(ngModel)]="registerUser.realname" class="w200" [validationType]="'maxlength'" [validationLenth]="50" />
         </div>
       </div>
       <div nz-row style="height: 60px;">
         <div class="ta_r">
+          <span class="clo_r">*</span>身份证号：
+          <input nz-input [disabled]="isDisable" style="width:calc(100% - 150px)" required [validation]="true"
+            nzSize="default" [(ngModel)]="registerUser.card" class="w200" [validationType]="'idcard'"
+            [validationLenth]="50" />
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
           电话：
-          <input nz-input style="width:calc(100% - 100px)" [validation]="true" [validationType]="'nullphonenumber'"
+          <input nz-input style="width:calc(100% - 150px)" [validation]="true" [validationType]="'nullphonenumber'"
             nzSize="default" [(ngModel)]="registerUser.mobile" class="w200" maxlength="50" />
         </div>
       </div>
       <div nz-row style="height: 60px;">
         <div class="ta_r">
           邮箱：
-          <input nz-input maxlength="50" style="width:calc(100% - 100px)" nzSize="default"
+          <input nz-input maxlength="50" style="width:calc(100% - 150px)" nzSize="default"
             [(ngModel)]="registerUser.email" [validation]="true" [validationType]="'nullEmail'" class="w200" />
         </div>
       </div>
       <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>从业主体:
+          <nz-select style="width:calc(100% - 150px)" required [validation]="true"
+            [(ngModel)]="registerUser.companyType" class="w200" nzPlaceHolder="请选择">
+            <nz-option nzValue="1" nzLabel="开发企业"></nz-option>
+            <nz-option nzValue="2" nzLabel="经济企业"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>{{registerUser.companyType=='1'?'开发企业名称：':'经纪企业名称：'}}
+          <input nz-input maxlength="50" style="width:calc(100% - 150px)" nzSize="default"
+            [(ngModel)]="registerUser.qymc" [validation]="true" required class="w200" />
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          {{registerUser.companyType=='1'?'营业执照：':'营业执照注册号：'}}
+          <input nz-input maxlength="50" style="width:calc(100% - 150px)" nzSize="default"
+            [(ngModel)]="registerUser.yyzz" [validation]="true" class="w200" />
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          {{registerUser.companyType=='1'?'社会信用代码：':'企业机构代码证号：'}}
+          <input nz-input maxlength="50" style="width:calc(100% - 150px)" nzSize="default"
+            [(ngModel)]="registerUser.shxydm" [validation]="true" class="w200" />
+        </div>
+      </div>
+      <!-- <div nz-row style="height: 60px;">
         <div class="ta_r">
           <span class="clo_r">*</span>所在部门：
           <nz-tree-select [nzDropdownStyle]="{ 'max-height': '300px' }" style="width:calc(100% - 100px)"
@@ -153,7 +192,7 @@
             </nz-option>
           </nz-select>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div *ngIf="current == 2">

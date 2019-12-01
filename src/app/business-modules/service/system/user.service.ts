@@ -48,4 +48,8 @@ export class UserService {
   insertRoleManage(data): any {
     return this.http.post('/SystemUser/insertRoleManage', data);
   }
+
+  insertUserCompany(data): any {
+    return this.http.post('/SystemUser/insertUserCompany', data);
+  }
 }

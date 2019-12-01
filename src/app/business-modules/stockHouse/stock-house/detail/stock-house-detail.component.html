@@ -408,7 +408,10 @@
     </nz-table>
   </div>
 
-
+  <div class="jbxx" *ngIf="tabsetIndex==2&&detailObj.id" style="overflow: hidden">
+    <app-associated-company [associatedid]="detailObj.id" modulename="stockHouse" [selectShow]="!isDisable">
+    </app-associated-company>
+  </div>
 
 
 

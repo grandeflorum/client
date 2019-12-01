@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   //步骤条下标
   current = 0;
-  registerUser: any = { roleList: [] };
+  registerUser: any = { roleList: [], companyType: '1' };
   registerCode: any = "";
   comfirmPassword: any = "";
 
@@ -335,7 +335,7 @@ export class LoginComponent implements OnInit {
     this.isVisible = true;
 
     this.current = 0;
-    this.registerUser = { roleList: [] };
+    this.registerUser = { roleList: [], companyType: '1' };
     this.registerCode = "";
     this.comfirmPassword = "";
 
@@ -388,10 +388,10 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    if (!this.registerUser.orgId && this.current == 1) {
-      this.msg.create("warning", "请选择组织机构");
-      return;
-    }
+    // if (!this.registerUser.orgId && this.current == 1) {
+    //   this.msg.create("warning", "请选择组织机构");
+    //   return;
+    // }
 
     let res = await this.userService.findUserByUsername(this.registerUser.username);
 
@@ -438,13 +438,13 @@ export class LoginComponent implements OnInit {
         myObj => myObj.id === id
       );
     }
-    let res = await this.userService.saveOrUpdateUser(this.registerUser);
+    let res = await this.userService.insertUserCompany(this.registerUser);
 
     this.isVisible = false;
     if (res.code == 200) {
-      this.msg.create('success', '注册成功');
+      this.msg.create('success', '注册成功!请等待审核');
     } else {
-      this.msg.create('error', '注册失败');
+      this.msg.create('error', res.msg ? res.msg : '注册失败');
     }
 
   }

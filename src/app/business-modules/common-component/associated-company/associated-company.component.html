@@ -1,0 +1,108 @@
+<div class="list_content_wrap">
+    <div *ngIf="associatedCompanyList&&associatedCompanyList.length>0" nz-row>
+        <div nz-col [nzSpan]="24">
+            <nz-table #associatCompany [nzData]="associatedCompanyList" nzShowPagination="false">
+                <thead>
+                    <tr>
+                        <th>{{associatedCompanyType=='1'?'开发企业名称':'经济企业名称'}}</th>
+                        <th>{{associatedCompanyType=='1'?'企业法人代表':'企业法人'}}</th>
+                        <th>联系电话</th>
+                        <th>{{associatedCompanyType=='1'?'营业执照':'营业执照注册号'}}</th>
+                        <th>{{associatedCompanyType=='1'?'社会信用代码':'企业机构代码证号'}}</th>
+                        <th *ngIf="selectShow" style="width:30%">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of associatCompany.data">
+                        <td title="{{data.qymc}}">{{ data.qymc |tooltips:15}}</td>
+                        <td title="{{data.qyfr}}">{{ data.qyfr |tooltips:15}}</td>
+                        <td>{{ data.phone }}</td>
+                        <td>{{ data.yyzz }}</td>
+                        <td>{{ data.shxydm }}</td>
+                        <td *ngIf="selectShow" style="width:30%">
+                            <a class="table_a" (click)="UnAssociatedCompanyClick()">取消关联</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </div>
+
+
+    <div *ngIf="selectShow" nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="6">
+            关联类型：
+            <nz-select (ngModelChange)="typeChange($event)" [(ngModel)]="associatedType" class="w200"
+                nzPlaceHolder="请选择">
+                <nz-option nzValue="1" nzLabel="开发企业"></nz-option>
+                <nz-option nzValue="2" nzLabel="经济企业"></nz-option>
+            </nz-select>
+        </div>
+        <div nz-col [nzSpan]="7">
+            {{associatedType=='1'?'开发企业名称：':'经济企业名称：'}}
+            <input nz-input nzSize="default" [(ngModel)]="qymc" class="w200" placeholder="请输入开发企业名称" />
+        </div>
+        <div nz-col [nzSpan]="6">
+            企业类型：
+            <nz-select [(ngModel)]="qylx" class="w200" nzPlaceHolder="请选择">
+                <nz-option nzValue="" nzLabel="全部"></nz-option>
+                <nz-option *ngFor="let option of dictionaryObj.qylx" [nzLabel]="option.name" [nzValue]="option.code">
+                </nz-option>
+            </nz-select>
+        </div>
+        <div nz-col [nzSpan]="5" class="ta_r">
+            <button nz-button nzType="primary" (click)="search()">
+                查询
+            </button>
+            <button nz-button nzType="default" (click)="reset()">
+                重置
+            </button>
+        </div>
+    </div>
+
+    <nz-table *ngIf="selectShow" #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow"
+        [nzLoading]="Loading" [nzShowTotal]="rangeTemplate" [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper
+        nzShowSizeChanger [nzPageSize]="pageSize" [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)"
+        (nzPageSizeChange)="pageSizeChange($event)" (nzCurrentPageDataChange)="currentPageDataChange($event)"
+        [nzScroll]="tableIsScroll" [nzFrontPagination]="false">
+        <thead (nzSortChange)="sort($event)">
+            <tr>
+                <!-- <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
+                    [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th> -->
+                <th>{{associatedType=='1'?'开发企业名称':'经济企业名称'}}</th>
+                <th>{{associatedType=='1'?'企业法人代表':'企业法人'}}</th>
+                <th>联系电话</th>
+                <th>{{associatedType=='1'?'营业执照':'营业执照注册号'}}</th>
+                <th>{{associatedType=='1'?'社会信用代码':'企业机构代码证号'}}</th>
+                <th nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th>
+                <th style="width:30%">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of nestedTable.data; index as index" [ngClass]="{ itemSeleted: data.id == selectId }"
+                (click)="selectItem(data)">
+                <!-- <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]"
+                    [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td> -->
+                <td title="{{data.qymc}}">{{ data.qymc |tooltips:15}}</td>
+                <td title="{{data.qyfr}}">{{ data.qyfr |tooltips:15}}</td>
+                <td>{{ data.phone }}</td>
+                <td>{{ data.yyzz }}</td>
+                <td>{{ data.shxydm }}</td>
+                <td
+                    [ngClass]="{'cr0':data.auditType==0, 'cr1':data.auditType==1,'cr2':data.auditType==2,'cr3':data.auditType==3}">
+                    <div class="point"
+                        [ngClass]="{'point0':data.auditType==0, 'point1':data.auditType==1,'point2':data.auditType==2,'point3':data.auditType==3}">
+                    </div>{{ data.auditType|audit }}
+                </td>
+                <td style="width:30%">
+                    <a class="table_a" (click)="associatedCompanyClick(data)">关联</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+
+    <ng-template #rangeTemplate let-range="range" let-total>
+        共{{total}}条记录&nbsp;&nbsp;
+    </ng-template>
+
+</div>

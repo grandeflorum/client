@@ -123,10 +123,10 @@
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="12">
           <div class="label_div">交易方式：</div>
-            <nz-select [(ngModel)]="detailObj.jyfs" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
-              <nz-option *ngFor="let option of dictionaryObj.jyfs" [nzLabel]="option.name" [nzValue]="option.code">
-              </nz-option>
-            </nz-select>
+          <nz-select [(ngModel)]="detailObj.jyfs" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+            <nz-option *ngFor="let option of dictionaryObj.jyfs" [nzLabel]="option.name" [nzValue]="option.code">
+            </nz-option>
+          </nz-select>
         </div>
 
       </div>
@@ -151,23 +151,22 @@
       </div>
       <div *ngFor="let item of detailObj.relationShips;index as index" nz-row style="height: 50px;padding: 10px;">
         <div style="text-align: center;" nz-col [nzSpan]="6">
-          <input nz-input nzSize="default" [(ngModel)]="item.name" (keyup)="nameChange()" [disabled]="isDisable" required maxlength="50"
-            [validation]="true" class="w200" placeholder="请输入姓名" />
+          <input nz-input nzSize="default" [(ngModel)]="item.name" (keyup)="nameChange()" [disabled]="isDisable"
+            required maxlength="50" [validation]="true" class="w200" placeholder="请输入姓名" />
         </div>
         <div style="text-align: center;" nz-col [nzSpan]="5">
-          <nz-select  nzPlaceHolder='请选择证件类别' [(ngModel)]="item.zjlb" class="w200"
-            [disabled]="isDisable">
+          <nz-select nzPlaceHolder='请选择证件类别' [(ngModel)]="item.zjlb" class="w200" [disabled]="isDisable">
             <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
           </nz-select>
         </div>
         <div style="text-align: center;" nz-col [nzSpan]="5">
-          <input nz-input nzSize="default"  [(ngModel)]="item.sfzh" [disabled]="isDisable"
-            required [validation]="true"  maxlength="25" class="w200" placeholder="请输入证件号码" />
+          <input nz-input nzSize="default" [(ngModel)]="item.sfzh" [disabled]="isDisable" required [validation]="true"
+            maxlength="25" class="w200" placeholder="请输入证件号码" />
         </div>
         <div style="text-align: center;" nz-col [nzSpan]="5">
-          <nz-select  [(ngModel)]="item.gyfs" class="w200" nzPlaceHolder="请选择共有方式"
-            [disabled]="isDisable" required [validation]="true">
+          <nz-select [(ngModel)]="item.gyfs" class="w200" nzPlaceHolder="请选择共有方式" [disabled]="isDisable" required
+            [validation]="true">
             <nz-option *ngFor="let option of dictionaryObj.gyfs" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
           </nz-select>
@@ -300,17 +299,21 @@
     </div>
   </div>
 
-  <div class="jbxx" *ngIf="tabsetIndex==2">
+  <div class="jbxx" *ngIf="tabsetIndex==2&&!associatedCompanyShow">
     <app-lpbgl [glType]="'houseTrade'" [pid]="detailObj.id"></app-lpbgl>
   </div>
 
-
+  <div class="jbxx" *ngIf="(tabsetIndex==2&&associatedCompanyShow)||tabsetIndex==3" style="overflow: hidden">
+    <app-associated-company [associatedid]="detailObj.id" modulename="houseTrade" [selectShow]="!isDisable">
+    </app-associated-company>
+  </div>
 
   <div style="width:100%;height: 50px;padding: 10px;text-align: right;padding-right: 20px;float:left">
     <div nz-row>
       <div nz-col [nzSpan]="24">
         <button nz-button nzType="default" (click)="cancel()">返回</button>
-        <button nz-button nzType="primary" *ngIf="!isDisable&&tabsetIndex==0" [disabled]="isbusy" (click)="save()">保存</button>
+        <button nz-button nzType="primary" *ngIf="!isDisable&&tabsetIndex==0" [disabled]="isbusy"
+          (click)="save()">保存</button>
         <button nz-button nzType="primary" *ngIf="!isDisable&&detailObj.ljzid" (click)="linkH()">关联户</button>
       </div>
 
