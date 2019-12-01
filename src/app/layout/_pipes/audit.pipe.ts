@@ -16,12 +16,14 @@ export class AuditPipe implements PipeTransform {
                 result = '待审核';
                 break;
             case 2:
-                result = '已审核';
+                result = '一次审核';
                 break;
             case 3:
                 result = '待修改';
                 break;
-
+            case 4:
+                result = '二次审核';
+                break;
             default:
                 break;
         }

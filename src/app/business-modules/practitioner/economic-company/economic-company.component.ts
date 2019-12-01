@@ -76,6 +76,7 @@ export class EconomicCompanyComponent implements OnInit {
   canzsgc: boolean = false;
   cantjsh: boolean = false;
   cansh: boolean = false;
+  canecsh: boolean = false;
 
   getRoles() {
     let roles = this.localstorage.getObject("roles");
@@ -85,6 +86,11 @@ export class EconomicCompanyComponent implements OnInit {
         this.canzsgc = true;
         this.cantjsh = true;
         this.cansh = true;
+        this.canecsh = true;
+      }
+
+      if (roles.some(x => x == '领导')) {
+        this.canecsh = true;
       }
 
       if (roles.some(x => x == '录入员')) {
@@ -316,7 +322,8 @@ export class EconomicCompanyComponent implements OnInit {
     this.isOkLoading = true;
     var data = {
       ids: this.auditProjectId,
-      wfAudit: this.auditObj
+      wfAudit: this.auditObj,
+      type: this.twoAuditPD ? 1 : 0
     }
 
     let res = await this.companyService.btachAuditCompany(data);
@@ -325,6 +332,8 @@ export class EconomicCompanyComponent implements OnInit {
       this.isOkLoading = false;
       this.isVisible = false;
       this.search();
+
+      this.twoAuditPD = false;
     } else {
       this.msg.create('error', '审核失败');
     }
@@ -445,7 +454,7 @@ export class EconomicCompanyComponent implements OnInit {
       card: this.roleData.zjh
     }
 
-    let resRole = await this.userService.insertRoleManage(data,2);
+    let resRole = await this.userService.insertRoleManage(data, 2);
     if (resRole && resRole.code == 200) {
       this.msg.create("success", "注册成功");
       this.isVisibleRole = false;
@@ -454,5 +463,14 @@ export class EconomicCompanyComponent implements OnInit {
     }
   }
 
+  //添加二次审核
+
+  twoAuditPD: boolean = false;
+
+  twoAudit(data) {
+    this.twoAuditPD = true;
+
+    this.audit(data);
+  }
 
 }

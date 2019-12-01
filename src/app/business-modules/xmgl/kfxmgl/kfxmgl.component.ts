@@ -58,6 +58,7 @@ export class KfxmglComponent implements OnInit {
   canzsgc: boolean = false;
   cantjsh: boolean = false;
   cansh: boolean = false;
+  canecsh: boolean = false;
 
   getRoles() {
     let roles = this.localstorage.getObject("roles");
@@ -67,6 +68,11 @@ export class KfxmglComponent implements OnInit {
         this.canzsgc = true;
         this.cantjsh = true;
         this.cansh = true;
+        this.canecsh = true;
+      }
+
+      if (roles.some(x => x == '领导')) {
+        this.canecsh = true;
       }
 
       if (roles.some(x => x == '录入员')) {
@@ -317,7 +323,7 @@ export class KfxmglComponent implements OnInit {
   }
 
   //打开审核模态框
-  shxm() {
+  shxm(data: any = {}) {
     this.isVisible = true;
     this.shxxObj = {
       ids: [],
@@ -326,7 +332,13 @@ export class KfxmglComponent implements OnInit {
         shry: this.userinfo ? this.userinfo.realname : null,
         bz: '',
         shrq: null
-      }
+      },
+      type: 0
+    }
+
+    if (this.twoAuditPD) {
+      this.shxxObj.ids.push(data.id);
+      this.shxxObj.type = 1;
     }
   }
 
@@ -338,6 +350,8 @@ export class KfxmglComponent implements OnInit {
       this.msg.create('success', '审核成功');
       this.search();
       this.isVisible = false;
+
+      this.twoAuditPD = false;
     } else {
       this.msg.create('error', '审核失败');
     }
@@ -353,6 +367,16 @@ export class KfxmglComponent implements OnInit {
     $(window).resize(function () {
       that.calculationHeight()
     })
+  }
+
+  //添加二次审核
+
+  twoAuditPD: boolean = false;
+
+  twoAudit(data) {
+    this.twoAuditPD = true;
+
+    this.shxm(data);
   }
 
 }
