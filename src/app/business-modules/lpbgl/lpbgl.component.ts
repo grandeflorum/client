@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChildren, QueryList, Input } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { KfxmglService } from '../service/xmgl/kfxmgl.service';
 import { LpbglService } from '../service/lpbgl/lpbgl.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-lpbgl',
@@ -24,6 +25,8 @@ export class LpbglComponent implements OnInit {
   dataSet: any = [];
   sortList: any = [];
   selectId: any = '';
+  option:any;
+  optionParam="";
   xmmc = '';
   jzwmc = '';
   auditType = "";
@@ -51,8 +54,12 @@ export class LpbglComponent implements OnInit {
     private msg: NzMessageService,
     private router: Router,
     private kfxmglService: KfxmglService,
-    private lpbglService: LpbglService
-  ) { }
+    private lpbglService: LpbglService,
+    private activatedRoute: ActivatedRoute,
+  ) {
+    this.optionParam=this.activatedRoute.snapshot.queryParams.option;
+    this.selectId=this.activatedRoute.snapshot.queryParams.selectId;
+   }
 
   ngOnInit() {
 
@@ -61,21 +68,40 @@ export class LpbglComponent implements OnInit {
 
   async search() {
     this.Loading = true;
-    let option = {
+     this.option = {
       pageNo: this.pageIndex,
       pageSize: this.pageSize,
       conditions: []
     };
 
     if (this.type) {
-      option.conditions.push({ key: 'type', value: this.type });
+      this.option.conditions.push({ key: 'type', value: this.type });
     }
 
     if (this.xmmc) {
-      option.conditions.push({ key: 'xmmc', value: this.xmmc });
+      this.option.conditions.push({ key: 'xmmc', value: this.xmmc });
     }
     if (this.jzwmc) {
-      option.conditions.push({ key: 'jzwmc', value: this.jzwmc });
+      this.option.conditions.push({ key: 'jzwmc', value: this.jzwmc });
+    }
+    if(this.optionParam){
+      this.option=JSON.parse(this.optionParam);
+      if(this.option.conditions&&this.option.conditions.length>0){
+        this.option.conditions.forEach(element => {
+          if(element.key=='xmmc'){
+            this.xmmc=element.value;
+          }
+          if(element.key=='jzwmc'){
+            this.jzwmc=element.value;
+          }
+          if(element.key=='type'){
+            this.type=element.value;
+          }
+        });
+      }
+      this.pageIndex=this.option.pageNo;
+      this.pageSize=this.option.pageSize;
+      this.optionParam="";
     }
     // if (this.auditType||this.auditType==="0") {
     //   option.conditions.push({ key: 'auditType', value: this.auditType });
@@ -88,7 +114,7 @@ export class LpbglComponent implements OnInit {
     // }
     //option.conditions.push({ key: 'sort', value: this.sortList });
 
-    var res = await this.lpbglService.getBuildingTableList(option);
+    var res = await this.lpbglService.getBuildingTableList(this.option);
     this.Loading = false;
     if (res.code == 200) {
       this.dataSet = res.msg.currentList;
@@ -218,7 +244,8 @@ export class LpbglComponent implements OnInit {
         moduleType: this.type,
         type: m,
         glType: this.glType,
-        pid: this.pid
+        pid: this.pid,
+        option:JSON.stringify(this.option)
       }
     });
   }

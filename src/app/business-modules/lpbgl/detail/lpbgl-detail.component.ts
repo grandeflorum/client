@@ -68,6 +68,7 @@ export class LpbglDetailComponent implements OnInit {
   selectH = "";
   pid = "";
   modalSslm = "";
+  option="";
   
   constructor(
     private msg: NzMessageService,
@@ -89,6 +90,7 @@ export class LpbglDetailComponent implements OnInit {
 
     this.glType = this.activatedRoute.snapshot.queryParams.glType;
     this.pid = this.activatedRoute.snapshot.queryParams.pid;
+    this.option=this.activatedRoute.snapshot.queryParams.option;
 
     switch (type) {
       case '1'://添加
@@ -216,7 +218,12 @@ export class LpbglDetailComponent implements OnInit {
       });
 
     } else {
-      this.router.navigate([route]);
+      this.router.navigate([route],{
+        queryParams: {
+          option: this.option,
+          selectId:this.detailObj.id
+        }
+      });
     }
 
   }
