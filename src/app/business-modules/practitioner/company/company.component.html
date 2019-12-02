@@ -85,7 +85,7 @@
                 </td>
                 <td style="width:30%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
-                    <a class="table_a" (click)="rolemanage(data)" *ngIf="data.auditType==2&&cantjsh">权限管理</a>
+                    <a class="table_a" (click)="rolemanage(data)" *ngIf="(data.auditType==2||data.auditType==4)&&cantjsh">权限管理</a>
                     <a class="table_a" *ngIf="(data.auditType==0||data.auditType==3)&&canzsgc"
                         (click)="add(3,data)">编辑</a>
                     <a class="table_a" *ngIf="data.auditType==1&&cansh" (click)="audit(data)">审核</a>
