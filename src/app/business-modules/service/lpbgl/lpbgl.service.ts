@@ -26,4 +26,14 @@ export class LpbglService {
     return this.http.get('/BuildingTable/getInfoByZh?ZH=' + zh + '&Type=' + type);
   }
 
+  //添加或修改自然幢
+  saveOrUpdateZRZ(data):any{
+    return this.http.post('/BuildingTable/saveOrUpdateZRZ',data);
+  }
+
+ //添加或修改逻辑在
+ saveOrUpdateLJZ(data):any{
+  return this.http.post('/BuildingTable/saveOrUpdateLJZ',data);
+ }
+
 }

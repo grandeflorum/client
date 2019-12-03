@@ -152,8 +152,8 @@
   </div> -->
 
   <div class="jbxx" *ngIf="tabsetIndex==0">
-    <app-lpb-detail #lpbdetail [glType]="glType" [moduleType]="moduleType"
-      (restrictedProperty)="restrictedProperty($event)">
+    <app-lpb-detail #lpbdetail [glType]="glType" [moduleType]="moduleType" [isDisable]="isDisable"
+      (restrictedProperty)="restrictedProperty($event)" (saveLjz)="saveLjz($event)">
     </app-lpb-detail>
   </div>
 

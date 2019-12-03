@@ -9,8 +9,13 @@
     </div>
 
     <div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
-        <div nz-col [nzSpan]="8">{{detailObj.xmmc}}</div>
-        <div nz-col [nzSpan]="8">{{detailObj.jzwmc}}</div>
+        <div nz-col [nzSpan]="8">
+            <span><input nz-input nzSize="default" [(ngModel)]="detailObj.xmmc" maxlength="50" [disabled]="isDisable"
+                class="w200"  required [validation]="true"/></span></div>
+        <div nz-col [nzSpan]="8">
+            <span><input nz-input nzSize="default" [(ngModel)]="detailObj.jzwmc" maxlength="50" [disabled]="isDisable"
+                class="w200"  required [validation]="true"/></span>
+            </div>
         <div nz-col [nzSpan]="8"></div>
     </div>
 
@@ -20,40 +25,43 @@
     <div *ngIf="zrzShow" class="card-container" style="width:calc(100% + 40px);position: relative;left:-20px">
         <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex2"
             (nzSelectedIndexChange)="tabsetChange2($event)">
-            <nz-tab *ngFor="let tab of tabs2" [nzTitle]="tab.name"></nz-tab>
+            <nz-tab *ngFor="let tab of tabs2" [nzTitle]="tab.name" (nzClick)="tabClick(tab)"></nz-tab>
         </nz-tabset>
         <button style="position: absolute;right: 20px;top: -10px;" nz-button nzType="primary" *ngIf="glType=='zddygl'"
             (click)="restrictedProperty1('2')">限制幢销售</button>
     </div>
-    <div class="lp_message_wrap">
+    <!-- <div class="lp_message_wrap">
         <div class="lp_title"><i nz-icon nzType="info-circle" nzTheme="outline"></i>楼幢总览</div>
 
         <div class="lp_content">
-            总面积：{{lpbList.ljzStatistical.zmj}}，总套数：{{lpbList.ljzStatistical.zts}}，禁售套数：{{lpbList.ljzStatistical.jsts}}，抵押套数：{{lpbList.ljzStatistical.dyts}}，抵押面积：{{lpbList.ljzStatistical.dymj}}，
+            总面积：{{lpbList.ljzStatistical.zzmj}}，总套数：{{lpbList.ljzStatistical.zzts}}，禁售套数：{{lpbList.ljzStatistical.jsts}}，抵押套数：{{lpbList.ljzStatistical.dyts}}，抵押面积：{{lpbList.ljzStatistical.dymj}}，
             未售面积：{{lpbList.ljzStatistical.wsmj}}，未售套数：{{lpbList.ljzStatistical.wsts}}，未售住宅面积：{{lpbList.ljzStatistical.wszzmj}}，未售住宅套数：{{lpbList.ljzStatistical.wszzts}}，已售面积：{{lpbList.ljzStatistical.ysmj}}，已售套数：{{lpbList.ljzStatistical.ysts}}，
             销售额：{{lpbList.ljzStatistical.xse}}，已售住宅面积：{{lpbList.ljzStatistical.yszzmj}}，已售住宅套数：{{lpbList.ljzStatistical.yszzts}}
         </div>
-    </div>
+    </div> -->
 
     <nz-divider nzText="楼幢信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="8">
             <div class="label_div">幢编号：</div>
-            <input nz-input nzSize="default" [(ngModel)]="lpbList.zrzh" [title]="lpbList.zrzh" maxlength="50"
-                [disabled]="isDisable" class="w200" />
+            <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.ljzh" [title]="lpbList.ljzh" maxlength="50"
+                [disabled]="isDisable" class="w200"  required [validation]="true"/></span>
+           
         </div>
 
         <div nz-col [nzSpan]="8">
             <div class="label_div">实测建筑面积：</div>
-            <input nz-input nzSize="default" [(ngModel)]="lpbList.scjzmj" maxlength="50" [disabled]="isDisable"
-                class="w200" />&nbsp;㎡
+            <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.scjzmj" maxlength="50" [disabled]="isDisable"
+                class="w200"  required [validation]="true"/>&nbsp;㎡</span>
+           
         </div>
 
         <div nz-col [nzSpan]="8">
             <div class="label_div">总层数：</div>
-            <input nz-input nzSize="default" [(ngModel)]="lpbList.zcs" maxlength="50" [disabled]="isDisable"
-                class="w200" />
+            <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.zcs" maxlength="50" [disabled]="isDisable"
+                class="w200"  required [validation]="true"/></span>
+           
         </div>
     </div>
 
@@ -86,7 +94,7 @@
         <div nz-col [nzSpan]="24">
             <div class="label_div">房屋用途：</div>
             <nz-select [(ngModel)]="lpbList.fwyt1" class="w200" [disabled]="isDisable" nzAllowClear>
-                <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
+                <nz-option *ngFor="let option of dictionaryObj.fwyt" [nzLabel]="option.name" [nzValue]="option.code">
                 </nz-option>
             </nz-select>
         </div>
@@ -156,3 +164,36 @@
     <p *ngIf="selectedHu.tradeType>0" style="height: 20px;"><button nz-button nzType="primary" (click)="perview()"
             style="float: right;">预览合同</button></p>
 </ng-template>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="楼盘表" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <div nz-row style="height: 50px;padding: 10px;">
+      <div class="ta_r">
+        <span class="clo_r">*</span>幢编号：
+        <input  name="zrzh" maxlength="50" nz-input style="width:calc(100% - 120px)"
+          required [validation]="true" nzSize="default" [(ngModel)]="ljzObj.ljzh" />
+      </div>
+    </div>
+    <div nz-row style="height: 50px;padding: 10px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>实测建筑面积：
+          <input  name="zrzh" maxlength="50" nz-input style="width:calc(100% - 120px)"
+            required [validation]="true" nzSize="default" [(ngModel)]="ljzObj.scjzmj" />
+        </div>
+      </div>
+    <div nz-row style="height: 50px;padding: 10px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>总层数：
+          <input  name="zrzh" maxlength="50" nz-input style="width:calc(100% - 120px)"
+            required [validation]="true" nzSize="default" [(ngModel)]="ljzObj.zcs" />
+        </div>
+      </div>
+      <div nz-row style="height: 50px;padding: 10px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>房屋用途：
+          <nz-select [(ngModel)]="ljzObj.fwyt1" nzAllowClear style="width:calc(100% - 120px)"  required [validation]="true">
+            <nz-option *ngFor="let option of dictionaryObj.fwyt" [nzLabel]="option.name" [nzValue]="option.code">
+            </nz-option>
+        </nz-select>
+        </div>
+      </div>
+  </nz-modal>

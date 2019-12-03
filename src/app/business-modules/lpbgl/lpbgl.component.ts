@@ -3,6 +3,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Router,ActivatedRoute } from '@angular/router';
 import { KfxmglService } from '../service/xmgl/kfxmgl.service';
 import { LpbglService } from '../service/lpbgl/lpbgl.service';
+import { ValidationDirective } from '../../layout/_directives/validation.directive';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 
@@ -13,6 +14,7 @@ import * as $ from 'jquery';
   styleUrls: ['./lpbgl.component.scss']
 })
 export class LpbglComponent implements OnInit {
+  @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
   @Input() type = "";
   @Input() glType = "";
   @Input() pid = "";
@@ -49,6 +51,7 @@ export class LpbglComponent implements OnInit {
   listOfAllData = [];
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
+  lpb:any = {}
 
   constructor(
     private msg: NzMessageService,
@@ -208,46 +211,54 @@ export class LpbglComponent implements OnInit {
   }
 
   add(m, item?) {
+    if(m == 1){
+      this.lpb.xmmc = '';
+      this.lpb.jzwmc = '';
+      this.lpb.zrzh = '';
+      this.isVisible = true;
+    }else{
+      var route = "/lpbgl/detail";
 
-    var route = "/lpbgl/detail";
-
-    switch (this.type) {
-      case 'dy':
-        route = '/zjgcdygl/detail';
-        break;
-      case 'cf':
-        route = '/ycfgl/detail';
-        break;
-      default:
-        break;
+      switch (this.type) {
+        case 'dy':
+          route = '/zjgcdygl/detail';
+          break;
+        case 'cf':
+          route = '/ycfgl/detail';
+          break;
+        default:
+          break;
+      }
+  
+      if (this.glType) {
+        if (!this.pid) {
+          this.msg.create('error', '请先保存信息再关联户');
+          return false;
+        }
+        if (this.glType == "houseRental") {
+          route = '/houserental/lpbdetail';
+        } else if (this.glType == "houseTrade") {
+          route = '/contract/houseTrade/lpbdetail';
+        } else if (this.glType == "stockTrade") {
+          route = '/contract/stockTrade/lpbdetail';
+        } else if (this.glType == "zddygl") {
+          route = '/zddygl/lpbdetail';
+        }
+      }
+  
+      this.router.navigate([route], {
+        queryParams: {
+          id: item ? item.id : '',
+          moduleType: this.type,
+          type: m,
+          glType: this.glType,
+          pid: this.pid,
+          option:JSON.stringify(this.option)
+        }
+      });
     }
 
-    if (this.glType) {
-      if (!this.pid) {
-        this.msg.create('error', '请先保存信息再关联户');
-        return false;
-      }
-      if (this.glType == "houseRental") {
-        route = '/houserental/lpbdetail';
-      } else if (this.glType == "houseTrade") {
-        route = '/contract/houseTrade/lpbdetail';
-      } else if (this.glType == "stockTrade") {
-        route = '/contract/stockTrade/lpbdetail';
-      } else if (this.glType == "zddygl") {
-        route = '/zddygl/lpbdetail';
-      }
-    }
 
-    this.router.navigate([route], {
-      queryParams: {
-        id: item ? item.id : '',
-        moduleType: this.type,
-        type: m,
-        glType: this.glType,
-        pid: this.pid,
-        option:JSON.stringify(this.option)
-      }
-    });
   }
 
 
@@ -351,21 +362,53 @@ export class LpbglComponent implements OnInit {
 
   //审核
   async handleOk() {
-    var res = await this.kfxmglService.auditProjects(this.shxxObj);
+    // var res = await this.kfxmglService.auditProjects(this.shxxObj);
+
+    // if (res && res.code == 200) {
+    //   this.msg.create('success', '审核成功');
+    //   this.search();
+    //   this.isVisible = false;
+    // } else {
+    //   this.msg.create('error', '审核失败');
+    // }
+
+    if (!this.FormValidation()) {
+      return;
+  }
+
+  var option = {
+    xmmc:this.lpb.xmmc,
+    jzwmc:this.lpb.jzwmc,
+    zrzh:this.lpb.zrzh,
+    qxdm:'361129'
+  }
+
+  var res = await this.lpbglService.saveOrUpdateZRZ(option);
 
     if (res && res.code == 200) {
-      this.msg.create('success', '审核成功');
+      this.msg.create('success', '保存成功');
       this.search();
       this.isVisible = false;
     } else {
-      this.msg.create('error', '审核失败');
+      this.msg.create('error', '保存失败');
     }
+
   }
 
 
   handleCancel() {
     this.isVisible = false;
   }
+
+  FormValidation() {
+    let isValid = true;
+    this.directives.forEach(d => {
+        if (!d.validationValue()) {
+            isValid = false;
+        }
+    });
+    return isValid;
+}
 
   ngAfterViewInit() {
     var that = this;

@@ -128,19 +128,23 @@ export class LpbglDetailComponent implements OnInit {
         this.lpbdetail.init(res.msg);
       }
 
-      this.lpbList = this.detailObj.ljzList[0];
+      if(this.detailObj.ljzList.length>0){
+        this.lpbList = this.detailObj.ljzList[0];
 
-      this.lpbList.dyList.forEach((v, k) => {
-        this.rowSpan += v.rowSpan;
-      })
-
-      this.detailObj.ljzList.forEach((v, k) => {
-        this.tabs2.push({
-          name: v.mph,
-          index: k,
-          id: v.id
+        this.lpbList.dyList.forEach((v, k) => {
+          this.rowSpan += v.rowSpan;
         })
-      })
+  
+        this.detailObj.ljzList.forEach((v, k) => {
+          this.tabs2.push({
+            name: v.mph,
+            index: k,
+            id: v.id
+          })
+        })
+      }
+
+
 
     } else {
       this.msg.create('error', '内部服务出错');
@@ -295,20 +299,16 @@ export class LpbglDetailComponent implements OnInit {
 
 
   async save() {
-    if (!this.FormValidation()) {
+    if (!this.lpbdetail.FormValidation()) {
       return;
     }
-    if (!this.detailObj.id) {
-      delete this.detailObj.id;
-    }
-    var res = await this.kfxmglService.saveOrUpdateProject(this.detailObj);
 
+
+    var res = await this.lpbglService.saveOrUpdateZRZ(this.detailObj);
+    
     if (res && res.code == 200) {
-      this.detailObj.id = res.msg;
-      if (!this.detailObj.auditType) {
-        this.detailObj.auditType = 0;
-      }
       this.msg.create('success', '保存成功');
+      this.getProjectById();
     } else {
       this.msg.create('error', '保存失败');
     }
@@ -456,6 +456,11 @@ export class LpbglDetailComponent implements OnInit {
     }
 
 
+  }
+
+  //逻辑幢保存成功
+  saveLjz(m){
+    this.getProjectById();
   }
 
   ngAfterViewInit() {
