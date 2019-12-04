@@ -151,19 +151,14 @@ export class LpbDetailComponent implements OnInit {
   }
 
   handleCancel() {
+    this.ljzValidation = false;
+    this.hValidation = false;
+    this.cValidation = false;
     this.isVisible = false;
     this.isVisibleC = false;
     this.isVisibleH = false;
 
-    this.ljzValidation = false;
-      this.hValidation = false;
-      this.cValidation = false;
-
-      setTimeout(() => {
-        this.FormValidation()
-      }, 200);
-     
-  }
+ }
 
   
   handleOk(m) {
@@ -251,10 +246,10 @@ export class LpbDetailComponent implements OnInit {
     var res = await this.lpbglService.saveOrUpdateC(option);
     if (res && res.code == 200) {
       this.msg.create('success', '保存成功');
-      
+      this.getLpb(this.tabs2[this.tabsetIndex2].id);
       this.isVisibleC = false;
     } else {
-      this.msg.create('error', '保存失败');
+      this.msg.create('error', res.msg);
     }
   }
 
@@ -280,10 +275,10 @@ addH(){
     var res = await this.lpbglService.saveOrUpdateH(option);
     if (res && res.code == 200) {
       this.msg.create('success', '保存成功');
-      
+      this.getLpb(this.tabs2[this.tabsetIndex2].id);
       this.isVisibleH = false;
     } else {
-      this.msg.create('error', '保存失败');
+      this.msg.create('error', res.msg);
     }
   }
 

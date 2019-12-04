@@ -173,7 +173,7 @@
         </span>
 
       </div>
-      <div nz-col [nzSpan]="16">
+      <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>竣工日期：</div>
         <span>
           <nz-date-picker class="w200" [nzAllowClear]="false" [disabled]="isDisable" [(ngModel)]="detailObj.jgrq"
@@ -182,20 +182,35 @@
         </span>
 
       </div>
+
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">土地使用权终止日期：</div>
+        <span>
+          <nz-date-picker class="w200" [nzAllowClear]="false" [disabled]="isDisable" [(ngModel)]="detailObj.tdsyzzzrq"
+            (ngModelChange)="onChange(3,$event)" required [validation]="true">
+          </nz-date-picker>
+        </span>
+
+      </div>
     </div>
 
     <div nz-row style="height: 50px;padding: 10px;">
-      <!-- <div nz-col [nzSpan]="8">
-        <div class="label_div">行政区划：</div>
-        <nz-tree-select [nzDropdownStyle]="{ 'max-height': '300px' }" class="w200" [disabled]="isDisable"
-          nzPlaceHolder="请选择行政区划" [nzNodes]="regionTreeNodes" [nzDefaultExpandAll]="true" [nzAllowClear]="true"
-          [(ngModel)]="detailObj.regionCode" nzShowExpand>
-        </nz-tree-select>
-      </div> -->
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">建设工程规划许可证号：</div>
+        <input class="w200" nz-input nzSize="default" [(ngModel)]="detailObj.jsgcghxkzh"
+          [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
 
-      <div nz-col [nzSpan]="16">
+      </div>
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">建筑工程施工许可证号：</div>
+        <input class="w200" nz-input nzSize="default" [(ngModel)]="detailObj.jsgcsgxkzh"
+          [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
+
+      </div>
+
+      <div nz-col [nzSpan]="8">
         <div class="label_div">详细地址：</div>
-        <input style="width: calc(100% - 235px);" nz-input nzSize="default" [(ngModel)]="detailObj.address"
+        <input class="w200" nz-input nzSize="default" [(ngModel)]="detailObj.address"
           [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
 
       </div>

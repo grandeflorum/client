@@ -180,6 +180,22 @@
 
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="12">
+          <div class="label_div">不动产权证号：</div>
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.bdcqzh" maxlength="50" [disabled]="isDisable"
+              class="w200" /></span>
+
+        </div>
+
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">登记时间：</div>
+          <span><nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.djsj" [disabled]="isDisable">
+          </nz-date-picker></span>
+
+        </div>
+      </div>
+      
+      <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="12">
           <div class="label_div">交易方式：</div>
           <nz-select [(ngModel)]="detailObj.jyfs" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
             <nz-option *ngFor="let option of dictionaryObj.jyfs" [nzLabel]="option.name" [nzValue]="option.code">
