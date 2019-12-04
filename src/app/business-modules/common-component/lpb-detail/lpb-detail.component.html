@@ -29,7 +29,7 @@
         </nz-tabset> -->
         <ul class="ljz_ul">
             <li *ngFor="let tab of tabs2;index as index" [ngClass]="{'selected_ljz':tabsetIndex2 == index}" (click)="tabsetChange2(index)">{{tab.name}}</li>
-            <li (click)="tabClick()" *ngIf="!isDisable">添加<i nz-icon nzType="plus-circle" nzTheme="outline" style="margin-left: 3px;"></i></li>
+            <li (click)="tabClick()" *ngIf="!isDisable" title="添加楼幢">添加<i nz-icon nzType="plus-circle" nzTheme="outline" style="margin-left: 3px;"></i></li>
         </ul>
         <button style="position: absolute;right: 20px;top: -10px;" nz-button nzType="primary" *ngIf="glType=='zddygl'"
             (click)="restrictedProperty1('2')">限制幢销售</button>
@@ -218,7 +218,7 @@
           <div class="ta_r">
             <span class="clo_r">*</span>实际层：
             <input type="number" step="1" name="sjc" maxlength="50" nz-input style="width:calc(100% - 130px)"
-            required [validation]="cValidation" nzSize="default" [(ngModel)]="cObj.sjc" />
+            required [validation]="cValidation" [validationType]="'number'" nzSize="default" [(ngModel)]="cObj.sjc" />
 
           </div>
         </div>
@@ -267,6 +267,13 @@
           </div>
           <div nz-row style="height: 50px;padding: 10px;">
             <div class="ta_r">
+              <span class="clo_r">*</span>门牌号：
+              <input  name="mph" maxlength="50" nz-input style="width:calc(100% - 120px)"
+                required [validation]="hValidation" nzSize="default" [(ngModel)]="hObj.mph" />
+            </div>
+          </div>
+          <div nz-row style="height: 50px;padding: 10px;">
+            <div class="ta_r">
               <span class="clo_r">*</span>室号部位：
               <input  name="shbw" maxlength="50" nz-input style="width:calc(100% - 120px)"
                 required [validation]="hValidation" nzSize="default" [(ngModel)]="hObj.shbw" />
@@ -291,6 +298,13 @@
               <span class="clo_r">*</span>户编号：
               <input  name="hbh" maxlength="50" nz-input style="width:calc(100% - 120px)"
                 required [validation]="hValidation" nzSize="default" [(ngModel)]="hObj.hbh" />
+            </div>
+          </div>
+          <div nz-row style="height: 50px;padding: 10px;">
+            <div class="ta_r">
+              <span class="clo_r">*</span>实测建筑面积：
+              <input  name="scjzmj" maxlength="50" nz-input style="width:calc(100% - 120px)"
+                required [validation]="hValidation" nzSize="default" [(ngModel)]="hObj.scjzmj" />
             </div>
           </div>
           <div nz-row style="height: 50px;padding: 10px;">
