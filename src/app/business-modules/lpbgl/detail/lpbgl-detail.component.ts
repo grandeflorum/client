@@ -463,6 +463,8 @@ export class LpbglDetailComponent implements OnInit {
     this.getProjectById();
   }
 
+  
+
   ngAfterViewInit() {
     var that = this;
     $(window).resize(function () {

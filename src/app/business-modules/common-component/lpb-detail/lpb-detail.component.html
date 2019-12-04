@@ -171,6 +171,8 @@
     <p>坐落：{{selectedHu.zl}}</p>
     <p *ngIf="selectedHu.tradeType>0" style="height: 20px;"><button nz-button nzType="primary" (click)="perview()"
             style="float: right;">预览合同</button></p>
+    <p  style="height: 20px;"><button nz-button nzType="primary" (click)="contract(selectedHu.id)"
+        style="float: right;">合同备案</button></p>
 </ng-template>
 
 <nz-modal [(nzVisible)]="isVisible" nzTitle="楼幢信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk(1)">

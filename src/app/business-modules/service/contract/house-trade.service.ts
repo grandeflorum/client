@@ -44,5 +44,9 @@ export class HouseTradeService {
     return this.http.get('/HouseTrade/previewHt?id=' + id);
   }
 
+  getHInfo(hid): any {
+    return this.http.get('/HouseTrade/getHInfo?hid=' + hid);
+  }
+
 
 }

@@ -4,11 +4,11 @@
             <nz-table #associatCompany [nzData]="associatedCompanyList" nzShowPagination="false">
                 <thead>
                     <tr>
-                        <th>{{associatedCompanyType=='1'?'开发企业名称':'经济企业名称'}}</th>
-                        <th>{{associatedCompanyType=='1'?'企业法人代表':'企业法人'}}</th>
+                        <th>{{associatedCompanyType==1?'开发企业名称':'经济企业名称'}}</th>
+                        <th>{{associatedCompanyType==1?'企业法人代表':'企业法人'}}</th>
                         <th>联系电话</th>
-                        <th>{{associatedCompanyType=='1'?'营业执照':'营业执照注册号'}}</th>
-                        <th>{{associatedCompanyType=='1'?'社会信用代码':'企业机构代码证号'}}</th>
+                        <th>{{associatedCompanyType==1?'营业执照':'营业执照注册号'}}</th>
+                        <th>{{associatedCompanyType==1?'社会信用代码':'企业机构代码证号'}}</th>
                         <th *ngIf="selectShow" style="width:30%">操作</th>
                     </tr>
                 </thead>

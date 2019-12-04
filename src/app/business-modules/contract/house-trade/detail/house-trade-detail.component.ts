@@ -30,6 +30,7 @@ export class HouseTradeDetailComponent implements OnInit {
   tabsetIndex = 0;
   isDisable = false;
   detailObj: any = {};
+  hid:"";
   selectId = -1;
   fjList = [];
   pageIndex: any = 1;
@@ -90,6 +91,8 @@ export class HouseTradeDetailComponent implements OnInit {
     this.moduleType = this.activatedRoute.snapshot.queryParams.moduleType;
     let pid = this.activatedRoute.snapshot.queryParams["pid"];
     this.detailObj.id = pid ? pid : this.detailObj.id;
+    //直接从楼盘表页面跳转过来备案
+    this.hid=this.activatedRoute.snapshot.queryParams.hid;
 
     let glType = this.activatedRoute.snapshot.queryParams["glType"];
     this.tabsetIndex = glType ? 2 : 0;
@@ -127,6 +130,9 @@ export class HouseTradeDetailComponent implements OnInit {
     this.dictionaryObj = this.localstorage.getObject("dictionary");
     if (this.detailObj.id) {
       this.getDetail();
+    }else if(this.hid){
+      this.detailObj.houseId=this.hid;
+      this.getHInfo();
     }
     this.search();
 
@@ -148,6 +154,20 @@ export class HouseTradeDetailComponent implements OnInit {
         })
 
       }
+
+      if (this.detailObj.ljzid) {
+        this.selectH = this.detailObj.houseId;
+        this.getLpb(this.detailObj.ljzid);
+      }
+    } else {
+      this.msg.create('error', '内部服务错误');
+    }
+  }
+
+  async getHInfo(){
+    var res = await this.houseTradeService.getHInfo(this.detailObj.houseId);
+    if (res && res.code == 200) {
+      this.detailObj = res.msg;
 
       if (this.detailObj.ljzid) {
         this.selectH = this.detailObj.houseId;

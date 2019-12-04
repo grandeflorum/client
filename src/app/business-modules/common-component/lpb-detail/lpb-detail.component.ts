@@ -4,6 +4,8 @@ import { Localstorage } from '../../service/localstorage';
 import { UtilitiesSercice } from '../../service/common/utilities.services';
 import { NzMessageService } from 'ng-zorro-antd';
 import { ValidationDirective } from '../../../layout/_directives/validation.directive';
+import { Router,ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-lpb-detail',
@@ -43,7 +45,8 @@ export class LpbDetailComponent implements OnInit {
     private lpbglService: LpbglService,
     private localstorage: Localstorage,
     private utilitiesSercice:UtilitiesSercice,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -148,6 +151,16 @@ export class LpbDetailComponent implements OnInit {
     url = this.utilitiesSercice.wrapUrl(url);
     window.open(url, '_blank');
     
+  }
+
+  contract(hid){
+    var route = "/contract/houseTrade/detail";
+    this.router.navigate([route], {
+      queryParams: {
+        type:1,
+        hid:hid
+      }
+    });
   }
 
   handleCancel() {
