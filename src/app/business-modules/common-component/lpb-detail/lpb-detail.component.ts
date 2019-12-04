@@ -33,6 +33,11 @@ export class LpbDetailComponent implements OnInit {
   ljzObj:any = {};
   isVisibleC = false;
   cObj:any = {};
+  isVisibleH = false;
+  hObj:any = {};
+  ljzValidation = false;
+  cValidation = false;
+  hValidation = false;
 
   constructor(
     private lpbglService: LpbglService,
@@ -146,22 +151,35 @@ export class LpbDetailComponent implements OnInit {
   }
 
   handleCancel() {
+    this.ljzValidation = false;
+    this.hValidation = false;
+    this.cValidation = false;
     this.isVisible = false;
     this.isVisibleC = false;
-  }
+    this.isVisibleH = false;
+
+ }
 
   
   handleOk(m) {
     if(m == 1){//保存逻辑幢
+      
       this.saveOrUpdateLJZ(1);
     }else if(m == 2){//保存层
+      
       this.saveC();
+    }else if(m == 3){//保存户
+     
+      this.saveH();
     }
     
   }
 
   //添加编辑逻辑幢
   async addLjz(m?){
+    this.ljzValidation = true;
+      this.hValidation = false;
+      this.cValidation = false;
    
     this.ljzObj.ljzh = "",
     this.ljzObj.zcs ="",
@@ -203,36 +221,66 @@ export class LpbDetailComponent implements OnInit {
   }
 
   addC(){
+    this.ljzValidation = false;
+      this.hValidation = false;
+      this.cValidation = true;
     this.cObj.ch = "";
     this.cObj.sjc = "";
+    this.cObj.sfqfdy = "";
     this.isVisibleC = true;
   }
 
   //保存层
   async saveC() { 
+    if(!this.FormValidation()){
+      return;
+    }
     var option = {
       ljzh: this.tabs2[this.tabsetIndex2].name,
       zrzh:this.detailObj.zrzh,
       sjc:this.cObj.sjc,
       ch:this.cObj.ch,
+      sfqfdy:this.cObj.sfqfdy,
       qxdm:'361129',
     };
     var res = await this.lpbglService.saveOrUpdateC(option);
     if (res && res.code == 200) {
       this.msg.create('success', '保存成功');
-      
+      this.getLpb(this.tabs2[this.tabsetIndex2].id);
       this.isVisibleC = false;
     } else {
-      this.msg.create('error', '保存失败');
+      this.msg.create('error', res.msg);
     }
   }
 
 addH(){
-
+  this.ljzValidation = false;
+  this.hValidation = true;
+  this.cValidation = false;
+  this.hObj = {};
+  this.isVisibleH = true;
 }
 
   //保存户
-  saveH() { }
+  async saveH() { 
+    if(!this.FormValidation()){
+      return;
+    }
+    var option = Object.assign({}, this.hObj);
+    option.ljzh = this.tabs2[this.tabsetIndex2].name;
+    option.zrzh = this.detailObj.zrzh;
+    option.mjdw = "1";
+    option.qxdm = '361129';
+    option.isnewstock = Number(option.isnewstock)
+    var res = await this.lpbglService.saveOrUpdateH(option);
+    if (res && res.code == 200) {
+      this.msg.create('success', '保存成功');
+      this.getLpb(this.tabs2[this.tabsetIndex2].id);
+      this.isVisibleH = false;
+    } else {
+      this.msg.create('error', res.msg);
+    }
+  }
 
   FormValidation() {
     let isValid = true;
