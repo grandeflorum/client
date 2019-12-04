@@ -181,7 +181,7 @@ export class XsphbfxComponent implements OnInit {
 
     let option1 = {
       title: {
-        text: "行政区"+title,
+        text: "所属区"+title,
         x: 'center'
       },
       color: ['#3398DB'],
