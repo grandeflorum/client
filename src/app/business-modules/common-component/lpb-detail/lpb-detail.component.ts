@@ -31,6 +31,8 @@ export class LpbDetailComponent implements OnInit {
   selectH: string = "1";
   isVisible = false;
   ljzObj:any = {};
+  isVisibleC = false;
+  cObj:any = {};
 
   constructor(
     private lpbglService: LpbglService,
@@ -145,11 +147,17 @@ export class LpbDetailComponent implements OnInit {
 
   handleCancel() {
     this.isVisible = false;
+    this.isVisibleC = false;
   }
 
   
-  handleOk() {
-    this.saveOrUpdateLJZ(1);
+  handleOk(m) {
+    if(m == 1){//保存逻辑幢
+      this.saveOrUpdateLJZ(1);
+    }else if(m == 2){//保存层
+      this.saveC();
+    }
+    
   }
 
   //添加编辑逻辑幢
@@ -193,6 +201,38 @@ export class LpbDetailComponent implements OnInit {
       this.msg.create('error', '保存失败');
     }
   }
+
+  addC(){
+    this.cObj.ch = "";
+    this.cObj.sjc = "";
+    this.isVisibleC = true;
+  }
+
+  //保存层
+  async saveC() { 
+    var option = {
+      ljzh: this.tabs2[this.tabsetIndex2].name,
+      zrzh:this.detailObj.zrzh,
+      sjc:this.cObj.sjc,
+      ch:this.cObj.ch,
+      qxdm:'361129',
+    };
+    var res = await this.lpbglService.saveOrUpdateC(option);
+    if (res && res.code == 200) {
+      this.msg.create('success', '保存成功');
+      
+      this.isVisibleC = false;
+    } else {
+      this.msg.create('error', '保存失败');
+    }
+  }
+
+addH(){
+
+}
+
+  //保存户
+  saveH() { }
 
   FormValidation() {
     let isValid = true;

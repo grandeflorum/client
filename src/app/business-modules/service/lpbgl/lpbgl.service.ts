@@ -36,4 +36,34 @@ export class LpbglService {
   return this.http.post('/BuildingTable/saveOrUpdateLJZ',data);
  }
 
+ //添加或修改层信息
+ saveOrUpdateC(data):any{
+  return this.http.post('/BuildingTable/saveOrUpdateC',data);
+ }
+
+//查看层详情
+getCById(id):any{
+  return this.http.get('/BuildingTable/getCById?id=' + id);
+}
+
+//删除层
+deleteC(id):any{
+  return this.http.get('/BuildingTable/deleteC?id=' + id);
+}
+
+//添加或修改户信息
+saveOrUpdateH(data):any{
+  return this.http.post('/BuildingTable/saveOrUpdateH',data);
+}
+
+//查看户详情
+getHById(id):any{
+  return this.http.get('/BuildingTable/getHById?id=' + id);
+}
+
+//删除户
+deleteH(id):any{
+  return this.http.get('/BuildingTable/deleteH?id=' + id);
+}
+
 }

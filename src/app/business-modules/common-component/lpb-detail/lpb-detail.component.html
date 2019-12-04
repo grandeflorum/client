@@ -29,7 +29,7 @@
         </nz-tabset> -->
         <ul class="ljz_ul">
             <li *ngFor="let tab of tabs2;index as index" [ngClass]="{'selected_ljz':tabsetIndex2 == index}" (click)="tabsetChange2(index)">{{tab.name}}</li>
-            <li (click)="tabClick()">添加<i nz-icon nzType="plus-circle" nzTheme="outline" style="margin-left: 3px;"></i></li>
+            <li (click)="tabClick()" *ngIf="!isDisable">添加<i nz-icon nzType="plus-circle" nzTheme="outline" style="margin-left: 3px;"></i></li>
         </ul>
         <button style="position: absolute;right: 20px;top: -10px;" nz-button nzType="primary" *ngIf="glType=='zddygl'"
             (click)="restrictedProperty1('2')">限制幢销售</button>
@@ -124,6 +124,10 @@
 
 
     <nz-divider nzText="楼盘表" nzOrientation="left" style="font-size: 18px"></nz-divider>
+    <div nz-row style="height: 50px;padding: 10px;">
+        <button nz-button nzType="primary" *ngIf="!isDisable" (click)="addC()">添加层</button>
+        <button nz-button nzType="primary" *ngIf="!isDisable" (click)="addH()">添加户</button>
+    </div>
 
     <div class="lpb_div" style="width:980px;margin:0 auto;overflow: auto;">
         <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}">
@@ -169,7 +173,7 @@
             style="float: right;">预览合同</button></p>
 </ng-template>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="楼盘表" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="楼幢信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk(1)">
   <div nz-row style="height: 50px;padding: 10px;">
       <div class="ta_r">
         <span class="clo_r">*</span>幢编号：
@@ -201,3 +205,39 @@
         </div>
       </div>
   </nz-modal>
+
+  <nz-modal [(nzVisible)]="isVisibleC" nzTitle="层信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk(2)">
+    <div nz-row style="height: 50px;padding: 10px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>层号：
+          <input  name="ch" maxlength="50" nz-input style="width:calc(100% - 120px)"
+            required [validation]="true" nzSize="default" [(ngModel)]="cObj.ch" />
+        </div>
+      </div>
+      <div nz-row style="height: 50px;padding: 10px;">
+          <div class="ta_r">
+            <span class="clo_r">*</span>实际层：
+            <input type="number" step="1" name="sjc" maxlength="50" nz-input style="width:calc(100% - 120px)"
+            required [validation]="true" nzSize="default" [(ngModel)]="cObj.sjc" />
+
+          </div>
+        </div>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleH" nzTitle="户信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk(3)">
+    <div nz-row style="height: 50px;padding: 10px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>层号：
+          <input  name="ch" maxlength="50" nz-input style="width:calc(100% - 120px)"
+            required [validation]="true" nzSize="default" [(ngModel)]="cObj.ch" />
+        </div>
+      </div>
+      <div nz-row style="height: 50px;padding: 10px;">
+          <div class="ta_r">
+            <span class="clo_r">*</span>实际层：
+            <input type="number" step="1" name="sjc" maxlength="50" nz-input style="width:calc(100% - 120px)"
+            required [validation]="true" nzSize="default" [(ngModel)]="cObj.sjc" />
+
+          </div>
+        </div>
+</nz-modal>
