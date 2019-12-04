@@ -62,13 +62,13 @@ export class LpbDetailComponent implements OnInit {
             id: v.id
           })
   
-          if(k == detailObj.ljzList.length - 1&&!this.isDisable){
-            this.tabs2.push({
-              name: '添加',
-              index: k + 1,
-              id: 0
-            })
-          }
+          // if(k == detailObj.ljzList.length - 1&&!this.isDisable){
+          //   this.tabs2.push({
+          //     name: '添加',
+          //     index: k + 1,
+          //     id: 0
+          //   })
+          // }
 
           
   
@@ -76,15 +76,15 @@ export class LpbDetailComponent implements OnInit {
       this.tabsetChange2(this.tabsetIndex2)
 
     }else{
-      if(!this.isDisable){
-        this.tabs2.push({
-          name: '添加',
-          index: 0,
-          id: 0
-        })
+      // if(!this.isDisable){
+      //   this.tabs2.push({
+      //     name: '添加',
+      //     index: 0,
+      //     id: 0
+      //   })
   
-        this.tabsetIndex2 = -1;
-      }
+      //   this.tabsetIndex2 = -1;
+      // }
 
     }
   }
@@ -111,22 +111,14 @@ export class LpbDetailComponent implements OnInit {
   }
 
   tabsetChange2(m) {
-    console.log(m)
-    if(m == this.tabs2.length - 1){
-        this.addLjz(1);
-    }else{
+    this.tabsetIndex2 = m;
       var id = this.tabs2[m].id;
       this.getLpb(id);
-    }
-   
-   
-    // this.tabsetIndex2 = m;
+ 
   }
 
-  tabClick(m){
-    if(m.name == '添加'){
+  tabClick(){
       this.addLjz(1);
-    }
   }
 
   async getLpb(id) {

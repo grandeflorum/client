@@ -105,3 +105,25 @@
   color:#fff;
 }
 
+.ljz_ul{
+  overflow: hidden;
+    padding: 0;
+    background: #f0f2f5;
+  li{
+    float:left;
+    padding:0 16px;
+    height:40px;
+    line-height: 40px;
+    list-style: none;
+    cursor: pointer;
+
+    &:hover{
+      background: #fff;
+  color:#1890ff;
+    }
+  }
+}
+.selected_ljz{
+  background: #fff;
+  color:#1890ff;
+}

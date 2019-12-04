@@ -23,10 +23,14 @@
     </div>
 
     <div *ngIf="zrzShow" class="card-container" style="width:calc(100% + 40px);position: relative;left:-20px">
-        <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex2"
+        <!-- <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex2"
             (nzSelectedIndexChange)="tabsetChange2($event)">
             <nz-tab *ngFor="let tab of tabs2" [nzTitle]="tab.name" (nzClick)="tabClick(tab)"></nz-tab>
-        </nz-tabset>
+        </nz-tabset> -->
+        <ul class="ljz_ul">
+            <li *ngFor="let tab of tabs2;index as index" [ngClass]="{'selected_ljz':tabsetIndex2 == index}" (click)="tabsetChange2(index)">{{tab.name}}</li>
+            <li (click)="tabClick()">添加<i nz-icon nzType="plus-circle" nzTheme="outline" style="margin-left: 3px;"></i></li>
+        </ul>
         <button style="position: absolute;right: 20px;top: -10px;" nz-button nzType="primary" *ngIf="glType=='zddygl'"
             (click)="restrictedProperty1('2')">限制幢销售</button>
     </div>
