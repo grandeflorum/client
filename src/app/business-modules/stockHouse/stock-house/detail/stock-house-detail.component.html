@@ -58,7 +58,7 @@
         <div class="label_div">面积单位：</div>
         <span>
           <nz-select [(ngModel)]="detailObj.mjdw" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable">
-            <nz-option *ngFor="let option of fxList" [nzLabel]="option.name" [nzValue]="option.code">
+            <nz-option *ngFor="let option of dictionaryObj.mjdw" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
           </nz-select>
         </span>
@@ -93,7 +93,7 @@
         <div class="label_div">户型：</div>
         <span>
           <nz-select [(ngModel)]="detailObj.hx" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable">
-            <nz-option *ngFor="let option of fxList" [nzLabel]="option.name" [nzValue]="option.code">
+            <nz-option *ngFor="let option of dictionaryObj.hx" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
           </nz-select>
         </span>
@@ -103,7 +103,7 @@
         <div class="label_div">户型结构：</div>
         <span>
           <nz-select [(ngModel)]="detailObj.hxjg" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable">
-            <nz-option *ngFor="let option of fxList" [nzLabel]="option.name" [nzValue]="option.code">
+            <nz-option *ngFor="let option of dictionaryObj.hxjg" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
           </nz-select>
         </span>
@@ -112,7 +112,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">房屋用途：</div>
         <nz-select [(ngModel)]="detailObj.fwyt1" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable">
-          <nz-option *ngFor="let option of fxList" [nzLabel]="option.name" [nzValue]="option.code">
+          <nz-option *ngFor="let option of dictionaryObj.fwyt" [nzLabel]="option.name" [nzValue]="option.code">
           </nz-option>
         </nz-select>
       </div>
@@ -245,7 +245,7 @@
         <div class="label_div">房屋类型：</div>
         <span>
           <nz-select [(ngModel)]="detailObj.fwlx" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable">
-            <nz-option *ngFor="let option of fxList" [nzLabel]="option.name" [nzValue]="option.code">
+            <nz-option *ngFor="let option of dictionaryObj.fwlx" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
           </nz-select>
         </span>
@@ -255,7 +255,7 @@
         <div class="label_div">房屋性质：</div>
         <span>
           <nz-select [(ngModel)]="detailObj.fwxz" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable">
-            <nz-option *ngFor="let option of fxList" [nzLabel]="option.name" [nzValue]="option.code">
+            <nz-option *ngFor="let option of dictionaryObj.fwxz" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
           </nz-select>
         </span>

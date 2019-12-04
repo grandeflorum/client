@@ -92,8 +92,13 @@ export class StockHouseDetailComponent implements OnInit {
     }
   }
 
+
+  dictionaryObj: any;
+
   getDictory() {
     let dic = this.localstorage.getObject("dictionary");
+
+    this.dictionaryObj = dic;
 
     this.genderList = dic.gender;
     this.fxList = dic.fx;
