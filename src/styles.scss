@@ -142,6 +142,9 @@ body, html {
   .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
    height:50px;
    padding:0;
+   text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .ant-tabs-bar{

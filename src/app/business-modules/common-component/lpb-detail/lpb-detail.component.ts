@@ -30,6 +30,7 @@ export class LpbDetailComponent implements OnInit {
   rowSpan = 0;
   dictionaryObj: any = {};
   selectedHu: any = {};
+  selectedCe:any = {};
   selectH: string = "1";
   isVisible = false;
   ljzObj:any = {};
@@ -40,6 +41,8 @@ export class LpbDetailComponent implements OnInit {
   ljzValidation = false;
   cValidation = false;
   hValidation = false;
+  isAddHu = false;
+  isAddCe = false;
 
   constructor(
     private lpbglService: LpbglService,
@@ -113,6 +116,10 @@ export class LpbDetailComponent implements OnInit {
     this.selectedHu = item;
   }
 
+  selectedCeChange(item){
+    this.selectedCe = item;
+  }
+
 
   restrictedProperty1(type) {
     if (this.restrictedProperty) {
@@ -183,7 +190,7 @@ export class LpbDetailComponent implements OnInit {
       this.saveC();
     }else if(m == 3){//保存户
      
-      this.saveH();
+      this.saveH(1);
     }
     
   }
@@ -248,14 +255,21 @@ export class LpbDetailComponent implements OnInit {
     if(!this.FormValidation()){
       return;
     }
-    var option = {
-      ljzh: this.tabs2[this.tabsetIndex2].name,
-      zrzh:this.detailObj.zrzh,
-      sjc:this.cObj.sjc,
-      ch:this.cObj.ch,
-      sfqfdy:this.cObj.sfqfdy,
-      qxdm:'361129',
-    };
+    var option;
+
+    if(this.isAddCe){
+      option = {
+        ljzh: this.tabs2[this.tabsetIndex2].name,
+        zrzh:this.detailObj.zrzh,
+        sjc:this.cObj.sjc,
+        ch:this.cObj.ch,
+        sfqfdy:this.cObj.sfqfdy,
+        qxdm:'361129',
+      };
+    }else{
+      option = this.cObj;
+    }
+
     var res = await this.lpbglService.saveOrUpdateC(option);
     if (res && res.code == 200) {
       this.msg.create('success', '保存成功');
@@ -272,19 +286,28 @@ addH(){
   this.cValidation = false;
   this.hObj = {};
   this.isVisibleH = true;
+  this.isAddHu = true;
+  this.isAddCe = true;
 }
 
   //保存户
-  async saveH() { 
+  async saveH(type) { 
     if(!this.FormValidation()){
       return;
     }
-    var option = Object.assign({}, this.hObj);
-    option.ljzh = this.tabs2[this.tabsetIndex2].name;
-    option.zrzh = this.detailObj.zrzh;
-    option.mjdw = "1";
-    option.qxdm = '361129';
-    option.isnewstock = Number(option.isnewstock)
+    var option;
+    if(this.isAddHu){
+      option = Object.assign({}, this.hObj);
+      option.ljzh = this.tabs2[this.tabsetIndex2].name;
+      option.zrzh = this.detailObj.zrzh;
+      option.mjdw = "1";
+      option.qxdm = '361129';
+      option.isnewstock = Number(option.isnewstock)
+    }else{
+      option = this.hObj;
+    }
+    
+   
     var res = await this.lpbglService.saveOrUpdateH(option);
     if (res && res.code == 200) {
       this.msg.create('success', '保存成功');
@@ -293,6 +316,58 @@ addH(){
     } else {
       this.msg.create('error', res.msg);
     }
+  }
+
+  //编辑户
+ async editH(id){
+    this.isVisibleH = true;
+    this.isAddHu = false;
+    var res = await this.lpbglService.getHById(id);
+    if (res && res.code == 200) {
+      this.hObj = res.msg;
+     
+    } else {
+      this.msg.create('error', res.msg);
+    }
+   
+}
+
+  //编辑c层
+  async editC(id){
+    this.isVisibleC = true;
+    this.isAddCe = false;
+    var res = await this.lpbglService.getCById(id);
+    if (res && res.code == 200) {
+      this.cObj = res.msg;
+     
+    } else {
+      this.msg.create('error', res.msg);
+    }
+   
+}
+
+  //删除户
+  async deleteH(id){
+      var res = await this.lpbglService.deleteH(id);
+      if (res && res.code == 200) {
+        this.msg.create('success', '删除成功');
+        this.getLpb(this.tabs2[this.tabsetIndex2].id);
+
+      } else {
+        this.msg.create('error', res.msg);
+      }
+  }
+
+    //删除层
+    async deleteC(id){
+      var res = await this.lpbglService.deleteC(id);
+      if (res && res.code == 200) {
+        this.msg.create('success', '删除成功');
+        this.getLpb(this.tabs2[this.tabsetIndex2].id);
+
+      } else {
+        this.msg.create('error', res.msg);
+      }
   }
 
   FormValidation() {
