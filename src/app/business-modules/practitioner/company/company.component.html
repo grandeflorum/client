@@ -76,7 +76,7 @@
                 <td title="{{data.qyfr}}">{{ data.qyfr |tooltips:15}}</td>
                 <td>{{ data.phone }}</td>
                 <td>{{ data.zzzsh }}</td>
-                <td>{{ data.yxqx }}</td>
+                <td>{{ data.yxqx|recordtime }}</td>
                 <td
                     [ngClass]="{'cr0':data.auditType==0, 'cr1':data.auditType==1,'cr2':data.auditType==2||data.auditType==4,'cr3':data.auditType==3}">
                     <div class="point"
