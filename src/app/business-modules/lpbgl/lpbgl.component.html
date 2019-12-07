@@ -74,6 +74,8 @@
         <td>
           <a class="table_a" (click)="add(2,data)">查看</a>
           <a class="table_a" *ngIf="data.datasource==1" (click)="add(3,data)">编辑</a>
+          <a class="table_a" *ngIf="data.datasource==1" nz-popconfirm nzTitle="确定删除吗?"
+          (nzOnConfirm)="deleteZrz(data.id)">删除</a>
               <!-- <a class="table_a"  *ngIf="data.auditType==1" (click)="moreAudit(data)">审核</a>
               <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete(data)">删除</a>
               <a class="table_a" *ngIf="data.auditType==0 || data.auditType == 3"  nz-popconfirm nzTitle="确定提交审核吗?"
@@ -121,17 +123,39 @@
 
 <nz-modal [(nzVisible)]="isVisible" nzTitle="楼盘表" nzWidth="800" nzOkText="保存" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
   <div nz-row style="height: 50px;padding: 10px;">
-    <div nz-col [nzSpan]="12" class="ta_r">
-      <div class="label_div"> <span class="clo_r">*</span>项目名称：</div>
-      <input  name="xmmc" maxlength="50" nz-input style="width:calc(100% - 130px)"
-        required [validation]="true" nzSize="default" [(ngModel)]="lpb.xmmc" />
+      <div nz-col [nzSpan]="12" class="ta_r">
+          <div class="label_div"> <span class="clo_r">*</span>关联项目：</div>
+          <nz-select style="width:calc(100% - 130px)" (ngModelChange)="selectChange($event)" nzPlaceHolder="选择关联项目"
+          nzShowSearch nzServerSearch [(ngModel)]="lpb.xmid" (nzOnSearch)="onSearch($event)" required [validation]="true">
+          <ng-container *ngFor="let o of companyList">
+            <nz-option *ngIf="!companyLoading" [nzValue]="o.id" [nzLabel]="o.xmmc"></nz-option>
+          </ng-container>
+          <nz-option *ngIf="companyLoading" nzDisabled nzCustomContent>
+            <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+          </nz-option>
+        </nz-select>
+        </div>
+        <div nz-col [nzSpan]="12" class="ta_r">
+            <div class="label_div">用途名称：</div>
+            <input  name="ytmc" maxlength="50" nz-input style="width:calc(100% - 130px)"
+              nzSize="default" [(ngModel)]="lpb.ytmc" />
+          </div>
+
     </div>
-    <div nz-col [nzSpan]="12" class="ta_r">
-      <div class="label_div"><span class="clo_r">*</span>楼盘名称：</div>
-      <input  name="jzwmc" maxlength="50" nz-input style="width:calc(100% - 130px)"
-        required [validation]="true" nzSize="default" [(ngModel)]="lpb.jzwmc" class="w200" />
-    </div>
-    </div>
+
+    <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="12" class="ta_r">
+            <div class="label_div"><span class="clo_r">*</span>楼盘名称：</div>
+            <input  name="jzwmc" maxlength="50" nz-input style="width:calc(100% - 130px)"
+              required [validation]="true" nzSize="default" [(ngModel)]="lpb.jzwmc" class="w200" />
+          </div>
+        <div nz-col [nzSpan]="12" class="ta_r">
+            <div class="label_div"><span class="clo_r">*</span>自然幢号：</div>
+            <input  name="zrzh" maxlength="50" nz-input style="width:calc(100% - 130px)"
+              required [validation]="true" nzSize="default" [(ngModel)]="lpb.zrzh" class="w200" />
+        </div>
+        </div>
+
 
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="12" class="ta_r">
@@ -148,9 +172,9 @@
 
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="12" class="ta_r">
-          <div class="label_div"><span class="clo_r">*</span>自然幢号：</div>
-          <input  name="zrzh" maxlength="50" nz-input style="width:calc(100% - 130px)"
-            required [validation]="true" nzSize="default" [(ngModel)]="lpb.zrzh" class="w200" />
+            <div class="label_div">建筑物基本用途：</div>
+            <input  name="jzwjbyt" maxlength="50" nz-input style="width:calc(100% - 130px)"
+               nzSize="default" [(ngModel)]="lpb.jzwjbyt" class="w200" />
         </div>
         <div nz-col [nzSpan]="12" class="ta_r">
           <div class="label_div">总层数：</div>
@@ -226,20 +250,5 @@
                       nzSize="default" [(ngModel)]="lpb.zts" class="w200" />
                   </div>
                   </div>
-
-                  <div nz-row style="height: 50px;padding: 10px;">
-                    <div nz-col [nzSpan]="12" class="ta_r">
-                      <div class="label_div">用途名称：</div>
-                      <input  name="ytmc" maxlength="50" nz-input style="width:calc(100% - 130px)"
-                        nzSize="default" [(ngModel)]="lpb.ytmc" />
-                    </div>
-                    <div nz-col [nzSpan]="12" class="ta_r">
-                      <div class="label_div">建筑物基本用途：</div>
-                      <input  name="jzwjbyt" maxlength="50" nz-input style="width:calc(100% - 130px)"
-                         nzSize="default" [(ngModel)]="lpb.jzwjbyt" class="w200" />
-                    </div>
-                    </div>
-
-
 
 </nz-modal>

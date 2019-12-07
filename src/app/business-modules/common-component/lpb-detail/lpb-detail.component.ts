@@ -5,6 +5,7 @@ import { UtilitiesSercice } from '../../service/common/utilities.services';
 import { NzMessageService } from 'ng-zorro-antd';
 import { ValidationDirective } from '../../../layout/_directives/validation.directive';
 import { Router,ActivatedRoute } from '@angular/router';
+import { KfxmglService } from '../../service/xmgl/kfxmgl.service';
 
 
 @Component({
@@ -41,8 +42,11 @@ export class LpbDetailComponent implements OnInit {
   ljzValidation = false;
   cValidation = false;
   hValidation = false;
+  isAddLjz = false;
   isAddHu = false;
   isAddCe = false;
+  companyList: any[] = [];
+  companyLoading: boolean = false;
 
   constructor(
     private lpbglService: LpbglService,
@@ -50,6 +54,7 @@ export class LpbDetailComponent implements OnInit {
     private utilitiesSercice:UtilitiesSercice,
     private msg: NzMessageService,
     private router: Router,
+    private kfxmglService:KfxmglService
   ) { }
 
   ngOnInit() {
@@ -59,14 +64,25 @@ export class LpbDetailComponent implements OnInit {
   init(detailObj) {
     this.tabs2 = [];
     this.detailObj = detailObj;
+    this.onSearch( this.detailObj.xmmc);
+    
     if (detailObj && detailObj.ljzList.length>0) {
         //this.tabsetIndex2 = 0;
-    
+        if(this.isAddLjz){
+          this.tabsetIndex2 = detailObj.ljzList.length - 1;
+        }
+        if(this.tabsetIndex2>detailObj.ljzList.length){
+          this.tabsetIndex2 = detailObj.ljzList.length - 1;
+        }
         this.lpbList = detailObj.ljzList[this.tabsetIndex2];
 
-        this.lpbList.dyList.forEach((v, k) => {
-          this.rowSpan += v.rowSpan;
-        })
+        if(this.lpbList.dyList&&this.lpbList.dyList.length>0){
+          this.lpbList.dyList.forEach((v, k) => {
+            this.rowSpan += v.rowSpan;
+          })
+        }
+
+        
   
         detailObj.ljzList.forEach((v, k) => {
           this.tabs2.push({
@@ -148,7 +164,7 @@ export class LpbDetailComponent implements OnInit {
       this.lpbList.dyList.forEach((v, k) => {
         this.rowSpan += v.rowSpan;
       })
-
+      
     }
   }
 
@@ -185,6 +201,7 @@ export class LpbDetailComponent implements OnInit {
     if(m == 1){//保存逻辑幢
       
       this.saveOrUpdateLJZ(1);
+      this.isAddLjz = true;
     }else if(m == 2){//保存层
       
       this.saveC();
@@ -216,14 +233,10 @@ export class LpbDetailComponent implements OnInit {
     }
     var option
     if(type == 1){//添加
-      option = {
-        zrzh:this.detailObj.zrzh,
-        ljzh:this.ljzObj.ljzh,
-        zcs:this.ljzObj.zcs,
-        qxdm:'361129',
-        scjzmj:this.ljzObj.scjzmj,
-        fwyt1:this.ljzObj.fwyt1
-      };
+      option = Object.assign({},this.ljzObj);
+      option.zrzh = this.detailObj.zrzh;
+      option.qxdm = '361129';
+
     }else{
       option = this.lpbList
     }
@@ -236,7 +249,7 @@ export class LpbDetailComponent implements OnInit {
       this.isVisible = false;
       this.saveLjz.emit();
     } else {
-      this.msg.create('error', '保存失败');
+      this.msg.create('error', res.msg);
     }
   }
 
@@ -288,6 +301,8 @@ addH(){
   this.isVisibleH = true;
   this.isAddHu = true;
   this.isAddCe = true;
+  this.hObj.zrzh = this.detailObj.zrzh;
+  this.hObj.ljzh = this.lpbList.ljzh
 }
 
   //保存户
@@ -346,6 +361,20 @@ addH(){
    
 }
 
+//删除逻辑幢
+async deleteLjz(id){
+  var res = await this.lpbglService.deleteH(id);
+  if (res && res.code == 200) {
+    this.msg.create('success', '删除成功');
+
+    
+    this.saveLjz.emit();
+
+  } else {
+    this.msg.create('error', res.msg);
+  }
+}
+
   //删除户
   async deleteH(id){
       var res = await this.lpbglService.deleteH(id);
@@ -368,6 +397,43 @@ addH(){
       } else {
         this.msg.create('error', res.msg);
       }
+  }
+
+  async onSearch(evt) {
+    this.companyLoading = true;
+    let option = {
+      pageNo: 1,
+      pageSize: 10,
+      conditions: []
+    };
+
+    if (evt) {
+      option.conditions.push({ key: 'xmmc', value: evt });
+    }
+
+
+
+    let res = await this.kfxmglService.getProjectList(option);
+
+    if (res) {
+      this.companyList = res.msg.currentList;
+      this.companyLoading = false;
+    }
+
+  }
+
+  selectChange(evt) {
+    this.detailObj.xmid = evt;
+
+    if (evt) {
+      let select = this.companyList.find(x => evt == x.id);
+
+      if (select) {
+        this.detailObj.xmid = select.xmid;
+      }
+    } else {
+      this.detailObj.xmid = null;
+    }
   }
 
   FormValidation() {

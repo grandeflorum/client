@@ -66,4 +66,14 @@ deleteH(id):any{
   return this.http.get('/BuildingTable/deleteH?id=' + id);
 }
 
+//删除逻辑幢
+deleteLJZ(id):any{
+  return this.http.get('/BuildingTable/deleteLJZ?id=' + id);
+}
+
+//删除自然幢
+deleteZRZ(id):any{
+  return this.http.get('/BuildingTable/deleteZRZ?id=' + id);
+}
+
 }
