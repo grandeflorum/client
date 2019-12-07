@@ -5,7 +5,7 @@
             <input nz-input nzSize="default" [(ngModel)]="cqrxm" class="w150" placeholder="请输入产权人姓名" />
         </div>
         <div nz-col [nzSpan]="7">
-            房屋坐落：
+            详细地址：
             <input nz-input nzSize="default" [(ngModel)]="address" class="w150" placeholder="请输入房屋坐落" />
         </div>
 
@@ -55,7 +55,7 @@
                 <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
                     [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
                 <th>产权人姓名</th>
-                <th>房屋坐落</th>
+                <th>详细地址</th>
                 <th>房型</th>
                 <th>建筑面积</th>
                 <th nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th>

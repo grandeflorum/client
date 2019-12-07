@@ -152,10 +152,10 @@ export class HouseRentalDetailComponent implements OnInit {
       return;
     }
 
-    if (!this.detailObj.regioncode) {
-      this.msg.create("warning", "请选择新政区划");
-      return;
-    }
+    // if (!this.detailObj.regioncode) {
+    //   this.msg.create("warning", "请选择新政区划");
+    //   return;
+    // }
     if (this.isbusy) {
       this.msg.create('error', '数据正在保存，请勿重复点击');
       return;

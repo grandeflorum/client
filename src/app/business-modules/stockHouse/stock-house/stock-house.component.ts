@@ -47,6 +47,8 @@ export class StockHouseComponent implements OnInit {
 
   userinfo: any = {};
 
+  fxList=[];
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -88,6 +90,7 @@ export class StockHouseComponent implements OnInit {
     this.getRoles();
     this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
     this.shxxObj.wfAudit.shry = this.userinfo ? this.userinfo.realname : null;
+    this.fxList= this.localstorage.getObject("dictionary").fx;
 
     this.search();
   }
@@ -180,6 +183,14 @@ export class StockHouseComponent implements OnInit {
       this.Loading = false;
       this.dataSet = res.msg.currentList;
       this.totalCount = res.msg.recordCount;
+
+      this.dataSet.forEach(element => {
+        this.fxList.forEach(fxdic=>{
+          if(element.fx==fxdic.code){
+            element.fx=fxdic.name;
+          }
+        })
+      });
 
       this.listOfAllData.forEach(item => (this.mapOfCheckedId[item.id] = false));
       this.refreshStatus();
