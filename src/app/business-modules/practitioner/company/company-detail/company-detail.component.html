@@ -13,7 +13,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>开发企业名称：</div>
         <span>
-          <input nz-input name="kfqymc" nzSize="default" [(ngModel)]="detailObj.qymc" [disabled]="isDisable" required
+          <input nz-input name="kfqymc" nzSize="default" [(ngModel)]="detailObj.qymc" title={{detailObj.qymc}} [disabled]="isDisable" required
             [validation]="true" class="w200" maxlength="100" placeholder="请输入开发企业名称" />
         </span>
 
@@ -21,14 +21,14 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">营业执照：</div>
         <span></span>
-        <input nz-input nzSize="default" [(ngModel)]="detailObj.yyzz" [disabled]="isDisable" class="w200"
+        <input nz-input nzSize="default" [(ngModel)]="detailObj.yyzz" title={{detailObj.yyzz}} [disabled]="isDisable" class="w200"
           placeholder="请输入营业执照" maxlength="50" />
       </div>
 
       <div nz-col [nzSpan]="8">
         <div class="label_div">社会信用代码：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.shxydm" [disabled]="isDisable" class="w200"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.shxydm" title={{detailObj.shxydm}} [disabled]="isDisable" class="w200"
             placeholder="请输入社会信用代码" maxlength="50" />
         </span>
 
@@ -51,7 +51,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">注册资本：</div>
         <span>
-          <input nz-input nzSize="default" name="zczj" [(ngModel)]="detailObj.zczj" [disabled]="isDisable" class="w200"
+          <input nz-input nzSize="default" name="zczj" [(ngModel)]="detailObj.zczj" title={{detailObj.zczj}} [disabled]="isDisable" class="w200"
             placeholder="请输入注册资本" maxlength="10" [validation]="true" [validationType]="'nullnumber'" />
         </span>
         &nbsp;万元
@@ -60,7 +60,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">联系电话：</div>
         <span>
-          <input nz-input nzSize="default" name="phone" [(ngModel)]="detailObj.phone" [disabled]="isDisable"
+          <input nz-input nzSize="default" name="phone" [(ngModel)]="detailObj.phone" title={{detailObj.phone}} [disabled]="isDisable"
             [validation]="true" [validationType]="'nullphonenumber'" class="w200" maxlength="20"
             placeholder="请输入联系电话" />
         </span>
@@ -74,7 +74,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">邮政编码：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.yzbm" [disabled]="isDisable" class="w200"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.yzbm" title={{detailObj.yzbm}} [disabled]="isDisable" class="w200"
             maxlength="25" placeholder="请输入邮政编码" />
         </span>
 
@@ -100,7 +100,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">营业期限：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.yyqx" [disabled]="isDisable" class="w200"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.yyqx" title={{detailObj.yyqx}} [disabled]="isDisable" class="w200"
             maxlength="10" placeholder="请输入营业期限" />
         </span>
 
@@ -109,7 +109,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">电子邮箱：</div>
         <span>
-          <input nz-input nzSize="default" name="dzyx" [(ngModel)]="detailObj.dzyx" [disabled]="isDisable" class="w200"
+          <input nz-input nzSize="default" name="dzyx" [(ngModel)]="detailObj.dzyx" title={{detailObj.dzyx}} [disabled]="isDisable" class="w200"
             maxlength="30" placeholder="请输入电子邮箱" [validation]="true" [validationType]="'nullEmail'" />
         </span>
 
@@ -148,7 +148,7 @@
           <!-- <nz-input-group nzAddOnBefore="Http://" nzAddOnAfter=".com" class="w200">
             <input type="text" nz-input [(ngModel)]="detailObj.qywz" [disabled]="isDisable" maxlength="100" />
           </nz-input-group> -->
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.qywz" [disabled]="isDisable" class="w200"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.qywz" title={{detailObj.qywz}} [disabled]="isDisable" class="w200"
             maxlength="30" placeholder="请输入企业网址" />
         </span>
 
@@ -157,7 +157,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">主管部门：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.zgbm" [disabled]="isDisable" class="w200"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.zgbm" title={{detailObj.zgbm}} [disabled]="isDisable" class="w200"
             maxlength="30" placeholder="请输入主管部门" />
         </span>
 
@@ -181,7 +181,7 @@
       <div nz-col [nzSpan]="16">
         <div class="label_div">详细地址：</div>
         <span>
-          <input style="width: calc(100% - 235px);" nz-input nzSize="default" [(ngModel)]="detailObj.address"
+          <input style="width: calc(100% - 235px);" nz-input nzSize="default" [(ngModel)]="detailObj.address" title={{detailObj.address}}
             [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
 
         </span>
@@ -198,7 +198,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>企业法人代表：</div>
         <span>
-          <input nz-input name="qyfr" nzSize="default" [(ngModel)]="detailObj.qyfr" [disabled]="isDisable" required
+          <input nz-input name="qyfr" nzSize="default" [(ngModel)]="detailObj.qyfr" title={{detailObj.qyfr}} [disabled]="isDisable" required
             [validation]="true" class="w200" maxlength="15" placeholder="请输入企业法人代表" />
         </span>
 
@@ -219,7 +219,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>证件号：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.zjh" [disabled]="isDisable" class="w200"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.zjh" title={{detailObj.zjh}} [disabled]="isDisable" class="w200"
             maxlength="20" placeholder="请输入证件号" name="zjh" required [validation]="true" />
         </span>
 
@@ -233,7 +233,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">资质证书号：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.zzzsh" [disabled]="isDisable" class="w200"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.zzzsh" title={{detailObj.zzzsh}} [disabled]="isDisable" class="w200"
             maxlength="30" placeholder="请输入资质证书号" />
         </span>
 
@@ -277,7 +277,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">批准部门：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.pzbm" [disabled]="isDisable" class="w200"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.pzbm" title={{detailObj.pzbm}} [disabled]="isDisable" class="w200"
             maxlength="30" placeholder="请输入批准部门" />
         </span>
 
@@ -289,7 +289,7 @@
 
     <nz-divider nzText="备注" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
-    <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }" [(ngModel)]="detailObj.bz" maxlength="500"
+    <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }" [(ngModel)]="detailObj.bz" title={{detailObj.bz}} maxlength="500"
       [disabled]="isDisable"></textarea>
   </div>
 

@@ -13,13 +13,13 @@
         <div nz-row style="height: 50px;padding: 10px;">
             <div nz-col [nzSpan]="8">
                 <div class="label_div"><span class="clo_r">*</span>不动产单元号：</div>
-                <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.bdcdyh" [disabled]="isDisable" required
+                <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.bdcdyh" title={{detailObj.bdcdyh}} [disabled]="isDisable" required
                         [validation]="true" class="w200" maxlength="28" placeholder="请输入不动产单元号" /></span>
 
             </div>
             <div nz-col [nzSpan]="8">
                 <div class="label_div"><span class="clo_r">*</span>业务号：</div>
-                <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.ywh" [disabled]="isDisable" class="w200"
+                <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.ywh" title={{detailObj.ywh}} [disabled]="isDisable" class="w200"
                         required [validation]="true" placeholder="请输入业务号" maxlength="20" /></span>
 
             </div>
@@ -69,7 +69,7 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div">登记原因：</div>
                 <span>
-                    <input nz-input nzSize="default" [(ngModel)]="detailObj.djyy" [disabled]="isDisable" class="w200"
+                    <input nz-input nzSize="default" [(ngModel)]="detailObj.djyy" title={{detailObj.djyy}} [disabled]="isDisable" class="w200"
                         placeholder="请输入登记原因" maxlength="255" />
                 </span>
 
@@ -82,7 +82,7 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div"><span class="clo_r">*</span>在建建筑物坐落：</div>
                 <span>
-                    <input nz-input nzSize="default" [(ngModel)]="detailObj.zjjzwzl" [disabled]="isDisable" class="w200"
+                    <input nz-input nzSize="default" [(ngModel)]="detailObj.zjjzwzl" title={{detailObj.zjjzwzl}} [disabled]="isDisable" class="w200"
                         placeholder="请输入在建建筑物坐落" maxlength="255" required [validation]="true" />
                 </span>
 
@@ -91,7 +91,7 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div"><span class="clo_r">*</span>在建建筑物抵押范围：</div>
                 <span>
-                    <input nz-input nzSize="default" [(ngModel)]="detailObj.zjjzwdyfw" [disabled]="isDisable"
+                    <input nz-input nzSize="default" [(ngModel)]="detailObj.zjjzwdyfw" title={{detailObj.zjjzwdyfw}} [disabled]="isDisable"
                         class="w200" placeholder="请输入在建建筑物抵押范围" maxlength="255" required [validation]="true" />
                 </span>
             </div>
@@ -99,7 +99,7 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div"><span class="clo_r">*</span>被担保主债权数额：</div>
                 <span>
-                    <input nz-input nzSize="default" [(ngModel)]="detailObj.bdbzzqse" [disabled]="isDisable"
+                    <input nz-input nzSize="default" [(ngModel)]="detailObj.bdbzzqse" title={{detailObj.bdbzzqse}} [disabled]="isDisable"
                         class="w200" placeholder="请输入被担保主债权数额" maxlength="12" required [validation]="true"
                         [validationType]="'nullnumber'" />
                 </span>
@@ -130,7 +130,7 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div">最高债权确定事实：</div>
                 <span>
-                    <input nz-input nzSize="default" [(ngModel)]="detailObj.zgzqqdss" [disabled]="isDisable"
+                    <input nz-input nzSize="default" [(ngModel)]="detailObj.zgzqqdss" title={{detailObj.zgzqqdss}} [disabled]="isDisable"
                         class="w200" placeholder="请输入最高债权确定事实" maxlength="255" />
                 </span>
 
@@ -143,7 +143,7 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div"><span class="clo_r">*</span>最高债权数额：</div>
                 <span>
-                    <input nz-input nzSize="default" [(ngModel)]="detailObj.zgzqse" [disabled]="isDisable" class="w200"
+                    <input nz-input nzSize="default" [(ngModel)]="detailObj.zgzqse" title={{detailObj.zgzqse}} [disabled]="isDisable" class="w200"
                         placeholder="请输入最高债权数额" maxlength="12" required [validation]="true"
                         [validationType]="'nullnumber'" />
                 </span>
@@ -152,7 +152,7 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div">不动产登记证明号：</div>
                 <span>
-                    <input nz-input nzSize="default" [(ngModel)]="detailObj.bdcdjzmh" [disabled]="isDisable"
+                    <input nz-input nzSize="default" [(ngModel)]="detailObj.bdcdjzmh" title={{detailObj.bdcdjzmh}} [disabled]="isDisable"
                         class="w200" placeholder="请输入不动产登记证明号" maxlength="50" />
                 </span>
 
@@ -161,7 +161,7 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div"><span class="clo_r">*</span>登记机构：</div>
                 <span>
-                    <input nz-input nzSize="default" [(ngModel)]="detailObj.djjg" [disabled]="isDisable" class="w200"
+                    <input nz-input nzSize="default" [(ngModel)]="detailObj.djjg" title={{detailObj.djjg}} [disabled]="isDisable" class="w200"
                         placeholder="请输入登记机构" maxlength="200" required [validation]="true" />
                 </span>
 
@@ -174,7 +174,7 @@
             <div nz-col [nzSpan]="8">
                 <div class="label_div"><span class="clo_r">*</span>登簿人：</div>
                 <span>
-                    <input nz-input nzSize="default" [(ngModel)]="detailObj.dbr" [disabled]="isDisable" class="w200"
+                    <input nz-input nzSize="default" [(ngModel)]="detailObj.dbr" title={{detailObj.dbr}} [disabled]="isDisable" class="w200"
                         placeholder="请输入登簿人" maxlength="50" required [validation]="true" />
                 </span>
             </div>

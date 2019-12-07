@@ -5,7 +5,7 @@
         <div nz-row style="height: 50px;padding: 10px;">
             <div nz-col [nzSpan]="8">
                 <div class="label_div"><span class="clo_r">*</span>姓名：</div>
-                <input nz-input nzSize="default" [(ngModel)]="employee.name" [disabled]="isDisable" required
+                <input nz-input nzSize="default" [(ngModel)]="employee.name" title={{employee.name}} [disabled]="isDisable" required
                     [validation]="true" class="w200" maxlength="20" placeholder="请输入姓名" />
             </div>
             <div nz-col [nzSpan]="8">
@@ -27,7 +27,7 @@
         <div nz-row style="height: 50px;padding: 10px;">
             <div nz-col [nzSpan]="8">
                 <div class="label_div">专业：</div>
-                <input nz-input nzSize="default" [(ngModel)]="employee.major" [disabled]="isDisable" class="w200"
+                <input nz-input nzSize="default" [(ngModel)]="employee.major" title={{employee.major}} [disabled]="isDisable" class="w200"
                     placeholder="请输入专业" maxlength="50" />
             </div>
             <div nz-col [nzSpan]="8">
@@ -39,7 +39,7 @@
             </div>
             <div nz-col [nzSpan]="8">
                 <div class="label_div">证件号：</div>
-                <input nz-input nzSize="default" [(ngModel)]="employee.zjh" [disabled]="isDisable" class="w200"
+                <input nz-input nzSize="default" [(ngModel)]="employee.zjh" title={{employee.zjh}} [disabled]="isDisable" class="w200"
                     placeholder="请输入证件号" maxlength="30" />
             </div>
         </div>
@@ -47,18 +47,18 @@
         <div nz-row style="height: 50px;padding: 10px;">
             <div nz-col [nzSpan]="8">
                 <div class="label_div"><span class="clo_r">*</span>联系电话：</div>
-                <input nz-input nzSize="default" [(ngModel)]="employee.phone" [disabled]="isDisable" required
+                <input nz-input nzSize="default" [(ngModel)]="employee.phone" title={{employee.phone}} [disabled]="isDisable" required
                     [validation]="true" maxlength="15" validationType="nullphonenumber" class="w200"
                     placeholder="请输入联系电话" />
             </div>
             <div nz-col [nzSpan]="8">
                 <div class="label_div">电子邮箱：</div>
-                <input nz-input nzSize="default" [(ngModel)]="employee.email" [disabled]="isDisable" [validation]="true"
+                <input nz-input nzSize="default" [(ngModel)]="employee.email" title={{employee.email}} [disabled]="isDisable" [validation]="true"
                     validationType="nullEmail" maxlength="20" class="w200" placeholder="请输入电子邮箱" />
             </div>
             <div nz-col [nzSpan]="8">
                 <div class="label_div">服务机构名称：</div>
-                <input nz-input nzSize="default" [(ngModel)]="employee.fwjgdm" [disabled]="isDisable" class="w200"
+                <input nz-input nzSize="default" [(ngModel)]="employee.fwjgdm" title={{employee.fwjgdm}} [disabled]="isDisable" class="w200"
                     placeholder="请选择服务机构" maxlength="35" />
             </div>
         </div>
@@ -75,7 +75,7 @@
 
             <div nz-col [nzSpan]="16">
                 <div class="label_div">详细地址：</div>
-                <input style="width: calc(100% - 248px);" nz-input nzSize="default" [(ngModel)]="employee.address"
+                <input style="width: calc(100% - 248px);" nz-input nzSize="default"  [(ngModel)]="employee.address" title={{employee.address}}
                     [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
 
             </div>
@@ -89,17 +89,17 @@
         <div nz-row style="height: 50px;padding: 10px;">
             <div nz-col [nzSpan]="8">
                 <div class="label_div"> 岗位证书名称：</div>
-                <input nz-input nzSize="default" [(ngModel)]="employee.zsmc" [disabled]="isDisable" class="w200"
+                <input nz-input nzSize="default" [(ngModel)]="employee.zsmc" title={{employee.zsmc}} [disabled]="isDisable" class="w200"
                     placeholder="请输入岗位证书名称" maxlength="30" />
             </div>
             <div nz-col [nzSpan]="8">
                 <div class="label_div">证书编号：</div>
-                <input nz-input nzSize="default" [(ngModel)]="employee.zsbh" [disabled]="isDisable" class="w200"
+                <input nz-input nzSize="default" [(ngModel)]="employee.zsbh" title={{employee.zsbh}} [disabled]="isDisable" class="w200"
                     placeholder="请输入证书编号" maxlength="60" />
             </div>
             <div nz-col [nzSpan]="8">
                 <div class="label_div">职务：</div>
-                <input nz-input nzSize="default" [(ngModel)]="employee.postion" [disabled]="isDisable" class="w200"
+                <input nz-input nzSize="default" [(ngModel)]="employee.postion" title={{employee.postion}} [disabled]="isDisable" class="w200"
                     placeholder="请输入职务" maxlength="35" />
             </div>
         </div>
@@ -108,12 +108,12 @@
         <div nz-row style="height: 50px;padding: 10px;">
             <div nz-col [nzSpan]="8">
                 <div class="label_div">从业年限：</div>
-                <input nz-input nzSize="default" [(ngModel)]="employee.cynx" [disabled]="isDisable" [validation]="true"
+                <input nz-input nzSize="default" [(ngModel)]="employee.cynx" title={{employee.cynx}} [disabled]="isDisable" [validation]="true"
                     class="w200" validationType='nullnumber' placeholder="请输入从业年限" maxlength="2" />
             </div>
             <div nz-col [nzSpan]="8">
                 <div class="label_div">服务年限：</div>
-                <input nz-input nzSize="default" [(ngModel)]="employee.fwnx" [disabled]="isDisable" [validation]="true"
+                <input nz-input nzSize="default" [(ngModel)]="employee.fwnx" title={{employee.fwnx}} [disabled]="isDisable" [validation]="true"
                     class="w200" validationType='nullnumber' placeholder="请输入服务年限" maxlength="2" />
             </div>
         </div>

@@ -13,7 +13,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>产权人姓名：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.cqrxm" [disabled]="isDisable" required maxlength="50"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.cqrxm" [disabled]="isDisable" title={{detailObj.cqrxm}} required maxlength="50"
             [validation]="true" class="w200" placeholder="请输入产权人姓名" />
         </span>
 
@@ -31,7 +31,7 @@
       </div>
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>建筑面积：</div>
-        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.jzmj" [disabled]="isDisable" required
+        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.jzmj" title={{detailObj.jzmj}} [disabled]="isDisable" required
             [validation]="true" [validationType]="'areaNumber'" maxlength="10" class="w200"
             placeholder="请输入建筑面积" /></span>
         &nbsp;㎡
@@ -52,7 +52,7 @@
       <div nz-col [nzSpan]="24">
         <div class="label_div">详细地址：</div>
         <span>
-          <input style="width: calc(100% - 166px);" nz-input nzSize="default" [(ngModel)]="detailObj.address"
+          <input style="width: calc(100% - 166px);" nz-input nzSize="default" [(ngModel)]="detailObj.address" title={{detailObj.address}}
             [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
         </span>
 
@@ -63,7 +63,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">层号：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.ch" [disabled]="isDisable" maxlength="12" class="w200"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.ch" title={{detailObj.ch}} [disabled]="isDisable" maxlength="12" class="w200"
             placeholder="请输入层号" />
         </span>
 
@@ -71,7 +71,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">坐落：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.zl" [disabled]="isDisable" maxlength="100"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.zl" title={{detailObj.zl}} [disabled]="isDisable" maxlength="100"
             class="w200" placeholder="请输入坐落" />
         </span>
 
@@ -90,7 +90,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">实际层数：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.sjcs" [disabled]="isDisable" maxlength="5"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.sjcs" title={{detailObj.sjcs}} [disabled]="isDisable" maxlength="5"
             class="w200" placeholder="请输入实际层数" />
         </span>
 
@@ -98,14 +98,14 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">户号：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.hh" [disabled]="isDisable" maxlength="6" class="w200"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.hh" title={{detailObj.hh}} [disabled]="isDisable" maxlength="6" class="w200"
             placeholder="请输入户号" />
         </span>
 
       </div>
       <div nz-col [nzSpan]="8">
         <div class="label_div">室号部位：</div>
-        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.shbw" [disabled]="isDisable" maxlength="10"
+        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.shbw" title={{detailObj.shbw}} [disabled]="isDisable" maxlength="10"
             class="w200" placeholder="请输入室号部位" />
         </span>
       </div>
@@ -143,7 +143,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">预测建筑面积：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.ycjzmj" [disabled]="isDisable" maxlength="10"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.ycjzmj" title={{detailObj.ycjzmj}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入预测建筑面积" />
         </span>
         &nbsp;㎡
@@ -151,14 +151,14 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">预测套内建筑面积：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.yctnjzmj" [disabled]="isDisable" maxlength="10"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.yctnjzmj" title={{detailObj.yctnjzmj}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入预测套内建筑面积" />
         </span>
         &nbsp;㎡
       </div>
       <div nz-col [nzSpan]="8">
         <div class="label_div">预测分摊建筑面积：</div>
-        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.ycftjzmj" [disabled]="isDisable" maxlength="10"
+        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.ycftjzmj" title={{detailObj.ycftjzmj}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入预测分摊建筑面积" />
         </span>
         &nbsp;㎡
@@ -168,7 +168,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">预测地下部分建筑面积：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.ycdxbfjzmj" [disabled]="isDisable" maxlength="10"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.ycdxbfjzmj" title={{detailObj.ycdxbfjzmj}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入预测地下部分建筑面积" />
         </span>
         &nbsp;㎡
@@ -176,14 +176,14 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">预测其它建筑面积：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.ycqtjzmj" [disabled]="isDisable" maxlength="10"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.ycqtjzmj" title={{detailObj.ycqtjzmj}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入预测其它建筑面积" />
         </span>
         &nbsp;㎡
       </div>
       <div nz-col [nzSpan]="8">
         <div class="label_div">预测分摊系数：</div>
-        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.ycftxs" [disabled]="isDisable" maxlength="10"
+        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.ycftxs" title={{detailObj.ycftxs}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入预测分摊系数" />
         </span>
       </div>
@@ -192,7 +192,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">实测建筑面积：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.scjzmj" [disabled]="isDisable" maxlength="10"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.scjzmj" title={{detailObj.scjzmj}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入实测建筑面积" />
         </span>
         &nbsp;㎡
@@ -200,14 +200,14 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">实测套内建筑面积：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.sctnjzmj" [disabled]="isDisable" maxlength="10"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.sctnjzmj" title={{detailObj.sctnjzmj}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入实测套内建筑面积" />
         </span>
         &nbsp;㎡
       </div>
       <div nz-col [nzSpan]="8">
         <div class="label_div">实测分摊建筑面积：</div>
-        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.scftjzmj" [disabled]="isDisable" maxlength="10"
+        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.scftjzmj" title={{detailObj.scftjzmj}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入实测分摊建筑面积" />
         </span>
         &nbsp;㎡
@@ -217,7 +217,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">实测地下部分建筑面积：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.scdxbfjzmj" [disabled]="isDisable" maxlength="10"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.scdxbfjzmj" title={{detailObj.scdxbfjzmj}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入实测地下部分建筑面积" />
         </span>
         &nbsp;㎡
@@ -225,14 +225,14 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">实测其它建筑面积：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.scqtjzmj" [disabled]="isDisable" maxlength="10"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.scqtjzmj" title={{detailObj.scqtjzmj}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入实测其它建筑面积" />
         </span>
         &nbsp;㎡
       </div>
       <div nz-col [nzSpan]="8">
         <div class="label_div">实测分摊系数：</div>
-        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.scftxs" [disabled]="isDisable" maxlength="10"
+        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.scftxs" title={{detailObj.scftxs}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入实测分摊系数" />
         </span>
       </div>
@@ -241,7 +241,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">共有土地面积：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.gytdmj" [disabled]="isDisable" maxlength="10"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.gytdmj" title={{detailObj.gytdmj}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入共有土地面积" />
         </span>
         &nbsp;㎡
@@ -249,14 +249,14 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div">分摊土地面积：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.fttdmj" [disabled]="isDisable" maxlength="10"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.fttdmj" title={{detailObj.fttdmj}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入分摊土地面积" />
         </span>
         &nbsp;㎡
       </div>
       <div nz-col [nzSpan]="8">
         <div class="label_div">独用土地面积：</div>
-        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.dytdmj" [disabled]="isDisable" maxlength="10"
+        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.dytdmj" title={{detailObj.dytdmj}} [disabled]="isDisable" maxlength="10"
             [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入独用土地面积" />
         </span>
         &nbsp;㎡
@@ -285,7 +285,7 @@
       </div>
       <div nz-col [nzSpan]="8">
         <div class="label_div">房产分户图：</div>
-        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.fcfht" [disabled]="isDisable" maxlength="100"
+        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.fcfht" title={{detailObj.fcfht}} [disabled]="isDisable" maxlength="100"
             class="w200" placeholder="请输入房产分户图" />
         </span>
       </div>
@@ -317,7 +317,7 @@
     </div>
     <div *ngFor="let item of detailObj.relationShips;index as index" nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="4">
-        <input nz-input nzSize="default" [(ngModel)]="item.name" [disabled]="isDisable" required maxlength="50"
+        <input nz-input nzSize="default" [(ngModel)]="item.name" title={{item.name}} [disabled]="isDisable" required maxlength="50"
           [validation]="true" class="w200" placeholder="请输入姓名" />
       </div>
       <div nz-col [nzSpan]="3">
@@ -328,11 +328,11 @@
         </nz-select>
       </div>
       <div nz-col [nzSpan]="4">
-        <input nz-input nzSize="default" (keyup)="sfzhChange(item)" [(ngModel)]="item.sfzh" [disabled]="isDisable"
+        <input nz-input nzSize="default" (keyup)="sfzhChange(item)" [(ngModel)]="item.sfzh" title={{item.sfzh}} [disabled]="isDisable"
           required [validation]="true" [validationType]="'idcard'" maxlength="25" class="w200" placeholder="请输入身份证号" />
       </div>
       <div nz-col [nzSpan]="4">
-        <input nz-input nzSize="default" [(ngModel)]="item.lxdh" maxlength="15" [disabled]="isDisable"
+        <input nz-input nzSize="default" [(ngModel)]="item.lxdh" title={{item.lxdh}} maxlength="15" [disabled]="isDisable"
           [validation]="true" [validationType]="'phonenumber'" class="w200" placeholder="请输入联系方式" />
       </div>
       <div nz-col [nzSpan]="3">
@@ -356,7 +356,7 @@
     <nz-divider nzText="备注" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
     <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }" [disabled]="isDisable" placeholder="请输入备注"
-      maxlength="250" [(ngModel)]="detailObj.bz"></textarea>
+      maxlength="250" [(ngModel)]="detailObj.bz" title={{detailObj.bz}}></textarea>
   </div>
 
   <!-- 附件 -->
