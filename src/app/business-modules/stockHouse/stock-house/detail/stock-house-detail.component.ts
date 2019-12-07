@@ -252,9 +252,20 @@ export class StockHouseDetailComponent implements OnInit {
     let res = await this.stockHouseService.saveOrUpdateStockHouse(this.detailObj);
     this.isbusy = false;
     if (res && res.code == 200) {
-      this.detailObj.id = res.msg;
-      if (!this.detailObj.auditType) {
-        this.detailObj.auditType = 0;
+      if(!this.detailObj.id){
+        this.detailObj.id = res.msg.id;
+        this.detailObj.auditType = res.msg.auditType;
+        this.detailObj.zrzh=res.msg.zrzh;
+        this.detailObj.ljzh=res.msg.ljzh;
+        this.detailObj.ch=res.msg.ch;
+        this.detailObj.zl=res.msg.zl;
+        this.detailObj.mjdw=res.msg.mjdw;
+        this.detailObj.hh=res.msg.hh;
+        this.detailObj.zt=res.msg.zt;
+        this.detailObj.qxdm=res.msg.qxdm;
+        this.detailObj.isnewstock=res.msg.isnewstock;
+        this.detailObj.sysDate=res.msg.sysDate;
+        this.detailObj.sysUpdDate=res.msg.sysUpdDate;
       }
 
       if (!this.tabs.some(x => x.index == 2)) {
