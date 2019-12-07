@@ -2,22 +2,122 @@
     <nz-divider *ngIf="zrzShow" nzText="基本信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
     <button style="float: right;z-index: 1000;" nz-button nzType="primary" *ngIf="glType=='zddygl'&&zrzShow"
         (click)="restrictedProperty1('1')">限制楼盘销售</button>
-    <div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
-        <div nz-col [nzSpan]="8">项目名称</div>
-        <div nz-col [nzSpan]="8">楼盘名称</div>
-        <div nz-col [nzSpan]="8"></div>
-    </div>
 
-    <div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
+<div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="8">
+        <div class="label_div"> <span class="clo_r">*</span>项目名称：</div>
+        <span><input  name="xmmc" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+          required [validation]="true" nzSize="default" [(ngModel)]="detailObj.xmmc" /></span>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <div class="label_div"><span class="clo_r">*</span>楼盘名称：</div>
+        <span><input  name="jzwmc" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+          required [validation]="true" nzSize="default" [(ngModel)]="detailObj.jzwmc" class="w200" /></span>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">宗地代码：</div>
+        <span><input  name="zddm" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+          nzSize="default" [(ngModel)]="detailObj.zddm" /></span>
+      </div>
+      </div>
+  
+      <div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="8">
-            <span><input nz-input nzSize="default" [(ngModel)]="detailObj.xmmc" maxlength="50" [disabled]="isDisable"
-                class="w200"  required [validation]="true"/></span></div>
+          <div class="label_div">不动产单元号：</div>
+          <span><input  name="bdcdyh" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+            nzSize="default" [(ngModel)]="detailObj.bdcdyh" class="w200" /></span>
+        </div>
         <div nz-col [nzSpan]="8">
-            <span><input nz-input nzSize="default" [(ngModel)]="detailObj.jzwmc" maxlength="50" [disabled]="isDisable"
-                class="w200"  required [validation]="true"/></span>
+          <div class="label_div"><span class="clo_r">*</span>自然幢号：</div>
+          <span><input  name="zrzh" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+            required [validation]="true" nzSize="default" [(ngModel)]="detailObj.zrzh" class="w200" /></span>
+        </div>
+        <div nz-col [nzSpan]="8">
+          <div class="label_div">总层数：</div>
+          <span><input  name="zcs" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+            nzSize="default" [(ngModel)]="detailObj.zcs" class="w200" /></span>
+        </div>
+        </div>
+  
+
+  
+          <div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
+            <div nz-col [nzSpan]="8">
+              <div class="label_div">幢占地面积：</div>
+              <span><input  name="zzdmj" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                nzSize="default" [(ngModel)]="detailObj.zzdmj" /></span>&nbsp;㎡
             </div>
-        <div nz-col [nzSpan]="8"></div>
-    </div>
+            <div nz-col [nzSpan]="8">
+              <div class="label_div">幢用地面积：</div>
+              <span><input  name="zydmj" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                nzSize="default" [(ngModel)]="detailObj.zydmj" class="w200" /></span>&nbsp;㎡
+            </div>
+            <div nz-col [nzSpan]="8">
+              <div class="label_div">预测建筑物面积：</div>
+              <span><input  name="ycjzmj" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                nzSize="default" [(ngModel)]="detailObj.ycjzmj" /></span>&nbsp;㎡
+            </div>
+            </div>
+  
+            <div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
+              
+              <div nz-col [nzSpan]="8">
+                <div class="label_div">实测建筑面积：</div>
+                <span><input  name="scjzmj" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                  nzSize="default" [(ngModel)]="detailObj.scjzmj" class="w200" /></span>&nbsp;㎡
+              </div>
+              <div nz-col [nzSpan]="8">
+                <div class="label_div">地上层数：</div>
+                <span><input  name="dscs" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                  nzSize="default" [(ngModel)]="detailObj.dscs" /></span>
+              </div>
+              <div nz-col [nzSpan]="8">
+                <div class="label_div">地下层数：</div>
+                <span><input  name="dxcs" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                  nzSize="default" [(ngModel)]="detailObj.dxcs" class="w200" /></span>
+              </div>
+              </div>
+  
+
+  
+                <div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
+                  <div nz-col [nzSpan]="8">
+                    <div class="label_div">地下深度：</div>
+                    <span><input  name="dxsd" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                      nzSize="default" [(ngModel)]="detailObj.dxsd" /></span>
+                  </div>
+                  <div nz-col [nzSpan]="8">
+                    <div class="label_div">规划用途：</div>
+                    <span><nz-select [(ngModel)]="detailObj.ghyt" class="w200" nzAllowClear nzPlaceHolder="请选择" class="w200" [disabled]="isDisable">
+                      <nz-option *ngFor="let option of dictionaryObj.fwyt" [nzLabel]="option.name" [nzValue]="option.code">
+                      </nz-option>
+                    </nz-select></span>
+                  </div>
+                  <div nz-col [nzSpan]="8">
+                    <div class="label_div">房屋结构：</div>
+                    <span><input  name="fwjg" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                      nzSize="default" [(ngModel)]="detailObj.fwjg" /></span>
+                  </div>
+                  </div>
+
+  
+                    <div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
+                      <div nz-col [nzSpan]="8">
+                        <div class="label_div">总套数：</div>
+                        <span><input  name="zts" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                          nzSize="default" [(ngModel)]="detailObj.zts" class="w200" /></span>
+                      </div>
+                      <div nz-col [nzSpan]="8">
+                        <div class="label_div">用途名称：</div>
+                        <span><input  name="ytmc" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                          nzSize="default" [(ngModel)]="detailObj.ytmc" /></span>
+                      </div>
+                      <div nz-col [nzSpan]="8">
+                        <div class="label_div">建筑物基本用途：</div>
+                        <span><input  name="jzwjbyt" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                          nzSize="default" [(ngModel)]="detailObj.jzwjbyt" class="w200" /></span> 
+                      </div>
+                      </div>
 
     <div *ngIf="zrzShow" style="width:calc(100% + 40px);height:25px;background:#f0f2f5;position: relative;left:-20px">
     </div>
@@ -222,14 +322,14 @@
     <div nz-row style="height: 50px;padding: 10px;">
         <div class="ta_r">
           <span class="clo_r">*</span>层号：
-          <input  name="ch" maxlength="50" nz-input style="width:calc(100% - 130px)"
+          <input  name="ch" maxlength="50" nz-input class="w200"
             required [validation]="cValidation" nzSize="default" [(ngModel)]="cObj.ch" />
         </div>
       </div>
       <div nz-row style="height: 50px;padding: 10px;">
           <div class="ta_r">
             <span class="clo_r">*</span>实际层：
-            <input type="number" step="1" name="sjc" maxlength="50" nz-input style="width:calc(100% - 130px)"
+            <input type="number" step="1" name="sjc" maxlength="50" nz-input class="w200"
             required [validation]="cValidation" [validationType]="'number'" nzSize="default" [(ngModel)]="cObj.sjc" />
 
           </div>
@@ -237,7 +337,7 @@
         <div nz-row style="height: 50px;padding: 10px;">
             <div class="ta_r">
               <span class="clo_r">*</span>是否区分单元号：
-              <nz-select [(ngModel)]="cObj.sfqfdy" name="sfqfdy" style="width:calc(100% - 130px)"
+              <nz-select [(ngModel)]="cObj.sfqfdy" name="sfqfdy" class="w200"
               nzPlaceHolder="请选择" required [validation]="cValidation">
               <nz-option nzValue="0" nzLabel="不区分"></nz-option>
               <nz-option nzValue="1" nzLabel="区分"></nz-option>

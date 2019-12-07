@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChildren, QueryList, Input } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { KfxmglService } from '../service/xmgl/kfxmgl.service';
 import { LpbglService } from '../service/lpbgl/lpbgl.service';
+import { Localstorage } from '../service/localstorage';
 import { ValidationDirective } from '../../layout/_directives/validation.directive';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
@@ -27,8 +28,8 @@ export class LpbglComponent implements OnInit {
   dataSet: any = [];
   sortList: any = [];
   selectId: any = '';
-  option:any;
-  optionParam="";
+  option: any;
+  optionParam = "";
   xmmc = '';
   jzwmc = '';
   auditType = "";
@@ -51,7 +52,8 @@ export class LpbglComponent implements OnInit {
   listOfAllData = [];
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
-  lpb:any = {}
+  lpb: any = {};
+  dictionaryObj:any = {}
 
   constructor(
     private msg: NzMessageService,
@@ -59,10 +61,12 @@ export class LpbglComponent implements OnInit {
     private kfxmglService: KfxmglService,
     private lpbglService: LpbglService,
     private activatedRoute: ActivatedRoute,
+    private localstorage: Localstorage
   ) {
-    this.optionParam=this.activatedRoute.snapshot.queryParams.option;
-    this.selectId=this.activatedRoute.snapshot.queryParams.selectId;
-   }
+    this.optionParam = this.activatedRoute.snapshot.queryParams.option;
+    this.selectId = this.activatedRoute.snapshot.queryParams.selectId;
+    this.dictionaryObj = this.localstorage.getObject("dictionary");
+  }
 
   ngOnInit() {
 
@@ -71,7 +75,7 @@ export class LpbglComponent implements OnInit {
 
   async search() {
     this.Loading = true;
-     this.option = {
+    this.option = {
       pageNo: this.pageIndex,
       pageSize: this.pageSize,
       conditions: []
@@ -87,24 +91,24 @@ export class LpbglComponent implements OnInit {
     if (this.jzwmc) {
       this.option.conditions.push({ key: 'jzwmc', value: this.jzwmc });
     }
-    if(this.optionParam){
-      this.option=JSON.parse(this.optionParam);
-      if(this.option.conditions&&this.option.conditions.length>0){
+    if (this.optionParam) {
+      this.option = JSON.parse(this.optionParam);
+      if (this.option.conditions && this.option.conditions.length > 0) {
         this.option.conditions.forEach(element => {
-          if(element.key=='xmmc'){
-            this.xmmc=element.value;
+          if (element.key == 'xmmc') {
+            this.xmmc = element.value;
           }
-          if(element.key=='jzwmc'){
-            this.jzwmc=element.value;
+          if (element.key == 'jzwmc') {
+            this.jzwmc = element.value;
           }
-          if(element.key=='type'){
-            this.type=element.value;
+          if (element.key == 'type') {
+            this.type = element.value;
           }
         });
       }
-      this.pageIndex=this.option.pageNo;
-      this.pageSize=this.option.pageSize;
-      this.optionParam="";
+      this.pageIndex = this.option.pageNo;
+      this.pageSize = this.option.pageSize;
+      this.optionParam = "";
     }
     // if (this.auditType||this.auditType==="0") {
     //   option.conditions.push({ key: 'auditType', value: this.auditType });
@@ -211,12 +215,12 @@ export class LpbglComponent implements OnInit {
   }
 
   add(m, item?) {
-    if(m == 1){
+    if (m == 1) {
       this.lpb.xmmc = '';
       this.lpb.jzwmc = '';
       this.lpb.zrzh = '';
       this.isVisible = true;
-    }else{
+    } else {
       var route = "/lpbgl/detail";
 
       switch (this.type) {
@@ -229,7 +233,7 @@ export class LpbglComponent implements OnInit {
         default:
           break;
       }
-  
+
       if (this.glType) {
         if (!this.pid) {
           this.msg.create('error', '请先保存信息再关联户');
@@ -245,7 +249,7 @@ export class LpbglComponent implements OnInit {
           route = '/zddygl/lpbdetail';
         }
       }
-  
+
       this.router.navigate([route], {
         queryParams: {
           id: item ? item.id : '',
@@ -253,7 +257,7 @@ export class LpbglComponent implements OnInit {
           type: m,
           glType: this.glType,
           pid: this.pid,
-          option:JSON.stringify(this.option)
+          option: JSON.stringify(this.option)
         }
       });
     }
@@ -374,16 +378,12 @@ export class LpbglComponent implements OnInit {
 
     if (!this.FormValidation()) {
       return;
-  }
+    }
 
-  var option = {
-    xmmc:this.lpb.xmmc,
-    jzwmc:this.lpb.jzwmc,
-    zrzh:this.lpb.zrzh,
-    qxdm:'361129'
-  }
+    var option = Object.assign({}, this.lpb);
+    option.qxdm = '361129';
 
-  var res = await this.lpbglService.saveOrUpdateZRZ(option);
+    var res = await this.lpbglService.saveOrUpdateZRZ(option);
 
     if (res && res.code == 200) {
       this.msg.create('success', '保存成功');
@@ -403,12 +403,12 @@ export class LpbglComponent implements OnInit {
   FormValidation() {
     let isValid = true;
     this.directives.forEach(d => {
-        if (!d.validationValue()) {
-            isValid = false;
-        }
+      if (!d.validationValue()) {
+        isValid = false;
+      }
     });
     return isValid;
-}
+  }
 
   ngAfterViewInit() {
     var that = this;
