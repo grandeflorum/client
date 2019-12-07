@@ -72,7 +72,7 @@
         <span>
           <nz-select [(ngModel)]="detailObj.xmyt" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择"
             required [validation]="true">
-            <nz-option *ngFor="let option of dictionaryObj.xmyt" [nzLabel]="option.name" [nzValue]="option.code">
+            <nz-option *ngFor="let option of dictionaryObj.fwyt" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
           </nz-select>
         </span>
