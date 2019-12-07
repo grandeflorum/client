@@ -53,7 +53,9 @@ export class LpbglComponent implements OnInit {
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
   lpb: any = {};
-  dictionaryObj:any = {}
+  dictionaryObj:any = {};
+  companyList: any[] = [];
+  companyLoading: boolean = false;
 
   constructor(
     private msg: NzMessageService,
@@ -71,6 +73,7 @@ export class LpbglComponent implements OnInit {
   ngOnInit() {
 
     this.search();
+    this.onSearch('');
   }
 
   async search() {
@@ -216,9 +219,7 @@ export class LpbglComponent implements OnInit {
 
   add(m, item?) {
     if (m == 1) {
-      this.lpb.xmmc = '';
-      this.lpb.jzwmc = '';
-      this.lpb.zrzh = '';
+      this.lpb = {};
       this.isVisible = true;
     } else {
       var route = "/lpbgl/detail";
@@ -409,6 +410,53 @@ export class LpbglComponent implements OnInit {
     });
     return isValid;
   }
+
+  async onSearch(evt) {
+    this.companyLoading = true;
+    let option = {
+      pageNo: 1,
+      pageSize: 10,
+      conditions: []
+    };
+
+    if (evt) {
+      option.conditions.push({ key: 'xmmc', value: evt });
+    }
+
+
+
+    let res = await this.kfxmglService.getProjectList(option);
+
+    if (res) {
+      this.companyList = res.msg.currentList;
+      this.companyLoading = false;
+    }
+
+  }
+
+  selectChange(evt) {
+    this.lpb.xmid = evt;
+
+    if (evt) {
+      let select = this.companyList.find(x => evt == x.id);
+
+      if (select) {
+        this.lpb.xmmc = select.xmmc;
+      }
+    } else {
+      this.lpb.xmmc = null;
+    }
+  }
+
+ async deleteZrz(id){
+  var res = await this.lpbglService.deleteZRZ(id);
+  if (res && res.code == 200) {
+    this.msg.create('success', '删除成功');
+    this.search();
+  } else {
+    this.msg.create('error', res.msg);
+  }
+ }
 
   ngAfterViewInit() {
     var that = this;
