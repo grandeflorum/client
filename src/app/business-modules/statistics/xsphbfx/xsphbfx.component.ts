@@ -33,6 +33,7 @@ export class XsphbfxComponent implements OnInit {
   dateYear = null;
   dateMonth = null;
   dateDay = null;
+  dataQuarter = 1;
   shxxObj: any = {
     ids: [],
     wfAudit: {

@@ -120,6 +120,7 @@ const routes: Routes = [
         data: { id: 'A-statistics' },
         children: [
             { path: 'xsphbfx', loadChildren: () => import('./statistics/xsphbfx/xsphbfx.module').then(m => m.XsphbfxModule) },
+            { path: 'sjcxtjfx', loadChildren: () => import('./statistics/sjcxtjfx/sjcxtjfx.module').then(m => m.SjcxtjfxModule) }
         ]
     },
     { path: '', pathMatch: 'full', redirectTo: '/login' }
