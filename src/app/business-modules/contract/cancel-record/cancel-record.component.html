@@ -41,12 +41,13 @@
                 <tr>
                     <th style="width:5%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
                         [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
+                    <th>状态</th>
                     <th>合同编号</th>
                     <th>坐落</th>
                     <th>产权人（卖方）</th>
                     <th>购买人</th>
-                    <th>注销日期</th>
-                    <th>注销理由</th>
+                    <th>日期</th>
+                    <th>理由</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,6 +55,7 @@
                     [ngClass]="{ itemSeleted: data.id == selectId }" (click)="selectItem(data)">
                     <td style="width:5%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]"
                         [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
+                    <td>{{ data.status==1?"注销":"变更"}}</td>
                     <td title="{{data.htbah}}">{{ data.htbah |tooltips:15}}</td>
                     <td title="{{data.zl}}">{{ data.zl |tooltips:15}}</td>
                     <td title="{{data.cqr}}">{{ data.cqr |tooltips:15}}</td>

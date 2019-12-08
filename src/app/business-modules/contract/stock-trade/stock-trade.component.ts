@@ -57,6 +57,7 @@ export class StockTradeComponent implements OnInit {
   auditResultVisible: any = true;
   auditPeople: any;
   auditdate: any;
+  auditMsg: any;
 
   isAllDisplayDataChecked = false;
   isIndeterminate = false;
@@ -291,7 +292,7 @@ export class StockTradeComponent implements OnInit {
 
 
   //审核
-  audit(data) {
+  audit(data, type) {
 
     this.auditIsVisible = true;
     switch (data.currentStatus) {
@@ -320,10 +321,21 @@ export class StockTradeComponent implements OnInit {
         this.auditdate = "审核日期";
         break;
       case 5:
-        this.auditName = "注销";
-        this.auditResultVisible = false;
-        this.auditPeople = "注销人";
-        this.auditdate = "注销日期";
+
+        if (1 == type) {
+          this.auditName = "注销";
+          this.auditResultVisible = false;
+          this.auditPeople = "注销人";
+          this.auditdate = "注销日期";
+          this.auditMsg = "注销理由";
+        } else {
+          this.auditName = "变更";
+          this.auditResultVisible = false;
+          this.auditPeople = "变更人";
+          this.auditdate = "变更日期";
+          this.auditMsg = "变更理由";
+        }
+
         break;
       default:
         this.auditName = "审核";
@@ -391,7 +403,8 @@ export class StockTradeComponent implements OnInit {
     this.isOkLoading = true;
     var data = {
       ids: this.auditProjectId,
-      wfAudit: this.auditObj
+      wfAudit: this.auditObj,
+      status: this.auditName == "注销" ? 1 : 2
     }
     if (!this.auditResultVisible) {
       if (!data.wfAudit.fileInfoList) {
