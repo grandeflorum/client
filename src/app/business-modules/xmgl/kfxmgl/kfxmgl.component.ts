@@ -331,7 +331,7 @@ export class KfxmglComponent implements OnInit {
         shjg: "1",
         shry: this.userinfo ? this.userinfo.realname : null,
         bz: '',
-        shrq: null
+        shrq: new Date()
       },
       type: 0
     }

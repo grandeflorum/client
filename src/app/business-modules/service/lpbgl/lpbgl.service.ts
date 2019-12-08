@@ -76,4 +76,14 @@ deleteZRZ(id):any{
   return this.http.get('/BuildingTable/deleteZRZ?id=' + id);
 }
 
+// 审核项目
+auditZRZs(params): any {
+  return this.http.post('/BuildingTable/auditZRZs', params);
+}
+
+//提交审核
+auditZRZById(id , type): any {
+  return this.http.get('/BuildingTable/auditZRZById?id=' + id + '&type=' + type);
+}
+
 }

@@ -36,6 +36,7 @@ export class LpbglComponent implements OnInit {
   kgrq = '';
   jgrq = '';
   isVisible = false;
+  isAuditVisible=false;
 
   shxxObj: any = {
     ids: [],
@@ -57,6 +58,8 @@ export class LpbglComponent implements OnInit {
   companyList: any[] = [];
   companyLoading: boolean = false;
 
+  userinfo: any = {};
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -71,9 +74,47 @@ export class LpbglComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.getRoles();
+    this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
+    this.shxxObj.wfAudit.shry = this.userinfo ? this.userinfo.realname : null;
     this.search();
     this.onSearch('');
+  }
+
+  //添加权限
+  canzsgc: boolean = false;
+  cantjsh: boolean = false;
+  cansh: boolean = false;
+  canecsh: boolean = false;
+
+  getRoles() {
+    let roles = this.localstorage.getObject("roles");
+
+    if (roles) {
+      if (roles.some(x => x == '管理员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+        this.cansh = true;
+        this.canecsh = true;
+      }
+
+      if (roles.some(x => x == '领导')) {
+        this.canecsh = true;
+      }
+
+      if (roles.some(x => x == '录入员')) {
+        this.canzsgc = true;
+        this.cantjsh = true;
+      }
+
+      if (roles.some(x => x == '审核员')) {
+        this.cansh = true;
+      }
+
+      if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
+        this.canzsgc = true;
+      }
+    }
   }
 
   async search() {
@@ -113,16 +154,10 @@ export class LpbglComponent implements OnInit {
       this.pageSize = this.option.pageSize;
       this.optionParam = "";
     }
-    // if (this.auditType||this.auditType==="0") {
-    //   option.conditions.push({ key: 'auditType', value: this.auditType });
-    // }
-    // if (this.kgrq) {
-    //   option.conditions.push({ key: 'kgrq', value: this.kgrq });
-    // }
-    // if (this.jgrq) {
-    //   option.conditions.push({ key: 'jgrq', value: this.jgrq });
-    // }
-    //option.conditions.push({ key: 'sort', value: this.sortList });
+    if (this.auditType||this.auditType==="0") {
+      this.option.conditions.push({ key: 'auditType', value: this.auditType });
+    }
+    this.option.conditions.push({ key: 'sort', value: this.sortList });
 
     var res = await this.lpbglService.getBuildingTableList(this.option);
     this.Loading = false;
@@ -281,36 +316,36 @@ export class LpbglComponent implements OnInit {
 
   //删除
   async btachDelete(item?) {
-    var ids = [];
-    if (item) {//单个删除
-      ids.push(item.id);
-    } else {//批量删除
-      if (this.listOfDisplayData.length > 0) {
-        this.listOfDisplayData.forEach(element => {
-          if (this.mapOfCheckedId[element.id]) {
-            ids.push(element.id);
-          }
-        });
-      }
-    }
+    // var ids = [];
+    // if (item) {//单个删除
+    //   ids.push(item.id);
+    // } else {//批量删除
+    //   if (this.listOfDisplayData.length > 0) {
+    //     this.listOfDisplayData.forEach(element => {
+    //       if (this.mapOfCheckedId[element.id]) {
+    //         ids.push(element.id);
+    //       }
+    //     });
+    //   }
+    // }
 
-    if (ids.length == 0) {
-      this.msg.warning('请选择需要删除的项目');
-      return;
-    }
+    // if (ids.length == 0) {
+    //   this.msg.warning('请选择需要删除的项目');
+    //   return;
+    // }
 
-    var res = await this.kfxmglService.deleteProjectByIds(ids);
-    if (res && res.code == 200) {
-      this.msg.create('success', '删除成功');
-      this.search();
-    } else {
-      this.msg.create('error', '删除失败');
-    }
+    // var res = await this.kfxmglService.deleteProjectByIds(ids);
+    // if (res && res.code == 200) {
+    //   this.msg.create('success', '删除成功');
+    //   this.search();
+    // } else {
+    //   this.msg.create('error', '删除失败');
+    // }
   }
 
   //提交审核
   async auditSubmit(item, type) {
-    var res = await this.kfxmglService.auditProjectById(item.id, type);
+    var res = await this.lpbglService.auditZRZById(item.id, type);
     if (res && res.code == 200) {
       this.msg.create('success', '提交审核成功');
       this.search();
@@ -326,9 +361,9 @@ export class LpbglComponent implements OnInit {
       ids: [],
       wfAudit: {
         shjg: "1",
-        shry: '',
+        shry: this.userinfo ? this.userinfo.realname : null,
         bz: '',
-        shrq: null
+        shrq: new Date()
       }
     }
     this.shxxObj.ids = [];
@@ -350,34 +385,53 @@ export class LpbglComponent implements OnInit {
       return;
     }
 
-    this.isVisible = true;
+    this.isAuditVisible = true;
   }
 
   //打开审核模态框
-  shxm() {
-    this.isVisible = true;
+  shxm(data: any = {}) {
+    this.isAuditVisible = true;
     this.shxxObj = {
       ids: [],
       wfAudit: {
         shjg: "1",
-        shry: '',
+        shry: this.userinfo ? this.userinfo.realname : null,
         bz: '',
-        shrq: null
-      }
+        shrq: new Date()
+      },
+      type: 0
     }
+
+    if (this.twoAuditPD) {
+      this.shxxObj.ids.push(data.id);
+      this.shxxObj.type = 1;
+    }
+
+  }
+  
+
+  //审核
+  async handleAuditOk() {
+    var res = await this.lpbglService.auditZRZs(this.shxxObj);
+
+    if (res && res.code == 200) {
+      this.msg.create('success', '审核成功');
+      this.search();
+      this.isAuditVisible = false;
+
+      this.twoAuditPD = false;
+
+    } else {
+      this.msg.create('error', '审核失败');
+    }
+  }
+
+  handleAuditCancel(){
+    this.isAuditVisible=false;
   }
 
   //审核
   async handleOk() {
-    // var res = await this.kfxmglService.auditProjects(this.shxxObj);
-
-    // if (res && res.code == 200) {
-    //   this.msg.create('success', '审核成功');
-    //   this.search();
-    //   this.isVisible = false;
-    // } else {
-    //   this.msg.create('error', '审核失败');
-    // }
 
     if (!this.FormValidation()) {
       return;
@@ -465,6 +519,16 @@ export class LpbglComponent implements OnInit {
     $(window).resize(function () {
       that.calculationHeight()
     })
+  }
+
+  //添加二次审核
+
+  twoAuditPD: boolean = false;
+
+  twoAudit(data) {
+    this.twoAuditPD = true;
+
+    this.shxm(data);
   }
 
 }
