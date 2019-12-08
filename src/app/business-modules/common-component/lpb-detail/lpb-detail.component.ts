@@ -47,6 +47,7 @@ export class LpbDetailComponent implements OnInit {
   isAddCe = false;
   companyList: any[] = [];
   companyLoading: boolean = false;
+  selectedLJZid="";
 
   constructor(
     private lpbglService: LpbglService,
@@ -146,6 +147,7 @@ export class LpbDetailComponent implements OnInit {
   tabsetChange2(m) {
     this.tabsetIndex2 = m;
       var id = this.tabs2[m].id;
+    this.selectedLJZid=this.tabs2[m].id;
       this.getLpb(id);
  
   }
@@ -363,7 +365,7 @@ addH(){
 
 //删除逻辑幢
 async deleteLjz(id){
-  var res = await this.lpbglService.deleteH(id);
+  var res = await this.lpbglService.deleteLJZ(id);
   if (res && res.code == 200) {
     this.msg.create('success', '删除成功');
 

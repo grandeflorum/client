@@ -1,45 +1,101 @@
-<div class="list_content_wrap" style="overflow: auto">
+<div class="list_content_wrap" style="overflow: auto;padding:24px 0">
 
-  <nz-tabset [nzSelectedIndex]="tabsetIndex" (nzSelectedIndexChange)="tabsetChange($event)">
-    <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
-  </nz-tabset>
-
-
-
-  <div class="statistics_btn_wrap" nz-row style="height: 50px;padding: 10px;">
-    <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(1)"
-      [ngClass]="{'selected_btn':btnIndex == 1}">月</button>
-    <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(2)"
-      [ngClass]="{'selected_btn':btnIndex == 2}">季度</button>
-    <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(3)"
-      [ngClass]="{'selected_btn':btnIndex == 3}">年</button>
-
-    <button class="right" nz-button nzType="primary" (click)="search()">查询</button>
-
-    <nz-year-picker style="float: right;" *ngIf="btnIndex!=3" [(ngModel)]="date1" nzPlaceHolder="请选择年份">
-    </nz-year-picker>
-
-    <div *ngIf="btnIndex==3" style="float: right;">
-      <nz-year-picker [(ngModel)]="date2" nzPlaceHolder="请选择开始年份"></nz-year-picker>
-      -
-      <nz-year-picker [(ngModel)]="date3" nzPlaceHolder="请选择结束年份"></nz-year-picker>
-    </div>
+<div class="statistics_btn_wrap" nz-row style="height: 50px;padding: 10px 24px;">
+    <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(1)" [ngClass]="{'selected_btn':btnIndex == 1}">今日</button>
+    <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(2)" [ngClass]="{'selected_btn':btnIndex == 2}">本周</button>
+    <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(3)" [ngClass]="{'selected_btn':btnIndex == 3}">本月</button>
+    <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(4)" [ngClass]="{'selected_btn':btnIndex == 4}">本季度</button>
+    <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(5)" [ngClass]="{'selected_btn':btnIndex == 5}">本年</button>
 
 
+    <button class="right" nz-button nzType="primary" [disabled]="btnIndex!=6" (click)="search()">查询</button>
+    <nz-select *ngIf="dataType == 2" [(ngModel)]="dataQuarter" [disabled]="btnIndex!=6" name="dataQuarter" class="right" style="width:125px;margin-left:10px" nzPlaceHolder="请选择季度">
+      <nz-option nzValue="1" nzLabel="第一季度"></nz-option>
+      <nz-option nzValue="2" nzLabel="第二季度"></nz-option>
+      <nz-option nzValue="3" nzLabel="第三季度"></nz-option>
+      <nz-option nzValue="4" nzLabel="第四季度"></nz-option>
+ </nz-select>
+    <nz-year-picker class="right" style="width:125px" [(ngModel)]="dateYear" *ngIf="dataType == 1 || dataType == 2" [disabled]="btnIndex!=6"  (ngModelChange)="onChange($event,'year')" nzPlaceHolder="请选择年份"></nz-year-picker>
+    <nz-month-picker class="right" style="width:125px" [(ngModel)]="dateMonth" *ngIf="dataType == 3" [disabled]="btnIndex!=6" (ngModelChange)="onChange($event,'month')" nzPlaceHolder="请选择月份"></nz-month-picker>
+    <nz-date-picker class="right" style="width:125px" [(ngModel)]="dateDay" *ngIf="dataType == 4" (ngModelChange)="onChange($event,'day')" nzPlaceHolder="请选择时间"></nz-date-picker>
+    <nz-range-picker class="right" style="width:230px" [(ngModel)]="dateRange" *ngIf="dataType == 5" [disabled]="btnIndex!=6" (ngModelChange)="onChange($event,'range')"></nz-range-picker>
+    <nz-select [(ngModel)]="dataType" [disabled]="btnIndex!=6" name="dataType" class="right" style="width:125px;margin-right:10px" nzPlaceHolder="请选择时间维度">
+               <nz-option nzValue="1" nzLabel="年"></nz-option>
+               <nz-option nzValue="2" nzLabel="季度"></nz-option>
+               <nz-option nzValue="3" nzLabel="月"></nz-option>
+               <nz-option nzValue="4" nzLabel="天"></nz-option>
+               <nz-option nzValue="5" nzLabel="自定义时间段"></nz-option>
+    </nz-select>
+    <button class="right echart_btn" style="margin-right: 10px" nz-button nzType="primary" (click)="echartChange(6)" [ngClass]="{'selected_btn':btnIndex == 6}">自定义时间段</button>
 
   </div>
 
 
-  <div class="echart_wrap" nz-row>
-    <div nz-col [nzSpan]="4">
-      <div style="float: left; margin: 5px;">度量</div>
-      <nz-select [(ngModel)]="dlValue" nzAllowClear nzPlaceHolder="请选择度量" (ngModelChange)="dlValueChange($event)">
-        <nz-option *ngFor="let item of items" [nzValue]="item.value" [nzLabel]="item.name"></nz-option>
-      </nz-select>
+  <div class="echart_wrap">
+      <p style="position: absolute;top:20px;left: 35px;line-height: 30px;"><span class="rank_title">项目销售量排名前十</span></p>
+    <div id="xs_echart"></div>
 
+    <div class="right_rank_wrap">
+      <p><span class="rank_title">项目销售量排名前十</span> <span>单位：套</span></p>
+
+      <ul class="rank_ul">
+        <li *ngFor="let item of rankList;index as index"><span class="rank_num" [ngClass]="{'rank_top3':index<3}">{{index}}</span><span class="rank_name">{{item.name}}</span><span class="rank_ts">{{item.ts}}</span></li>
+      </ul>
     </div>
-    <div nz-col [nzSpan]="10" id="echart1" style="height: 100%;"></div>
-    <div nz-col [nzSpan]="10" id="echart2" style="height: 100%;"></div>
+
   </div>
+  <div nz-row style="height:20px;background: #f0f2f5;"></div>
+  <div nz-row class="rank_title" style="height: 50px;padding: 10px;padding-left:30px;line-height: 30px;">
+  项目销售量列表
+  </div>
+  <div nz-row style="height: 50px;padding: 10px;text-align: center;background: #e4e4e4">
+  <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" style="width:400px">
+      <input type="text" nz-input placeholder="请输入开发企业、项目名称搜索" />
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" nzSearch style="margin-left:0">搜索</button>
+    </ng-template>
+  </div>
+<div nz-row style="height: 50px;padding: 10px;">
+
 
 </div>
+
+
+    <nz-table #nestedTable [nzData]="dataSet" style="margin: 0 24px;" class="commontable tablescoll_rainbow" [nzFrontPagination]="false"  [nzLoading]="Loading"  [nzShowTotal]="rangeTemplate"
+      [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize" [nzTotal]="totalCount"
+      (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
+      (nzCurrentPageDataChange)="currentPageDataChange($event)">
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
+            (nzCheckedChange)="checkAll($event)"></th>
+            <th>项目名称</th>
+            <th>楼盘名称</th>
+          <th>总套数</th>
+          <th>总面积（㎡）</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of nestedTable.data; index as index" [ngClass]="{ itemSeleted: data.id == selectId }"
+          (click)="selectItem(data)">
+          <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
+            (nzCheckedChange)="refreshStatus()"></td>
+            <td title="{{data.xmmc}}">{{ data.xmmc |tooltips:15}}</td>
+            <td title="{{data.kfqymc}}">{{ data.jzwmc |tooltips:15}}</td>
+          <td>{{data.zts}}</td>
+          <td>{{data.zmj}}</td>
+         <td>
+            <a class="table_a" (click)="add(2,data)">查看</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+</div>
+
+
+<ng-template #rangeTemplate let-range="range" let-total>
+ 共{{total}}条记录&nbsp;&nbsp;
+</ng-template>
+

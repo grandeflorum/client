@@ -30,4 +30,8 @@ export class StockHouseService {
     auditStockHouses(params): any {
         return this.http.post('/StockHouse/auditStockHouses', params);
     }
+
+    linkH(ljzid, hid): any {
+        return this.http.get('/StockHouse/linkH?ljzid=' + ljzid + "&hid=" + hid);
+    }
 }

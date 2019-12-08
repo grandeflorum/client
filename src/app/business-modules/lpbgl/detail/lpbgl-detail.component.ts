@@ -13,6 +13,8 @@ import { HouseRentalService } from '../../service/houserental/houserantal.servic
 import { HouseTradeService } from "../../service/contract/house-trade.service";
 import { StockTradeService } from "../../service/contract/stock-trade.service";
 import { ZddyglService } from '../../service/zddygl/zddygl.service';
+import { StockHouseService } from "../../service/stockHouse/stock-house.service";
+
 
 
 @Component({
@@ -68,6 +70,7 @@ export class LpbglDetailComponent implements OnInit {
   selectH = "";
   pid = "";
   modalSslm = "";
+  //保留查询条件，点击返回时要定位到当前查询条件数据
   option="";
   
   constructor(
@@ -82,7 +85,8 @@ export class LpbglDetailComponent implements OnInit {
     private houseRentalService: HouseRentalService,
     private houseTradeService: HouseTradeService,
     private stockTradeService: StockTradeService,
-    private zddyglService: ZddyglService
+    private zddyglService: ZddyglService,
+    private stockHouseService:StockHouseService
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
     this.detailObj.id = this.activatedRoute.snapshot.queryParams.id;
@@ -213,6 +217,8 @@ export class LpbglDetailComponent implements OnInit {
         route = '/contract/stockTrade/detail';
       } else if (this.glType == 'zddygl') {
         route = '/zddygl/detail';
+      } else if(this.glType=="stockHouse"){
+        route='/stockHouse/detail'
       }
       this.router.navigate([route], {
         queryParams: {
@@ -446,6 +452,13 @@ export class LpbglDetailComponent implements OnInit {
         res = await this.houseTradeService.linkH(this.pid, this.selectH);
       } else if (this.glType == "stockTrade") {
         res = await this.stockTradeService.linkH(this.pid, this.selectH);
+      } else if (this.glType == "stockHouse") {
+        if(this.lpbdetail&&this.lpbdetail.selectedLJZid){
+          res = await this.stockHouseService.linkH(this.lpbdetail.selectedLJZid, this.pid);
+        }else{
+          this.msg.create("error", "逻辑幢信息获取出错，关联失败");
+          return;
+        }
       }
 
       if (res && res.code == 200) {
