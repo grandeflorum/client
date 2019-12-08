@@ -3,6 +3,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { KfxmglService } from '../../service/xmgl/kfxmgl.service';
 import { LpbglService } from '../../service/lpbgl/lpbgl.service';
+import { StatisticService } from '../../service/statistic/statistic.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import * as echarts from 'echarts';
@@ -115,7 +116,8 @@ rankList = [
     private msg: NzMessageService,
     private router: Router,
     private kfxmglService: KfxmglService,
-    private lpbglService: LpbglService
+    private lpbglService: LpbglService,
+    private statisticService:StatisticService
   ) { }
 
   ngOnInit() {
@@ -134,7 +136,13 @@ rankList = [
     this.btnIndex = m;
   }
 
-  setXsEchart(){
+ async setXsEchart(){
+   var option = {
+     year:'2019',
+
+   }
+    var res = await this.statisticService.getOverallSalesTrend(option);
+
     this.myChart = echarts.init(document.getElementById("xs_echart"));
     this.myChart.off('click');
     this.myChart.setOption(this.option)
