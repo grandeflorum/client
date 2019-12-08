@@ -365,7 +365,7 @@ addH(){
 
 //删除逻辑幢
 async deleteLjz(id){
-  var res = await this.lpbglService.deleteH(id);
+  var res = await this.lpbglService.deleteLJZ(id);
   if (res && res.code == 200) {
     this.msg.create('success', '删除成功');
 
