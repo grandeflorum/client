@@ -74,7 +74,7 @@
         <div nz-col [nzSpan]="12">
           <div class="label_div">入网时间：</div>
           <span>
-            <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.rwsj" [disabled]="isDisable">
+            <nz-date-picker  [nzStyle]="{'width':'150px'}"  [nzAllowClear]="false" [(ngModel)]="detailObj.rwsj" [disabled]="isDisable">
             </nz-date-picker>
           </span>
 
@@ -129,6 +129,14 @@
           </nz-select>
         </div>
 
+        <div nz-col [nzSpan]="12">
+          <div class="label_div"><span class="clo_r">*</span>合同类型：</div>
+          <nz-select [(ngModel)]="detailObj.houseType" required name ="houseType"
+          [validation]="true" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+              <nz-option *ngFor="let option of houseTypeList" [nzLabel]="option.name" [nzValue]="option.code">
+                </nz-option>
+          </nz-select>
+        </div>
       </div>
 
       <nz-divider nzText="购买人" nzOrientation="left" style="font-size: 18px"></nz-divider>

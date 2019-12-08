@@ -48,5 +48,9 @@ export class HouseTradeService {
     return this.http.get('/HouseTrade/getHInfo?hid=' + hid);
   }
 
+  checkExistCompletionFile(id):any{
+    return this.http.get('/HouseTrade/checkExistCompletionFile?id=' + id);
+  }
+
 
 }
