@@ -420,7 +420,7 @@ export class HouseTradeComponent implements OnInit {
     var data = {
       ids: this.auditProjectId,
       wfAudit: this.auditObj,
-      status: this.auditName = "注销" ? 1 : 2
+      status: this.auditName == "注销" ? 1 : 2
     }
 
     if (!this.auditResultVisible) {

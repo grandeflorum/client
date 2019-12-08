@@ -99,8 +99,8 @@
           <a class="table_a" *ngIf="data.currentStatus==2&&cansh" (click)="audit(data)">初审</a>
           <a class="table_a" *ngIf="data.currentStatus==3&&cansh" (click)="audit(data)">核定</a>
           <a class="table_a" *ngIf="data.currentStatus==4&&cansh" (click)="audit(data)">登簿</a>
-          <a class="table_a" *ngIf="data.currentStatus==5&&data.isCancel==0&&cansh" (click)="audit(data,1)">注销</a>
-          <a class="table_a" *ngIf="data.currentStatus==5&&data.isCancel==0&&cansh" (click)="audit(data,2)">变更</a>
+          <a class="table_a" *ngIf="data.currentStatus==5&&(data.isCancel==0||!data.isCancel)&&cansh" (click)="audit(data,1)">注销</a>
+          <a class="table_a" *ngIf="data.currentStatus==5&&(data.isCancel==0||!data.isCancel)&&cansh" (click)="audit(data,2)">变更</a>
 
           <a class="table_a" *ngIf="data.currentStatus==5&&!data.isCancel" (click)="perview(data)">预览</a>
           <a class="table_a" *ngIf="data.currentStatus==5&&!data.isCancel" (click)="print(data)">打印</a>
