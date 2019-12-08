@@ -364,6 +364,13 @@
         </ul>
 
       </div>
+      <ul class="lpb_tl">
+        <li class="lpb_wba">未备案</li>
+        <li class="lpb_kxs">可销售</li>
+        <li class="lpb_yba">已备案</li>
+        <li class="lpb_ydy">已抵押</li>
+        <li class="lpb_ycf">已查封</li>
+      </ul>
     </div>
    
     <nz-divider nzText="与产权人关系" nzOrientation="left" style="font-size: 18px"></nz-divider>
@@ -514,3 +521,12 @@
 <nz-modal [(nzVisible)]="isImgVisible" nzTitle="附件预览" (nzOnCancel)="isImgVisible = false" [nzFooter]="null">
   <img src="{{currentImg}}" style="width:100%">
 </nz-modal>
+
+<ng-template #PopoverContent>
+  <p>门牌号：{{selectedHu.mph}}</p>
+  <p>层数：{{selectedHu.ch}}</p>
+  <p>单元号：{{selectedHu.dyh}}</p>
+  <p>面积：{{selectedHu.scjzmj}}</p>
+  <p>不动产登记号：{{selectedHu.bdcdyh}}</p>
+  <p>坐落：{{selectedHu.zl}}</p>
+</ng-template>

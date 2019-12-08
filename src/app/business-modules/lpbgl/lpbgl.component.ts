@@ -126,7 +126,7 @@ export class LpbglComponent implements OnInit {
 
     var res = await this.lpbglService.getBuildingTableList(this.option);
     this.Loading = false;
-    if (res.code == 200) {
+    if (res&&res.code == 200) {
       this.dataSet = res.msg.currentList;
       this.totalCount = res.msg.recordCount;
       this.calculationHeight();

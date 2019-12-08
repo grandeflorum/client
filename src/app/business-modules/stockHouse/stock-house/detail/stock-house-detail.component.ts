@@ -58,6 +58,7 @@ export class StockHouseDetailComponent implements OnInit {
   rowSpan: any = 0;
   lpbList: any = [];
   selectH: any = "";
+  selectedHu: any = {};
 
   isbusy = false;
 
@@ -93,7 +94,9 @@ export class StockHouseDetailComponent implements OnInit {
   ngOnInit() {
 
     this.getDictory();
-    this.tabs.push({ name: '关联户', index: 2 });
+    if(!this.isDisable){
+      this.tabs.push({ name: '关联户', index: 2 });
+    }
     if (this.detailObj.id) {
       this.getStockHouseById();
       this.search();
@@ -170,6 +173,10 @@ export class StockHouseDetailComponent implements OnInit {
       })
 
     }
+  }
+
+  selectedHuChange(item) {
+    this.selectedHu = item;
   }
 
   async search() {
