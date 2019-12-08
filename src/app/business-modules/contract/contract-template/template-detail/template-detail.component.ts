@@ -23,7 +23,7 @@ export class TemplateDetailComponent implements OnInit {
     id: "",
     name: "",
     type: "",
-    content:"",
+    content: "",
     contractTemplateHistory: {
       xgyy: "",
       xgnr: "",
@@ -101,10 +101,13 @@ export class TemplateDetailComponent implements OnInit {
       if (res.msg) {
         this.contractObj = res.msg;
         if (this.type == "1") {
-          this.contractObj.name = "商品房合同模板"
+          this.contractObj.name = "商品房买卖合同（现售）模板"
         } else if (this.type == "2") {
+          this.contractObj.name = "商品房买卖合同（预售）模板"
+        } else if (this.type == "3") {
           this.contractObj.name = "存量房合同模板"
         }
+
         this.contractObj.contractTemplateHistory = {
           xgyy: "",
           xgnr: "",
@@ -113,7 +116,7 @@ export class TemplateDetailComponent implements OnInit {
       } else {
         this.contractObj.type = this.type
       }
-     
+
 
     }
   }
