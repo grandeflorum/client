@@ -101,7 +101,7 @@ export class ContractTemplateComponent implements OnInit {
         enableAutoSave: false,
         autoHeightEnabled: false,
         initialFrameWidth: '100%',
-        initialFrameHeight: 400
+        initialFrameHeight: 410
       };
     }, 100);
 
