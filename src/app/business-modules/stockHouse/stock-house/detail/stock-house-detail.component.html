@@ -61,25 +61,26 @@
     </div>
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="8">
-        <div class="label_div">层号：</div>
+        <div class="label_div"><span class="clo_r">*</span>层号：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.ch" title={{detailObj.ch}} [disabled]="isDisable" maxlength="12" class="w200"
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.ch" title={{detailObj.ch}} [disabled]="isDisable" required
+          [validation]="true"   maxlength="12" class="w200"
             placeholder="请输入层号" />
         </span>
 
       </div>
       <div nz-col [nzSpan]="8">
-        <div class="label_div">坐落：</div>
+        <div class="label_div"><span class="clo_r">*</span>坐落：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.zl" title={{detailObj.zl}} [disabled]="isDisable" maxlength="100"
-            class="w200" placeholder="请输入坐落" />
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.zl" title={{detailObj.zl}} [disabled]="isDisable" required
+          [validation]="true" maxlength="100" class="w200" placeholder="请输入坐落" />
         </span>
 
       </div>
       <div nz-col [nzSpan]="8">
-        <div class="label_div">面积单位：</div>
+        <div class="label_div"><span class="clo_r">*</span>面积单位：</div>
         <span>
-          <nz-select [(ngModel)]="detailObj.mjdw" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable">
+          <nz-select [(ngModel)]="detailObj.mjdw" nzPlaceHolder="请选择" class="w200" required [validation]="true" [disabled]="isDisable">
             <nz-option *ngFor="let option of dictionaryObj.mjdw" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
           </nz-select>
@@ -88,25 +89,25 @@
     </div>
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="8">
-        <div class="label_div">实际层数：</div>
+        <div class="label_div"><span class="clo_r">*</span>实际层数：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.sjcs" title={{detailObj.sjcs}} [disabled]="isDisable" maxlength="5"
-            class="w200" placeholder="请输入实际层数" />
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.sjcs" title={{detailObj.sjcs}} required [validation]="true" [validationType]="'number'"
+           [disabled]="isDisable" maxlength="5" class="w200" placeholder="请输入实际层数" />
         </span>
 
       </div>
       <div nz-col [nzSpan]="8">
-        <div class="label_div">户号：</div>
+        <div class="label_div"><span class="clo_r">*</span>户号：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.hh" title={{detailObj.hh}} [disabled]="isDisable" maxlength="6" class="w200"
-            placeholder="请输入户号" />
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.hh" title={{detailObj.hh}} required [validation]="true" [validationType]="'number'"
+           [disabled]="isDisable"  maxlength="6" class="w200" placeholder="请输入户号" />
         </span>
 
       </div>
       <div nz-col [nzSpan]="8">
-        <div class="label_div">室号部位：</div>
-        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.shbw" title={{detailObj.shbw}} [disabled]="isDisable" maxlength="10"
-            class="w200" placeholder="请输入室号部位" />
+        <div class="label_div"><span class="clo_r">*</span>室号部位：</div>
+        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.shbw" title={{detailObj.shbw}} required [validation]="true" [disabled]="isDisable" maxlength="10"
+            class="w200" placeholder="请输入室号部位" (ngModelChange)="shbwChange()" />
         </span>
       </div>
     </div>
@@ -190,10 +191,10 @@
     </div>
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="8">
-        <div class="label_div">实测建筑面积：</div>
+        <div class="label_div"><span class="clo_r">*</span>实测建筑面积：</div>
         <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.scjzmj" title={{detailObj.scjzmj}} [disabled]="isDisable" maxlength="10"
-            [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入实测建筑面积" />
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.scjzmj" title={{detailObj.scjzmj}}  [disabled]="isDisable" maxlength="10"
+            required [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入实测建筑面积" />
         </span>
         &nbsp;㎡
       </div>
@@ -231,9 +232,9 @@
         &nbsp;㎡
       </div>
       <div nz-col [nzSpan]="8">
-        <div class="label_div">实测分摊系数：</div>
+        <div class="label_div"><span class="clo_r">*</span>实测分摊系数：</div>
         <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.scftxs" title={{detailObj.scftxs}} [disabled]="isDisable" maxlength="10"
-            [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入实测分摊系数" />
+          required  [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入实测分摊系数" />
         </span>
       </div>
     </div>
@@ -247,10 +248,10 @@
         &nbsp;㎡
       </div>
       <div nz-col [nzSpan]="8">
-        <div class="label_div">分摊土地面积：</div>
+        <div class="label_div"><span class="clo_r">*</span>分摊土地面积：</div>
         <span>
           <input nz-input nzSize="default" [(ngModel)]="detailObj.fttdmj" title={{detailObj.fttdmj}} [disabled]="isDisable" maxlength="10"
-            [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入分摊土地面积" />
+          required  [validation]="true" [validationType]="'nullAreaNumber'" class="w200" placeholder="请输入分摊土地面积" />
         </span>
         &nbsp;㎡
       </div>
@@ -288,6 +289,80 @@
         <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.fcfht" title={{detailObj.fcfht}} [disabled]="isDisable" maxlength="100"
             class="w200" placeholder="请输入房产分户图" />
         </span>
+      </div>
+    </div>
+    <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="8">
+        <div class="label_div"><span class="clo_r">*</span>门牌号：</div>
+        <span>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.mph" title={{detailObj.mph}} [disabled]="isDisable" maxlength="30"
+          required [validation]="true" class="w200" placeholder="门牌号" />
+        </span>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">用途名称：</div>
+        <span>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.ytmc" title={{detailObj.ytmc}} [disabled]="isDisable" maxlength="30"
+             class="w200" placeholder="用途名称" />
+        </span>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">房屋类型名称：</div>
+        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.fwlxmc" title={{detailObj.fwlxmc}} [disabled]="isDisable" maxlength="30"
+           class="w200" placeholder="房屋类型名称" />
+        </span>
+      </div>
+    </div>
+    <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">房屋性质名称：</div>
+        <span>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.fwxzmc" title={{detailObj.fwxzmc}} [disabled]="isDisable" maxlength="30"
+           class="w200" placeholder="房屋性质名称" />
+        </span>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <div class="label_div"><span class="clo_r">*</span>单元号：</div>
+        <span>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.dyh" title={{detailObj.dyh}} [disabled]="isDisable" maxlength="10"
+          required [validation]="true" [validationType]="'number'" class="w200" placeholder="单元号" />
+        </span>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <div class="label_div"><span class="clo_r">*</span>单元名称：</div>
+        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.dymc" title={{detailObj.dymc}} [disabled]="isDisable" maxlength="30"
+          required [validation]="true" class="w200" placeholder="单元名称" />
+        </span>
+      </div>
+    </div>
+    <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="8">
+        <div class="label_div"><span class="clo_r">*</span>户编号：</div>
+        <span>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.hbh" title={{detailObj.hbh}} [disabled]="isDisable" maxlength="10"
+          required [validation]="true" [validationType]="'number'" class="w200" placeholder="户编号" />
+        </span>
+      </div>
+    </div>
+
+    <div *ngIf="detailObj.ljzid">
+      <nz-divider nzText="楼盘表" nzOrientation="left" style="font-size: 18px"></nz-divider>
+
+      <div class="lpb_div" style="width:980px;margin:0 auto;overflow: auto;">
+        <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}">
+          <li class="ch_td">楼层数</li>
+          <li *ngFor="let data of lpbList.dyList; index as index" [ngStyle]="{'width':data.rowSpan*100+'px'}">
+            {{data.name}}</li>
+        </ul>
+        <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}" *ngFor="let item of lpbList.cList; index as index">
+          <li class="ch_td">{{item.ch}}层</li>
+          <li *ngFor="let hu of item.hList" [ngClass]="{'lpb_ydy':hu.status == 1 , 'lpb_ycf':hu.status == 2}"
+            nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent"
+            (mouseenter)="selectedHuChange(hu)" [ngStyle]="{'border-color':selectH==hu.id?'red':'#ccc'}"
+            (click)="selectH=hu.id">
+            {{hu.mph}}</li>
+        </ul>
+
       </div>
     </div>
    
@@ -409,7 +484,11 @@
     </nz-table>
   </div>
 
-  <div class="jbxx" *ngIf="tabsetIndex==2&&detailObj.id" style="overflow: hidden">
+  <div class="jbxx" *ngIf="tabsetIndex==2">
+    <app-lpbgl [glType]="'stockHouse'" [pid]="detailObj.id"></app-lpbgl>
+  </div>
+
+  <div class="jbxx" *ngIf="tabsetIndex==3&&detailObj.id" style="overflow: hidden">
     <app-associated-company [associatedid]="detailObj.id" modulename="stockHouse" [selectShow]="!isDisable">
     </app-associated-company>
   </div>

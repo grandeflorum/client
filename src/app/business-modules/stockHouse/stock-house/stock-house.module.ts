@@ -6,6 +6,8 @@ import { StockHouseComponent } from "./stock-house.component";
 import { LayoutModule } from '../../../layout/layout.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { StockHouseDetailComponent } from './detail/stock-house-detail.component';
+import { LpbglDetailComponent } from '../../lpbgl/detail/lpbgl-detail.component';
+
 
 const routes: Routes = [
   {
@@ -15,6 +17,10 @@ const routes: Routes = [
   {
     path: 'detail',
     component: StockHouseDetailComponent
+  },
+  {
+      path: 'lpbdetail',
+      component: LpbglDetailComponent
   }
 ];
 

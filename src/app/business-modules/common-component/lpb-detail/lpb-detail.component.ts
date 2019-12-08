@@ -47,6 +47,7 @@ export class LpbDetailComponent implements OnInit {
   isAddCe = false;
   companyList: any[] = [];
   companyLoading: boolean = false;
+  selectedLJZid="";
 
   constructor(
     private lpbglService: LpbglService,
@@ -146,6 +147,7 @@ export class LpbDetailComponent implements OnInit {
   tabsetChange2(m) {
     this.tabsetIndex2 = m;
       var id = this.tabs2[m].id;
+    this.selectedLJZid=this.tabs2[m].id;
       this.getLpb(id);
  
   }
