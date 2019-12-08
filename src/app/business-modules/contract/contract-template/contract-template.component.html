@@ -1,81 +1,119 @@
 <div style="height: 100%;">
-    <div style="width:50%;float: left;text-align: center;height: 100%;">
-        <div style="text-align: center;margin-top: 30px;height: calc(100% - 30px);" id="divheight">
-            <span style="font-weight: bold;">商品房买卖合同</span>
+
+    <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" (nzSelectedIndexChange)="tabnumChange($event)">
+        <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
+    </nz-tabset>
+
+    <div *ngIf="selectIdx==1" style="text-align: center;height: calc(100% - 100px);">
+        <div style="width:65%;    margin-left: 15%;text-align: center;margin-top: 30px;height: calc(100% - 30px);" id="divheight">
+            <span style="font-weight: bold;">{{selectName}}</span>
             <div style="margin-top: 30px;">
                 <nz-upload *ngIf="cantjsh" [nzAction]="uploadFileUrl" [nzBeforeUpload]="beforeUpload"
-                    [nzCustomRequest]="customReqGoodsHouseTemplate" [nzData]="1" [nzShowUploadList]="false"
+                    [nzCustomRequest]="customReqHouseTemplate" [nzData]="1" [nzShowUploadList]="false"
                     [nzMultiple]="false" [nzAccept]="accept">
                     <button nz-button nzType="primary">
                         上传
                     </button>
                 </nz-upload>
-                <button nz-button nzType="primary" *ngIf="!goodsHouseTemplate.id&&cantjsh" (click)="showDetaile(1,1)">
+                <button nz-button nzType="primary" *ngIf="!houseTemplateList[selectIdx-1].id&&cantjsh" (click)="showDetaile(1)">
                     添加
                 </button>
-                <button nz-button nzType="primary" *ngIf="goodsHouseTemplate.id&&cantjsh" (click)="showDetaile(1,2)">
+                <button nz-button nzType="primary" *ngIf="houseTemplateList[selectIdx-1].id&&cantjsh" (click)="showDetaile(2)">
                     编辑
                 </button>
-                <button nz-button nzType="primary" *ngIf="goodsHouseTemplate.id" (click)="showDetaile(1,3)">
+                <button nz-button nzType="primary" *ngIf="houseTemplateList[selectIdx-1].id" (click)="showDetaile(3)">
                     查看
                 </button>
-                <button nz-button nzType="primary" *ngIf="goodsHouseTemplate.id" (click)="download(1)">
+                <button nz-button nzType="primary" *ngIf="houseTemplateList[selectIdx-1].id" (click)="download()">
                     下载
                 </button>
-                <button nz-button nzType="primary" *ngIf="goodsHouseTemplate.id" (click)="vieHistory(1)">
+                <button nz-button nzType="primary" *ngIf="houseTemplateList[selectIdx-1].id" (click)="vieHistory()">
                     查看历史
                 </button>
             </div>
-            <div *ngIf="!goodsHouseTemplate.id"
-                style="height: calc(100% - 155px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
+            <div *ngIf="!houseTemplateList[selectIdx-1].id" style="height: calc(100% - 70px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
                 <img src="../../../../assets/images/contract.png" style="margin-top: 20%;">
-                <div style="font-weight: bold;margin-top: 20%;">你可以导入或者选择添加来制作合同模板</div>
+                <div style="font-weight: bold;">你可以导入或者选择添加来制作合同模板</div>
             </div>
-            <div *ngIf="goodsHouseTemplate.id"
-                style="height: calc(100% - 155px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
-                <ueditor [(ngModel)]="goodsHouseTemplate.content" [config]="config"></ueditor>
+            <div *ngIf="houseTemplateList[selectIdx-1].id" style="height: calc(100% - 70x);margin: 20px 40px;border: #e8e8e8 solid 1px;">
+                <ueditor [(ngModel)]="houseTemplateList[selectIdx-1].content" [config]="config"></ueditor>
             </div>
         </div>
-
     </div>
-    <div style="width: 50%;float: left;text-align: center;height: 100%;">
-        <div style="text-align: center;margin-top: 30px;height: calc(100% - 30px);">
-            <span style="font-weight: bold;">存量房买卖合同</span>
-            <div style="margin-top: 30px;">
-                <nz-upload *ngIf="cantjsh" [nzAction]="uploadFileUrl" [nzBeforeUpload]="beforeUpload"
-                    [nzCustomRequest]="customReqStockHouseTemplate" [nzShowUploadList]="false" [nzMultiple]="false"
-                    [nzAccept]="accept">
-                    <button nz-button nzType="primary">
-                        上传
+
+    <div *ngIf="selectIdx==2" style="text-align: center;height: calc(100% - 100px);">
+            <div style="width:65%;    margin-left: 15%;text-align: center;margin-top: 30px;height: calc(100% - 30px);" id="divheight">
+                <span style="font-weight: bold;">{{selectName}}</span>
+                <div style="margin-top: 30px;">
+                    <nz-upload *ngIf="cantjsh" [nzAction]="uploadFileUrl" [nzBeforeUpload]="beforeUpload"
+                        [nzCustomRequest]="customReqHouseTemplate" [nzData]="1" [nzShowUploadList]="false"
+                        [nzMultiple]="false" [nzAccept]="accept">
+                        <button nz-button nzType="primary">
+                            上传
+                        </button>
+                    </nz-upload>
+                    <button nz-button nzType="primary" *ngIf="!houseTemplateList[selectIdx-1].id&&cantjsh" (click)="showDetaile(1)">
+                        添加
                     </button>
-                </nz-upload>
-
-                <button nz-button nzType="primary" *ngIf="!stockHouseTemplate.id&&cantjsh" (click)="showDetaile(2,1)">
-                    添加
-                </button>
-                <button nz-button nzType="primary" *ngIf="stockHouseTemplate.id&&cantjsh" (click)="showDetaile(2,2)">
-                    编辑
-                </button>
-                <button nz-button nzType="primary" *ngIf="stockHouseTemplate.id" (click)="showDetaile(2,3)">
-                    查看
-                </button>
-                <button nz-button nzType="primary" *ngIf="stockHouseTemplate.id" (click)="download(2)">
-                    下载
-                </button>
-                <button nz-button nzType="primary" *ngIf="stockHouseTemplate.id" (click)="vieHistory(2)">
-                    查看历史
-                </button>
-            </div>
-            <div *ngIf="!stockHouseTemplate.id"
-                style="height: calc(100% - 155px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
-                <img src="../../../../assets/images/contract.png" style="margin-top: 20%;">
-                <div style="font-weight: bold;margin-top: 20%;">你可以导入或者选择添加来制作合同模板</div>
-            </div>
-            <div *ngIf="stockHouseTemplate.id"
-                style="height: calc(100% - 155px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
-                <ueditor [(ngModel)]="stockHouseTemplate.content" [config]="config"></ueditor>
+                    <button nz-button nzType="primary" *ngIf="houseTemplateList[selectIdx-1].id&&cantjsh" (click)="showDetaile(2)">
+                        编辑
+                    </button>
+                    <button nz-button nzType="primary" *ngIf="houseTemplateList[selectIdx-1].id" (click)="showDetaile(3)">
+                        查看
+                    </button>
+                    <button nz-button nzType="primary" *ngIf="houseTemplateList[selectIdx-1].id" (click)="download()">
+                        下载
+                    </button>
+                    <button nz-button nzType="primary" *ngIf="houseTemplateList[selectIdx-1].id" (click)="vieHistory()">
+                        查看历史
+                    </button>
+                </div>
+                <div *ngIf="!houseTemplateList[selectIdx-1].id" style="height: calc(100% - 70px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
+                    <img src="../../../../assets/images/contract.png" style="margin-top: 20%;">
+                    <div style="font-weight: bold;">你可以导入或者选择添加来制作合同模板</div>
+                </div>
+                <div *ngIf="houseTemplateList[selectIdx-1].id" style="height: calc(100% - 70x);margin: 20px 40px;border: #e8e8e8 solid 1px;">
+                    <ueditor [(ngModel)]="houseTemplateList[selectIdx-1].content" [config]="config"></ueditor>
+                </div>
             </div>
         </div>
 
-    </div>
+        <div *ngIf="selectIdx==3" style="text-align: center;height: calc(100% - 100px);">
+                <div style="width:65%;    margin-left: 15%;text-align: center;margin-top: 30px;height: calc(100% - 30px);" id="divheight">
+                    <span style="font-weight: bold;">{{selectName}}</span>
+                    <div style="margin-top: 30px;">
+                        <nz-upload *ngIf="cantjsh" [nzAction]="uploadFileUrl" [nzBeforeUpload]="beforeUpload"
+                            [nzCustomRequest]="customReqHouseTemplate" [nzData]="1" [nzShowUploadList]="false"
+                            [nzMultiple]="false" [nzAccept]="accept">
+                            <button nz-button nzType="primary">
+                                上传
+                            </button>
+                        </nz-upload>
+                        <button nz-button nzType="primary" *ngIf="!houseTemplateList[selectIdx-1].id&&cantjsh" (click)="showDetaile(1)">
+                            添加
+                        </button>
+                        <button nz-button nzType="primary" *ngIf="houseTemplateList[selectIdx-1].id&&cantjsh" (click)="showDetaile(2)">
+                            编辑
+                        </button>
+                        <button nz-button nzType="primary" *ngIf="houseTemplateList[selectIdx-1].id" (click)="showDetaile(3)">
+                            查看
+                        </button>
+                        <button nz-button nzType="primary" *ngIf="houseTemplateList[selectIdx-1].id" (click)="download()">
+                            下载
+                        </button>
+                        <button nz-button nzType="primary" *ngIf="houseTemplateList[selectIdx-1].id" (click)="vieHistory()">
+                            查看历史
+                        </button>
+                    </div>
+                    <div *ngIf="!houseTemplateList[selectIdx-1].id" style="height: calc(100% - 70px);margin: 20px 40px;border: #e8e8e8 solid 1px;">
+                        <img src="../../../../assets/images/contract.png" style="margin-top: 20%;">
+                        <div style="font-weight: bold;">你可以导入或者选择添加来制作合同模板</div>
+                    </div>
+                    <div *ngIf="houseTemplateList[selectIdx-1].id" style="height: calc(100% - 70x);margin: 20px 40px;border: #e8e8e8 solid 1px;">
+                        <ueditor [(ngModel)]="houseTemplateList[selectIdx-1].content" [config]="config"></ueditor>
+                    </div>
+                </div>
+        </div>
+
+
 </div>

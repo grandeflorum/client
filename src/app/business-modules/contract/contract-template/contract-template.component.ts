@@ -18,16 +18,35 @@ export class ContractTemplateComponent implements OnInit {
   uploadFileUrl = AppConfig.Configuration.baseUrl + "/ContractTemplate/uploadDoc";
   accept = "doc,docx";
 
-  //商品房模板
-  goodsHouseTemplate = {
+  tabs: any = [
+    { name: "商品房买卖合同（现售）", idx: 1 },
+    { name: "商品房买卖合同（预售）", idx: 2 },
+    { name: "存量房买卖合同", idx: 3 }
+  ];
+
+  selectIdx = 1;
+  selectName = "商品房买卖合同（现售）";
+
+  //模板
+  houseTemplateList: any = [
+    {
+      id: "",
+      content: ""
+    },
+    {
+      id: "",
+      content: ""
+    },
+    {
+      id: "",
+      content: ""
+    },
+  ];
+  houseTemplate = {
     id: "",
     content: ""
   };
-  //存量房模板
-  stockHouseTemplate = {
-    id: "",
-    content: ""
-  };
+
 
   constructor(
     private router: Router,
@@ -70,31 +89,55 @@ export class ContractTemplateComponent implements OnInit {
 
     this.getRoles();
 
-    var ueditorHeight = $('#divheight').height() - 120;
-    this.config = {
-      readonly: true,
-      toolbars: [],
-      wordCount: false,
-      elementPathEnabled: false,
-      enableAutoSave: false,
-      autoHeightEnabled: false,
-      initialFrameWidth: '100%',
-      initialFrameHeight: ueditorHeight
-    };
-    //获取商品房模板
-    this.getContractTemplateByType(1);
-    //获取存量房模板
-    this.getContractTemplateByType(2);
+
+    var that = this;
+    setTimeout(() => {
+      var ueditorHeight = $('#divheight').height() - 120;
+      that.config = {
+        readonly: true,
+        toolbars: [],
+        wordCount: false,
+        elementPathEnabled: false,
+        enableAutoSave: false,
+        autoHeightEnabled: false,
+        initialFrameWidth: '100%',
+        initialFrameHeight: 400
+      };
+    }, 100);
+
+    //获取模板
+    this.getContractTemplateByType(this.selectIdx);
+  }
+
+  tabnumChange(num) {
+    this.selectIdx = num + 1;
+    this.selectName = this.tabs.filter(function (item) {
+      return item.idx == (num + 1);
+    })[0].name;
+
+    if (this.houseTemplateList[num].id) {
+      this.houseTemplate = this.houseTemplateList[num];
+    } else {
+      this.getContractTemplateByType(this.selectIdx);
+    }
+
   }
 
   async getContractTemplateByType(type) {
     var res = await this.contractService.getContractTemplateByType(type);
     if (res && res.code == 200) {
-      if (type == 1) {
-        this.goodsHouseTemplate = res.msg;
-      } else if (type == 2) {
-        this.stockHouseTemplate = res.msg;
+      if (res.msg) {
+        this.houseTemplate = res.msg;
+      } else {
+        this.houseTemplate = {
+          id: "",
+          content: ""
+        };
       }
+
+      this.houseTemplateList[this.selectIdx - 1] = this.houseTemplate;
+
+
     } else {
       this.msg.create('error', '获取商品房模板失败');
     }
@@ -102,11 +145,7 @@ export class ContractTemplateComponent implements OnInit {
 
   vieHistory(item?) {
     var refId = "";
-    if (item == 1) {
-      refId = this.goodsHouseTemplate.id;
-    } else if (item == 2) {
-      refId = this.stockHouseTemplate.id;
-    }
+    refId = this.houseTemplate.id;
     if (refId) {
       this.router.navigate(['contract/contractTemplate/history'], {
         queryParams: {
@@ -116,32 +155,28 @@ export class ContractTemplateComponent implements OnInit {
     }
   }
 
-  //item:1:商品房，2存量房
   //operate:1.查看，2.编辑
-  showDetaile(type, operate) {
+  showDetaile(operate) {
     var refId = "";
-    if (type == 1) {
-      refId = this.goodsHouseTemplate.id;
-    } else if (type == 2) {
-      refId = this.stockHouseTemplate.id;
-    }
+    refId = this.houseTemplate.id;
+
     this.router.navigate(['contract/contractTemplate/detaile'], {
       queryParams: {
         id: refId,
-        type: type,
+        type: this.selectIdx,
         operate: operate,
       }
     });
   }
 
-  customReqGoodsHouseTemplate = (item: UploadXHRArgs) => {
+  customReqHouseTemplate = (item: UploadXHRArgs) => {
 
     var that = this;
     // 构建一个 FormData 对象，用于存储文件或其他参数
     const formData = new FormData();
     formData.append('files', item.file as any);
-    formData.append('id', this.goodsHouseTemplate.id);
-    formData.append('type', "1");
+    formData.append('id', that.houseTemplate.id);
+    formData.append('type', that.selectIdx.toString());
 
 
     const req = new HttpRequest('POST', item.action, formData, {
@@ -154,41 +189,8 @@ export class ContractTemplateComponent implements OnInit {
         if (event instanceof HttpResponse) {
           var res: any = event.body;
           if (res && res.code == 200) {
-            this.goodsHouseTemplate = res.msg;
-            that.msg.success('上传成功');
-          } else {
-            this.msg.error('上传失败');
-          }
-
-        }
-
-      },
-      err => {
-      }
-    );
-  }
-
-  customReqStockHouseTemplate = (item: UploadXHRArgs) => {
-
-    var that = this;
-    // 构建一个 FormData 对象，用于存储文件或其他参数
-    const formData = new FormData();
-    formData.append('files', item.file as any);
-    formData.append('id', this.stockHouseTemplate.id);
-    formData.append('type', "2");
-
-
-    const req = new HttpRequest('POST', item.action, formData, {
-      reportProgress: true,
-      withCredentials: false
-    });
-    this.http.request(req).subscribe(
-      (event: HttpEvent<{}>) => {
-
-        if (event instanceof HttpResponse) {
-          var res: any = event.body;
-          if (res && res.code == 200) {
-            this.stockHouseTemplate = res.msg;
+            this.houseTemplate = res.msg;
+            this.houseTemplateList[this.selectIdx - 1] = this.houseTemplate;
             that.msg.success('上传成功');
           } else {
             this.msg.error('上传失败');
@@ -212,16 +214,11 @@ export class ContractTemplateComponent implements OnInit {
     }
   };
 
-  download(type) {
-    if (type == 1) {
-      if (this.goodsHouseTemplate.id) {
-        window.location.href = this.downLoadurl + "?id=" + this.goodsHouseTemplate.id + "&title=" + "商品房模板";
-      }
-    } else if (type == 2) {
-      if (this.stockHouseTemplate.id) {
-        window.location.href = this.downLoadurl + "?id=" + this.stockHouseTemplate.id + "&title=" + "存量房模板";
-      }
+  download() {
+    if (this.houseTemplate.id) {
+      window.location.href = this.downLoadurl + "?id=" + this.houseTemplate.id + "&title=" + this.selectName;
     }
+
   }
 
 }
