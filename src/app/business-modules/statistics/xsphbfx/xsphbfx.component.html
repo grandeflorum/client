@@ -1,6 +1,6 @@
-<div class="list_content_wrap" style="overflow: auto;padding:24px 0">
+<div class="list_content_wrap" style="overflow: auto;padding:0">
 
-<div class="statistics_btn_wrap" nz-row style="height: 50px;padding: 10px 24px;">
+<div class="statistics_btn_wrap" nz-row style="padding: 15px 24px;">
     <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(1)" [ngClass]="{'selected_btn':btnIndex == 1}">今日</button>
     <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(2)" [ngClass]="{'selected_btn':btnIndex == 2}">本周</button>
     <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(3)" [ngClass]="{'selected_btn':btnIndex == 3}">本月</button>
@@ -31,7 +31,7 @@
   </div>
 
 
-  <div class="echart_wrap">
+  <div class="echart_wrap" style="margin-top:0">
       <p style="position: absolute;top:20px;left: 35px;line-height: 30px;"><span class="rank_title">项目销售量排名前十</span></p>
     <div id="xs_echart"></div>
 
@@ -48,7 +48,7 @@
   <div nz-row class="rank_title" style="height: 50px;padding: 10px;padding-left:30px;line-height: 30px;">
   项目销售量列表
   </div>
-  <div nz-row style="height: 50px;padding: 10px;text-align: center;background: #e4e4e4">
+  <div nz-row style="padding: 12px;text-align: center;background: #e4e4e4">
   <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" style="width:400px">
       <input type="text" nz-input placeholder="请输入开发企业、项目名称搜索" />
     </nz-input-group>
@@ -56,8 +56,10 @@
       <button nz-button nzType="primary" nzSearch style="margin-left:0">搜索</button>
     </ng-template>
   </div>
-<div nz-row style="height: 50px;padding: 10px;">
-
+<div nz-row style="padding: 24px;">
+    <div nz-col [nzSpan]="24">
+        <button class="right" nz-button nzType="primary" (click)="search()">导出</button>
+    </div>
 
 </div>
 
@@ -70,11 +72,12 @@
         <tr>
           <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
             (nzCheckedChange)="checkAll($event)"></th>
+            <th>开发企业名称</th>
             <th>项目名称</th>
-            <th>楼盘名称</th>
-          <th>总套数</th>
-          <th>总面积（㎡）</th>
-          <th>操作</th>
+            <th>销售量（套）</th>
+            <th>销售均价（元/平方米）</th>
+            <th>销售面积（平方米）</th>
+          
         </tr>
       </thead>
       <tbody>
@@ -82,13 +85,12 @@
           (click)="selectItem(data)">
           <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
             (nzCheckedChange)="refreshStatus()"></td>
+            <td></td>
             <td title="{{data.xmmc}}">{{ data.xmmc |tooltips:15}}</td>
-            <td title="{{data.kfqymc}}">{{ data.jzwmc |tooltips:15}}</td>
-          <td>{{data.zts}}</td>
-          <td>{{data.zmj}}</td>
-         <td>
-            <a class="table_a" (click)="add(2,data)">查看</a>
-          </td>
+            <td></td>
+          <td></td>
+          <td></td>
+        
         </tr>
       </tbody>
     </nz-table>
