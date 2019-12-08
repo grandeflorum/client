@@ -27,8 +27,8 @@ import { RecordtimePipe } from './_pipes/recordtime.pipe';
         NgxEchartsModule,
         UEditorModule.forRoot({
             js: [
-                '../../assets/ueditor/ueditor.all.min.js',
-                '../../assets/ueditor/ueditor.config.js'
+                '../../assets/ueditor/ueditor.config.js',
+                '../../assets/ueditor/ueditor.all.min.js'
             ],
             options: {
                 UEDITOR_HOME_URL: '../../assets/ueditor/'
