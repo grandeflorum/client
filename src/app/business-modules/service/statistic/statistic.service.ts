@@ -29,5 +29,10 @@ export class StatisticService {
     getSummarySalesPurposes(data): any {
         return this.http.post('/Statistic/getSummarySalesPurposes', data);
     }
+
+        //获取交易汇总统计
+        getTransactionSummaryStatistic(data): any {
+            return this.http.post('/Statistic/getTransactionSummaryStatistic', data);
+        }
 }
 

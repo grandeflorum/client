@@ -120,7 +120,8 @@ const routes: Routes = [
         data: { id: 'A-statistics' },
         children: [
             { path: 'xsphbfx', loadChildren: () => import('./statistics/xsphbfx/xsphbfx.module').then(m => m.XsphbfxModule) },
-            { path: 'sjcxtjfx', loadChildren: () => import('./statistics/sjcxtjfx/sjcxtjfx.module').then(m => m.SjcxtjfxModule) }
+            { path: 'sjcxtjfx', loadChildren: () => import('./statistics/sjcxtjfx/sjcxtjfx.module').then(m => m.SjcxtjfxModule) },
+            { path: 'jyhzxxfx', loadChildren: () => import('./statistics/jyhzxxfx/jyhzxxfx.module').then(m => m.JyhzxxfxModule) }
         ]
     },
     { path: '', pathMatch: 'full', redirectTo: '/login' }
