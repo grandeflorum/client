@@ -6,7 +6,6 @@ import { LpbglService } from '../../service/lpbgl/lpbgl.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import * as echarts from 'echarts';
-import { StatisticService } from '../../service/statistic/statistic.service';
 
 @Component({
   selector: 'app-xsphbfx',
@@ -14,42 +13,115 @@ import { StatisticService } from '../../service/statistic/statistic.service';
   styleUrls: ['./xsphbfx.component.scss']
 })
 export class XsphbfxComponent implements OnInit {
+  @Input() type = "";
+  @Input() glType = "";
+  @Input() pid = "";
 
-  //时间查询字段
-  date1: any = new Date();
-  date2: any = new Date(new Date().getFullYear() - 2,1,1);
-  date3: any = new Date();
+  pageIndex: any = 1;
+  totalCount: any = 0;
+  pageSize: any = 10;
+  Loading = false;
+ 
+  dataSet: any = [];
+  sortList: any = [];
+  selectId: any = '';
+  xmmc = '';
+  jzwmc = '';
+
+  isVisible = false;
+  dataType = 0;
+  dateYear = null;
+  dateMonth = null;
+  dateDay = null;
+  shxxObj: any = {
+    ids: [],
+    wfAudit: {
+      shjg: "1",
+      shry: '',
+      bz: '',
+      shrq: null
+    }
+  }
+  isAllDisplayDataChecked = false;
+  isIndeterminate = false;
+  listOfDisplayData = [];
+  listOfAllData = [];
+  mapOfCheckedId: { [key: string]: boolean } = {};
+  numberOfChecked = 0;
+
 
   tabs = [
-    { name: '商品房', index: 0 },
-    { name: '存量房', index: 1 },
-    { name: '房屋租赁', index: 2 }
-  ];
-  tabsetIndex = 2;
-
-  items = [
-    { name: "平均租金", value: "zj" },
-    { name: "成交套数", value: "ts" }
-  ];
-  dlValue: any = "zj";
-
+    { name: '销售量', index: 0 },
+    { name: '销售均价', index: 1 },
+    { name: '销售面积', index: 2 }
+  ]
+  tabsetIndex = 0;
+  dateRange = [];
   btnIndex = 1;
-  myChart: any = {};
-  myChart1: any = {};
+  myChart:any = {};
+  option = {
+    color: ['#3398DB'],
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+            type : 'category',
+            data : ['1', '2', '3', '4', '5', '6', '7' ,'8','9','10','11','12'],
+            axisTick: {
+                alignWithLabel: true
+            }
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'销售量',
+            type:'bar',
+            barWidth: '60%',
+            data:[10, 52, 200, 334, 390, 330, 220, 150 ,120 , 140, 50 ,100]
+        }
+    ]
+};
 
-  dateResult: any = [];
-  regionResult: any = []
-
+rankList = [
+  {name:'保利城',ts:1000},
+  {name:'华侨天府',ts:900},
+  {name:'颐和尚景',ts:800},
+  {name:'清江山水',ts:700},
+  {name:'江南家园',ts:600},
+  {name:'红馆',ts:500},
+  {name:'华清苑',ts:400},
+  {name:'鎏金园',ts:300},
+  {name:'天祥上府',ts:200},
+  {name:'华侨城',ts:100}
+]
 
   constructor(
     private msg: NzMessageService,
     private router: Router,
     private kfxmglService: KfxmglService,
-    private lpbglService: LpbglService,
-    private statisticService: StatisticService
+    private lpbglService: LpbglService
   ) { }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.setXsEchart();
+    }, 500);
+
     this.search();
   }
 
@@ -57,192 +129,136 @@ export class XsphbfxComponent implements OnInit {
     this.tabsetIndex = m;
   }
 
-  echartChange(m) {
+  echartChange(m){
     this.btnIndex = m;
   }
 
-  async search() {
-
-    var startDate, endDate;
-    if (this.btnIndex == 1 || this.btnIndex == 2) {
-      if (!this.date1) {
-        this.msg.create("warning", "请选择时间");
-        return;
-      }
-      startDate = this.date1;
-    } else {
-      if (!this.date2) {
-        this.msg.create("warning", "请选择开始时间");
-        return;
-      }
-      if (!this.date3) {
-        this.msg.create("warning", "请选择结束时间");
-        return;
-      }
-      startDate = this.date2;
-      endDate = this.date3;
-
-    }
-
-    var data = {
-      startDate: startDate.getFullYear(),
-      endDate: endDate?endDate.getFullYear():"",
-      type: this.btnIndex
-    };
-    let res = await this.statisticService.getHouseRentalStatistic(data);
-    if (res && res.code == 200) {
-      this.dateResult = res.msg.dateResult;
-      this.regionResult = res.msg.regionResult;
-      this.initChart();
-    }
-  }
-
-  initChart() {
-
-    var data = [];
-    var regionData = [];
-
-    var title = "";
-    var statisticName = "";
-    var unit = "";
-
-    if (this.dlValue == "zj") {
-      title = "平均租金统计";
-      statisticName = "平均租金";
-      unit = "元";
-      this.dateResult.forEach(element => {
-        data.push(element.zj);
-      });
-      this.regionResult.forEach(element => {
-        regionData.push(element.zj);
-      });
-    } else {
-      title = "套数统计";
-      statisticName = "套数";
-      unit = "套";
-      this.dateResult.forEach(element => {
-        data.push(element.ts);
-      });
-
-      this.regionResult.forEach(element => {
-        regionData.push(element.ts);
-      });
-    }
-
-    let option = {
-      title: {
-        text: title,
-        x: 'center'
-      },
-      color: ['#3398DB'],
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-          type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-        }
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: [
-        {
-          type: 'category',
-          data: this.dateResult.map(function (v) {
-            return v.dateValue;
-          }),
-          axisTick: {
-            alignWithLabel: true
-          }
-        }
-      ],
-      yAxis: [
-        {
-          name: unit,
-          type: 'value'
-        }
-      ],
-      series: [
-        {
-          name: statisticName,
-          type: 'bar',
-          barWidth: '60%',
-          data: data
-        }
-      ]
-    };
-
-    this.myChart = echarts.init(document.getElementById("echart1"));
+  setXsEchart(){
+    this.myChart = echarts.init(document.getElementById("xs_echart"));
     this.myChart.off('click');
-    this.myChart.setOption(option);
+    this.myChart.setOption(this.option)
+  }
 
-
-    let option1 = {
-      title: {
-        text: "所属区"+title,
-        x: 'center'
-      },
-      color: ['#3398DB'],
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-          type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-        }
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: [
-        {
-          type: 'category',
-          data: this.regionResult.map(function (v) {
-            return v.regionName;
-          }),
-          axisTick: {
-            alignWithLabel: true
-          }
-        }
-      ],
-      yAxis: [
-        {
-          name: unit,
-          type: 'value'
-        }
-      ],
-      series: [
-        {
-          name: statisticName,
-          type: 'bar',
-          barWidth: '60%',
-          data: regionData
-        }
-      ]
+  async search() {
+    this.Loading = true;
+    let option = {
+      pageNo: this.pageIndex,
+      pageSize: this.pageSize,
+      conditions: []
     };
 
-    this.myChart1 = echarts.init(document.getElementById("echart2"));
-    this.myChart1.off('click');
-    this.myChart1.setOption(option1)
+    if (this.type) {
+      option.conditions.push({ key: 'type', value: this.type });
+    }
 
+    if (this.xmmc) {
+      option.conditions.push({ key: 'xmmc', value: this.xmmc });
+    }
+    if (this.jzwmc) {
+      option.conditions.push({ key: 'jzwmc', value: this.jzwmc });
+    }
+
+
+    var res = await this.lpbglService.getBuildingTableList(option);
+    this.Loading = false;
+    if (res.code == 200) {
+      this.dataSet = res.msg.currentList;
+      this.totalCount = res.msg.recordCount;
+
+    }
+
+    this.operateData();
 
   }
 
-  dlValueChange(value){
-    this.initChart();
+  //排序
+  sort(evt) {
+    let key = evt.key;
+
+    if (this.sortList.some(x => x.indexOf(key) > -1)) {
+      this.sortList.splice(this.sortList.findIndex(x => x.indexOf(key) > -1), 1);
+    }
+
+    if (evt.value) {
+      if (evt.value == 'ascend') {
+        this.sortList.push(key);
+      } else if (evt.value == 'descend') {
+        this.sortList.push(key + ' desc');
+      }
+    }
+
+    this.search();
+  }
+
+
+  pageIndexChange(num) {
+    this.pageIndex = num;
+    this.search();
+  }
+
+  pageSizeChange(num) {
+    this.pageSize = num;
+    this.pageIndex = 1;
+    this.search();
+  }
+
+  reset() {
+    this.xmmc = '';
+    this.jzwmc = '';
+ 
+
+    this.search();
+
+  }
+
+  currentPageDataChange($event): void {
+    this.listOfDisplayData = $event;
+    this.refreshStatus();
+  }
+
+  refreshStatus(): void {
+    this.isAllDisplayDataChecked = this.listOfDisplayData
+      .filter(item => !item.disabled)
+      .every(item => this.mapOfCheckedId[item.id]);
+    this.isIndeterminate =
+      this.listOfDisplayData.filter(item => !item.disabled).some(item => this.mapOfCheckedId[item.id]) &&
+      !this.isAllDisplayDataChecked;
+    this.numberOfChecked = this.listOfAllData.filter(item => this.mapOfCheckedId[item.id]).length;
+  }
+
+  checkAll(value: boolean): void {
+    this.listOfDisplayData.filter(item => !item.disabled).forEach(item => (this.mapOfCheckedId[item.id] = value));
+    this.refreshStatus();
+  }
+
+  operateData(): void {
+    setTimeout(() => {
+      this.listOfAllData.forEach(item => (this.mapOfCheckedId[item.id] = false));
+      this.refreshStatus();
+    }, 1000);
+  }
+
+
+  onChange(m,type) {
+    console.log(m)
+  }
+
+  selectItem(data) {
+    this.selectId = data.id;
   }
 
 
 
+ 
 
 
 
 
-
-
-
+  ngAfterViewInit() {
+    var that = this;
+    $(window).resize(function () {
+ 
+    })
+  }
 
 }
