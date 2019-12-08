@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class RecordtimePipe implements PipeTransform {
 
-    transform(value: any, type: any): any {
+    transform(value: any, type?: any): any {
 
         var dateee = new Date(value).toJSON();
         var date = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
