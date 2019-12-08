@@ -112,6 +112,11 @@ rankList = [
   {name:'华侨城',ts:100}
 ]
 
+nowDayOfWeek = new Date().getDay(); //今天本周的第几天
+nowDay = new Date().getDate(); //当前日
+nowMonth = new Date().getMonth(); //当前月
+nowYear = new Date().getFullYear(); //当前年
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -135,21 +140,30 @@ rankList = [
   echartChange(m){
     this.btnIndex = m;
 
+    this.nowDayOfWeek = new Date().getDay(); //今天本周的第几天
+    this.nowDay = new Date().getDate(); //当前日
+    this.nowMonth = new Date().getMonth(); //当前月
+    this.nowYear = new Date().getFullYear(); //当前年
+
     if(m == 1){//今日
       this.kssj = Moment(new Date()).format('YYYY-MM-DD');
       this.jssj = Moment(new Date()).format('YYYY-MM-DD');
       this.year = new Date().getFullYear();
 
     }else if(m == 2){//本周
-      
+      this.kssj = this.ghGetWeekStartDate();
+      this.jssj = this.ghGetNextWeekStartDate();
     }else if(m == 3){//本月
-      
+      this.kssj = this.ghGetMonthStartDate();
+      this.jssj = this.ghGetNextMonthStartDate();
     }else if(m == 4){//本季度
-      
+      this.kssj = this.ghGetQuarterStartDate();
+      this.jssj = this.ghGetNextQuarterStartDate();
     }else if(m == 5){//本年
-      
+      this.kssj = Moment(new Date(new Date().getFullYear(),0,1) ).format('YYYY-MM-DD');
+      this.jssj =  Moment(new Date()).format('YYYY-MM-DD');
     }
-
+    this.searchTopTen();
     this.search();
   }
 
@@ -169,6 +183,33 @@ rankList = [
 
 
   }
+
+  async searchTopTen() {
+    
+    let option = {
+      pageNo: 1,
+      pageSize: 10,
+      conditions: []
+    };
+
+  if (this.kssj) {
+      option.conditions.push({ key: 'kssj', value: this.kssj });
+    }
+
+    if (this.jssj) {
+      option.conditions.push({ key: 'jssj', value: this.jssj });
+    }
+
+    option.conditions.push({ key: 'sort', value: ['xsl'] });
+
+
+    var res = await this.statisticService.getProjectSalesVolumeList(option);
+    this.Loading = false;
+    if (res.code == 200) {
+      this.rankList = res.msg.currentList;
+
+    }
+}
 
   async search() {
     this.Loading = true;
@@ -191,7 +232,7 @@ rankList = [
     }
 
 
-
+    option.conditions.push({ key: 'sort', value: this.sortList });
 
     var res = await this.statisticService.getProjectSalesVolumeList(option);
     this.Loading = false;
@@ -222,6 +263,10 @@ rankList = [
     }
 
     this.search();
+  }
+
+  export(){
+    window.open( AppConfig.Configuration.baseUrl + "/Statistic/excelDownload?mc=" + this.mc + "&yt=&kssj=" + this.kssj + "&jssj=" + this.jssj);
   }
 
 
@@ -266,6 +311,29 @@ rankList = [
 
   onChange(m,type) {
     console.log(m)
+    if(type == 'year'){
+      this.kssj = Moment(new Date(m.getFullYear(),0,1) ).format('YYYY-MM-DD');
+      this.jssj =  Moment(new Date(m.getFullYear(),12,1)).format('YYYY-MM-DD');
+      this.year = m.getFullYear();
+    }else if(type == 'month'){
+      var selectMonth = m.getMonth();
+      this.kssj = Moment(new Date(m.getFullYear(),selectMonth,1) ).format('YYYY-MM-DD');
+      this.jssj =  Moment(new Date(m.getFullYear(),selectMonth + 1,1)).format('YYYY-MM-DD');
+      this.year = m.getFullYear();
+    }else if(type == 'day'){
+      this.kssj = Moment(m).format('YYYY-MM-DD');
+      this.jssj =  Moment(m).format('YYYY-MM-DD');
+      this.year = m.getFullYear();
+    }else if(type == 'quarter'){
+      this.kssj = Moment(new Date(this.dateYear.getFullYear(),this.dataQuarter*3-3,1)).format('YYYY-MM-DD');
+      this.jssj =  Moment(new Date(this.dateYear.getFullYear(),this.dataQuarter*3,1)).format('YYYY-MM-DD');
+    }else if(type == 'range'){
+      this.kssj = Moment(this.dateRange[0]).format('YYYY-MM-DD');
+      this.jssj =  Moment(this.dateRange[1]).format('YYYY-MM-DD');
+      this.year = m.getFullYear();
+    }
+    this.searchTopTen();
+    this.search();
   }
 
   selectItem(data) {
@@ -273,7 +341,104 @@ rankList = [
   }
 
 
-
+   formatDate(date) {
+       return Moment(date).format('YYYY-MM-DD');
+    }
+    
+    //获得某月的天数
+     getMonthDays(theYear, theMonth) {
+        var monthStartDate:any = new Date(theYear, theMonth, 1);
+        var monthEndDate:any = new Date(theYear, theMonth + 1, 1);
+        var days = (monthEndDate - monthStartDate) / (1000 * 60 * 60 * 24);
+        return days;
+    }
+    
+    //获得本季度的开始月份
+     getQuarterStartMonth(theMonth?) {
+        if(!theMonth) {
+            theMonth = this.nowMonth;
+        }
+        var quarterStartMonth = 0;
+        if (theMonth < 3) {
+            quarterStartMonth = 0;
+        }
+        if (2 < theMonth && theMonth < 6) {
+            quarterStartMonth = 3;
+        }
+        if (5 < theMonth && theMonth < 9) {
+            quarterStartMonth = 6;
+        }
+        if (theMonth > 8) {
+            quarterStartMonth = 9;
+        }
+        return quarterStartMonth;
+    }
+    
+    //获得本周的开始日期
+     ghGetWeekStartDate() {
+        var weekStartDate = new Date(this.nowYear, this.nowMonth, this.nowDay - this.nowDayOfWeek + 1);
+        return this.formatDate(weekStartDate);
+    }
+    //获得本周的结束日期
+     ghGetWeekEndDate() {
+        var weekEndDate = new Date(this.nowYear, this.nowMonth, this.nowDay + (6 - this.nowDayOfWeek) + 1);
+        return this.formatDate(weekEndDate);
+    }
+    
+    //获得下周的开始日期
+     ghGetNextWeekStartDate() {
+        var weekStartDate = new Date(this.nowYear, this.nowMonth, this.nowDay - this.nowDayOfWeek + 7 + 1);
+        return this.formatDate(weekStartDate);
+    }
+    
+    //获得本月的开始日期
+     ghGetMonthStartDate() {
+        var monthStartDate = new Date(this.nowYear, this.nowMonth, 1);
+        return this.formatDate(monthStartDate);
+    }
+    
+    //获得本月的结束日期
+     ghGetMonthEndDate() {
+        var monthEndDate = new Date(this.nowYear, this.nowMonth, this.getMonthDays(this.nowYear, this.nowMonth));
+        return this.formatDate(monthEndDate);
+    }
+    
+    //获得下月开始时间
+     ghGetNextMonthStartDate() {
+        var theYear = this.nowYear;
+        var theMonth = this.nowMonth + 1;
+        if(theMonth == 12) {
+            theYear += 1;
+            theMonth = 0;
+        }
+        var nextMonthStartDate = new Date(theYear, theMonth, 1);
+        return this.formatDate(nextMonthStartDate);
+    }
+    
+   //获得本季度的开始日期
+    ghGetQuarterStartDate() {
+        var quarterStartDate = new Date(this.nowYear, this.getQuarterStartMonth(), 1);
+        return this.formatDate(quarterStartDate);
+    }
+    
+    //或的本季度的结束日期
+     ghGetQuarterEndDate() {
+        var quarterEndMonth = this.getQuarterStartMonth() + 2;
+        var quarterStartDate = new Date(this.nowYear, quarterEndMonth,
+          this.getMonthDays(this.nowYear, quarterEndMonth));
+        return this.formatDate(quarterStartDate);
+    }
+    
+     ghGetNextQuarterStartDate() {
+        var theYear = this.nowYear;
+        var theQuarterMonth = this.nowMonth + 3;
+        if(theQuarterMonth > 11) {
+            theYear += 1;
+            theQuarterMonth -= 12;
+        }
+        var quarterStartDate = new Date(theYear, this.getQuarterStartMonth(theQuarterMonth), 1);
+        return this.formatDate(quarterStartDate);
+    }
  
 
 
