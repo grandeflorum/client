@@ -50,7 +50,7 @@
   </div>
   <div nz-row style="padding: 12px;text-align: center;background: #e4e4e4">
   <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" style="width:400px">
-      <input type="text" nz-input placeholder="请输入开发企业、项目名称搜索" />
+      <input type="text"  [(ngModel)]="mc" nz-input placeholder="请输入开发企业、项目名称搜索" />
     </nz-input-group>
     <ng-template #suffixIconButton>
       <button nz-button nzType="primary" nzSearch style="margin-left:0">搜索</button>
@@ -85,11 +85,11 @@
           (click)="selectItem(data)">
           <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
             (nzCheckedChange)="refreshStatus()"></td>
-            <td></td>
+            <td>{{ data.qymc |tooltips:15}}</td>
             <td title="{{data.xmmc}}">{{ data.xmmc |tooltips:15}}</td>
-            <td></td>
-          <td></td>
-          <td></td>
+            <td>{{ data.xsl}}</td>
+          <td>{{data.jj}}</td>
+          <td>{{data.xsmj}}</td>
         
         </tr>
       </tbody>

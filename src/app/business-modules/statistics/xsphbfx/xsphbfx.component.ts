@@ -26,8 +26,7 @@ export class XsphbfxComponent implements OnInit {
   dataSet: any = [];
   sortList: any = [];
   selectId: any = '';
-  xmmc = '';
-  jzwmc = '';
+  mc = '';
 
   isVisible = false;
   dataType = 0;
@@ -50,8 +49,9 @@ export class XsphbfxComponent implements OnInit {
   listOfAllData = [];
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
-
-
+  kssj = null;
+  jssj = null;
+  year = new Date().getFullYear();
   tabs = [
     { name: '销售量', index: 0 },
     { name: '销售均价', index: 1 },
@@ -78,7 +78,7 @@ export class XsphbfxComponent implements OnInit {
     xAxis : [
         {
             type : 'category',
-            data : ['1', '2', '3', '4', '5', '6', '7' ,'8','9','10','11','12'],
+            data : [],
             axisTick: {
                 alignWithLabel: true
             }
@@ -94,7 +94,7 @@ export class XsphbfxComponent implements OnInit {
             name:'销售量',
             type:'bar',
             barWidth: '60%',
-            data:[10, 52, 200, 334, 390, 330, 220, 150 ,120 , 140, 50 ,100]
+            data:[]
         }
     ]
 };
@@ -125,7 +125,7 @@ rankList = [
       this.setXsEchart();
     }, 500);
 
-    this.search();
+    this.echartChange(1);
   }
 
   tabsetChange(m) {
@@ -134,18 +134,40 @@ rankList = [
 
   echartChange(m){
     this.btnIndex = m;
+
+    if(m == 1){//今日
+      this.kssj = Moment(new Date()).format('YYYY-MM-DD');
+      this.jssj = Moment(new Date()).format('YYYY-MM-DD');
+      this.year = new Date().getFullYear();
+
+    }else if(m == 2){//本周
+      
+    }else if(m == 3){//本月
+      
+    }else if(m == 4){//本季度
+      
+    }else if(m == 5){//本年
+      
+    }
+
+    this.search();
   }
 
  async setXsEchart(){
    var option = {
-     year:'2019',
+     year:this.year,
 
    }
     var res = await this.statisticService.getOverallSalesTrend(option);
+    if(res&&res.code == 200){
+      this.option.xAxis[0].data = res.msg.X;
+      this.option.series[0].data = res.msg.Y;
+      this.myChart = echarts.init(document.getElementById("xs_echart"));
+      this.myChart.off('click');
+      this.myChart.setOption(this.option)
+    }
 
-    this.myChart = echarts.init(document.getElementById("xs_echart"));
-    this.myChart.off('click');
-    this.myChart.setOption(this.option)
+
   }
 
   async search() {
@@ -156,19 +178,22 @@ rankList = [
       conditions: []
     };
 
-    if (this.type) {
-      option.conditions.push({ key: 'type', value: this.type });
+    if (this.mc) {
+      option.conditions.push({ key: 'mc', value: this.mc });
     }
 
-    if (this.xmmc) {
-      option.conditions.push({ key: 'xmmc', value: this.xmmc });
+    if (this.kssj) {
+      option.conditions.push({ key: 'kssj', value: this.kssj });
     }
-    if (this.jzwmc) {
-      option.conditions.push({ key: 'jzwmc', value: this.jzwmc });
+
+    if (this.jssj) {
+      option.conditions.push({ key: 'jssj', value: this.jssj });
     }
 
 
-    var res = await this.lpbglService.getBuildingTableList(option);
+
+
+    var res = await this.statisticService.getProjectSalesVolumeList(option);
     this.Loading = false;
     if (res.code == 200) {
       this.dataSet = res.msg.currentList;
@@ -209,15 +234,6 @@ rankList = [
     this.pageSize = num;
     this.pageIndex = 1;
     this.search();
-  }
-
-  reset() {
-    this.xmmc = '';
-    this.jzwmc = '';
- 
-
-    this.search();
-
   }
 
   currentPageDataChange($event): void {
