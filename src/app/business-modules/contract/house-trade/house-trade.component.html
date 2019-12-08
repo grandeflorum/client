@@ -99,7 +99,8 @@
           <a class="table_a" *ngIf="data.currentStatus==2&&cansh" (click)="audit(data)">初审</a>
           <a class="table_a" *ngIf="data.currentStatus==3&&cansh" (click)="audit(data)">核定</a>
           <a class="table_a" *ngIf="data.currentStatus==4&&cansh" (click)="audit(data)">登簿</a>
-          <a class="table_a" *ngIf="data.currentStatus==5&&data.isCancel!=1&&cansh" (click)="audit(data)">注销</a>
+          <a class="table_a" *ngIf="data.currentStatus==5&&data.isCancel==0&&cansh" (click)="audit(data,1)">注销</a>
+          <a class="table_a" *ngIf="data.currentStatus==5&&data.isCancel==0&&cansh" (click)="audit(data,2)">变更</a>
 
           <a class="table_a" *ngIf="data.currentStatus==5&&!data.isCancel" (click)="perview(data)">预览</a>
           <a class="table_a" *ngIf="data.currentStatus==5&&!data.isCancel" (click)="print(data)">打印</a>
@@ -144,7 +145,7 @@
 
   <div style="margin-bottom: 10px;" *ngIf="!auditResultVisible" nz-row>
     <div nz-col [nzSpan]="24" class="ta_l">
-      <div class="label_div">注销理由</div>
+      <div class="label_div">{{auditMsg}}</div>
       <textarea style="width: calc(100% - 175px);margin-left: 35px;" nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }"
         [(ngModel)]="auditObj.zxly" maxlength="500"></textarea>
     </div>

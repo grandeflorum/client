@@ -30,7 +30,7 @@ export class HouseTradeDetailComponent implements OnInit {
   tabsetIndex = 0;
   isDisable = false;
   detailObj: any = {};
-  hid:"";
+  hid: "";
   selectId = -1;
   fjList = [];
   pageIndex: any = 1;
@@ -62,7 +62,11 @@ export class HouseTradeDetailComponent implements OnInit {
     { name: '核定', state: 3 },
     { name: '登簿', state: 4 },
     { name: '生成合同', state: 5 }
-  ]
+  ];
+  houseTypeList = [
+    {code:1,name:"现售"},
+    {code:2,name:"预售"}
+  ];
   fileTypeList = [];
   fileTypeIndex = 0;
 
@@ -92,7 +96,7 @@ export class HouseTradeDetailComponent implements OnInit {
     let pid = this.activatedRoute.snapshot.queryParams["pid"];
     this.detailObj.id = pid ? pid : this.detailObj.id;
     //直接从楼盘表页面跳转过来备案
-    this.hid=this.activatedRoute.snapshot.queryParams.hid;
+    this.hid = this.activatedRoute.snapshot.queryParams.hid;
 
     let glType = this.activatedRoute.snapshot.queryParams["glType"];
     this.tabsetIndex = glType ? 2 : 0;
@@ -130,8 +134,8 @@ export class HouseTradeDetailComponent implements OnInit {
     this.dictionaryObj = this.localstorage.getObject("dictionary");
     if (this.detailObj.id) {
       this.getDetail();
-    }else if(this.hid){
-      this.detailObj.houseId=this.hid;
+    } else if (this.hid) {
+      this.detailObj.houseId = this.hid;
       this.getHInfo();
     }
     this.search();
@@ -164,7 +168,7 @@ export class HouseTradeDetailComponent implements OnInit {
     }
   }
 
-  async getHInfo(){
+  async getHInfo() {
     var res = await this.houseTradeService.getHInfo(this.detailObj.houseId);
     if (res && res.code == 200) {
       this.detailObj = res.msg;
@@ -420,6 +424,15 @@ export class HouseTradeDetailComponent implements OnInit {
     if (event) {
       this.handleCancel();
       this.search();
+      this.checkExistCompletionFile();
+    }
+  }
+
+  async checkExistCompletionFile() {
+
+    let res = await this.houseTradeService.checkExistCompletionFile(this.detailObj.id);
+    if (res && res.code == 200) {
+      this.detailObj.houseType = res.msg > 0 ? 1 : 2;
     }
   }
 
@@ -457,6 +470,7 @@ export class HouseTradeDetailComponent implements OnInit {
     if (res && res.code == 200) {
       this.msg.create('success', '删除成功');
       this.search();
+      this.checkExistCompletionFile();
     } else {
       this.msg.create('error', '删除失败');
     }

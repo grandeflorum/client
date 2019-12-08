@@ -7,6 +7,8 @@ import * as $ from 'jquery';
 import { StockHouseService } from "../../../service/stockHouse/stock-house.service";
 import { Localstorage } from '../../../service/localstorage';
 import { FileService } from '../../../service/file/file.service';
+import { LpbglService } from '../../../service/lpbgl/lpbgl.service';
+
 
 @Component({
   selector: 'app-stock-house-detail',
@@ -53,6 +55,10 @@ export class StockHouseDetailComponent implements OnInit {
   regionList: any = [];
   regionTreeNodes: any = [];
 
+  rowSpan: any = 0;
+  lpbList: any = [];
+  selectH: any = "";
+
   isbusy = false;
 
   constructor(
@@ -61,10 +67,13 @@ export class StockHouseDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private stockHouseService: StockHouseService,
     private localstorage: Localstorage,
-    private fileService: FileService
+    private fileService: FileService,
+    private lpbglService: LpbglService
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
     this.detailObj.id = this.activatedRoute.snapshot.queryParams.id;
+    let pid = this.activatedRoute.snapshot.queryParams["pid"];
+    this.detailObj.id = pid ? pid : this.detailObj.id;
 
     switch (type) {
       case '1'://添加
@@ -84,11 +93,12 @@ export class StockHouseDetailComponent implements OnInit {
   ngOnInit() {
 
     this.getDictory();
+    this.tabs.push({ name: '关联户', index: 2 });
     if (this.detailObj.id) {
       this.getStockHouseById();
       this.search();
 
-      this.tabs.push({ name: '关联企业', index: 2 });
+      this.tabs.push({ name: '关联企业', index: 3 });
     }
   }
 
@@ -139,8 +149,26 @@ export class StockHouseDetailComponent implements OnInit {
       if (!this.detailObj.relationShips) {
         this.detailObj.relationShips = [];
       }
+      if (this.detailObj.ljzid) {
+        this.selectH = this.detailObj.id;
+        this.getLpb(this.detailObj.ljzid);
+      }
     } else {
       this.msg.create('error', '内部服务出错');
+    }
+  }
+
+  async getLpb(id) {
+    this.rowSpan = 0;
+
+    var res = await this.lpbglService.getLjz(id);
+
+    if (res && res.code == 200) {
+      this.lpbList = res.msg;
+      this.lpbList.dyList.forEach((v, k) => {
+        this.rowSpan += v.rowSpan;
+      })
+
     }
   }
 
@@ -276,6 +304,10 @@ export class StockHouseDetailComponent implements OnInit {
     } else {
       this.msg.create('error', '保存失败');
     }
+  }
+
+  shbwChange(){
+    this.detailObj.mph=this.detailObj.shbw;
   }
 
   addpeople() {

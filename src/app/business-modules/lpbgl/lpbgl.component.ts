@@ -248,6 +248,8 @@ export class LpbglComponent implements OnInit {
           route = '/contract/stockTrade/lpbdetail';
         } else if (this.glType == "zddygl") {
           route = '/zddygl/lpbdetail';
+        } else if(this.glType=="stockHouse") {
+          route = '/stockHouse/lpbdetail';
         }
       }
 
