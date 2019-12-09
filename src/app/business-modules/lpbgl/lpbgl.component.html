@@ -1,25 +1,27 @@
 <div class="list_content_wrap">
   <div nz-row style="height: 50px;padding: 10px;">
-    <div nz-col [nzSpan]="8">
+    <div nz-col [nzSpan]="6">
       项目名称：
-      <input nz-input nzSize="default" [(ngModel)]="xmmc" class="w200" placeholder="请输入项目名称" />
+      <input nz-input nzSize="default" [(ngModel)]="xmmc" class="w150" placeholder="请输入项目名称" />
     </div>
-    <div nz-col [nzSpan]="8">
+    <div nz-col [nzSpan]="6">
       楼盘名称：
-      <input nz-input nzSize="default" [(ngModel)]="jzwmc" class="w200" placeholder="请输入楼盘名称" />
+      <input nz-input nzSize="default" [(ngModel)]="jzwmc" class="w150" placeholder="请输入楼盘名称" />
     </div>
 
-    <!-- <div nz-col [nzSpan]="7">
+    <div nz-col [nzSpan]="6">
       审核状态：
-      <nz-select [(ngModel)]="auditType" class="w200" nzPlaceHolder="请选择">
+      <nz-select [(ngModel)]="auditType" class="w150" nzPlaceHolder="请选择">
           <nz-option nzValue="" nzLabel="全部"></nz-option>
           <nz-option nzValue="0" nzLabel="未提交"></nz-option>
           <nz-option nzValue="1" nzLabel="待审核"></nz-option>
-          <nz-option nzValue="2" nzLabel="已审核"></nz-option>
+          <nz-option nzValue="2" nzLabel="一次审核"></nz-option>
           <nz-option nzValue="3" nzLabel="待修改"></nz-option>
+          <nz-option nzValue="4" nzLabel="二次审核"></nz-option>
+
         </nz-select>
-    </div> -->
-    <div nz-col [nzSpan]="8" class="ta_r">
+    </div>
+    <div nz-col [nzSpan]="6" class="ta_r">
       <button nz-button nzType="primary" (click)="search()">
         查询
       </button>
@@ -54,8 +56,8 @@
         <th>楼盘名称</th>
         <th>总套数</th>
         <th>总面积（㎡）</th>
-        <!-- <th nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th> -->
-        <th>操作</th>
+        <th nzShowSort nzSortKey="z.AUDITTYPE">审核状态</th>
+        <th style="width: 20%;">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -67,55 +69,56 @@
         <td title="{{data.kfqymc}}">{{ data.jzwmc |tooltips:15}}</td>
         <td>{{data.zts}}</td>
         <td>{{data.zmj}}</td>
-        <!-- <td [ngClass]="{'cr0':data.auditType==0, 'cr1':data.auditType==1,'cr2':data.auditType==2,'cr3':data.auditType==3}">
+        <td [ngClass]="{'cr0':data.auditType==0, 'cr1':data.auditType==1,'cr2':data.auditType==2||data.auditType==4,'cr3':data.auditType==3}">
                 <div class="point"
-                [ngClass]="{'point0':data.auditType==0, 'point1':data.auditType==1,'point2':data.auditType==2,'point3':data.auditType==3}"
-                ></div>{{ data.auditType|audit }}</td> -->
-        <td>
+                [ngClass]="{'point0':data.auditType==0, 'point1':data.auditType==1,'point2':data.auditType==2||data.auditType==4,'point3':data.auditType==3}"
+                ></div>{{ data.auditType|audit }}</td>
+        <td style="width: 20%;">
           <a class="table_a" (click)="add(2,data)">查看</a>
-          <a class="table_a" *ngIf="data.datasource==1" (click)="add(3,data)">编辑</a>
-          <a class="table_a" *ngIf="data.datasource==1" nz-popconfirm nzTitle="确定删除吗?"
+          <a class="table_a" *ngIf="data.datasource==1&&(data.auditType==0||data.auditType==3)&&canzsgc" (click)="add(3,data)">编辑</a>
+
+          <a class="table_a"  *ngIf="data.auditType==1&&cansh" (click)="moreAudit(data)">审核</a>
+          <a class="table_a" *ngIf="data.auditType==2&&canecsh" (click)="twoAudit(data)">二次审核</a>
+          <!-- <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete(data)">删除</a> -->
+          <a class="table_a" *ngIf="data.datasource==1&&(data.auditType==0||data.auditType==3)&&canzsgc" nz-popconfirm nzTitle="确定删除吗?"
           (nzOnConfirm)="deleteZrz(data.id)">删除</a>
-              <!-- <a class="table_a"  *ngIf="data.auditType==1" (click)="moreAudit(data)">审核</a>
-              <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete(data)">删除</a>
-              <a class="table_a" *ngIf="data.auditType==0 || data.auditType == 3"  nz-popconfirm nzTitle="确定提交审核吗?"
-              (nzOnConfirm)="auditSubmit(data , 1)">提交审核</a> -->
+          <a class="table_a" *ngIf="(data.auditType==0 || data.auditType == 3)&&cantjsh"  nz-popconfirm nzTitle="确定提交审核吗?"
+          (nzOnConfirm)="auditSubmit(data , 1)">提交审核</a>
         </td>
       </tr>
     </tbody>
   </nz-table>
 </div>
 
-<!-- <nz-modal [(nzVisible)]="isVisible" nzTitle="审核" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-  <div nz-row style="height: 50px;padding: 10px;">
-    <div nz-col [nzSpan]="24">
-      <div class="label_div">审核结果：</div>
+<nz-modal [(nzVisible)]="isAuditVisible" nzTitle="审核" (nzOnCancel)="handleAuditCancel()" (nzOnOk)="handleAuditOk()" [nzWidth]="800">
+  <div nz-row style="height: 60px;">
+    <div nz-col [nzSpan]="12" class="ta_r">
+      <div class="label_div"><span class="clo_r">*</span>审核结果：</div>
       <nz-select [(ngModel)]="shxxObj.wfAudit.shjg" class="w200" nzPlaceHolder="请选择">
         <nz-option nzValue="1" nzLabel="通过"></nz-option>
         <nz-option nzValue="2" nzLabel="不通过"></nz-option>
       </nz-select>
     </div>
   </div>
-  <div nz-row style="height: 50px;padding: 10px;">
-    <div nz-col [nzSpan]="24">
+  <div nz-row style="height: 60px;">
+    <div nz-col [nzSpan]="12" class="ta_r">
       <div class="label_div">审核人：</div>
       <input nz-input nzSize="default" [(ngModel)]="shxxObj.wfAudit.shry" class="w200" placeholder="请输入" />
     </div>
-</div>
-<div nz-row style="height: 50px;padding: 10px;">
-  <div nz-col [nzSpan]="24">
-    <div class="label_div">审核日期：</div>
-    <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="shxxObj.wfAudit.shrq" (ngModelChange)="onChange(3,$event)"></nz-date-picker>
+    <div nz-col [nzSpan]="12" class="ta_r">
+      <div class="label_div">审核日期：</div>
+      <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="shxxObj.wfAudit.shrq"></nz-date-picker>
+    </div>
   </div>
-</div>
-<div nz-row style="padding: 10px;">
-  <div nz-col [nzSpan]="24">
-    备注：
-    <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }"  [(ngModel)]="shxxObj.wfAudit.bz"></textarea>
+  <div nz-row>
+    <div nz-col [nzSpan]="24" class="ta_l">
+      <div class="label_div">备注</div>
+      <textarea nz-input style="width: calc(100% - 175px);margin-left: 35px;" [nzAutosize]="{ minRows: 5, maxRows: 8 }"
+        [(ngModel)]="shxxObj.wfAudit.bz"></textarea>
 
+    </div>
   </div>
-</div>
-</nz-modal> -->
+</nz-modal>
 
 <ng-template #rangeTemplate let-range="range" let-total>
   共{{total}}条记录&nbsp;&nbsp;
@@ -151,7 +154,7 @@
           </div>
         <div nz-col [nzSpan]="12" class="ta_r">
             <div class="label_div"><span class="clo_r">*</span>自然幢号：</div>
-            <input  name="zrzh" maxlength="50" nz-input style="width:calc(100% - 130px)"
+            <input  name="zrzh" maxlength="24" nz-input style="width:calc(100% - 130px)"
               required [validation]="true" nzSize="default" [(ngModel)]="lpb.zrzh" class="w200" />
         </div>
         </div>
@@ -160,12 +163,12 @@
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="12" class="ta_r">
         <div class="label_div">宗地代码：</div>
-        <input  name="zddm" maxlength="50" nz-input style="width:calc(100% - 130px)"
+        <input  name="zddm" maxlength="19" nz-input style="width:calc(100% - 130px)"
           nzSize="default" [(ngModel)]="lpb.zddm" />
       </div>
       <div nz-col [nzSpan]="12" class="ta_r">
         <div class="label_div">不动产单元号：</div>
-        <input  name="bdcdyh" maxlength="50" nz-input style="width:calc(100% - 130px)"
+        <input  name="bdcdyh" maxlength="28" nz-input style="width:calc(100% - 130px)"
           nzSize="default" [(ngModel)]="lpb.bdcdyh" class="w200" />
       </div>
       </div>
@@ -178,7 +181,7 @@
         </div>
         <div nz-col [nzSpan]="12" class="ta_r">
           <div class="label_div">总层数：</div>
-          <input  name="zcs" maxlength="50" nz-input style="width:calc(100% - 130px)"
+          <input  name="zcs" maxlength="2" nz-input style="width:calc(100% - 130px)"  [validation]="true" [validationType]="'nullnumber'"
            nzSize="default" [(ngModel)]="lpb.zcs" class="w200" />
         </div>
         </div>
@@ -186,12 +189,12 @@
         <div nz-row style="height: 50px;padding: 10px;">
           <div nz-col [nzSpan]="12" class="ta_r">
             <div class="label_div">幢占地面积：</div>
-            <input  name="zzdmj" maxlength="50" nz-input style="width:calc(100% - 150px)"
+            <input  name="zzdmj" maxlength="10" nz-input style="width:calc(100% - 150px)" [validation]="true" [validationType]="'nullAreaNumber'"
              nzSize="default" [(ngModel)]="lpb.zzdmj" />&nbsp;㎡
           </div>
           <div nz-col [nzSpan]="12" class="ta_r">
             <div class="label_div">幢用地面积：</div>
-            <input  name="zydmj" maxlength="50" nz-input style="width:calc(100% - 150px)"
+            <input  name="zydmj" maxlength="10" nz-input style="width:calc(100% - 150px)" [validation]="true" [validationType]="'nullAreaNumber'"
               nzSize="default" [(ngModel)]="lpb.zydmj" class="w200" />&nbsp;㎡
           </div>
           </div>
@@ -199,12 +202,12 @@
           <div nz-row style="height: 50px;padding: 10px;">
             <div nz-col [nzSpan]="12" class="ta_r">
               <div class="label_div">预测建筑物面积：</div>
-              <input  name="ycjzmj" maxlength="50" nz-input style="width:calc(100% - 150px)"
+              <input  name="ycjzmj" maxlength="10" nz-input style="width:calc(100% - 150px)" [validation]="true" [validationType]="'nullAreaNumber'"
                 nzSize="default" [(ngModel)]="lpb.ycjzmj" />&nbsp;㎡
             </div>
             <div nz-col [nzSpan]="12" class="ta_r">
               <div class="label_div">实测建筑面积：</div>
-              <input  name="scjzmj" maxlength="50" nz-input style="width:calc(100% - 150px)"
+              <input  name="scjzmj" maxlength="10" nz-input style="width:calc(100% - 150px)" [validation]="true" [validationType]="'nullAreaNumber'"
                 nzSize="default" [(ngModel)]="lpb.scjzmj" class="w200" />&nbsp;㎡
             </div>
             </div>
@@ -212,12 +215,12 @@
             <div nz-row style="height: 50px;padding: 10px;">
               <div nz-col [nzSpan]="12" class="ta_r">
                 <div class="label_div">地上层数：</div>
-                <input  name="dscs" maxlength="50" nz-input style="width:calc(100% - 130px)"
+                <input  name="dscs" maxlength="2" nz-input style="width:calc(100% - 130px)" [validation]="true" [validationType]="'nullnumber'"
                    nzSize="default" [(ngModel)]="lpb.dscs" />
               </div>
               <div nz-col [nzSpan]="12" class="ta_r">
                 <div class="label_div">地下层数：</div>
-                <input  name="dxcs" maxlength="50" nz-input style="width:calc(100% - 130px)"
+                <input  name="dxcs" maxlength="2" nz-input style="width:calc(100% - 130px)" [validation]="true" [validationType]="'nullnumber'"
                 nzSize="default" [(ngModel)]="lpb.dxcs" class="w200" />
               </div>
               </div>
@@ -225,7 +228,7 @@
               <div nz-row style="height: 50px;padding: 10px;">
                 <div nz-col [nzSpan]="12" class="ta_r">
                   <div class="label_div">地下深度：</div>
-                  <input  name="dxsd" maxlength="50" nz-input style="width:calc(100% - 130px)"
+                  <input  name="dxsd" maxlength="10" nz-input style="width:calc(100% - 130px)"  [validation]="true" [validationType]="'nullAreaNumber'"
                      nzSize="default" [(ngModel)]="lpb.dxsd" />
                 </div>
                 <div nz-col [nzSpan]="12" class="ta_r">
@@ -234,19 +237,21 @@
                   <nz-option *ngFor="let option of dictionaryObj.fwyt" [nzLabel]="option.name" [nzValue]="option.code">
                   </nz-option>
                 </nz-select>
-                 
+
                 </div>
                 </div>
 
                 <div nz-row style="height: 50px;padding: 10px;">
                   <div nz-col [nzSpan]="12" class="ta_r">
                     <div class="label_div">房屋结构：</div>
-                    <input  name="fwjg" maxlength="50" nz-input style="width:calc(100% - 130px)"
-                       nzSize="default" [(ngModel)]="lpb.fwjg" />
+                    <nz-select [(ngModel)]="lpb.fwjg" class="w200" nzAllowClear nzPlaceHolder="请选择" style="width:calc(100% - 130px)">
+                      <nz-option *ngFor="let option of dictionaryObj.fwjg" [nzLabel]="option.name" [nzValue]="option.code">
+                      </nz-option>
+                    </nz-select>
                   </div>
                   <div nz-col [nzSpan]="12" class="ta_r">
                     <div class="label_div">总套数：</div>
-                    <input  name="zts" maxlength="50" nz-input style="width:calc(100% - 130px)"
+                    <input  name="zts" maxlength="4" nz-input style="width:calc(100% - 130px)" [validation]="true" [validationType]="'nullnumber'"
                       nzSize="default" [(ngModel)]="lpb.zts" class="w200" />
                   </div>
                   </div>

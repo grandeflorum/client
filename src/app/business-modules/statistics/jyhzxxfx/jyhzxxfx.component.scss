@@ -1,0 +1,250 @@
+.label_div{
+    float:left;
+    text-align: right;
+    margin-top:5px;
+    width:70px;
+}
+.cr0{
+    color: rgba(0, 0, 0, 0.4);
+    position: relative;
+    padding-left: 15px;
+}
+.cr1{
+    color: #FF9933;
+    position: relative;
+    padding-left: 15px;
+}
+.cr2{
+    color: #33CC00;
+    position: relative;
+    padding-left: 15px;
+}
+.cr3{
+    color: red;
+    position: relative;
+    padding-left: 15px;
+}
+
+.point{
+    position: absolute;
+    top: 22px;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 10px;
+}
+
+.point0{
+    background: rgba(0, 0, 0, 0.427450980392157);
+}
+.point1{
+    background: #FF9933;
+}
+.point2{
+    background: #33CC00;
+}
+.point3{
+    background: red;
+}
+
+.left{
+    float:left;
+}
+
+.right{
+    float: right;
+}
+
+.statistics_btn_wrap{
+    .echart_btn{
+        background: #88c7ff;
+        border-color:unset;
+    }
+
+    .selected_btn{
+        background: #1890ff;
+    }
+}
+
+.echart_wrap{
+    width:100%;
+    height:400px;
+    margin:20px 0;
+    padding:20px 24px;
+    border-top: 1px solid #ccc;
+    position: relative;
+}
+
+#xs_echart{
+    width:65%;
+    height: 100%;
+    float:left;
+}
+
+.right_rank_wrap{
+    width: 30%;
+    height: 100%;
+    float: right;
+}
+
+.right_rank_wrap{
+    p{
+        display: flex;
+        justify-content: space-between;
+        line-height: 30px;
+    }
+
+}
+
+
+.rank_title{
+    font-size: 16px;
+    color: #000;
+    font-weight: 600;
+}
+
+.rank_ul{
+    margin: 0;
+    padding: 0;
+
+    li{
+        list-style: none;
+        line-height: 35px;
+        overflow: hidden;
+    }
+
+    .rank_num{
+        display: block;
+        width:20px;
+        height:20px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 20px;
+        background: #f0f2f5;
+        float:left;
+        margin-top: 7px;
+        margin-right: 10px;
+    }
+
+    .rank_name{
+        float:left;
+    }
+
+    .rank_ts{
+        float: right;
+    }
+
+    .rank_top3{
+        background: #ff6600;
+        color:#fff;
+    }
+}
+
+.list_content_wrap ::ng-deep  .ant-tabs-card {
+    border-bottom: 1px solid #ccc;
+  }
+  .static_top_ul{
+      width:100%;
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
+
+      li{
+          width:calc(calc(100% - 60px)/4);
+          height:130px;
+          margin-left: 20px;
+          float:left;
+          list-style: none;
+          border-radius: 5px;
+          border:1px solid #e9e9e9;
+          padding-left:25px;
+            padding-top: 10px;
+
+            p{
+              margin:0
+          }
+
+          .p_title{
+              line-height: 30px;
+          }
+
+          .p_num{
+            font-size: 22px;
+            font-weight: 600;
+
+            span{
+                font-size: 14px;
+                font-weight: normal;
+                margin-left: 5px;
+            }
+          }
+
+          .p_percent{
+              line-height: 50px;
+          }
+      }
+
+  }
+
+  .xslcy_wrap{
+      p{
+          margin:0;
+          line-height: 50px;
+      }
+
+      .xslcy_title{
+        font-size: 16px;
+        color: #000;
+        font-weight: 600;
+        margin-right: 40px;
+      }
+
+      .xslcy_num{
+          color:#1890ff;
+          font-size: 20px;
+            font-weight: 600;
+            margin: 0 15px;
+            margin-right: 10px;
+      }
+  }
+
+  .echart_item{
+      width:calc(calc(100% - 90px)/3);
+      margin-left:30px;
+      float:left;
+      position: relative;
+
+      .echart_item_title{
+          width:100%;
+          height:40px;
+          line-height: 40px;
+          text-align: center;
+          color:#fff;
+          font-size: 15px;
+          font-weight: 600;
+      }
+
+      .echart_item_content{
+          width:100%;
+          height:350px;
+      }
+
+      span{
+        font-size: 20px;
+        font-weight: bold;
+        color: #000;
+        margin-right: 10px;
+      }
+
+      .ts_wrap{
+        position: absolute;
+        top: 28%;
+        left: 55%;
+      }
+
+      .mj_wrsp{
+        position: absolute;
+        top: 68%;
+        left: 55%;
+      }
+  }

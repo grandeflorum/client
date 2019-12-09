@@ -9,7 +9,7 @@
 
 
     <button class="right" nz-button nzType="primary" [disabled]="btnIndex!=6" (click)="search()">查询</button>
-    <nz-select *ngIf="dataType == 2" [(ngModel)]="dataQuarter" [disabled]="btnIndex!=6" name="dataQuarter" class="right" style="width:125px;margin-left:10px" nzPlaceHolder="请选择季度">
+    <nz-select *ngIf="dataType == 2" [(ngModel)]="dataQuarter" [disabled]="btnIndex!=6" (ngModelChange)="onChange('','quarter')" name="dataQuarter" class="right" style="width:125px;margin-left:10px" nzPlaceHolder="请选择季度">
       <nz-option nzValue="1" nzLabel="第一季度"></nz-option>
       <nz-option nzValue="2" nzLabel="第二季度"></nz-option>
       <nz-option nzValue="3" nzLabel="第三季度"></nz-option>
@@ -39,7 +39,7 @@
       <p><span class="rank_title">项目销售量排名前十</span> <span>单位：套</span></p>
 
       <ul class="rank_ul">
-        <li *ngFor="let item of rankList;index as index"><span class="rank_num" [ngClass]="{'rank_top3':index<3}">{{index}}</span><span class="rank_name">{{item.name}}</span><span class="rank_ts">{{item.ts}}</span></li>
+        <li *ngFor="let item of rankList;index as index"><span class="rank_num" [ngClass]="{'rank_top3':index<3}">{{index}}</span><span class="rank_name">{{item.xmmc}}</span><span class="rank_ts">{{item.xsl}}</span></li>
       </ul>
     </div>
 
@@ -53,12 +53,12 @@
       <input type="text"  [(ngModel)]="mc" nz-input placeholder="请输入开发企业、项目名称搜索" />
     </nz-input-group>
     <ng-template #suffixIconButton>
-      <button nz-button nzType="primary" nzSearch style="margin-left:0">搜索</button>
+      <button nz-button nzType="primary" nzSearch style="margin-left:0" (click)="search()">搜索</button>
     </ng-template>
   </div>
 <div nz-row style="padding: 24px;">
     <div nz-col [nzSpan]="24">
-        <button class="right" nz-button nzType="primary" (click)="search()">导出</button>
+        <button class="right" nz-button nzType="primary" (click)="export()">导出</button>
     </div>
 
 </div>
@@ -74,14 +74,14 @@
             (nzCheckedChange)="checkAll($event)"></th>
             <th>开发企业名称</th>
             <th>项目名称</th>
-            <th>销售量（套）</th>
-            <th>销售均价（元/平方米）</th>
-            <th>销售面积（平方米）</th>
+            <th nzShowSort nzSortKey="xsl">销售量（套）</th>
+            <th nzShowSort nzSortKey="jj">销售均价（元/平方米）</th>
+            <th nzShowSort nzSortKey="xsmj">销售面积（平方米）</th>
           
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of nestedTable.data; index as index" [ngClass]="{ itemSeleted: data.id == selectId }"
+        <tr *ngFor="let data of nestedTable.data; index as index" 
           (click)="selectItem(data)">
           <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
             (nzCheckedChange)="refreshStatus()"></td>

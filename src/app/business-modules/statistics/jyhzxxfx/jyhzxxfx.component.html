@@ -1,0 +1,75 @@
+<div class="list_content_wrap" style="overflow: auto;padding:0">
+    <div class="card-container">
+        <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="tabsetIndex"
+          (nzSelectedIndexChange)="tabsetChange($event)">
+          <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name"></nz-tab>
+        </nz-tabset>
+      </div>
+
+<div class="statistics_btn_wrap" nz-row style="padding: 15px 24px;border-bottom: 1px solid #ccc;">
+    <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(1)" [ngClass]="{'selected_btn':btnIndex == 1}">今日</button>
+    <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(2)" [ngClass]="{'selected_btn':btnIndex == 2}">本周</button>
+    <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(3)" [ngClass]="{'selected_btn':btnIndex == 3}">本月</button>
+    <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(4)" [ngClass]="{'selected_btn':btnIndex == 4}">本季度</button>
+    <button class="echart_btn" nz-button nzType="primary" (click)="echartChange(5)" [ngClass]="{'selected_btn':btnIndex == 5}">本年</button>
+
+
+    <button class="right" nz-button nzType="primary" [disabled]="btnIndex!=6" (click)="searchStatistics();search()">查询</button>
+    <nz-select *ngIf="dataType == 2" [(ngModel)]="dataQuarter" (ngModelChange)="onChange('','quarter')" [disabled]="btnIndex!=6" name="dataQuarter" class="right" style="width:125px;margin-left:10px" nzPlaceHolder="请选择季度">
+      <nz-option nzValue="1" nzLabel="第一季度"></nz-option>
+      <nz-option nzValue="2" nzLabel="第二季度"></nz-option>
+      <nz-option nzValue="3" nzLabel="第三季度"></nz-option>
+      <nz-option nzValue="4" nzLabel="第四季度"></nz-option>
+ </nz-select>
+    <nz-year-picker class="right" style="width:125px" [(ngModel)]="dateYear" *ngIf="dataType == 1 || dataType == 2" [disabled]="btnIndex!=6"  (ngModelChange)="onChange($event,'year')" nzPlaceHolder="请选择年份"></nz-year-picker>
+    <nz-month-picker class="right" style="width:125px" [(ngModel)]="dateMonth" *ngIf="dataType == 3" [disabled]="btnIndex!=6" (ngModelChange)="onChange($event,'month')" nzPlaceHolder="请选择月份"></nz-month-picker>
+    <nz-date-picker class="right" style="width:125px" [(ngModel)]="dateDay" *ngIf="dataType == 4" (ngModelChange)="onChange($event,'day')" nzPlaceHolder="请选择时间"></nz-date-picker>
+    <nz-range-picker class="right" style="width:230px" [(ngModel)]="dateRange" *ngIf="dataType == 5" [disabled]="btnIndex!=6" (ngModelChange)="onChange($event,'range')"></nz-range-picker>
+    <nz-select [(ngModel)]="dataType" [disabled]="btnIndex!=6" name="dataType" class="right" style="width:125px;margin-right:10px" nzPlaceHolder="请选择时间维度">
+               <nz-option nzValue="1" nzLabel="年"></nz-option>
+               <nz-option nzValue="2" nzLabel="季度"></nz-option>
+               <nz-option nzValue="3" nzLabel="月"></nz-option>
+               <nz-option nzValue="4" nzLabel="天"></nz-option>
+               <nz-option nzValue="5" nzLabel="自定义时间段"></nz-option>
+    </nz-select>
+    <button class="right echart_btn" style="margin-right: 10px" nz-button nzType="primary" (click)="echartChange(6)" [ngClass]="{'selected_btn':btnIndex == 6}">自定义时间段</button>
+
+  </div>
+
+  <div nz-row class="rank_title" style="height: 50px;padding: 10px;padding-left:30px;line-height: 30px;">
+      销售量汇总
+  </div>
+
+  <div class="xslcy_wrap" nz-row style="height:50px;text-align: center;background: #e4e4e4">
+      <p><span class="xslcy_title">销售量差异</span>套数<span class="xslcy_num">{{differenceCount}}</span>套<span style="margin-left:80px">面积</span><span class="xslcy_num">{{differenceArea}}</span>平方米</p>
+  </div>
+
+
+  <div nz-row style="height: 170px;padding: 20px;border-top: 1px solid #ccc;">
+    <ul class="static_top_ul">
+      <li *ngFor="let item of staticList;index as index" [ngStyle]="{'margin-left':index == 0?'0':''}">
+          <p class="p_title">{{item.name}}</p>
+          <p class="p_num">{{item.num}}<span>{{item.unit}}</span></p>
+          <p class="p_percent">
+           <span>同比<i *ngIf="item.tbFlag=='Up'" style="color:#8fd86a;margin:0 10px" nz-icon nzType="caret-up" nzTheme="outline"></i><i *ngIf="item.tbFlag=='Down'" nz-icon style="color:#fd232e;margin:0 10px" nzType="caret-down" nzTheme="outline"></i><i nz-icon *ngIf="item.tbFlag=='None' || !item.tbFlag" style="margin:0 10px" nzType="minus" nzTheme="outline"></i>{{item.tb + '%'}}</span> 
+           <span style="margin-left:30px">环比<i *ngIf="item.hbFlag=='Up'" nz-icon style="color:#8fd86a;margin:0 10px" nzType="caret-up" nzTheme="outline"></i><i *ngIf="item.hbFlag=='Down'" nz-icon style="color:#fd232e;margin:0 10px" nzType="caret-down" nzTheme="outline"></i><i nz-icon *ngIf="item.hbFlag=='None' || !item.hbFlag" style="margin:0 10px" nzType="minus" nzTheme="outline"></i>{{item.hb + '%'}}</span>
+          </p>
+      </li>
+</ul>
+  </div>
+
+  <div nz-row class="rank_title" style="height: 50px;padding: 10px;padding-left:30px;line-height: 30px;">
+      销售用途汇总
+  </div>
+ 
+  <div class="echart_item" *ngFor="let item of dataSet;index as index">
+    <div class="ts_wrap"><span>{{item.ts}}</span>套</div>
+    <div class="mj_wrsp"><span>{{item.mj}}</span>平方米</div>
+    <div class="echart_item_title" [ngStyle]="{'background':titleColorList[index]}">{{item.name}}</div>
+    <div class="echart_item_content" id="{{item.name}}"></div>
+  </div>
+
+ 
+
+</div>
+

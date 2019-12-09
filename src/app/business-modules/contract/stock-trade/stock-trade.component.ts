@@ -292,7 +292,7 @@ export class StockTradeComponent implements OnInit {
 
 
   //审核
-  audit(data, type) {
+  audit(data, type?) {
 
     this.auditIsVisible = true;
     switch (data.currentStatus) {
