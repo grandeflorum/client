@@ -197,7 +197,7 @@ var res = await this.statisticService.getSummarySalesPurposes(option);
 
       setTimeout(() => {
         this.setMychart();
-      }, 2000);
+      }, 1000);
      
 
     }
