@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter ,ViewChildren,QueryList} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChildren, QueryList } from '@angular/core';
 import { LpbglService } from '../../service/lpbgl/lpbgl.service';
 import { Localstorage } from '../../service/localstorage';
 import { UtilitiesSercice } from '../../service/common/utilities.services';
 import { NzMessageService } from 'ng-zorro-antd';
 import { ValidationDirective } from '../../../layout/_directives/validation.directive';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { KfxmglService } from '../../service/xmgl/kfxmgl.service';
 
 
@@ -16,10 +16,10 @@ import { KfxmglService } from '../../service/xmgl/kfxmgl.service';
 export class LpbDetailComponent implements OnInit {
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
   @Input() glType: string;
-  @Input() moduleType:string;
+  @Input() moduleType: string;
   @Input() isDisable = true;
   @Output() restrictedProperty = new EventEmitter<string>();
-  @Output()  saveLjz = new EventEmitter<any>();
+  @Output() saveLjz = new EventEmitter<any>();
 
   zrzShow: boolean = true;
   detailObj: any = {};
@@ -31,14 +31,14 @@ export class LpbDetailComponent implements OnInit {
   rowSpan = 0;
   dictionaryObj: any = {};
   selectedHu: any = {};
-  selectedCe:any = {};
+  selectedCe: any = {};
   selectH: string = "1";
   isVisible = false;
-  ljzObj:any = {};
+  ljzObj: any = {};
   isVisibleC = false;
-  cObj:any = {};
+  cObj: any = {};
   isVisibleH = false;
-  hObj:any = {};
+  hObj: any = {};
   ljzValidation = false;
   cValidation = false;
   hValidation = false;
@@ -47,17 +47,18 @@ export class LpbDetailComponent implements OnInit {
   isAddCe = false;
   companyList: any[] = [];
   companyLoading: boolean = false;
-  selectedLJZid="";
+  selectedLJZid = "";
+  selectId: "";
 
-  isVisibleViewHistory=false;
+  isVisibleViewHistory = false;
 
   constructor(
     private lpbglService: LpbglService,
     private localstorage: Localstorage,
-    private utilitiesSercice:UtilitiesSercice,
+    private utilitiesSercice: UtilitiesSercice,
     private msg: NzMessageService,
     private router: Router,
-    private kfxmglService:KfxmglService
+    private kfxmglService: KfxmglService
   ) { }
 
   ngOnInit() {
@@ -67,47 +68,47 @@ export class LpbDetailComponent implements OnInit {
   init(detailObj) {
     this.tabs2 = [];
     this.detailObj = detailObj;
-    this.onSearch( this.detailObj.xmmc);
+    this.onSearch(this.detailObj.xmmc);
 
-    if (detailObj && detailObj.ljzList.length>0) {
-        //this.tabsetIndex2 = 0;
-        if(this.isAddLjz){
-          this.tabsetIndex2 = detailObj.ljzList.length - 1;
-        }
-        if(this.tabsetIndex2>detailObj.ljzList.length){
-          this.tabsetIndex2 = detailObj.ljzList.length - 1;
-        }
-        this.lpbList = detailObj.ljzList[this.tabsetIndex2];
+    if (detailObj && detailObj.ljzList.length > 0) {
+      //this.tabsetIndex2 = 0;
+      if (this.isAddLjz) {
+        this.tabsetIndex2 = detailObj.ljzList.length - 1;
+      }
+      if (this.tabsetIndex2 > detailObj.ljzList.length) {
+        this.tabsetIndex2 = detailObj.ljzList.length - 1;
+      }
+      this.lpbList = detailObj.ljzList[this.tabsetIndex2];
 
-        if(this.lpbList.dyList&&this.lpbList.dyList.length>0){
-          this.lpbList.dyList.forEach((v, k) => {
-            this.rowSpan += v.rowSpan;
-          })
-        }
+      if (this.lpbList.dyList && this.lpbList.dyList.length > 0) {
+        this.lpbList.dyList.forEach((v, k) => {
+          this.rowSpan += v.rowSpan;
+        })
+      }
 
 
 
-        detailObj.ljzList.forEach((v, k) => {
-          this.tabs2.push({
-            name: v.ljzh,
-            index: k,
-            id: v.id
-          })
+      detailObj.ljzList.forEach((v, k) => {
+        this.tabs2.push({
+          name: v.ljzh,
+          index: k,
+          id: v.id
+        })
 
-          // if(k == detailObj.ljzList.length - 1&&!this.isDisable){
-          //   this.tabs2.push({
-          //     name: '添加',
-          //     index: k + 1,
-          //     id: 0
-          //   })
-          // }
+        // if(k == detailObj.ljzList.length - 1&&!this.isDisable){
+        //   this.tabs2.push({
+        //     name: '添加',
+        //     index: k + 1,
+        //     id: 0
+        //   })
+        // }
 
 
 
       })
       this.tabsetChange2(this.tabsetIndex2)
 
-    }else{
+    } else {
       // if(!this.isDisable){
       //   this.tabs2.push({
       //     name: '添加',
@@ -135,7 +136,7 @@ export class LpbDetailComponent implements OnInit {
     this.selectedHu = item;
   }
 
-  selectedCeChange(item){
+  selectedCeChange(item) {
     this.selectedCe = item;
   }
 
@@ -148,14 +149,14 @@ export class LpbDetailComponent implements OnInit {
 
   tabsetChange2(m) {
     this.tabsetIndex2 = m;
-      var id = this.tabs2[m].id;
-    this.selectedLJZid=this.tabs2[m].id;
-      this.getLpb(id);
+    var id = this.tabs2[m].id;
+    this.selectedLJZid = this.tabs2[m].id;
+    this.getLpb(id);
 
   }
 
-  tabClick(){
-      this.addLjz(1);
+  tabClick() {
+    this.addLjz(1);
   }
 
   async getLpb(id) {
@@ -172,26 +173,26 @@ export class LpbDetailComponent implements OnInit {
     }
   }
 
-  perview(){
+  perview() {
 
-    let url = AppConfig.Configuration.baseUrl + "/BuildingTable/printHt?id=" + this.selectedHu.id + "&type="+this.selectedHu.tradeType;
+    let url = AppConfig.Configuration.baseUrl + "/BuildingTable/printHt?id=" + this.selectedHu.id + "&type=" + this.selectedHu.tradeType;
     url = this.utilitiesSercice.wrapUrl(url);
     window.open('assets/usermanual/web/viewer.html?url=' + url, '_blank');
-    
+
 
   }
 
-  contract(hid){
+  contract(hid) {
     var route = "/contract/houseTrade/detail";
     this.router.navigate([route], {
       queryParams: {
-        type:1,
-        hid:hid
+        type: 1,
+        hid: hid
       }
     });
   }
 
-  
+
 
   handleCancel() {
     this.ljzValidation = false;
@@ -200,20 +201,20 @@ export class LpbDetailComponent implements OnInit {
     this.isVisible = false;
     this.isVisibleC = false;
     this.isVisibleH = false;
-    this.isVisibleViewHistory=false;
+    this.isVisibleViewHistory = false;
 
- }
+  }
 
 
   handleOk(m) {
-    if(m == 1){//保存逻辑幢
+    if (m == 1) {//保存逻辑幢
 
       this.saveOrUpdateLJZ(1);
       this.isAddLjz = true;
-    }else if(m == 2){//保存层
+    } else if (m == 2) {//保存层
 
       this.saveC();
-    }else if(m == 3){//保存户
+    } else if (m == 3) {//保存户
 
       this.saveH(1);
     }
@@ -221,35 +222,35 @@ export class LpbDetailComponent implements OnInit {
   }
 
   //添加编辑逻辑幢
-  async addLjz(m?){
+  async addLjz(m?) {
     this.ljzValidation = true;
-      this.hValidation = false;
-      this.cValidation = false;
+    this.hValidation = false;
+    this.cValidation = false;
 
     this.ljzObj.ljzh = "",
-    this.ljzObj.zcs ="",
+      this.ljzObj.zcs = "",
 
-  this.ljzObj.scjzmj ="",
-  this.ljzObj.fwyt1 =""
+      this.ljzObj.scjzmj = "",
+      this.ljzObj.fwyt1 = ""
 
     this.isVisible = true;
-}
+  }
 
-  async saveOrUpdateLJZ(type){
-    if(!this.FormValidation()){
+  async saveOrUpdateLJZ(type) {
+    if (!this.FormValidation()) {
       return;
     }
     var option
-    if(type == 1){//添加
-      option = Object.assign({},this.ljzObj);
+    if (type == 1) {//添加
+      option = Object.assign({}, this.ljzObj);
       option.zrzh = this.detailObj.zrzh;
       option.qxdm = '361129';
 
-    }else{
+    } else {
       option = this.lpbList
     }
-    if(option.jgrq){
-      option.jgrq=option.jgrq.getTime();
+    if (option.jgrq) {
+      option.jgrq = option.jgrq.getTime();
     }
 
 
@@ -264,34 +265,34 @@ export class LpbDetailComponent implements OnInit {
     }
   }
 
-  addC(){
+  addC() {
     this.ljzValidation = false;
-      this.hValidation = false;
-      this.cValidation = true;
+    this.hValidation = false;
+    this.cValidation = true;
     this.cObj.ch = "";
     this.cObj.sjc = "";
     this.cObj.sfqfdy = "";
     this.isVisibleC = true;
-    this.isAddCe=true;
+    this.isAddCe = true;
   }
 
   //保存层
   async saveC() {
-    if(!this.FormValidation()){
+    if (!this.FormValidation()) {
       return;
     }
     var option;
 
-    if(this.isAddCe){
+    if (this.isAddCe) {
       option = {
         ljzh: this.tabs2[this.tabsetIndex2].name,
-        zrzh:this.detailObj.zrzh,
-        sjc:this.cObj.sjc,
-        ch:this.cObj.ch,
-        sfqfdy:this.cObj.sfqfdy,
-        qxdm:'361129',
+        zrzh: this.detailObj.zrzh,
+        sjc: this.cObj.sjc,
+        ch: this.cObj.ch,
+        sfqfdy: this.cObj.sfqfdy,
+        qxdm: '361129',
       };
-    }else{
+    } else {
       option = this.cObj;
     }
 
@@ -305,32 +306,32 @@ export class LpbDetailComponent implements OnInit {
     }
   }
 
-addH(){
-  this.ljzValidation = false;
-  this.hValidation = true;
-  this.cValidation = false;
-  this.hObj = {};
-  this.isVisibleH = true;
-  this.isAddHu = true;
-  this.isAddCe = true;
-  this.hObj.zrzh = this.detailObj.zrzh;
-  this.hObj.ljzh = this.lpbList.ljzh
-}
+  addH() {
+    this.ljzValidation = false;
+    this.hValidation = true;
+    this.cValidation = false;
+    this.hObj = {};
+    this.isVisibleH = true;
+    this.isAddHu = true;
+    this.isAddCe = true;
+    this.hObj.zrzh = this.detailObj.zrzh;
+    this.hObj.ljzh = this.lpbList.ljzh
+  }
 
   //保存户
   async saveH(type) {
-    if(!this.FormValidation()){
+    if (!this.FormValidation()) {
       return;
     }
     var option;
-    if(this.isAddHu){
+    if (this.isAddHu) {
       option = Object.assign({}, this.hObj);
       option.ljzh = this.tabs2[this.tabsetIndex2].name;
       option.zrzh = this.detailObj.zrzh;
       // option.mjdw = "1";
       option.qxdm = '361129';
       option.isnewstock = Number(option.isnewstock)
-    }else{
+    } else {
       option = this.hObj;
     }
 
@@ -346,31 +347,31 @@ addH(){
   }
 
   //编辑户
- async editH(id){
+  async editH(id) {
     this.isVisibleH = true;
     this.isAddHu = false;
-    this.hValidation=true;
+    this.hValidation = true;
     var res = await this.lpbglService.getHById(id);
     if (res && res.code == 200) {
       this.hObj = res.msg;
-      if(this.hObj.isnewstock){
-        this.hObj.isnewstock=this.hObj.isnewstock.toString();
+      if (this.hObj.isnewstock) {
+        this.hObj.isnewstock = this.hObj.isnewstock.toString();
       }
-      if(this.hObj.zt||this.hObj.zt==0){
-        this.hObj.zt=Number(this.hObj.zt);
+      if (this.hObj.zt || this.hObj.zt == 0) {
+        this.hObj.zt = Number(this.hObj.zt);
       }
 
     } else {
       this.msg.create('error', res.msg);
     }
 
-}
+  }
 
   //编辑c层
-  async editC(id){
+  async editC(id) {
     this.isVisibleC = true;
     this.isAddCe = false;
-    this.cValidation=true;
+    this.cValidation = true;
     var res = await this.lpbglService.getCById(id);
     if (res && res.code == 200) {
       this.cObj = res.msg;
@@ -379,44 +380,48 @@ addH(){
       this.msg.create('error', res.msg);
     }
 
-}
-
-//删除逻辑幢
-async deleteLjz(id){
-  var res = await this.lpbglService.deleteLJZ(id);
-  if (res && res.code == 200) {
-    this.msg.create('success', '删除成功');
-
-
-    this.saveLjz.emit();
-
-  } else {
-    this.msg.create('error', res.msg);
   }
-}
+
+  selectItem(data) {
+    this.selectId = data.id;
+  }
+
+  //删除逻辑幢
+  async deleteLjz(id) {
+    var res = await this.lpbglService.deleteLJZ(id);
+    if (res && res.code == 200) {
+      this.msg.create('success', '删除成功');
+
+
+      this.saveLjz.emit();
+
+    } else {
+      this.msg.create('error', res.msg);
+    }
+  }
 
   //删除户
-  async deleteH(id){
-      var res = await this.lpbglService.deleteH(id);
-      if (res && res.code == 200) {
-        this.msg.create('success', '删除成功');
-        this.getLpb(this.tabs2[this.tabsetIndex2].id);
+  async deleteH(id) {
+    var res = await this.lpbglService.deleteH(id);
+    if (res && res.code == 200) {
+      this.msg.create('success', '删除成功');
+      this.getLpb(this.tabs2[this.tabsetIndex2].id);
 
-      } else {
-        this.msg.create('error', res.msg);
-      }
+    } else {
+      this.msg.create('error', res.msg);
+    }
   }
 
-    //删除层
-    async deleteC(id){
-      var res = await this.lpbglService.deleteC(id);
-      if (res && res.code == 200) {
-        this.msg.create('success', '删除成功');
-        this.getLpb(this.tabs2[this.tabsetIndex2].id);
+  //删除层
+  async deleteC(id) {
+    var res = await this.lpbglService.deleteC(id);
+    if (res && res.code == 200) {
+      this.msg.create('success', '删除成功');
+      this.getLpb(this.tabs2[this.tabsetIndex2].id);
 
-      } else {
-        this.msg.create('error', res.msg);
-      }
+    } else {
+      this.msg.create('error', res.msg);
+    }
   }
 
   async onSearch(evt) {
@@ -475,9 +480,9 @@ async deleteLjz(id){
   dataSet: any = [];
   sortList: any = [];
 
-  viewHistory(){
-    this.isVisibleViewHistory=true;
-    this.pageIndex=1;
+  viewHistory() {
+    this.isVisibleViewHistory = true;
+    this.pageIndex = 1;
     this.search();
   }
 
@@ -486,14 +491,14 @@ async deleteLjz(id){
     var option = {
       pageNo: this.pageIndex,
       pageSize: this.pageSize,
-      conditions: [{ key: 'id', value: this.selectedHu.id}]
+      conditions: [{ key: 'id', value: this.selectedHu.id }]
     };
 
     option.conditions.push({ key: 'sort', value: this.sortList });
 
     var res = await this.lpbglService.getBAHistory(option);
     this.Loading = false;
-    if (res&&res.code == 200) {
+    if (res && res.code == 200) {
       this.dataSet = res.msg.currentList;
       this.totalCount = res.msg.recordCount;
     }

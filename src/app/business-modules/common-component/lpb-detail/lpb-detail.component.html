@@ -974,7 +974,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let data of nestedTable.data; index as index" [ngClass]="{ itemSeleted: data.id == selectId }"
-      (click)="selectItem(data)">
+     >
       <td title="{{data.fh}}">{{ data.fh |tooltips:15}}</td>
       <td title="{{data.htbah}}">{{ data.htbah |tooltips:15}}</td>
       <td>{{data.gmr}}</td>
