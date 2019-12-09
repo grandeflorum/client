@@ -343,6 +343,7 @@ addH(){
  async editH(id){
     this.isVisibleH = true;
     this.isAddHu = false;
+    this.hValidation=true;
     var res = await this.lpbglService.getHById(id);
     if (res && res.code == 200) {
       this.hObj = res.msg;
@@ -363,6 +364,7 @@ addH(){
   async editC(id){
     this.isVisibleC = true;
     this.isAddCe = false;
+    this.cValidation=true;
     var res = await this.lpbglService.getCById(id);
     if (res && res.code == 200) {
       this.cObj = res.msg;
