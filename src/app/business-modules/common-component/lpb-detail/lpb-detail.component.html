@@ -23,7 +23,7 @@
       </div>
       <div nz-col [nzSpan]="8">
         <div class="label_div">宗地代码：</div>
-        <span><input  name="zddm" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+        <span><input  name="zddm" maxlength="19" nz-input class="w200" [disabled]="isDisable"
           nzSize="default" [(ngModel)]="detailObj.zddm" /></span>
       </div>
       </div>
@@ -31,17 +31,17 @@
       <div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="8">
           <div class="label_div">不动产单元号：</div>
-          <span><input  name="bdcdyh" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+          <span><input  name="bdcdyh" maxlength="28" nz-input class="w200" [disabled]="isDisable"
             nzSize="default" [(ngModel)]="detailObj.bdcdyh" class="w200" /></span>
         </div>
         <div nz-col [nzSpan]="8">
           <div class="label_div"><span class="clo_r">*</span>自然幢号：</div>
-          <span><input  name="zrzh" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+          <span><input  name="zrzh" maxlength="24" nz-input class="w200" [disabled]="isDisable"
             required [validation]="true" nzSize="default" [(ngModel)]="detailObj.zrzh" class="w200" /></span>
         </div>
         <div nz-col [nzSpan]="8">
           <div class="label_div">总层数：</div>
-          <span><input  name="zcs" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+          <span><input  name="zcs" maxlength="2" nz-input class="w200" [disabled]="isDisable" [validation]="true" [validationType]="'nullnumber'"
             nzSize="default" [(ngModel)]="detailObj.zcs" class="w200" /></span>
         </div>
         </div>
@@ -51,17 +51,17 @@
           <div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
             <div nz-col [nzSpan]="8">
               <div class="label_div">幢占地面积：</div>
-              <span><input  name="zzdmj" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+              <span><input  name="zzdmj" maxlength="10" nz-input class="w200" [disabled]="isDisable" [validation]="true" [validationType]="'nullAreaNumber'"
                 nzSize="default" [(ngModel)]="detailObj.zzdmj" /></span>&nbsp;㎡
             </div>
             <div nz-col [nzSpan]="8">
               <div class="label_div">幢用地面积：</div>
-              <span><input  name="zydmj" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+              <span><input  name="zydmj" maxlength="10" nz-input class="w200" [disabled]="isDisable" [validation]="true" [validationType]="'nullAreaNumber'"
                 nzSize="default" [(ngModel)]="detailObj.zydmj" class="w200" /></span>&nbsp;㎡
             </div>
             <div nz-col [nzSpan]="8">
               <div class="label_div">预测建筑物面积：</div>
-              <span><input  name="ycjzmj" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+              <span><input  name="ycjzmj" maxlength="10" nz-input class="w200" [disabled]="isDisable" [validation]="true" [validationType]="'nullAreaNumber'"
                 nzSize="default" [(ngModel)]="detailObj.ycjzmj" /></span>&nbsp;㎡
             </div>
             </div>
@@ -70,17 +70,17 @@
 
               <div nz-col [nzSpan]="8">
                 <div class="label_div">实测建筑面积：</div>
-                <span><input  name="scjzmj" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                <span><input  name="scjzmj" maxlength="10" nz-input class="w200" [disabled]="isDisable" [validation]="true" [validationType]="'nullAreaNumber'"
                   nzSize="default" [(ngModel)]="detailObj.scjzmj" class="w200" /></span>&nbsp;㎡
               </div>
               <div nz-col [nzSpan]="8">
                 <div class="label_div">地上层数：</div>
-                <span><input  name="dscs" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                <span><input  name="dscs" maxlength="2" nz-input class="w200" [disabled]="isDisable" [validation]="true" [validationType]="'nullnumber'"
                   nzSize="default" [(ngModel)]="detailObj.dscs" /></span>
               </div>
               <div nz-col [nzSpan]="8">
                 <div class="label_div">地下层数：</div>
-                <span><input  name="dxcs" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                <span><input  name="dxcs" maxlength="2" nz-input class="w200" [disabled]="isDisable" [validation]="true" [validationType]="'nullnumber'"
                   nzSize="default" [(ngModel)]="detailObj.dxcs" class="w200" /></span>
               </div>
               </div>
@@ -90,7 +90,7 @@
                 <div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
                   <div nz-col [nzSpan]="8">
                     <div class="label_div">地下深度：</div>
-                    <span><input  name="dxsd" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                    <span><input  name="dxsd" maxlength="10" nz-input class="w200" [disabled]="isDisable" [validation]="true" [validationType]="'nullAreaNumber'"
                       nzSize="default" [(ngModel)]="detailObj.dxsd" /></span>
                   </div>
                   <div nz-col [nzSpan]="8">
@@ -113,7 +113,7 @@
                     <div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
                       <div nz-col [nzSpan]="8">
                         <div class="label_div">总套数：</div>
-                        <span><input  name="zts" maxlength="50" nz-input class="w200" [disabled]="isDisable"
+                        <span><input  name="zts" maxlength="4" nz-input class="w200" [disabled]="isDisable" [validation]="true" [validationType]="'nullnumber'"
                           nzSize="default" [(ngModel)]="detailObj.zts" class="w200" /></span>
                       </div>
                       <div nz-col [nzSpan]="8">
@@ -160,19 +160,19 @@
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="8">
             <div class="label_div"><span class="clo_r">*</span>逻辑幢号：</div>
-            <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.ljzh" [title]="lpbList.ljzh" maxlength="50"
+            <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.ljzh" [title]="lpbList.ljzh" maxlength="24"
                 [disabled]="isDisable" class="w200"  required [validation]="true"/></span>
 
         </div>
         <div nz-col [nzSpan]="8">
           <div class="label_div">预测建筑面积：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.ycjzmj" maxlength="50" [disabled]="isDisable"
-              class="w200" />&nbsp;㎡</span>
+          <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.ycjzmj" maxlength="10" [disabled]="isDisable"
+              class="w200" [validation]="true" [validationType]="'nullAreaNumber'" />&nbsp;㎡</span>
       </div>
         <div nz-col [nzSpan]="8">
             <div class="label_div"><span class="clo_r">*</span>实测建筑面积：</div>
-            <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.scjzmj" maxlength="50" [disabled]="isDisable"
-                class="w200"  required [validation]="true"/>&nbsp;㎡</span>
+            <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.scjzmj" maxlength="10" [disabled]="isDisable"
+                class="w200"  required [validation]="true" [validationType]="'nullAreaNumber'" />&nbsp;㎡</span>
 
         </div>
 
@@ -195,7 +195,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>总层数：</div>
         <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.zcs" maxlength="50" [disabled]="isDisable"
-            class="w200"  required [validation]="true"/></span>
+            class="w200"  required [validation]="true"  [validationType]="'nullnumber'"/></span>
     </div>
 
   </div>
@@ -236,14 +236,14 @@
   </div>
   <div nz-col [nzSpan]="8">
       <div class="label_div">地上层数：</div>
-      <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.dscs" maxlength="50" [disabled]="isDisable"
-          class="w200"/></span>
+      <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.dscs" maxlength="2" [disabled]="isDisable"
+          class="w200" [validation]="true" [validationType]="'nullnumber'" /></span>
 
   </div>
   <div nz-col [nzSpan]="8">
       <div class="label_div">地下层数：</div>
-      <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.dxcs" maxlength="50" [disabled]="isDisable"
-          class="w200"/></span>
+      <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.dxcs" maxlength="2" [disabled]="isDisable"
+          class="w200" [validation]="true" [validationType]="'nullnumber'" /></span>
   </div>
 </div>
 
@@ -416,19 +416,19 @@
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="8">
             <div class="label_div"><span class="clo_r">*</span>逻辑幢号：</div>
-            <span> <input nz-input nzSize="default" [(ngModel)]="ljzObj.ljzh" [title]="ljzObj.ljzh" maxlength="50"
+            <span> <input nz-input nzSize="default" [(ngModel)]="ljzObj.ljzh" [title]="ljzObj.ljzh" maxlength="24"
                 [disabled]="isDisable" class="w200"  required [validation]="ljzValidation"/></span>
 
         </div>
         <div nz-col [nzSpan]="8">
           <div class="label_div">预测建筑面积：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="ljzObj.ycjzmj" maxlength="50" [disabled]="isDisable"
-              class="w200" />&nbsp;㎡</span>
+          <span> <input nz-input nzSize="default" [(ngModel)]="ljzObj.ycjzmj" maxlength="10" [disabled]="isDisable"
+              class="w200"  [validation]="ljzValidation" [validationType]="'nullAreaNumber'"/>&nbsp;㎡</span>
       </div>
         <div nz-col [nzSpan]="8">
             <div class="label_div"><span class="clo_r">*</span>实测建筑面积：</div>
-            <span> <input nz-input nzSize="default" [(ngModel)]="ljzObj.scjzmj" maxlength="50" [disabled]="isDisable"
-                class="w200"  required [validation]="ljzValidation"/>&nbsp;㎡</span>
+            <span> <input nz-input nzSize="default" [(ngModel)]="ljzObj.scjzmj" maxlength="10" [disabled]="isDisable"
+                class="w200"  required [validation]="ljzValidation" [validationType]="'nullAreaNumber'"/>&nbsp;㎡</span>
 
         </div>
 
@@ -450,8 +450,8 @@
       </div>
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>总层数：</div>
-        <span> <input nz-input nzSize="default" [(ngModel)]="ljzObj.zcs" maxlength="50" [disabled]="isDisable"
-            class="w200"  required [validation]="ljzValidation"/></span>
+        <span> <input nz-input nzSize="default" [(ngModel)]="ljzObj.zcs" maxlength="2" [disabled]="isDisable"
+            class="w200"  required [validation]="ljzValidation" [validationType]="'nullnumber'"/></span>
     </div>
 
   </div>
@@ -492,14 +492,14 @@
   </div>
   <div nz-col [nzSpan]="8">
       <div class="label_div">地上层数：</div>
-      <span> <input nz-input nzSize="default" [(ngModel)]="ljzObj.dscs" maxlength="50" [disabled]="isDisable"
-          class="w200"/></span>
+      <span> <input nz-input nzSize="default" [(ngModel)]="ljzObj.dscs" maxlength="2" [disabled]="isDisable"
+          class="w200" [validation]="ljzValidation" [validationType]="'nullnumber'"/></span>
 
   </div>
   <div nz-col [nzSpan]="8">
       <div class="label_div">地下层数：</div>
-      <span> <input nz-input nzSize="default" [(ngModel)]="ljzObj.dxcs" maxlength="50" [disabled]="isDisable"
-          class="w200"/></span>
+      <span> <input nz-input nzSize="default" [(ngModel)]="ljzObj.dxcs" maxlength="2" [disabled]="isDisable"
+          class="w200" [validation]="ljzValidation" [validationType]="'nullnumber'"/></span>
   </div>
 </div>
 

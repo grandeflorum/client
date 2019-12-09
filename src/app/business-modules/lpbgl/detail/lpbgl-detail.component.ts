@@ -314,7 +314,7 @@ export class LpbglDetailComponent implements OnInit {
       option.ljzList.push(this.lpbdetail.lpbList);
       option.ljzList.forEach(element => {
         if(element.jgrq){
-          element.jgrq=element.jgrq.getTime();
+          element.jgrq=new Date(element.jgrq).getTime();
         }
       });
     }
