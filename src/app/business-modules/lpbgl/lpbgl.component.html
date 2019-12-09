@@ -76,7 +76,7 @@
         <td style="width: 20%;">
           <a class="table_a" (click)="add(2,data)">查看</a>
           <a class="table_a" *ngIf="data.datasource==1&&(data.auditType==0||data.auditType==3)&&canzsgc" (click)="add(3,data)">编辑</a>
-          
+
           <a class="table_a"  *ngIf="data.auditType==1&&cansh" (click)="moreAudit(data)">审核</a>
           <a class="table_a" *ngIf="data.auditType==2&&canecsh" (click)="twoAudit(data)">二次审核</a>
           <!-- <a class="table_a" *ngIf="data.auditType==0||data.auditType==3" nz-popconfirm nzTitle="确定删除吗?" (nzOnConfirm)="btachDelete(data)">删除</a> -->
@@ -237,15 +237,17 @@
                   <nz-option *ngFor="let option of dictionaryObj.fwyt" [nzLabel]="option.name" [nzValue]="option.code">
                   </nz-option>
                 </nz-select>
-                 
+
                 </div>
                 </div>
 
                 <div nz-row style="height: 50px;padding: 10px;">
                   <div nz-col [nzSpan]="12" class="ta_r">
                     <div class="label_div">房屋结构：</div>
-                    <input  name="fwjg" maxlength="50" nz-input style="width:calc(100% - 130px)"
-                       nzSize="default" [(ngModel)]="lpb.fwjg" />
+                    <nz-select [(ngModel)]="lpb.fwjg" class="w200" nzAllowClear nzPlaceHolder="请选择" style="width:calc(100% - 130px)">
+                      <nz-option *ngFor="let option of dictionaryObj.fwjg" [nzLabel]="option.name" [nzValue]="option.code">
+                      </nz-option>
+                    </nz-select>
                   </div>
                   <div nz-col [nzSpan]="12" class="ta_r">
                     <div class="label_div">总套数：</div>
