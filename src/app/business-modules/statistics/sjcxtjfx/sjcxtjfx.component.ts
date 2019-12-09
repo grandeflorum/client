@@ -126,7 +126,7 @@ staticValue:any = {};
   }
 
   export(){
-    window.open( AppConfig.Configuration.baseUrl + "/Statistic/excelDownload?mc=" + this.mc + "&yt="+this.yt+"&kssj=" + this.kssj + "&jssj=" + this.jssj);
+    window.open( AppConfig.Configuration.baseUrl + "/Statistic/excelDownload?mc=" + this.mc + "&yt="+this.yt+"&kssj=" + this.kssj + "&jssj=" + this.jssj+'&exportType=date');
   }
 
   async searchStatistics() {
