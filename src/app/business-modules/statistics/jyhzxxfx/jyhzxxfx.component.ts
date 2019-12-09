@@ -77,6 +77,7 @@ nowYear = new Date().getFullYear(); //当前年
 staticValue:any = {};
 differenceArea = 0;
 differenceCount = 1;
+echartTitleList = [];
 
 tabs = [
   { name: '交易汇总', index: 0 ,type:'all'},
@@ -90,6 +91,8 @@ staticList = [
   {name:'未销售面积',num:'400',unit:'平方米',hb:-5,tb:10,hbFlag:null,tbFlag:null}
 ];
 querytype = "";
+myChartList:any = [];
+titleColorList = ['#1890ff','#ffae17','#58cb4b','#1890ff','#ffae17','#58cb4b','#1890ff','#ffae17','#58cb4b','#1890ff','#ffae17','#58cb4b'];
 
   constructor(
     private msg: NzMessageService,
@@ -100,6 +103,7 @@ querytype = "";
     private statisticService:StatisticService
   ) { 
     this.dictionaryObj = this.localstorage.getObject("dictionary");
+    
   }
 
   ngOnInit() {
@@ -109,6 +113,7 @@ querytype = "";
   tabsetChange(m) {
     this.tabsetIndex = m;
     this.searchStatistics();
+    this.search();
   }
 
   echartChange(m){
@@ -188,8 +193,12 @@ querytype = "";
 var res = await this.statisticService.getSummarySalesPurposes(option);
     this.Loading = false;
     if (res.code == 200) {
-      this.dataSet = res.msg.currentList;
-      this.totalCount = res.msg.recordCount;
+      this.dataSet = res.msg;
+
+      setTimeout(() => {
+        this.setMychart();
+      }, 2000);
+     
 
     }
 
@@ -199,101 +208,163 @@ var res = await this.statisticService.getSummarySalesPurposes(option);
 
 
   setMychart(){
-    
-var data = [
-  {
-      name: '装备制造',
-      value: 54
-  },{
-      name: '现代材料',
-      value: 44
-  },{
-      name: '新能源',
-      value: 35
-  },{
-      name: '新一代信息技术',
-      value: 30
-  },{
-      name: '商贸物流',
-      value: 20
-  }]
-  
-  var titleArr= [], seriesArr=[];
-  var colors=[['#389af4', '#dfeaff'],['#ff8c37', '#ffdcc3'],['#ffc257', '#ffedcc'], ['#fd6f97', '#fed4e0'],['#a181fc', '#e3d9fe']]
-  data.forEach(function(item, index){
+    var totalTs = 0;
+    var totalMj = 0;
+    this.myChartList = [];
+    this.dataSet.forEach((v,k)=>{
+      totalTs+=v.ts;
+      totalMj+=v.mj;
+      this.myChartList.push(k);
+    })
+
+    var colors=['#3ba1ff','#69d389','#f0f2f5'];
+
+    this.dataSet.forEach((v,k)=>{
+      var titleArr= [], seriesArr=[];
       titleArr.push(
-          {
-              text:item.name,
-              left: index * 20 + 10 +'%',
-              top: '65%',
+        {
+            text:'套数',
+            left: '24%',
+            top: '15%',
+            textAlign: 'center',
+            textStyle: {
+                fontWeight: 'normal',
+                fontSize: '16',
+                // color: colors[index][0],
+                textAlign: 'center',
+            },
+        } ,
+        {
+          text:'面积',
+          left:'24%',
+          top: '60%',
+          textAlign: 'center',
+          textStyle: {
+              fontWeight: 'normal',
+              fontSize: '16',
+              // color: colors[index][0],
               textAlign: 'center',
-              textStyle: {
-                  fontWeight: 'normal',
-                  fontSize: '16',
-                  color: colors[index][0],
-                  textAlign: 'center',
-              },
-          }        
-      );
-      seriesArr.push(
-          {
-              name: item.name,
-              type: 'pie',
-              clockWise: false,
-              radius: [60, 70],
-              itemStyle:  {
-                  normal: {
-                      color: colors[index][0],
-                      shadowColor: colors[index][0],
-                      shadowBlur: 0,
-                      label: {
-                          show: false
-                      },
-                      labelLine: {
-                          show: false
-                      },
-                  }
-              },
-              hoverAnimation: false,
-              center: [index * 20 + 10 +'%', '50%'],
-              data: [{
-                  value: item.value,
+          },
+      }        
+    );
+    seriesArr.push(
+        {
+            name: v.name,
+            type: 'pie',
+            clockWise: false,
+            radius: [55, 70],
+            itemStyle:  {
+                normal: {
+                    color: colors[0],
+                    shadowColor: colors[0],
+                    shadowBlur: 0,
+                    label: {
+                        show: false
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                }
+            },
+            hoverAnimation: false,
+            center: ['25%', '25%'],
+            data: [{
+                value: v.ts,
+                label: {
+                    normal: {
+                        formatter: function(params){
+                            return params.percent+'%';
+                        },
+                        position: 'center',
+                        show: true,
+                        textStyle: {
+                            fontSize: '20',
+                            fontWeight: 'bold',
+                            color: '#000'
+                        }
+                    }
+                },
+            }, {
+                value: totalTs - v.ts,
+                name: 'invisible',
+                itemStyle: {
+                    normal: {
+                        color: colors[2]
+                    },
+                    emphasis: {
+                        color: colors[2]
+                    }
+                }
+            }]
+        },
+        {
+          name: v.name,
+          type: 'pie',
+          clockWise: false,
+          radius: [55, 70],
+          itemStyle:  {
+              normal: {
+                  color: colors[1],
+                  shadowColor: colors[1],
+                  shadowBlur: 0,
                   label: {
-                      normal: {
-                          formatter: function(params){
-                              return params.value+'%';
-                          },
-                          position: 'center',
-                          show: true,
-                          textStyle: {
-                              fontSize: '20',
-                              fontWeight: 'bold',
-                              color: colors[index][0]
-                          }
-                      }
+                      show: false
                   },
-              }, {
-                  value: 100-item.value,
-                  name: 'invisible',
-                  itemStyle: {
-                      normal: {
-                          color: colors[index][1]
+                  labelLine: {
+                      show: false
+                  },
+              }
+          },
+          hoverAnimation: false,
+          center: ['25%', '70%'],
+          data: [{
+              value: v.mj,
+              label: {
+                  normal: {
+                      formatter: function(params){
+                          return params.percent+'%';
                       },
-                      emphasis: {
-                          color: colors[index][1]
+                      position: 'center',
+                      show: true,
+                      textStyle: {
+                          fontSize: '20',
+                          fontWeight: 'bold',
+                          color: '#000'
                       }
                   }
-              }]
-          }    
-      )
-  });
- 
+              },
+          }, {
+              value: totalMj - v.mj,
+              name: 'invisible',
+              itemStyle: {
+                  normal: {
+                      color: colors[2]
+                  },
+                  emphasis: {
+                      color: colors[2]
+                  }
+              }
+          }]
+      }    
+    )
+
+    var option = {
+      title:titleArr,
+      series: seriesArr
+    }
+      this.myChartList[k] = echarts.init(document.getElementById(v.name));
+      this.myChartList[k].off('click');
+      this.myChartList[k].setOption(option)
+
+   
+
+    })
+
+    
+
+
   
-var option = {
-  backgroundColor: "#fff",
-  title:titleArr,
-  series: seriesArr
-}
+
   }
 
   //排序

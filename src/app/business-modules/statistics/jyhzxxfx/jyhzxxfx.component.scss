@@ -207,3 +207,44 @@
             margin-right: 10px;
       }
   }
+
+  .echart_item{
+      width:calc(calc(100% - 90px)/3);
+      margin-left:30px;
+      float:left;
+      position: relative;
+
+      .echart_item_title{
+          width:100%;
+          height:40px;
+          line-height: 40px;
+          text-align: center;
+          color:#fff;
+          font-size: 15px;
+          font-weight: 600;
+      }
+
+      .echart_item_content{
+          width:100%;
+          height:350px;
+      }
+
+      span{
+        font-size: 20px;
+        font-weight: bold;
+        color: #000;
+        margin-right: 10px;
+      }
+
+      .ts_wrap{
+        position: absolute;
+        top: 28%;
+        left: 55%;
+      }
+
+      .mj_wrsp{
+        position: absolute;
+        top: 68%;
+        left: 55%;
+      }
+  }

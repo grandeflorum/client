@@ -62,7 +62,14 @@
       销售用途汇总
   </div>
  
-  <div id="mychart" style="width:100%;height:350px;"></div>
+  <div class="echart_item" *ngFor="let item of dataSet;index as index">
+    <div class="ts_wrap"><span>{{item.ts}}</span>套</div>
+    <div class="mj_wrsp"><span>{{item.mj}}</span>平方米</div>
+    <div class="echart_item_title" [ngStyle]="{'background':titleColorList[index]}">{{item.name}}</div>
+    <div class="echart_item_content" id="{{item.name}}"></div>
+  </div>
+
+ 
 
 </div>
 
