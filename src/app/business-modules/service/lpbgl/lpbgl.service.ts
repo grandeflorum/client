@@ -86,4 +86,9 @@ auditZRZById(id , type): any {
   return this.http.get('/BuildingTable/auditZRZById?id=' + id + '&type=' + type);
 }
 
+//添加或修改逻辑在
+saveOrUpdateZRZandLJZ(data):any{
+  return this.http.post('/BuildingTable/saveOrUpdateZRZandLJZ',data);
+ }
+
 }

@@ -72,7 +72,7 @@ export class LpbglDetailComponent implements OnInit {
   modalSslm = "";
   //保留查询条件，点击返回时要定位到当前查询条件数据
   option="";
-  
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -138,7 +138,7 @@ export class LpbglDetailComponent implements OnInit {
         this.lpbList.dyList.forEach((v, k) => {
           this.rowSpan += v.rowSpan;
         })
-  
+
         this.detailObj.ljzList.forEach((v, k) => {
           this.tabs2.push({
             name: v.mph,
@@ -308,10 +308,20 @@ export class LpbglDetailComponent implements OnInit {
     if (!this.lpbdetail.FormValidation()) {
       return;
     }
+    var option=JSON.parse(JSON.stringify(this.detailObj));
+    if(option&&this.lpbdetail&&this.lpbdetail.lpbList){
+      option.ljzList=[];
+      option.ljzList.push(this.lpbdetail.lpbList);
+      option.ljzList.forEach(element => {
+        if(element.jgrq){
+          element.jgrq=element.jgrq.getTime();
+        }
+      });
+    }
 
 
-    var res = await this.lpbglService.saveOrUpdateZRZ(this.detailObj);
-    
+    var res = await this.lpbglService.saveOrUpdateZRZandLJZ(option);
+
     if (res && res.code == 200) {
       this.msg.create('success', '保存成功');
       this.getProjectById();
@@ -463,6 +473,9 @@ export class LpbglDetailComponent implements OnInit {
 
       if (res && res.code == 200) {
         this.msg.create("success", "关联成功");
+        if(this.glType=="stockHouse"){
+          this.getProjectById();
+        }
       } else {
         this.msg.create("error", "关联失败");
       }
@@ -476,7 +489,7 @@ export class LpbglDetailComponent implements OnInit {
     this.getProjectById();
   }
 
-  
+
 
   ngAfterViewInit() {
     var that = this;

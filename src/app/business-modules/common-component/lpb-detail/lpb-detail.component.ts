@@ -242,6 +242,9 @@ export class LpbDetailComponent implements OnInit {
     }else{
       option = this.lpbList
     }
+    if(option.jgrq){
+      option.jgrq=option.jgrq.getTime();
+    }
 
 
     var res = await this.lpbglService.saveOrUpdateLJZ(option);
