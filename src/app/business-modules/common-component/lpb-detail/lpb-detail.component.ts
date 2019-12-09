@@ -174,7 +174,7 @@ export class LpbDetailComponent implements OnInit {
     
     let url = AppConfig.Configuration.baseUrl + "/BuildingTable/printHt?id=" + this.selectedHu.id + "&type="+this.selectedHu.tradeType;
     url = this.utilitiesSercice.wrapUrl(url);
-    window.open(url, '_blank');
+    window.open('assets/usermanual/web/viewer.html?url=' + url, '_blank');
     
   }
 

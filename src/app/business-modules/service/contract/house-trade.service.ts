@@ -48,9 +48,11 @@ export class HouseTradeService {
     return this.http.get('/HouseTrade/getHInfo?hid=' + hid);
   }
 
-  checkExistCompletionFile(id):any{
+  checkExistCompletionFile(id): any {
     return this.http.get('/HouseTrade/checkExistCompletionFile?id=' + id);
   }
 
-
+  getEwmCheckInfo(id, type): any {
+    return this.http.get('/HouseTrade/getEwmCheckInfo?id=' + id + "&type=" + type);
+  }
 }

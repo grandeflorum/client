@@ -460,7 +460,7 @@ export class StockTradeComponent implements OnInit {
 
     let url = AppConfig.Configuration.baseUrl + "/StockTrade/previewHt?id=" + data.id;
     url = this.utilitiesSercice.wrapUrl(url);
-    window.open(url, '_blank');
+    window.open('assets/usermanual/web/viewer.html?url=' + url, '_blank');
   }
 
 

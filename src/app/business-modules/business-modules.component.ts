@@ -89,18 +89,22 @@ export class BusinessModulesComponent implements OnInit {
 
     ngOnInit() {
 
-        this.logUser = this.staffSercice.getStaffObj();
-        if (!this.logUser.id && this.router.url != '/login') {
-            this.router.navigate(['/login']);
-        } else {
-            this.name = this.logUser.realname;
+
+        if (this.router.url.indexOf("/contract/ewmCheck") == -1) {
+            this.logUser = this.staffSercice.getStaffObj();
+            if (!this.logUser.id && this.router.url != '/login') {
+                this.router.navigate(['/login']);
+            } else {
+                this.name = this.logUser.realname;
+            }
+
+            this.getAllDictionary();
+            this.getAllRegion();
+            this.currentUrl = this.router.url;
+
+            this.urlChange();
         }
 
-        this.getAllDictionary();
-        this.getAllRegion();
-        this.currentUrl = this.router.url;
-
-        this.urlChange();
 
 
     }

@@ -493,7 +493,7 @@ export class HouseTradeComponent implements OnInit {
 
     let url = AppConfig.Configuration.baseUrl + "/HouseTrade/previewHt?id=" + data.id;
     url = this.utilitiesSercice.wrapUrl(url);
-    window.open(url, '_blank');
+    window.open('assets/usermanual/web/viewer.html?url=' + url, '_blank');
   }
 
 }
