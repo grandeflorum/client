@@ -91,4 +91,9 @@ saveOrUpdateZRZandLJZ(data):any{
   return this.http.post('/BuildingTable/saveOrUpdateZRZandLJZ',data);
  }
 
+ //合同备案历史
+ getBAHistory(param): any {
+  return this.http.post('/BuildingTable/getBAHistory', param);
+}
+
 }

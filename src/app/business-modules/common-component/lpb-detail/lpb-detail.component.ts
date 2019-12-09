@@ -49,6 +49,8 @@ export class LpbDetailComponent implements OnInit {
   companyLoading: boolean = false;
   selectedLJZid="";
 
+  isVisibleViewHistory=false;
+
   constructor(
     private lpbglService: LpbglService,
     private localstorage: Localstorage,
@@ -188,6 +190,8 @@ export class LpbDetailComponent implements OnInit {
     });
   }
 
+  
+
   handleCancel() {
     this.ljzValidation = false;
     this.hValidation = false;
@@ -195,6 +199,7 @@ export class LpbDetailComponent implements OnInit {
     this.isVisible = false;
     this.isVisibleC = false;
     this.isVisibleH = false;
+    this.isVisibleViewHistory=false;
 
  }
 
@@ -459,5 +464,70 @@ async deleteLjz(id){
     });
     return isValid;
   }
+
+
+  pageIndex: any = 1;
+  totalCount: any = 0;
+  pageSize: any = 10;
+  Loading = false;
+  tableIsScroll = null;
+  dataSet: any = [];
+  sortList: any = [];
+
+  viewHistory(){
+    this.isVisibleViewHistory=true;
+    this.pageIndex=1;
+    this.search();
+  }
+
+  async search() {
+    this.Loading = true;
+    var option = {
+      pageNo: this.pageIndex,
+      pageSize: this.pageSize,
+      conditions: [{ key: 'id', value: this.selectedHu.id}]
+    };
+
+    option.conditions.push({ key: 'sort', value: this.sortList });
+
+    var res = await this.lpbglService.getBAHistory(option);
+    this.Loading = false;
+    if (res&&res.code == 200) {
+      this.dataSet = res.msg.currentList;
+      this.totalCount = res.msg.recordCount;
+    }
+  }
+
+  //排序
+  sort(evt) {
+    let key = evt.key;
+
+    if (this.sortList.some(x => x.indexOf(key) > -1)) {
+      this.sortList.splice(this.sortList.findIndex(x => x.indexOf(key) > -1), 1);
+    }
+
+    if (evt.value) {
+      if (evt.value == 'ascend') {
+        this.sortList.push(key);
+      } else if (evt.value == 'descend') {
+        this.sortList.push(key + ' desc');
+      }
+    }
+
+    this.search();
+  }
+
+
+  pageIndexChange(num) {
+    this.pageIndex = num;
+    this.search();
+  }
+
+  pageSizeChange(num) {
+    this.pageSize = num;
+    this.pageIndex = 1;
+    this.search();
+  }
+
 
 }

@@ -370,6 +370,7 @@
             style="float: right;">预览合同</button></p>
     <p style="height: 20px;">
       <button nz-button nzType="primary" (click)="contract(selectedHu.id)">合同备案</button>
+      <button nz-button *ngIf="selectedHu.tradeType>0" nzType="primary" (click)="viewHistory()">查看历史备案记录</button>
       <button nz-button *ngIf="!isDisable" nzType="primary" (click)="editH(selectedHu.id)">编辑</button>
       <button nz-button *ngIf="!isDisable" nzType="danger" (click)="deleteH(selectedHu.id)">删除</button>
     </p>
@@ -954,3 +955,41 @@
                                  </div>
                                 </div>
 </nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleViewHistory" nzTitle="历史备案记录"  (nzOnCancel)="handleCancel()"  nzWidth="800">
+
+  <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow" [nzFrontPagination]="false"
+  [nzLoading]="Loading" [nzShowTotal]="rangeTemplate" [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper
+  nzShowSizeChanger [nzPageSize]="pageSize" [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)"
+  (nzPageSizeChange)="pageSizeChange($event)" 
+  [nzScroll]="tableIsScroll">
+  <thead (nzSortChange)="sort($event)">
+    <tr>
+      <th>房号</th>
+      <th>合同备案号</th>
+      <th>购买人</th>
+      <th nzShowSort nzSortKey="con.basj">备案时间</th>
+      <th style="width: 20%;">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of nestedTable.data; index as index" [ngClass]="{ itemSeleted: data.id == selectId }"
+      (click)="selectItem(data)">
+      <td title="{{data.fh}}">{{ data.fh |tooltips:15}}</td>
+      <td title="{{data.htbah}}">{{ data.htbah |tooltips:15}}</td>
+      <td>{{data.gmr}}</td>
+      <td>{{data.basj  | date:'yyyy-MM-dd'}}</td>
+      <td style="width: 20%;">
+        <a class="table_a" >查看</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<ng-template #rangeTemplate let-range="range" let-total>
+  共{{total}}条记录&nbsp;&nbsp;
+</ng-template>
+
+</nz-modal>
+
+
