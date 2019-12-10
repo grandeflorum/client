@@ -335,7 +335,9 @@
         <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}" *ngFor="let item of lpbList.cList; index as index">
             <li class="ch_td" style="background: #fff" nz-popover (mouseenter)="selectedCeChange(item)" [nzPopoverContent]="CePopoverContent">{{item.ch}}层</li>
             <li *ngFor="let hu of item.hList"
-                [ngClass]="{'lpb_ydy':(moduleType=='dy'&&hu.status == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.status == 1) , 'lpb_ycf':(moduleType=='cf'&&hu.cfStatus == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.cfStatus == 1) }"
+                [ngClass]="{'lpb_ydy':(moduleType=='dy'&&hu.status == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.status == 1) ,
+                            'lpb_ycf':(moduleType=='cf'&&hu.cfStatus == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.cfStatus == 1),
+                            'lpb_yba':hu.tradeType>0 }"
                 nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent"
                 (mouseenter)="selectedHuChange(hu)" [ngStyle]="{'border-color':selectH==hu.id?'red':'#ccc'}"
                 (click)="selectH=hu.id">
@@ -780,7 +782,7 @@
                       <div nz-col [nzSpan]="8">
                           <div class="label_div">   <span class="clo_r">*</span>实测建筑面积： </div>
                            <span>
-                               <input  name="scjzmj" maxlength="10" nz-input class="w200" 
+                               <input  name="scjzmj" maxlength="10" nz-input class="w200"
                                required [validation]="hValidation" [validationType]="'nullAreaNumber'" nzSize="default" [(ngModel)]="hObj.scjzmj" />
                            </span>
                        </div>
@@ -961,7 +963,7 @@
   <nz-table #nestedTable [nzData]="dataSet" class="commontable tablescoll_rainbow" [nzFrontPagination]="false"
   [nzLoading]="Loading" [nzShowTotal]="rangeTemplate" [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper
   nzShowSizeChanger [nzPageSize]="pageSize" [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)"
-  (nzPageSizeChange)="pageSizeChange($event)" 
+  (nzPageSizeChange)="pageSizeChange($event)"
   [nzScroll]="tableIsScroll">
   <thead (nzSortChange)="sort($event)">
     <tr>
@@ -980,7 +982,7 @@
       <td>{{data.gmr}}</td>
       <td>{{data.basj  | date:'yyyy-MM-dd'}}</td>
       <td style="width: 20%;">
-        <a class="table_a" >查看</a>
+        <a class="table_a" (click)="viewContract(data)">查看</a>
       </td>
     </tr>
   </tbody>

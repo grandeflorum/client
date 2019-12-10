@@ -535,5 +535,20 @@ export class LpbDetailComponent implements OnInit {
     this.search();
   }
 
+  viewContract(data){
+    var route="";
+    if(data.isnewstock==1){
+      route = "/contract/houseTrade/detail";
+    }else if(data.isnewstock==2){
+      route = "/contract/stockTrade/detail";
+    }
+    this.router.navigate([route], {
+      queryParams: {
+        id: data.id,
+        type: 2
+      }
+    });
+  }
+
 
 }
