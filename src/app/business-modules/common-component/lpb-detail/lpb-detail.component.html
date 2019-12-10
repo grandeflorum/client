@@ -368,10 +368,9 @@
     <p>面积：{{selectedHu.scjzmj}}</p>
     <p>不动产登记号：{{selectedHu.bdcdyh}}</p>
     <p>坐落：{{selectedHu.zl}}</p>
-    <p *ngIf="selectedHu.tradeType>0" style="height: 20px;"><button nz-button nzType="primary" (click)="perview()"
-            style="float: right;">预览合同</button></p>
-    <p style="height: 20px;">
-      <button nz-button nzType="primary" (click)="contract(selectedHu.id)">合同备案</button>
+    <p *ngIf="!isDisable||selectedHu.tradeType>0" style="height: 20px;">
+      <button nz-button *ngIf="selectedHu.tradeType>0" nzType="primary" (click)="perview()">预览合同</button>
+      <button nz-button *ngIf="!isDisable" nzType="primary" (click)="contract(selectedHu.id)">合同备案</button>
       <button nz-button *ngIf="selectedHu.tradeType>0" nzType="primary" (click)="viewHistory()">查看历史备案记录</button>
       <button nz-button *ngIf="!isDisable" nzType="primary" (click)="editH(selectedHu.id)">编辑</button>
       <button nz-button *ngIf="!isDisable" nzType="danger" (click)="deleteH(selectedHu.id)">删除</button>
