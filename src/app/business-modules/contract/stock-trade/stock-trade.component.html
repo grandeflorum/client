@@ -78,7 +78,7 @@
             [ngClass]="{'point0':data.currentStatus==0, 'point1':data.currentStatus==1||data.currentStatus==2||data.currentStatus==3||data.currentStatus==4,'point2':data.currentStatus==5}">
           </div>
           <p style="margin: auto;" *ngIf="!data.isCancel">{{ data.currentStatus|auditWorkFlow }}</p>
-          <p style="margin: auto;" *ngIf="data.isCancel&&data.isCancel==1">未备案</p>
+          <p style="margin: auto;" *ngIf="data.isCancel&&(data.isCancel==1||data.isCancel==2)">未备案</p>
         </td>
         <td style="width:20%">
           <a class="table_a" (click)="add(2,data)">查看</a>
