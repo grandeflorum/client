@@ -84,6 +84,8 @@ export class CompanyComponent implements OnInit {
   cansh: boolean = false;
   canecsh: boolean = false;
 
+  onlybj: boolean = false;
+
   getRoles() {
     let roles = this.localstorage.getObject("roles");
 
@@ -93,6 +95,10 @@ export class CompanyComponent implements OnInit {
         this.cantjsh = true;
         this.cansh = true;
         this.canecsh = true;
+      }
+
+      if (roles.some(x => x == "默认开发企业")) {
+        this.onlybj = true;
       }
 
       if (roles.some(x => x == '领导')) {
@@ -399,7 +405,7 @@ export class CompanyComponent implements OnInit {
 
     this.isVisibleRole = true;
 
-    let res = await this.userService.findUserByUsername(data.zjh);
+    let res = await this.userService.findUserByCard(data.zjh);
 
     if (res && res.msg && res.code == 200) {
 

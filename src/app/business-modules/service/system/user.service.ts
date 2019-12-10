@@ -45,8 +45,12 @@ export class UserService {
     return this.http.get('/SystemUser/findUserByUsername?name=' + name);
   }
 
-  insertRoleManage(data,type): any {
-    return this.http.post('/SystemUser/insertRoleManage?type='+type, data);
+  findUserByCard(name): any {
+    return this.http.get('/SystemUser/findUserByCard?card=' + name);
+  }
+
+  insertRoleManage(data, type): any {
+    return this.http.post('/SystemUser/insertRoleManage?type=' + type, data);
   }
 
   insertUserCompany(data): any {
