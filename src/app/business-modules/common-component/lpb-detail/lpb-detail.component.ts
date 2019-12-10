@@ -93,7 +93,7 @@ export class LpbDetailComponent implements OnInit {
           name: v.ljzh,
           index: k,
           id: v.id,
-          mph:v.mph
+          mph: v.mph
         })
 
         // if(k == detailObj.ljzList.length - 1&&!this.isDisable){
@@ -368,8 +368,8 @@ export class LpbDetailComponent implements OnInit {
 
   }
 
-  shbwChange(event){
-    this.hObj.mph=event;
+  shbwChange(event) {
+    this.hObj.mph = event;
   }
 
   //编辑c层
@@ -429,7 +429,7 @@ export class LpbDetailComponent implements OnInit {
     }
   }
 
- 
+
 
   async onSearch(evt) {
     this.companyLoading = true;
@@ -542,11 +542,11 @@ export class LpbDetailComponent implements OnInit {
     this.search();
   }
 
-  viewContract(data){
-    var route="";
-    if(data.isnewstock==1){
+  viewContract(data) {
+    var route = "";
+    if (data.isnewstock == 1) {
       route = "/contract/houseTrade/detail";
-    }else if(data.isnewstock==2){
+    } else if (data.isnewstock == 2) {
       route = "/contract/stockTrade/detail";
     }
     this.router.navigate([route], {
