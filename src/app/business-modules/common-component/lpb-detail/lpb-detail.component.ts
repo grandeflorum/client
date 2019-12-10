@@ -92,7 +92,8 @@ export class LpbDetailComponent implements OnInit {
         this.tabs2.push({
           name: v.ljzh,
           index: k,
-          id: v.id
+          id: v.id,
+          mph:v.mph
         })
 
         // if(k == detailObj.ljzList.length - 1&&!this.isDisable){
@@ -367,6 +368,10 @@ export class LpbDetailComponent implements OnInit {
 
   }
 
+  shbwChange(event){
+    this.hObj.mph=event;
+  }
+
   //编辑c层
   async editC(id) {
     this.isVisibleC = true;
@@ -423,6 +428,8 @@ export class LpbDetailComponent implements OnInit {
       this.msg.create('error', res.msg);
     }
   }
+
+ 
 
   async onSearch(evt) {
     this.companyLoading = true;
