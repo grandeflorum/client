@@ -36,7 +36,7 @@ export class LpbglComponent implements OnInit {
   kgrq = '';
   jgrq = '';
   isVisible = false;
-  isAuditVisible=false;
+  isAuditVisible = false;
 
   shxxObj: any = {
     ids: [],
@@ -54,7 +54,7 @@ export class LpbglComponent implements OnInit {
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
   lpb: any = {};
-  dictionaryObj:any = {};
+  dictionaryObj: any = {};
   companyList: any[] = [];
   companyLoading: boolean = false;
 
@@ -154,14 +154,14 @@ export class LpbglComponent implements OnInit {
       this.pageSize = this.option.pageSize;
       this.optionParam = "";
     }
-    if (this.auditType||this.auditType==="0") {
+    if (this.auditType || this.auditType === "0") {
       this.option.conditions.push({ key: 'auditType', value: this.auditType });
     }
     this.option.conditions.push({ key: 'sort', value: this.sortList });
 
     var res = await this.lpbglService.getBuildingTableList(this.option);
     this.Loading = false;
-    if (res&&res.code == 200) {
+    if (res && res.code == 200) {
       this.dataSet = res.msg.currentList;
       this.totalCount = res.msg.recordCount;
       this.calculationHeight();
@@ -283,7 +283,7 @@ export class LpbglComponent implements OnInit {
           route = '/contract/stockTrade/lpbdetail';
         } else if (this.glType == "zddygl") {
           route = '/zddygl/lpbdetail';
-        } else if(this.glType=="stockHouse") {
+        } else if (this.glType == "stockHouse") {
           route = '/stockHouse/lpbdetail';
         }
       }
@@ -408,7 +408,7 @@ export class LpbglComponent implements OnInit {
     }
 
   }
-  
+
 
   //审核
   async handleAuditOk() {
@@ -426,8 +426,8 @@ export class LpbglComponent implements OnInit {
     }
   }
 
-  handleAuditCancel(){
-    this.isAuditVisible=false;
+  handleAuditCancel() {
+    this.isAuditVisible = false;
   }
 
   //审核
@@ -504,15 +504,15 @@ export class LpbglComponent implements OnInit {
     }
   }
 
- async deleteZrz(id){
-  var res = await this.lpbglService.deleteZRZ(id);
-  if (res && res.code == 200) {
-    this.msg.create('success', '删除成功');
-    this.search();
-  } else {
-    this.msg.create('error', res.msg);
+  async deleteZrz(id) {
+    var res = await this.lpbglService.deleteZRZ(id);
+    if (res && res.code == 200) {
+      this.msg.create('success', '删除成功');
+      this.search();
+    } else {
+      this.msg.create('error', res.msg);
+    }
   }
- }
 
   ngAfterViewInit() {
     var that = this;

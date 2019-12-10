@@ -56,14 +56,14 @@
 
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="12">
-          <div class="label_div">单价：</div>
+          <div class="label_div">单价（元/平方）：</div>
           <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.dj" title={{detailObj.dj}} maxlength="10" [validation]="true"
               [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
 
         </div>
 
         <div nz-col [nzSpan]="12">
-          <div class="label_div">总价：</div>
+          <div class="label_div">总价（万元）：</div>
           <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.zj" title={{detailObj.zj}} maxlength="10" [validation]="true"
               [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
 
@@ -145,7 +145,7 @@
           <span class="clo_r">*</span>姓名
         </div>
         <div style="text-align: center;" nz-col [nzSpan]="5">
-          证件类别
+          证件种类
         </div>
         <div style="text-align: center;" nz-col [nzSpan]="5">
           <span class="clo_r">*</span>证件号码

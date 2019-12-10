@@ -71,7 +71,7 @@ export class LpbglDetailComponent implements OnInit {
   pid = "";
   modalSslm = "";
   //保留查询条件，点击返回时要定位到当前查询条件数据
-  option="";
+  option = "";
 
   constructor(
     private msg: NzMessageService,
@@ -86,7 +86,7 @@ export class LpbglDetailComponent implements OnInit {
     private houseTradeService: HouseTradeService,
     private stockTradeService: StockTradeService,
     private zddyglService: ZddyglService,
-    private stockHouseService:StockHouseService
+    private stockHouseService: StockHouseService
   ) {
     var type = this.activatedRoute.snapshot.queryParams.type;
     this.detailObj.id = this.activatedRoute.snapshot.queryParams.id;
@@ -94,7 +94,7 @@ export class LpbglDetailComponent implements OnInit {
 
     this.glType = this.activatedRoute.snapshot.queryParams.glType;
     this.pid = this.activatedRoute.snapshot.queryParams.pid;
-    this.option=this.activatedRoute.snapshot.queryParams.option;
+    this.option = this.activatedRoute.snapshot.queryParams.option;
 
     switch (type) {
       case '1'://添加
@@ -132,7 +132,7 @@ export class LpbglDetailComponent implements OnInit {
         this.lpbdetail.init(res.msg);
       }
 
-      if(this.detailObj.ljzList.length>0){
+      if (this.detailObj.ljzList.length > 0) {
         this.lpbList = this.detailObj.ljzList[0];
 
         this.lpbList.dyList.forEach((v, k) => {
@@ -217,8 +217,8 @@ export class LpbglDetailComponent implements OnInit {
         route = '/contract/stockTrade/detail';
       } else if (this.glType == 'zddygl') {
         route = '/zddygl/detail';
-      } else if(this.glType=="stockHouse"){
-        route='/stockHouse/detail'
+      } else if (this.glType == "stockHouse") {
+        route = '/stockHouse/detail'
       }
       this.router.navigate([route], {
         queryParams: {
@@ -228,10 +228,10 @@ export class LpbglDetailComponent implements OnInit {
       });
 
     } else {
-      this.router.navigate([route],{
+      this.router.navigate([route], {
         queryParams: {
           option: this.option,
-          selectId:this.detailObj.id
+          selectId: this.detailObj.id
         }
       });
     }
@@ -308,13 +308,13 @@ export class LpbglDetailComponent implements OnInit {
     if (!this.lpbdetail.FormValidation()) {
       return;
     }
-    var option=JSON.parse(JSON.stringify(this.detailObj));
-    if(option&&this.lpbdetail&&this.lpbdetail.lpbList){
-      option.ljzList=[];
+    var option = JSON.parse(JSON.stringify(this.detailObj));
+    if (option && this.lpbdetail && this.lpbdetail.lpbList) {
+      option.ljzList = [];
       option.ljzList.push(this.lpbdetail.lpbList);
       option.ljzList.forEach(element => {
-        if(element.jgrq){
-          element.jgrq=new Date(element.jgrq).getTime();
+        if (element.jgrq) {
+          element.jgrq = new Date(element.jgrq).getTime();
         }
       });
     }
@@ -463,9 +463,9 @@ export class LpbglDetailComponent implements OnInit {
       } else if (this.glType == "stockTrade") {
         res = await this.stockTradeService.linkH(this.pid, this.selectH);
       } else if (this.glType == "stockHouse") {
-        if(this.lpbdetail&&this.lpbdetail.selectedLJZid){
+        if (this.lpbdetail && this.lpbdetail.selectedLJZid) {
           res = await this.stockHouseService.linkH(this.lpbdetail.selectedLJZid, this.pid);
-        }else{
+        } else {
           this.msg.create("error", "逻辑幢信息获取出错，关联失败");
           return;
         }
@@ -473,7 +473,7 @@ export class LpbglDetailComponent implements OnInit {
 
       if (res && res.code == 200) {
         this.msg.create("success", "关联成功");
-        if(this.glType=="stockHouse"){
+        if (this.glType == "stockHouse") {
           this.getProjectById();
         }
       } else {
@@ -485,7 +485,7 @@ export class LpbglDetailComponent implements OnInit {
   }
 
   //逻辑幢保存成功
-  saveLjz(m){
+  saveLjz(m) {
     this.getProjectById();
   }
 

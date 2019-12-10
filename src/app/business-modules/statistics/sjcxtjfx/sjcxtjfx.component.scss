@@ -161,6 +161,15 @@
               width:120px;
               height:100%;
               float: left;
+              position: relative;
+             
+
+              i{
+                font-size: 35px;
+                position: absolute;
+                top: 35px;
+                right: 15px;
+              }
           }
 
           .right_div{
