@@ -21,7 +21,7 @@ export class EmployeeDetailComponent implements OnInit {
   isDisable: boolean = false;
   companyId: string;
   operatorType: string;
-
+  companyName: string;
 
   genderList: any[] = [];
   educationList: any[] = [];
@@ -35,7 +35,7 @@ export class EmployeeDetailComponent implements OnInit {
   //附件
   fileList: any = [];
 
-  isbusy=false;
+  isbusy = false;
 
   constructor(
     private localstorage: Localstorage,
@@ -50,6 +50,9 @@ export class EmployeeDetailComponent implements OnInit {
     this.module = this.activatedRoute.snapshot.queryParams.module;
     this.companyId = this.activatedRoute.snapshot.queryParams.companyId;
     this.operatorType = this.activatedRoute.snapshot.queryParams.operatorType;
+    this.companyName = this.activatedRoute.snapshot.queryParams.companyName;
+
+    this.employee.fwjgdm =  this.companyName;
 
     this.isDisable = type == 'see';
 
@@ -150,11 +153,11 @@ export class EmployeeDetailComponent implements OnInit {
       this.employee.fileInfoList.push({ id: element.uid });
     });
 
-    if(this.isbusy){
+    if (this.isbusy) {
       this.msg.create('error', '数据正在保存，请勿重复点击');
       return;
     }
-    this.isbusy=true;
+    this.isbusy = true;
     let res;
 
     if (this.id) {
@@ -162,7 +165,7 @@ export class EmployeeDetailComponent implements OnInit {
     } else {
       res = await this.employeeService.addEmployee(this.employee);
     }
-    this.isbusy=false;
+    this.isbusy = false;
     if (res.code === 200) {
       this.id = res.msg.id;
       this.employee.id = res.msg.id;

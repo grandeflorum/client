@@ -15,6 +15,7 @@ export class EmployeeListComponent implements OnInit {
   @Input() module: string;
   @Input() companyId: string;
   @Input() operatorType: string;
+  @Input() companyName: String;
 
   //定义查询条件
   name: string = '';
@@ -129,7 +130,8 @@ export class EmployeeListComponent implements OnInit {
       type: type,
       module: this.module,
       companyId: this.companyId,
-      operatorType: this.operatorType
+      operatorType: this.operatorType,
+      companyName: this.companyName
     }
 
     this.router.navigate(['/practitioner/employee/detail'], {

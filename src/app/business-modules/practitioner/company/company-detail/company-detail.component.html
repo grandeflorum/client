@@ -206,7 +206,7 @@
 
 
       <div nz-col [nzSpan]="8">
-        <div class="label_div">证件类型：</div>
+        <div class="label_div">证件种类：</div>
         <span>
           <nz-select [(ngModel)]="detailObj.zjlx" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
             <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
@@ -294,7 +294,7 @@
   </div>
 
   <div class="jbxx" *ngIf="tabsetIndex==1">
-    <app-employee-list [companyId]="companyId" module="company" [operatorType]='companyType'></app-employee-list>
+    <app-employee-list [companyId]="companyId" module="company" [companyName]="detailObj.qymc" [operatorType]='companyType'></app-employee-list>
   </div>
 
 

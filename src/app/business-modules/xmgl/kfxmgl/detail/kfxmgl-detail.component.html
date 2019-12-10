@@ -167,7 +167,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>开工日期：</div>
         <span>
-          <nz-date-picker class="w200" [nzAllowClear]="false" [disabled]="isDisable" [(ngModel)]="detailObj.kgrq"
+          <nz-date-picker class="w200" [nzStyle]="{'width':'150px'}" [nzAllowClear]="false" [disabled]="isDisable" [(ngModel)]="detailObj.kgrq"
             (ngModelChange)="onChange(1,$event)" required [validation]="true">
           </nz-date-picker>
         </span>
@@ -176,41 +176,42 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>竣工日期：</div>
         <span>
-          <nz-date-picker class="w200" [nzAllowClear]="false" [disabled]="isDisable" [(ngModel)]="detailObj.jgrq"
+          <nz-date-picker class="w200" [nzStyle]="{'width':'150px'}" [nzAllowClear]="false" [disabled]="isDisable" [(ngModel)]="detailObj.jgrq"
             (ngModelChange)="onChange(2,$event)" required [validation]="true">
           </nz-date-picker>
         </span>
 
       </div>
 
-      <div nz-col [nzSpan]="8">
-        <div class="label_div">土地使用权终止日期：</div>
-        <span>
-          <nz-date-picker class="w200" [nzAllowClear]="false" [disabled]="isDisable" [(ngModel)]="detailObj.tdsyzzzrq"
-            (ngModelChange)="onChange(3,$event)" required [validation]="true">
-          </nz-date-picker>
-        </span>
+      
+    </div>
+
+    <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="24">
+        <div class="label_div">建设工程规划许可证号：</div>
+        <input style="width: calc(100% - 240px);"  nz-input nzSize="default" [(ngModel)]="detailObj.jsgcghxkzh" title={{detailObj.jsgcghxkzh}}
+          [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
+
+      </div>
+     
+
+
+    </div>
+
+    <div nz-row style="height: 50px;padding: 10px;">
+      <div nz-col [nzSpan]="24">
+        <div class="label_div">建筑工程施工许可证号：</div>
+        <input style="width: calc(100% - 240px);"  nz-input nzSize="default" [(ngModel)]="detailObj.jsgcsgxkzh" title={{detailObj.jsgcsgxkzh}}
+          [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
 
       </div>
     </div>
 
     <div nz-row style="height: 50px;padding: 10px;">
-      <div nz-col [nzSpan]="8">
-        <div class="label_div">建设工程规划许可证号：</div>
-        <input class="w200" nz-input nzSize="default" [(ngModel)]="detailObj.jsgcghxkzh" title={{detailObj.jsgcghxkzh}}
-          [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
-
-      </div>
-      <div nz-col [nzSpan]="8">
-        <div class="label_div">建筑工程施工许可证号：</div>
-        <input class="w200" nz-input nzSize="default" [(ngModel)]="detailObj.jsgcsgxkzh" title={{detailObj.jsgcsgxkzh}}
-          [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
-
-      </div>
-
-      <div nz-col [nzSpan]="8">
+      
+      <div nz-col [nzSpan]="24">
         <div class="label_div">详细地址：</div>
-        <input class="w200" nz-input nzSize="default" [(ngModel)]="detailObj.address" title={{detailObj.address}}
+        <input style="width: calc(100% - 240px);" nz-input nzSize="default" [(ngModel)]="detailObj.address" title={{detailObj.address}}
           [disabled]="isDisable" maxlength="255" placeholder="请输入详细地址" />
 
       </div>
@@ -250,10 +251,21 @@
     </div>
 
     <div nz-row style="height: 50px;padding: 10px;">
-      <div nz-col [nzSpan]="24">
+      <div nz-col [nzSpan]="8">
         <div class="label_div" style="width:150px"><span class="clo_r">*</span>土地使用证批准时间：</div>
         <span>
-          <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.pzsj" required [validation]="true">
+          <nz-date-picker [nzStyle]="{'width':'150px'}" [nzAllowClear]="false" [(ngModel)]="detailObj.pzsj" required [validation]="true">
+          </nz-date-picker>
+        </span>
+
+      </div>
+
+      
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">土地使用权终止日期：</div>
+        <span>
+          <nz-date-picker [nzStyle]="{'width':'150px'}"  [nzAllowClear]="false" [disabled]="isDisable" [(ngModel)]="detailObj.tdsyzzzrq"
+            (ngModelChange)="onChange(3,$event)" required [validation]="true">
           </nz-date-picker>
         </span>
 
