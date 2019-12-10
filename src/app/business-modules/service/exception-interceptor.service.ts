@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHeaderResponse, HttpProgressEvent, HttpResponse, HttpUserEvent, HttpSentEvent, HttpHandler } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError , tap } from 'rxjs/operators';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Injectable()
 export class ExceptionInterceptorService implements HttpInterceptor {
 
-    constructor() { }
+    constructor(
+        private msg:NzMessageService
+    ) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler):
         Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
@@ -27,6 +30,11 @@ export class ExceptionInterceptorService implements HttpInterceptor {
                     switch (res.status) {
                         case 401:
                             location.href = ''; 
+                            break;
+                        case 403:
+                            this.msg.error('当前用户已失效，请重新登录', {
+                                nzDuration: 6000
+                              }); 
                             break;
                         case 500:
                         console.log(`errorCode:500,错误代码为：${res.body.code}`)

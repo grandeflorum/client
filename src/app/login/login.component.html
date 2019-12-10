@@ -4,35 +4,34 @@
   <div class="login_contain">
 
     <div class="login_title">
-      万年县房产交易与网上合同备案管理系统
+      万年县房地产交易备案系统
     </div>
 
-    <nz-tabset>
-      <nz-tab nzTitle="账号密码登录">
-        <div style="padding: 0 150px;">
+
+        <div style="padding: 0 195px;">
           <div>
             <nz-input-group [nzPrefix]="prefixUser">
-              <input nz-input placeholder="请输入用户名" (keydown.enter)="login()" class="login_input"
+              <input nz-input placeholder="用户名" (keydown.enter)="login()" class="login_input"
                 [(ngModel)]="username" />
             </nz-input-group>
           </div>
 
           <div>
             <nz-input-group [nzPrefix]="prefixPsw">
-              <input nz-input type="password" placeholder="请输入密码" (keydown.enter)="login()" class="login_input"
+              <input nz-input type="password" placeholder="密码" (keydown.enter)="login()" class="login_input"
                 [(ngModel)]="password" />
             </nz-input-group>
           </div>
 
           <div>
             <nz-input-group [nzPrefix]="prefixIdy" [nzSuffix]="suffixIdy">
-              <input nz-input placeholder="请输入验证码" class="login_input" (keydown.enter)="login()" [(ngModel)]="code"
+              <input nz-input placeholder="验证码" class="login_input" (keydown.enter)="login()" [(ngModel)]="code" style="margin-bottom:30px"
                 id="verify" />
             </nz-input-group>
           </div>
 
           <div style="text-align: left;">
-            <label nz-checkbox [(ngModel)]="remebermeChecked">记住我</label>
+            <label nz-checkbox [(ngModel)]="remebermeChecked" style="color:#fff;">记住我</label>
             <div style="color: #ff2828;height: 0;float: right;">
               {{ loginMessage }}
             </div>
@@ -50,25 +49,22 @@
 
 
         </div>
-      </nz-tab>
 
-    </nz-tabset>
 
 
     <ng-template #prefixUser>
-      <img src="./../../../../assets/images/login/login_user.png" style="margin-top: -20px;" />
+      <i nz-icon nzType="user" nzTheme="outline" style="margin-bottom: 10px;font-size: 18px;"></i>
     </ng-template>
     <ng-template #prefixPsw>
-      <img src="./../../../../assets/images/login/login_psw.png" style="margin-top: -20px;" />
+      <i nz-icon nzType="lock" nzTheme="outline" style="margin-bottom: 10px;font-size: 18px;"></i>
     </ng-template>
     <ng-template #prefixIdy>
-      <img src="./../../../../assets/images/login/login_idf.png" style="margin-top: -20px;" />
+      <i nz-icon nzType="safety" nzTheme="outline" style="margin-bottom: 30px;font-size: 18px;"></i>
     </ng-template>
 
     <ng-template #suffixIdy>
       <canvas width="100" height="40" id="verifyCanvas"></canvas>
-      <img id="code_img" style="    margin-bottom: 20px;
-      margin-right: -8px;cursor: pointer;" />
+      <img id="code_img" style="margin-bottom: 30px;margin-right: -12px;cursor: pointer;" />
     </ng-template>
   </div>
 
