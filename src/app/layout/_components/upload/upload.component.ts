@@ -5,6 +5,7 @@ import { NzModalService, NzTreeNodeOptions, NzMessageService, UploadXHRArgs, Upl
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
+import { UtilitiesSercice } from '../../../../app/business-modules/service/common/utilities.services';
 
 @Component({
   selector: 'app-upload',
@@ -26,7 +27,8 @@ export class uploadComponent implements OnInit {
     private msg: NzMessageService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private utilitiesSercice: UtilitiesSercice,
   ) { }
 
   ngOnInit() {
@@ -66,7 +68,7 @@ export class uploadComponent implements OnInit {
       formData.append('type', this.type);
     }
 
-    const req = new HttpRequest('POST', this.uploadFileUrl, formData, {
+    const req = new HttpRequest('POST', this.utilitiesSercice.wrapUrl(this.uploadFileUrl) , formData, {
       reportProgress: true,
       withCredentials: false
     });
@@ -83,8 +85,8 @@ export class uploadComponent implements OnInit {
 
         if (event instanceof HttpResponse) {
           var res: any = event.body;
-     
-           
+
+
           if (res && res.code == 200) {
 
             this.msg.success('上传成功');
@@ -98,7 +100,7 @@ export class uploadComponent implements OnInit {
           } else {
             this.msg.error(res.msg);
           }
-        
+
         }
 
       },
