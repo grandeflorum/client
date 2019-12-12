@@ -28,7 +28,7 @@
     font-size: 20px;
     margin-right: 10px;
     color:#329dff;
-   
+
   }
 }
 
@@ -52,16 +52,20 @@
     list-style: none;
     float:left;
     border:1px solid #ccc;
+    background: #11b414;
+    color:#fff;
 
     &:hover{
       background: #e6f7ff;
+      color:#ccc;
+
     }
   }
 }
 
 .ch_td{
   width:100px;
-  color: rgba(0, 0, 0, 0.85);
+  color: rgba(0, 0, 0, 0.85)   !important;
   font-weight: 550;
 }
 
@@ -79,22 +83,28 @@
 }
 
 .lpb_wba{
-    background: #fff;
+  background: #11b414 !important;
+  color:#fff;
 }
 .lpb_kxs{
-  background: #00ccff;
+  background: #00ccff !important;
   color:#fff;
 }
 .lpb_yba{
-  background: #ffcc33;
+  background: #ffcc33 !important;
   color:#fff;
 }
 .lpb_ydy{
-  background: #ff99cc;
+  background: #1c19ed !important;
   color:#fff;
 }
 .lpb_ycf{
-  background: #d7d7d7;
+  background: #ca1c0a !important;
+  color:#fff;
+}
+.lpb_bks{
+  background: red !important;
+  color:#fff;
 }
 
 
@@ -125,7 +135,7 @@
 
   .show_balc_lfet{
     width:calc(80% - 20px);
-  
+
   }
   .show_balc_right{
     width:20%;

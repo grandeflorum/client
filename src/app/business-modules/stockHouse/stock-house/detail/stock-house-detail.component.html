@@ -350,13 +350,13 @@
 
       <div class="lpb_div" style="width:980px;margin:0 auto;overflow: auto;">
         <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}">
-          <li class="ch_td">楼层数</li>
-          <li *ngFor="let data of lpbList.dyList; index as index" [ngStyle]="{'width':data.rowSpan*100+'px'}">
+          <li class="ch_td" style="background: #fff">楼层数</li>
+          <li style="background: #fff;color: rgba(0, 0, 0, 0.85) "  *ngFor="let data of lpbList.dyList; index as index" [ngStyle]="{'width':data.rowSpan*100+'px'}">
             {{data.name}}</li>
         </ul>
         <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}" *ngFor="let item of lpbList.cList; index as index">
-          <li class="ch_td">{{item.ch}}层</li>
-          <li *ngFor="let hu of item.hList" [ngClass]="{'lpb_ydy':hu.status == 1 , 'lpb_ycf':hu.status == 2}"
+          <li class="ch_td" style="background: #fff">{{item.ch}}层</li>
+          <li *ngFor="let hu of item.hList" [ngClass]="{'lpb_ydy':hu.status == 1 , 'lpb_ycf':hu.cfStatus == 1,'lpb_yba':hu.tradeType>0}"
             nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent"
             (mouseenter)="selectedHuChange(hu)" [ngStyle]="{'border-color':selectH==hu.id?'red':'#ccc'}"
             (click)="selectH=hu.id">
@@ -370,6 +370,8 @@
         <li class="lpb_yba">已备案</li>
         <li class="lpb_ydy">已抵押</li>
         <li class="lpb_ycf">已查封</li>
+        <li class="lpb_bks">不可售</li>
+
       </ul>
     </div>
 
