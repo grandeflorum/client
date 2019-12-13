@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HouseTradeService } from '../../service/contract/house-trade.service';
+import { HouseTradeService } from '../business-modules/service/contract/house-trade.service';
 
 @Component({
   selector: 'app-ewm-check',
