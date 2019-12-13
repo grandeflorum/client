@@ -1,182 +1,338 @@
 <div *ngIf="type=='1'" class="div1">
 
     <div class="div2">
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 合同备案号：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htbah}}
+                {{data.htbh}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 入网时间：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.rwsj}}
+                {{data.house.rwsj|recordtime}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 合同状态：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.house.currentStatus|auditWorkFlow}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 备案时间：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.house.basj|recordtime}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 出卖人：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.cmr}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 注册地址：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.txdz}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 营业执照号：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.yyzz}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 法定代表人：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.qyfr}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 联系电话：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.lxdh}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 买受人：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.house.buyer}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 身份证号：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.house.sfzh}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 联系地址：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.house.lxdz}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 项目名称：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.xmmc}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 预售许可证：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.house.ysxkz}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 购买房号：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.house.fh}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 房屋用途：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.fwyt}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 建筑面积：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.scjzmj}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 套内面积：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.sctnjzmj}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 分摊面积：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.scftjzmj}}
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 单价：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.house.dj}}（元/平方）
             </nz-col>
         </nz-row>
-        <nz-row>
-            <nz-col [nzSpan]="6">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
                 总金额：
             </nz-col>
             <nz-col [nzSpan]="18">
-                {{data.htzt}}
+                {{data.house.zj}}（万元）
             </nz-col>
         </nz-row>
     </div>
 </div>
 
 <div *ngIf="type=='2'">
-    <div>
-        存量房合同备案信息
-    </div>
-    <div>
-        合同备案号:{{data.htbah}}
+    <div class="div2">
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                合同备案号：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.htbh}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                入网时间：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.house.rwsj|recordtime}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                合同状态：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.house.currentStatus|auditWorkFlow}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                备案时间：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.house.basj|recordtime}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                甲方：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.cmr}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                甲方联系地址：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.jflxdz}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                甲方证件种类：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.jfzjlx}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                甲方证件号：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.jfzjh}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                甲方联系电话：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.jflxdh}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                乙方：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.msr}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                乙方联系地址：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.yflxdz}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                乙方证件种类：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.yfzjlx}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                乙方证件号：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.yfzjh}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                乙方联系电话：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.yflxdh}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                不动产权证号：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.bdcqzh}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                购买房号：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.house.fh}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                房屋用途：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.fwyt}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                建筑面积：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.jzmj}}
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                单价：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.house.dj}}（元/平方）
+            </nz-col>
+        </nz-row>
+        <nz-row class="row1">
+            <nz-col [nzSpan]="6" class="tr">
+                总金额：
+            </nz-col>
+            <nz-col [nzSpan]="18">
+                {{data.house.zj}}（万元）
+            </nz-col>
+        </nz-row>
     </div>
 </div>

@@ -2,7 +2,7 @@
     padding: 10px;
     background: #4cb4ff;
     height: 100%;
-    overflow: auto;
+    width: 450px;
 }
 
 .div2{
@@ -11,4 +11,15 @@
     border-radius: 10px;
     padding: 10px;
     height: 100%;
+    overflow: auto;
+}
+
+
+.row1{
+    height: 30px;
+    line-height: 30px;
+}
+
+.tr{
+  text-align: right;
 }
