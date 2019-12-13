@@ -84,6 +84,8 @@ export class CompanyComponent implements OnInit {
   cansh: boolean = false;
   canecsh: boolean = false;
 
+  qxgl: boolean = false;
+
   onlybj: boolean = false;
 
   getRoles() {
@@ -93,12 +95,14 @@ export class CompanyComponent implements OnInit {
       if (roles.some(x => x == '管理员')) {
         this.canzsgc = true;
         this.cantjsh = true;
+        this.qxgl = true;
         this.cansh = true;
         this.canecsh = true;
       }
 
       if (roles.some(x => x == "默认开发企业")) {
         this.onlybj = true;
+        this.cantjsh = true;
       }
 
       if (roles.some(x => x == '领导')) {
@@ -108,6 +112,7 @@ export class CompanyComponent implements OnInit {
       if (roles.some(x => x == '录入员')) {
         this.canzsgc = true;
         this.cantjsh = true;
+        this.qxgl = true;
       }
 
       if (roles.some(x => x == '审核员')) {

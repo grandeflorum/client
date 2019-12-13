@@ -72,10 +72,15 @@ export class XmscglComponent implements OnInit {
 
       if (roles.some(x => x == '审核员')) {
         this.cansh = true;
+        this.canzsgc = true;
+      }
+
+      if (roles.some(x => x == '领导')) {
+        this.canzsgc = true;
       }
 
       if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
-        this.canzsgc = true;
+        // this.canzsgc = true;
       }
     }
   }
