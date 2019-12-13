@@ -107,6 +107,7 @@ export class StockTradeComponent implements OnInit {
 
       if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
         this.canzsgc = true;
+        this.cantjsh = true;
       }
     }
   }

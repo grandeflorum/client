@@ -78,6 +78,8 @@ export class EconomicCompanyComponent implements OnInit {
   cansh: boolean = false;
   canecsh: boolean = false;
 
+  qxgl: boolean = false;
+
   onlybj: boolean = false;
 
   getRoles() {
@@ -87,12 +89,14 @@ export class EconomicCompanyComponent implements OnInit {
       if (roles.some(x => x == '管理员')) {
         this.canzsgc = true;
         this.cantjsh = true;
+        this.qxgl = true;
         this.cansh = true;
         this.canecsh = true;
       }
 
       if (roles.some(x => x == "默认经济公司")) {
         this.onlybj = true;
+        this.cantjsh = true;
       }
 
       if (roles.some(x => x == '领导')) {
@@ -102,6 +106,7 @@ export class EconomicCompanyComponent implements OnInit {
       if (roles.some(x => x == '录入员')) {
         this.canzsgc = true;
         this.cantjsh = true;
+        this.qxgl = true;
       }
 
       if (roles.some(x => x == '审核员')) {
