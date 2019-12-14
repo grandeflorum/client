@@ -28,7 +28,12 @@ export class EwmCheckComponent implements OnInit {
 
   async getEwmCheckInfo() {
 
-    let res = await this.houseTradeService.getEwmCheckInfo(this.id, this.type);
+
+    var data = {
+      id: this.id,
+      type: this.type
+    }
+    let res = await this.houseTradeService.getEwmCheckInfo(data);
     if (res && res.code == 200) {
       this.data = res.msg;
     }

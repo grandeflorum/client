@@ -52,7 +52,7 @@ export class HouseTradeService {
     return this.http.get('/HouseTrade/checkExistCompletionFile?id=' + id);
   }
 
-  getEwmCheckInfo(id, type): any {
-    return this.http.get('/HouseTrade/getEwmCheckInfo?id=' + id + "&type=" + type);
+  getEwmCheckInfo(data): any {
+    return this.http.post('/HouseTrade/getEwmCheckInfo',data);
   }
 }

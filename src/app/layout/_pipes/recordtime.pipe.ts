@@ -7,6 +7,9 @@ export class RecordtimePipe implements PipeTransform {
 
     transform(value: any, type?: any): any {
 
+        if (!value) {
+            return ""
+        }
         var dateee = new Date(value).toJSON();
         var date = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
 
@@ -21,7 +24,7 @@ export class RecordtimePipe implements PipeTransform {
         }
 
         if (type == "month") {
-            result = result.split("-")[0]+"/"+result.split("-")[1];
+            result = result.split("-")[0] + "/" + result.split("-")[1];
         }
 
         if (type == "time") {

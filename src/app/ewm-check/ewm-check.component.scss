@@ -2,7 +2,8 @@
     padding: 10px;
     background: #4cb4ff;
     height: 100%;
-    width: 450px;
+    max-width: 450px;
+    overflow-x: hidden;
 }
 
 .div2{
@@ -11,7 +12,9 @@
     border-radius: 10px;
     padding: 10px;
     height: 100%;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 400px;
 }
 
 
