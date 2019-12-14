@@ -310,6 +310,10 @@ export class HouseTradeComponent implements OnInit {
 
   //审核
   audit(data, type?) {
+    if(!data.houseId){
+      this.msg.create('error', '该合同未关联户，不能提交审核');
+      return;
+    }
 
     this.auditIsVisible = true;
     switch (data.currentStatus) {
