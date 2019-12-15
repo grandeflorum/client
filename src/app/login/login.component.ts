@@ -308,7 +308,7 @@ export class LoginComponent implements OnInit {
           name: x.name,
           id: x.id,
           route: '/' + x.code,
-          icon: 'dashboard',
+          icon: x.icon,
           children: []
         })
       });
@@ -321,7 +321,7 @@ export class LoginComponent implements OnInit {
             name: x.name,
             id: x.id,
             route: '/' + x.code.replace(':', '/'),
-            icon: 'dashboard'
+            icon: x.icon
           })
         }
       });
