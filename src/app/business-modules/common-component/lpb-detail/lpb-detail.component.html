@@ -37,7 +37,7 @@
     </div>
     <div nz-col [nzSpan]="8">
       <div class="label_div"><span class="clo_r">*</span>自然幢号：</div>
-      <span><input name="zrzh" maxlength="24" nz-input class="w200" [disabled]="isDisable" title={{detailObj.zrzh}}
+      <span><input name="zrzh" maxlength="24" nz-input class="w200" [disabled]="true" title={{detailObj.zrzh}}
           required [validation]="true" nzSize="default" [(ngModel)]="detailObj.zrzh" class="w200" /></span>
     </div>
     <div nz-col [nzSpan]="8">
@@ -179,7 +179,7 @@
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>逻辑幢号：</div>
         <span> <input nz-input nzSize="default" [(ngModel)]="lpbList.ljzh" [title]="lpbList.ljzh" maxlength="24"
-            [disabled]="isDisable" class="w200" required [validation]="true" /></span>
+            [disabled]="true" class="w200" required [validation]="true" /></span>
 
       </div>
       <div nz-col [nzSpan]="8">
@@ -446,7 +446,7 @@
     <div nz-col [nzSpan]="8">
       <div class="label_div"><span class="clo_r">*</span>逻辑幢号：</div>
       <span> <input nz-input nzSize="default" [(ngModel)]="ljzObj.ljzh" [title]="ljzObj.ljzh" maxlength="24"
-          title={{ljzObj.ljzh}} [disabled]="isDisable" class="w200" required [validation]="ljzValidation" /></span>
+          title={{ljzObj.ljzh}} [disabled]="true" class="w200" required [validation]="ljzValidation" /></span>
 
     </div>
     <div nz-col [nzSpan]="8">
@@ -641,14 +641,14 @@
       <div class="label_div"><span class="clo_r">*</span>自然幢号：</div>
       <span>
         <input name="hObj_zrzh" maxlength="24" nz-input class="w200" title={{hObj.zrzh}} required
-          [validation]="hValidation" nzSize="default" [(ngModel)]="hObj.zrzh" />
+          [validation]="hValidation" nzSize="default" [(ngModel)]="hObj.zrzh" [disabled]="true" />
       </span>
     </div>
     <div nz-col [nzSpan]="8">
       <div class="label_div"><span class="clo_r">*</span>逻辑幢号：</div>
       <span>
         <input name="hObj_ljzh" maxlength="24" nz-input class="w200" title={{hObj.ljzh}} required
-          [validation]="hValidation" nzSize="default" [(ngModel)]="hObj.ljzh" />
+          [validation]="hValidation" nzSize="default" [(ngModel)]="hObj.ljzh" [disabled]="true" />
       </span>
     </div>
     <div nz-col [nzSpan]="8">

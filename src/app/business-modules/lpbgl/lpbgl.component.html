@@ -160,7 +160,7 @@
     <div nz-col [nzSpan]="12" class="ta_r">
       <div class="label_div"><span class="clo_r">*</span>自然幢号：</div>
       <input name="zrzh" maxlength="24" nz-input style="width:calc(100% - 130px)" required [validation]="true"
-        nzSize="default" [(ngModel)]="lpb.zrzh" class="w200" />
+        nzSize="default" [(ngModel)]="lpb.zrzh" class="w200" [disabled]="true" />
     </div>
   </div>
 
