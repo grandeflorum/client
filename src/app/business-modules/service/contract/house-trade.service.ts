@@ -55,4 +55,8 @@ export class HouseTradeService {
   getEwmCheckInfo(data): any {
     return this.http.post('/HouseTrade/getEwmCheckInfo',data);
   }
+
+  sh(id):any{
+    return this.http.get('/HouseTrade/sh?id=' + id);
+  }
 }

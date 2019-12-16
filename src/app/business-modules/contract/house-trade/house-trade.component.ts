@@ -307,7 +307,22 @@ export class HouseTradeComponent implements OnInit {
     }
   }
 
+  async sh(data){
+    if(!data.houseId){
+      this.msg.create('error', '该合同未关联户，不能提交审核');
+      return;
+    }
 
+    let res = await this.houseTradeService.sh(data.id);
+    if (res && res.code == 200) {
+      this.msg.create('success', '提交审核成功');
+      this.search();
+    } else {
+      this.msg.create('error', '提交审核失败');
+    }
+
+
+  }
   //审核
   audit(data, type?) {
     if(!data.houseId){

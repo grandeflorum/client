@@ -23,7 +23,7 @@
             </nz-input-group>
           </div>
 
-          <div>
+          <div [hidden] = "errorCount<3"> 
             <nz-input-group [nzPrefix]="prefixIdy" [nzSuffix]="suffixIdy">
               <input nz-input placeholder="验证码" class="login_input" (keydown.enter)="login()" [(ngModel)]="code" style="margin-bottom:30px"
                 id="verify" />

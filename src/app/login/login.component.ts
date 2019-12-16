@@ -44,6 +44,8 @@ export class LoginComponent implements OnInit {
   allOrgList: any = [];
   orgTreeNodes: any = [];
 
+  errorCount: 0;
+
   nums = [
     '1',
     '2',
@@ -125,6 +127,8 @@ export class LoginComponent implements OnInit {
       that.username = remeberData.username;
       that.password = remeberData.password;
     }
+
+    this.errorCount = 0;
 
     setTimeout(() => {
       that.drawCode('verifyCanvas', 'code_img');
@@ -219,16 +223,20 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    if (!this.code) {
-      this.loginMessage = '验证码不能为空';
-      return;
+    if(this.errorCount>=3){
+      if (!this.code) {
+        this.loginMessage = '验证码不能为空';
+        return;
+      }
+  
+      var newRand = this.rand.join('');
+      if (newRand.toLocaleLowerCase() != this.code.toLocaleLowerCase()) {
+        this.loginMessage = '验证码不正确';
+        return;
+      }
     }
 
-    var newRand = this.rand.join('');
-    if (newRand.toLocaleLowerCase() != this.code.toLocaleLowerCase()) {
-      this.loginMessage = '验证码不正确';
-      return;
-    }
+  
 
     this.isLogining = true;
     // 接口调用示例
@@ -265,6 +273,7 @@ export class LoginComponent implements OnInit {
       this.getUserMenu();
     } else {
       this.loginMessage = '用户名密码错误';
+      this.errorCount++;
     }
 
 

@@ -40,5 +40,9 @@ export class StockTradeService {
     return this.http.get('/StockTrade/linkH?id=' + id + "&hid=" + hid);
   }
 
+  sh(id):any{
+    return this.http.get('/StockTrade/sh?id=' + id);
+  }
+
 
 }
