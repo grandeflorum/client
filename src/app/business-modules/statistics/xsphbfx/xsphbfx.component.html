@@ -39,7 +39,7 @@
       <p><span class="rank_title">项目销售量排名前十</span> <span>单位：套</span></p>
 
       <ul class="rank_ul">
-        <li *ngFor="let item of rankList;index as index"><span class="rank_num" [ngClass]="{'rank_top3':index<3}">{{index}}</span><span class="rank_name">{{item.xmmc}}</span><span class="rank_ts">{{item.xsl}}</span></li>
+        <li *ngFor="let item of rankList;index as index"><span class="rank_num" [ngClass]="{'rank_top3':index<3}">{{index+1}}</span><span class="rank_name">{{item.xmmc}}</span><span class="rank_ts">{{item.xsl}}</span></li>
       </ul>
     </div>
 

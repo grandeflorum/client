@@ -101,8 +101,8 @@ export class BusinessModulesComponent implements OnInit {
             this.getAllDictionary();
             this.getAllRegion();
             this.currentUrl = this.router.url;
-
             this.urlChange();
+            
         }
 
 
@@ -114,6 +114,11 @@ export class BusinessModulesComponent implements OnInit {
             //this.router.navigate([item.children[0].route]);
         } else {
             this.router.navigate([item.route]);
+
+            setTimeout(() => {
+                this.urlChange();
+            }, 500);
+            
         }
 
     }
@@ -121,14 +126,14 @@ export class BusinessModulesComponent implements OnInit {
 
     urlChange() {
         const url = this.router.url;
-
+        this.breadcrumbList = []
         this.menuList.forEach((v, k) => {
             if (url.indexOf(v.route) > -1) {
                 this.breadcrumbList.push(v);
 
                 if (v.children.length > 0) {
                     v.children.forEach((vv, kk) => {
-                        if (url.indexOf(vv.route) > -1) {
+                        if (url == vv.route) {
                             this.breadcrumbList.push(vv);
                         }
                     })
