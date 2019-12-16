@@ -228,7 +228,7 @@ export class LpbDetailComponent implements OnInit {
     this.hValidation = false;
     this.cValidation = false;
 
-    this.ljzObj.ljzh = "",
+    this.ljzObj.ljzh = "L"+this.utilitiesSercice.getTimeStamp(),
       this.ljzObj.zcs = "",
 
       this.ljzObj.scjzmj = "",
@@ -290,6 +290,7 @@ export class LpbDetailComponent implements OnInit {
         zrzh: this.detailObj.zrzh,
         sjc: this.cObj.sjc,
         ch: this.cObj.ch,
+        myc:this.cObj.myc,
         sfqfdy: this.cObj.sfqfdy,
         qxdm: '361129',
       };

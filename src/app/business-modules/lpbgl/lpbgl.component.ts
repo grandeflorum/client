@@ -7,6 +7,7 @@ import { Localstorage } from '../service/localstorage';
 import { ValidationDirective } from '../../layout/_directives/validation.directive';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
+import { UtilitiesSercice } from '../service/common/utilities.services';
 
 
 @Component({
@@ -66,7 +67,8 @@ export class LpbglComponent implements OnInit {
     private kfxmglService: KfxmglService,
     private lpbglService: LpbglService,
     private activatedRoute: ActivatedRoute,
-    private localstorage: Localstorage
+    private localstorage: Localstorage,
+    private utilitiesSercice:UtilitiesSercice
   ) {
     this.optionParam = this.activatedRoute.snapshot.queryParams.option;
     this.selectId = this.activatedRoute.snapshot.queryParams.selectId;
@@ -257,6 +259,7 @@ export class LpbglComponent implements OnInit {
     if (m == 1) {
       this.lpb = {};
       this.isVisible = true;
+      this.lpb.zrzh="Z"+this.utilitiesSercice.getTimeStamp();
     } else {
       var route = "/lpbgl/detail";
 
