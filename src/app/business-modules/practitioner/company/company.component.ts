@@ -120,7 +120,7 @@ export class CompanyComponent implements OnInit {
       }
 
       if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
-        this.canzsgc = true;
+        // this.canzsgc = true;
       }
     }
   }
@@ -459,10 +459,10 @@ export class CompanyComponent implements OnInit {
       this.msg.create("warning", "密码不能为空");
       return;
     }
-    if (this.roleData.password != this.roleData.passwordSure) {
-      this.msg.create("warning", "确定密码与原密码不一致");
-      return;
-    }
+    // if (this.roleData.password != this.roleData.passwordSure) {
+    //   this.msg.create("warning", "确定密码与原密码不一致");
+    //   return;
+    // }
 
     let data = {
       id: this.roleData.id,
@@ -475,7 +475,7 @@ export class CompanyComponent implements OnInit {
 
     let resRole = await this.userService.insertRoleManage(data, 1);
     if (resRole && resRole.code == 200) {
-      this.msg.create("success", "注册成功");
+      this.msg.create("success", "设置成功");
       this.isVisibleRole = false;
     } else {
       this.msg.create("error", resRole.msg);

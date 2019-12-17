@@ -77,6 +77,10 @@ export class EmployeeListComponent implements OnInit {
       if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
         this.canzsgc = true;
       }
+
+      if (roles.some(x => x == "默认开发企业") || roles.some(x => x == "默认经济公司")) {
+        this.canzsgc = true;
+      }
     }
   }
 
