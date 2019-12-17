@@ -116,6 +116,7 @@
       </div>
 
       <div nz-col [nzSpan]="8">
+        <img *ngIf="fileLogoList.length==0&&isDisable" src="../../../../../assets/images/no_img.jpg">
         <div class="clearfix logo-div" [ngStyle]="{'margin-top':fileLogoList.length>0?'-20px':'0px'}">
           <nz-upload [nzAction]=" uploadFileUrl" nzListType="picture-card" [nzCustomRequest]="customReq"
             [nzBeforeUpload]="beforeUpload" [nzFileList]="fileLogoList"
