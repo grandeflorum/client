@@ -205,6 +205,10 @@
 
       </div>
 
+      <nz-divider *ngIf="bg" nzText="变更理由" nzOrientation="left" style="font-size: 18px"></nz-divider>
+      <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }"  *ngIf="bg" [(ngModel)]="detailObj.bgly"
+      maxlength="250" placeholder="请输入变更理由"></textarea>
+
       <nz-divider nzText="共有权人" nzOrientation="left" style="font-size: 18px"></nz-divider>
       <div nz-row style="height: 50px;padding: 10px;">
         <div style="text-align: center;" nz-col [nzSpan]="6">

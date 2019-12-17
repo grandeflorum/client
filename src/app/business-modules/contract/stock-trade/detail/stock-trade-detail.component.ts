@@ -70,7 +70,7 @@ export class StockTradeDetailComponent implements OnInit {
   selectH: any = "";
 
   isbusy = false;
-
+  bg = "";
 
   associatedCompanyShow: boolean = false;
 
@@ -92,6 +92,8 @@ export class StockTradeDetailComponent implements OnInit {
     this.detailObj.id = pid ? pid : this.detailObj.id;
 
     let glType = this.activatedRoute.snapshot.queryParams["glType"];
+    this.bg = this.activatedRoute.snapshot.queryParams["bg"];
+
     this.tabsetIndex = glType ? 2 : 0;
 
     if (type == 2) {
@@ -343,6 +345,7 @@ export class StockTradeDetailComponent implements OnInit {
       return;
     }
     this.isbusy = true;
+    this.detailObj.bg=this.bg;
     var res = await this.stockTradeService.saveOrUpdateStockTrade(this.detailObj);
     this.isbusy = false;
     if (res && res.code == 200) {

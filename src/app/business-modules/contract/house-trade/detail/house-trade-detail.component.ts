@@ -75,6 +75,7 @@ export class HouseTradeDetailComponent implements OnInit {
   selectH: any = "";
 
   isbusy = false;
+  bg = "";
 
 
 
@@ -100,6 +101,8 @@ export class HouseTradeDetailComponent implements OnInit {
 
     let glType = this.activatedRoute.snapshot.queryParams["glType"];
     this.tabsetIndex = glType ? 2 : 0;
+
+    this.bg = this.activatedRoute.snapshot.queryParams["bg"];
 
     if (type == 2) {
       this.isDisable = true;
@@ -375,6 +378,9 @@ export class HouseTradeDetailComponent implements OnInit {
       return;
     }
     this.isbusy = true;
+
+    this.detailObj.bg=this.bg;
+
     var res = await this.houseTradeService.saveOrUpdateHouseTrade(this.detailObj);
     this.isbusy = false;
     if (res && res.code == 200) {

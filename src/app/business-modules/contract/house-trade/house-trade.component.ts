@@ -293,6 +293,16 @@ export class HouseTradeComponent implements OnInit {
       }
     });
   }
+  
+  bg(item){
+    this.router.navigate(['/contract/houseTrade/detail'], {
+      queryParams: {
+        id: item.id ,
+        type: 3,
+        bg:"bg"
+      }
+    });
+  }
 
   //提交审核
   async auditHouseTrade(id, type) {

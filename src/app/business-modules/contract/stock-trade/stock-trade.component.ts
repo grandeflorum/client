@@ -278,6 +278,16 @@ export class StockTradeComponent implements OnInit {
     });
   }
 
+  bg(item){
+    this.router.navigate(['/contract/stockTrade/detail'], {
+      queryParams: {
+        id: item.id ,
+        type: 3,
+        bg:"bg"
+      }
+    });
+  }
+
   //提交审核
   async auditHouseTrade(id, type) {
 
