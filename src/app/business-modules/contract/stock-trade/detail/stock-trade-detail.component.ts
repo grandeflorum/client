@@ -345,7 +345,7 @@ export class StockTradeDetailComponent implements OnInit {
       return;
     }
     this.isbusy = true;
-    this.detailObj.bg=this.bg;
+    this.detailObj.bg = this.bg;
     var res = await this.stockTradeService.saveOrUpdateStockTrade(this.detailObj);
     this.isbusy = false;
     if (res && res.code == 200) {
@@ -472,13 +472,13 @@ export class StockTradeDetailComponent implements OnInit {
   }
 
   nameChange() {
-    if (this.detailObj && this.detailObj.relationShips && this.detailObj.relationShips.length > 0) {
-      var name = "";
-      this.detailObj.relationShips.forEach(element => {
-        name += element.name + ",";
-      });
-      this.detailObj.yf = name.substring(0, name.length - 1);
-    }
+    // if (this.detailObj && this.detailObj.relationShips && this.detailObj.relationShips.length > 0) {
+    //   var name = "";
+    //   this.detailObj.relationShips.forEach(element => {
+    //     name += element.name + ",";
+    //   });
+    //   this.detailObj.yf = name.substring(0, name.length - 1);
+    // }
   }
 
   ngAfterViewInit() {
