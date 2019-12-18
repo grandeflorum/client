@@ -17,13 +17,15 @@ import { ExceptionInterceptorService } from './business-modules/service/exceptio
 
 //component
 import { NotFoundComponent } from './not-found/not-found.component';
+import { EwmCheckComponent } from './ewm-check/ewm-check.component';
 
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    EwmCheckComponent
   ],
   imports: [
     BrowserModule,
