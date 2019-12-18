@@ -37,8 +37,8 @@
     </div>
     <div nz-col [nzSpan]="8">
       <div class="label_div"><span class="clo_r">*</span>自然幢号：</div>
-      <span><input name="zrzh" maxlength="24" nz-input class="w200" [disabled]="true" title={{detailObj.zrzh}}
-          required [validation]="true" nzSize="default" [(ngModel)]="detailObj.zrzh" class="w200" /></span>
+      <span><input name="zrzh" maxlength="24" nz-input class="w200" [disabled]="true" title={{detailObj.zrzh}} required
+          [validation]="true" nzSize="default" [(ngModel)]="detailObj.zrzh" class="w200" /></span>
     </div>
     <div nz-col [nzSpan]="8">
       <div class="label_div">总层数：</div>
@@ -611,15 +611,16 @@
     <div nz-col [nzSpan]="8">
       <div class="label_div"> 不动产单元号： </div>
       <span>
-        <input name="bdcdyh" maxlength="28" nz-input class="w200" title={{hObj.bdcdyh}}  nzSize="default" [(ngModel)]="hObj.bdcdyh" />
+        <input name="bdcdyh" maxlength="28" nz-input class="w200" title={{hObj.bdcdyh}} nzSize="default"
+          [(ngModel)]="hObj.bdcdyh" />
       </span>
     </div>
 
     <div nz-col [nzSpan]="8">
       <div class="label_div">房屋编码： </div>
       <span>
-        <input name="fwbm" maxlength="26" nz-input class="w200" title={{hObj.fwbm}} 
-          nzSize="default" [(ngModel)]="hObj.fwbm" />
+        <input name="fwbm" maxlength="26" nz-input class="w200" title={{hObj.fwbm}} nzSize="default"
+          [(ngModel)]="hObj.fwbm" />
       </span>
     </div>
 
@@ -866,9 +867,9 @@
 
   <div nz-row style="height: 50px;padding: 10px;">
     <div nz-col [nzSpan]="8">
-      <div class="label_div"> <span class="clo_r">*</span>实测分摊系数： </div>
+      <div class="label_div">实测分摊系数： </div>
       <span>
-        <input name="scftxs" maxlength="10" nz-input class="w200" title={{hObj.scftxs}} nzSize="default" required
+        <input name="scftxs" maxlength="10" nz-input class="w200" title={{hObj.scftxs}} nzSize="default"
           [validation]="hValidation" [validationType]="'nullAreaNumber'" [(ngModel)]="hObj.scftxs" />
       </span>
     </div>

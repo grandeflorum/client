@@ -79,7 +79,7 @@ export class XmscglComponent implements OnInit {
         this.canzsgc = true;
       }
 
-      if (roles.some(x => x == '开发企业') || roles.some(x => x == '经济公司')) {
+      if (roles.some(x => x == '开发企业') || roles.some(x => x == '经纪公司')) {
         // this.canzsgc = true;
       }
     }

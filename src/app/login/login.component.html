@@ -8,47 +8,46 @@
     </div>
 
 
-        <div style="padding: 0 195px;">
-          <div>
-            <nz-input-group [nzPrefix]="prefixUser">
-              <input nz-input placeholder="用户名" (keydown.enter)="login()" class="login_input"
-                [(ngModel)]="username" />
-            </nz-input-group>
-          </div>
+    <div style="padding: 0 195px;">
+      <div>
+        <nz-input-group [nzPrefix]="prefixUser">
+          <input nz-input placeholder="用户名" (keydown.enter)="login()" class="login_input" [(ngModel)]="username" />
+        </nz-input-group>
+      </div>
 
-          <div>
-            <nz-input-group [nzPrefix]="prefixPsw">
-              <input nz-input type="password" placeholder="密码" (keydown.enter)="login()" class="login_input"
-                [(ngModel)]="password" />
-            </nz-input-group>
-          </div>
+      <div>
+        <nz-input-group [nzPrefix]="prefixPsw">
+          <input nz-input type="password" placeholder="密码" (keydown.enter)="login()" class="login_input"
+            [(ngModel)]="password" />
+        </nz-input-group>
+      </div>
 
-          <div [hidden] = "errorCount<3"> 
-            <nz-input-group [nzPrefix]="prefixIdy" [nzSuffix]="suffixIdy">
-              <input nz-input placeholder="验证码" class="login_input" (keydown.enter)="login()" [(ngModel)]="code" style="margin-bottom:30px"
-                id="verify" />
-            </nz-input-group>
-          </div>
+      <div [hidden]="errorCount<3">
+        <nz-input-group [nzPrefix]="prefixIdy" [nzSuffix]="suffixIdy">
+          <input nz-input placeholder="验证码" class="login_input" (keydown.enter)="login()" [(ngModel)]="code"
+            style="margin-bottom:30px" id="verify" />
+        </nz-input-group>
+      </div>
 
-          <div style="text-align: left;">
-            <label nz-checkbox [(ngModel)]="remebermeChecked" style="color:#fff;">记住我</label>
-            <div style="color: #ff2828;height: 0;float: right;">
-              {{ loginMessage }}
-            </div>
-          </div>
-
-          <div>
-            <button nz-button nzType="primary" class="login_btn" [nzLoading]="isLogining" (click)="login()">
-              登&nbsp;录
-            </button>
-          </div>
-
-          <div class="login_register" (click)="register()">
-            立即注册
-          </div>
-
-
+      <div style="text-align: left;">
+        <label nz-checkbox [(ngModel)]="remebermeChecked" style="color:#fff;">记住我</label>
+        <div style="color: #ff2828;height: 0;float: right;">
+          {{ loginMessage }}
         </div>
+      </div>
+
+      <div>
+        <button nz-button nzType="primary" class="login_btn" [nzLoading]="isLogining" (click)="login()">
+          登&nbsp;录
+        </button>
+      </div>
+
+      <div class="login_register" (click)="register()">
+        立即注册
+      </div>
+
+
+    </div>
 
 
 
@@ -123,9 +122,8 @@
       <div nz-row style="height: 60px;">
         <div class="ta_r">
           <span class="clo_r">*</span>身份证号：
-          <input nz-input  style="width:calc(100% - 150px)" required [validation]="true"
-            nzSize="default" [(ngModel)]="registerUser.card" class="w200" [validationType]="'idcard'"
-            [validationLenth]="50" />
+          <input nz-input style="width:calc(100% - 150px)" required [validation]="true" nzSize="default"
+            [(ngModel)]="registerUser.card" class="w200" [validationType]="'idcard'" [validationLenth]="50" />
         </div>
       </div>
       <div nz-row style="height: 60px;">
@@ -148,7 +146,7 @@
           <nz-select style="width:calc(100% - 150px)" required [validation]="true"
             [(ngModel)]="registerUser.companyType" class="w200" nzPlaceHolder="请选择">
             <nz-option nzValue="1" nzLabel="开发企业"></nz-option>
-            <nz-option nzValue="2" nzLabel="经济企业"></nz-option>
+            <nz-option nzValue="2" nzLabel="经纪企业"></nz-option>
           </nz-select>
         </div>
       </div>
