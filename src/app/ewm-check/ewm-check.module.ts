@@ -15,7 +15,7 @@
 // ];
 
 // @NgModule({
-//   declarations: [EwmCheckComponent],
+//   declarations: [EwmCheckComponent], 
 //   imports: [
 //     CommonModule,
 //     FormsModule,
