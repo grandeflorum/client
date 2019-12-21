@@ -30,7 +30,7 @@ export class StockTradeDetailComponent implements OnInit {
   tabsetIndex = 0;
   isDisable = false;
   detailObj: any = {};
-  hid:"";
+  hid: "";
   selectId = -1;
   fjList = [];
   pageIndex: any = 1;
@@ -75,6 +75,12 @@ export class StockTradeDetailComponent implements OnInit {
 
   associatedCompanyShow: boolean = false;
 
+  //甲方集合
+  jfList: any = [];
+  //乙方集合
+  yfList: any = [];
+
+
   constructor(
     private msg: NzMessageService,
     private router: Router,
@@ -92,7 +98,7 @@ export class StockTradeDetailComponent implements OnInit {
     let pid = this.activatedRoute.snapshot.queryParams["pid"];
     this.detailObj.id = pid ? pid : this.detailObj.id;
     //直接从楼盘表页面跳转过来备案
-    this.hid=this.activatedRoute.snapshot.queryParams.hid;
+    this.hid = this.activatedRoute.snapshot.queryParams.hid;
 
     let glType = this.activatedRoute.snapshot.queryParams["glType"];
     this.bg = this.activatedRoute.snapshot.queryParams["bg"];
@@ -130,10 +136,11 @@ export class StockTradeDetailComponent implements OnInit {
 
   ngOnInit() {
     this.dictionaryObj = this.localstorage.getObject("dictionary");
+
     if (this.detailObj.id) {
       this.getDetail();
-    }else if(this.hid){
-      this.detailObj.houseId=this.hid;
+    } else if (this.hid) {
+      this.detailObj.houseId = this.hid;
       this.getHInfo();
     }
     this.search();
@@ -160,12 +167,64 @@ export class StockTradeDetailComponent implements OnInit {
         this.selectH = this.detailObj.houseId;
         this.getLpb(this.detailObj.ljzid);
       }
+
+      var jf = this.buildInfoList(this.detailObj.jf);
+      var jflxdz = this.buildInfoList(this.detailObj.jflxdz);
+      var jfzjlx = this.buildInfoList(this.detailObj.jfzjlx);
+      var jfzjhm = this.buildInfoList(this.detailObj.jfzjhm);
+      var jflxdh = this.buildInfoList(this.detailObj.jflxdh);
+
+      this.jfList = [];
+      for (let idx = 0; idx < jf.length; idx++) {
+        this.jfList.push({
+          jf: jf[idx],
+          jflxdz: jflxdz[idx],
+          jfzjlx: jfzjlx[idx],
+          jfzjhm: jfzjhm[idx],
+          jflxdh: jflxdh[idx]
+        });
+      }
+
+
+      var yf = this.buildInfoList(this.detailObj.yf);
+      var yflxdz = this.buildInfoList(this.detailObj.yflxdz);
+      var yfzjlx = this.buildInfoList(this.detailObj.yfzjlx);
+      var yfzjhm = this.buildInfoList(this.detailObj.yfzjhm);
+      var yflxdh = this.buildInfoList(this.detailObj.yflxdh);
+
+      this.yfList = [];
+      for (let idx = 0; idx < yf.length; idx++) {
+        this.yfList.push({
+          yf: yf[idx],
+          yflxdz: yflxdz[idx],
+          yfzjlx: yfzjlx[idx],
+          yfzjhm: yfzjhm[idx],
+          yflxdh: yflxdh[idx]
+        });
+      }
+
+
     } else {
       this.msg.create('error', '内部服务错误');
     }
   }
 
-  async getHInfo(){
+  buildInfoList(param) {
+
+    var list = [];
+    param = param ? param : "";
+
+    if (param.indexOf(',') != -1) {
+      list = param.split(',');
+    } else {
+      list.push(param);
+    }
+
+    return list;
+
+  }
+
+  async getHInfo() {
     var res = await this.stockTradeService.getHInfo(this.detailObj.houseId);
     if (res && res.code == 200) {
       this.detailObj = res.msg;
@@ -362,12 +421,72 @@ export class StockTradeDetailComponent implements OnInit {
     if (!this.detailObj.id) {
       delete this.detailObj.id;
     }
+
+    if (this.jfList.length == 0) {
+      this.msg.create('error', '请填写甲方信息');
+      return;
+    }
+
+    if (this.yfList.length == 0) {
+      this.msg.create('error', '请填写乙方信息');
+      return;
+    }
+
     if (this.isbusy) {
       this.msg.create('error', '数据正在保存，请勿重复点击');
       return;
     }
     this.isbusy = true;
     this.detailObj.bg = this.bg;
+
+    this.detailObj.jf = "";
+    this.detailObj.jflxdz = "";
+    this.detailObj.jfzjlx = "";
+    this.detailObj.jfzjhm = "";
+    this.detailObj.jflxdh = "";
+
+    for (let idx = 0; idx < this.jfList.length; idx++) {
+
+      if (idx != this.jfList.length - 1) {
+        this.detailObj.jf += this.jfList[idx].jf + ",";
+        this.detailObj.jflxdz += this.jfList[idx].jflxdz + ",";
+        this.detailObj.jfzjlx += this.jfList[idx].jfzjlx + ",";
+        this.detailObj.jfzjhm += this.jfList[idx].jfzjhm + ",";
+        this.detailObj.jflxdh += this.jfList[idx].jflxdh + ",";
+      } else {
+        this.detailObj.jf += this.jfList[idx].jf;
+        this.detailObj.jflxdz += this.jfList[idx].jflxdz;
+        this.detailObj.jfzjlx += this.jfList[idx].jfzjlx;
+        this.detailObj.jfzjhm += this.jfList[idx].jfzjhm;
+        this.detailObj.jflxdh += this.jfList[idx].jflxdh;
+      }
+
+    }
+
+    this.detailObj.yf = "";
+    this.detailObj.yflxdz = "";
+    this.detailObj.yfzjlx = "";
+    this.detailObj.yfzjhm = "";
+    this.detailObj.yflxdh = "";
+
+    for (let idx = 0; idx < this.yfList.length; idx++) {
+
+      if (idx != this.yfList.length - 1) {
+        this.detailObj.yf += this.yfList[idx].yf + ",";
+        this.detailObj.yflxdz += this.yfList[idx].yflxdz + ",";
+        this.detailObj.yfzjlx += this.yfList[idx].yfzjlx + ",";
+        this.detailObj.yfzjhm += this.yfList[idx].yfzjhm + ",";
+        this.detailObj.yflxdh += this.yfList[idx].yflxdh + ",";
+      } else {
+        this.detailObj.yf += this.yfList[idx].yf ;
+        this.detailObj.yflxdz += this.yfList[idx].yflxdz ;
+        this.detailObj.yfzjlx += this.yfList[idx].yfzjlx ;
+        this.detailObj.yfzjhm += this.yfList[idx].yfzjhm ;
+        this.detailObj.yflxdh += this.yfList[idx].yflxdh ;
+      }
+
+    }
+
     var res = await this.stockTradeService.saveOrUpdateStockTrade(this.detailObj);
     this.isbusy = false;
     if (res && res.code == 200) {
@@ -491,6 +610,45 @@ export class StockTradeDetailComponent implements OnInit {
 
   deletepeople(obj, i) {
     this.detailObj.relationShips.splice(i, 1);
+  }
+
+  addJf() {
+    if (!this.jfList) {
+      this.jfList = [];
+    }
+    var jf = {
+      jf: "",
+      jflxdz: "",
+      jfzjlx: "",
+      jfzjhm: "",
+      jflxdh: ""
+    }
+    this.jfList.push(jf);
+
+  }
+
+  deleteJf(obj, i) {
+    this.jfList.splice(i, 1);
+  }
+
+
+  addYf() {
+    if (!this.yfList) {
+      this.yfList = [];
+    }
+    var yf = {
+      yf: "",
+      yflxdz: "",
+      yfzjlx: "",
+      yfzjhm: "",
+      yflxdh: ""
+    }
+    this.yfList.push(yf);
+
+  }
+
+  deleteYf(obj, i) {
+    this.yfList.splice(i, 1);
   }
 
   nameChange() {
