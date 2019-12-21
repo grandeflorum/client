@@ -364,7 +364,7 @@
           [nzPopoverContent]="CePopoverContent">{{item.ch}}层</li>
         <li *ngFor="let hu of item.hList" [ngClass]="{'lpb_ydy':(moduleType=='dy'&&hu.status == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.status == 1) ,
                             'lpb_ycf':(moduleType=='cf'&&hu.cfStatus == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.cfStatus == 1),
-                            'lpb_yba':hu.tradeType>0 }" nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'"
+                            'lpb_yba':hu.tradeType>0,'lpb_yzl':hu.zlStatus==1 }" nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'"
           [nzPopoverContent]="PopoverContent" (mouseenter)="selectedHuChange(hu)"
           [ngStyle]="{'border-color':selectH==hu.id?'red':'#ccc'}" (click)="selectH=hu.id">
           {{hu.mph}}</li>
@@ -398,7 +398,7 @@
   <p *ngIf="!isDisable||selectedHu.tradeType>0||detailObj.auditType==4||detailObj.auditType==2" style="height: 20px;">
     <button nz-button *ngIf="selectedHu.tradeType>0" nzType="primary" (click)="perview()">预览合同</button>
     <button nz-button *ngIf="isDisable&&(detailObj.auditType==4||detailObj.auditType==2)" nzType="primary"
-      (click)="contract(selectedHu.id)">合同备案</button>
+      (click)="contract(selectedHu)">合同备案</button>
     <button nz-button *ngIf="selectedHu.tradeType>0" nzType="primary" (click)="viewHistory()">查看历史备案记录</button>
     <button nz-button *ngIf="!isDisable" nzType="primary" (click)="editH(selectedHu.id)">编辑</button>
     <button nz-button *ngIf="!isDisable" nzType="danger" (click)="deleteH(selectedHu.id)">删除</button>

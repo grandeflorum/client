@@ -43,6 +43,10 @@ export class StockTradeService {
   sh(id):any{
     return this.http.get('/StockTrade/sh?id=' + id);
   }
+  
+  getHInfo(hid): any {
+    return this.http.get('/StockTrade/getHInfo?hid=' + hid);
+  }
 
 
 }
