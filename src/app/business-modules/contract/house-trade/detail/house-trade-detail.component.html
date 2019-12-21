@@ -139,6 +139,23 @@
         </div>
       </div>
 
+      <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">共有方式：</div>
+          <nz-select [(ngModel)]="detailObj.gyqk" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+            <nz-option *ngFor="let option of dictionaryObj.gyfs" [nzLabel]="option.name" [nzValue]="option.code">
+            </nz-option>
+          </nz-select>
+        </div>
+
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">共有比例：</div>
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.gybl" title={{detailObj.gybl}} maxlength="50" [disabled]="isDisable"
+            class="w200" /></span>
+
+        </div>
+      </div>
+
       <nz-divider *ngIf="bg" nzText="变更理由" nzOrientation="left" style="font-size: 18px"></nz-divider>
       <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }"  *ngIf="bg" [(ngModel)]="detailObj.bgly"
       maxlength="250" placeholder="请输入变更理由"></textarea>
