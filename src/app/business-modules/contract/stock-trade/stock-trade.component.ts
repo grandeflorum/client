@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList, ViewChild } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import { Router ,ActivatedRoute} from '@angular/router';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { StockTradeService } from "../../service/contract/stock-trade.service";
@@ -78,7 +78,8 @@ export class StockTradeComponent implements OnInit {
     private router: Router,
     private localstorage: Localstorage,
     private stockTradeService: StockTradeService,
-    private utilitiesSercice: UtilitiesSercice
+    private utilitiesSercice: UtilitiesSercice,
+    private activatedRoute:ActivatedRoute
   ) { }
 
   //添加权限
@@ -116,6 +117,17 @@ export class StockTradeComponent implements OnInit {
     this.getRoles();
     this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
     this.auditObj.shry = this.userinfo ? this.userinfo.realname : null;
+
+    var isGoBack = this.activatedRoute.snapshot.queryParams.isGoBack;
+
+    if(isGoBack){
+      this.xmmc = this.stockTradeService.pageCache.xmmc;
+      this.jzwmc = this.stockTradeService.pageCache.jzwmc;
+      this.currentStatus = this.stockTradeService.pageCache.currentStatus;
+      this.selectId = this.stockTradeService.pageCache.selectId;
+      this.pageIndex = this.stockTradeService.pageCache.pageIndex;
+      this.pageSize = this.stockTradeService.pageCache.pageSize;
+    }
 
     this.search();
   }
@@ -269,6 +281,15 @@ export class StockTradeComponent implements OnInit {
     //   default:
     //     break;
     // }
+
+      this.stockTradeService.pageCache={
+        xmmc:this.xmmc,
+        jzwmc:this.jzwmc,
+        currentStatus:this.currentStatus,
+        selectId:item?item.id:'',
+        pageIndex:1,
+        pageSize:10
+      }
 
     this.router.navigate(['/contract/stockTrade/detail'], {
       queryParams: {

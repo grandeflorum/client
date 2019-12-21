@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import { Router , ActivatedRoute } from '@angular/router';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { StockHouseService } from "../../service/stockHouse/stock-house.service";
@@ -53,7 +53,8 @@ export class StockHouseComponent implements OnInit {
     private msg: NzMessageService,
     private router: Router,
     private localstorage: Localstorage,
-    private stockHouseService: StockHouseService
+    private stockHouseService: StockHouseService,
+    private activatedRoute:ActivatedRoute
   ) { }
 
   //添加权限
@@ -100,6 +101,17 @@ export class StockHouseComponent implements OnInit {
     this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
     this.shxxObj.wfAudit.shry = this.userinfo ? this.userinfo.realname : null;
     this.fxList= this.localstorage.getObject("dictionary").fx;
+
+    var isGoBack = this.activatedRoute.snapshot.queryParams.isGoBack;
+
+    if(isGoBack){
+      this.cqrxm = this.stockHouseService.pageCache.cqrxm;
+      this.address = this.stockHouseService.pageCache.address;
+      this.auditType = this.stockHouseService.pageCache.auditType;
+      this.selectId = this.stockHouseService.pageCache.selectId;
+      this.pageIndex = this.stockHouseService.pageCache.pageIndex;
+      this.pageSize = this.stockHouseService.pageCache.pageSize;
+    }
 
     this.search();
   }
@@ -272,6 +284,15 @@ export class StockHouseComponent implements OnInit {
     //   default:
     //     break;
     // }
+
+      this.stockHouseService.pageCache = {
+        cqrxm:this.cqrxm,
+        address:this.address,
+        auditType:this.auditType,
+        selectId:item?item.id:'',
+        pageIndex:1,
+        pageSize:10
+      }
 
     this.router.navigate(['/stockHouse/detail'], {
       queryParams: {

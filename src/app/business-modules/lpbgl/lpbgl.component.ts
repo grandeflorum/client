@@ -208,7 +208,7 @@ export class LpbglComponent implements OnInit {
   reset() {
     this.xmmc = '';
     this.jzwmc = '';
-    this.auditType = "0";
+    this.auditType = "";
     this.kgrq = '';
     this.jgrq = '';
     this.search();

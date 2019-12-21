@@ -7,6 +7,17 @@ import { HttpRestService } from '../http-rest.service';
 export class KfxmglService {
   constructor(private http: HttpRestService) {}
 
+  pageCache = {
+    xmmc:'',
+    kfqymc:'',
+    kgrq:'',
+    jgrq:'',
+    auditType:'',
+    selectId:'',
+    pageIndex:1,
+    pageSize:10
+}
+
   //添加或修改开发项目
   saveOrUpdateProject(param): any {
     return this.http.post('/Project/saveOrUpdateProject', param);

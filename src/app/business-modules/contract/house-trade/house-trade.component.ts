@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList, ViewChild } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import { Router , ActivatedRoute } from '@angular/router';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { HouseTradeService } from "../../service/contract/house-trade.service";
@@ -84,7 +84,8 @@ export class HouseTradeComponent implements OnInit {
     private router: Router,
     private houseTradeService: HouseTradeService,
     private localstorage: Localstorage,
-    private utilitiesSercice: UtilitiesSercice
+    private utilitiesSercice: UtilitiesSercice,
+    private activatedRoute:ActivatedRoute
   ) { }
 
   //添加权限
@@ -133,6 +134,17 @@ export class HouseTradeComponent implements OnInit {
     this.getRoles();
     this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
     this.auditObj.shry = this.userinfo ? this.userinfo.realname : null;
+
+    var isGoBack = this.activatedRoute.snapshot.queryParams.isGoBack;
+
+    if(isGoBack){
+      this.xmmc = this.houseTradeService.pageCache.xmmc;
+      this.jzwmc = this.houseTradeService.pageCache.jzwmc;
+      this.currentStatus = this.houseTradeService.pageCache.currentStatus;
+      this.selectId = this.houseTradeService.pageCache.selectId;
+      this.pageIndex = this.houseTradeService.pageCache.pageIndex;
+      this.pageSize = this.houseTradeService.pageCache.pageSize;
+    }
     this.search();
   }
 
@@ -285,6 +297,15 @@ export class HouseTradeComponent implements OnInit {
     //   default:
     //     break;
     // }
+
+      this.houseTradeService.pageCache={
+        xmmc:this.xmmc,
+        jzwmc:this.jzwmc,
+        currentStatus:this.currentStatus,
+        selectId:item?item.id:'',
+        pageIndex:1,
+        pageSize:10
+      }
 
     this.router.navigate(['/contract/houseTrade/detail'], {
       queryParams: {

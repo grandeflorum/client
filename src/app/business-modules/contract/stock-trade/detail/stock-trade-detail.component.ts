@@ -345,7 +345,7 @@ export class StockTradeDetailComponent implements OnInit {
     //   default:
     //     break;
     // }
-    this.router.navigate([route]);
+    this.router.navigate([route],{queryParams:{isGoBack:true}});
   }
 
   pageIndexChange(num) {

@@ -8,6 +8,16 @@ export class ZddyglService {
 
   constructor(private http: HttpRestService) { }
 
+  pageCache = {
+    bdcdyh:'',
+    dybdclx:'',
+    zjjzwzl:'',
+    dy_type:'',
+    selectId:'',
+    pageIndex:1,
+    pageSize:10
+}
+
   getZddyglList(data): any {
     return this.http.post('/Zddy/getZddyList', data);
   }

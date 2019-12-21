@@ -7,6 +7,15 @@ import { HttpRestService } from '../http-rest.service';
 export class LpbglService {
   constructor(private http: HttpRestService) { }
 
+  pageCache = {
+    xmmc:'',
+    jzwmc:'',
+    auditType:'',
+    selectId:'',
+    pageIndex:1,
+    pageSize:10
+}
+
   //获取楼盘表列表
   getBuildingTableList(param): any {
     return this.http.post('/BuildingTable/getBuildingTableList', param);

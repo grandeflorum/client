@@ -7,6 +7,14 @@ import { HttpRestService } from '../http-rest.service';
 export class StockTradeService {
 
   constructor(private http: HttpRestService) { }
+  pageCache = {
+    xmmc:'',
+    jzwmc:'',
+    currentStatus:'',
+    selectId:'',
+    pageIndex:1,
+    pageSize:10
+}
 
   getStockTradeList(data): any {
     return this.http.post('/StockTrade/getStockTradeList', data);

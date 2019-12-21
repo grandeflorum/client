@@ -235,16 +235,14 @@ export class CompanyComponent implements OnInit {
   }
 
   add(m, item?) {
-    if(item){
       this.companyService.pageCache = {
         qymc:this.qymc,
         qylx:this.qylx,
         auditType:this.auditType,
-        selectId:item.id,
+        selectId:item?item.id:'',
         pageIndex:1,
         pageSize:10
       }
-    }
 
     this.router.navigate(['/practitioner/company/detail'], {
       queryParams: {

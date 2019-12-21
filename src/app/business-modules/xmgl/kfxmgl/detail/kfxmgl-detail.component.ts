@@ -156,7 +156,7 @@ export class KfxmglDetailComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/xmgl/kfxmgl']);
+    this.router.navigate(['/xmgl/kfxmgl'],{queryParams:{isGoBack:true}});
   }
 
   pageIndexChange(num) {

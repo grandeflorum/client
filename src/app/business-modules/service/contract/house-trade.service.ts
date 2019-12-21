@@ -8,6 +8,15 @@ export class HouseTradeService {
 
   constructor(private http: HttpRestService) { }
 
+  pageCache = {
+    xmmc:'',
+    jzwmc:'',
+    currentStatus:'',
+    selectId:'',
+    pageIndex:1,
+    pageSize:10
+}
+
   getHouseTradeList(data): any {
     return this.http.post('/HouseTrade/getHouseTradeList', data);
   }

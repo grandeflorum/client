@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import { Router , ActivatedRoute} from '@angular/router';
 import { KfxmglService } from '../../service/xmgl/kfxmgl.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
@@ -52,6 +52,7 @@ export class KfxmglComponent implements OnInit {
     private router: Router,
     private kfxmglService: KfxmglService,
     private localstorage: Localstorage,
+    private ActivatedRoute: ActivatedRoute
   ) { }
 
   //添加权限
@@ -95,6 +96,19 @@ export class KfxmglComponent implements OnInit {
     this.getRoles();
     this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
     this.shxxObj.wfAudit.shry = this.userinfo ? this.userinfo.realname : null;
+
+    var isGoBack = this.ActivatedRoute.snapshot.queryParams.isGoBack;
+
+    if(isGoBack){
+      this.xmmc = this.kfxmglService.pageCache.xmmc;
+      this.kfqymc = this.kfxmglService.pageCache.kfqymc;
+      this.auditType = this.kfxmglService.pageCache.auditType;
+      this.kgrq = this.kfxmglService.pageCache.kgrq;
+      this.jgrq = this.kfxmglService.pageCache.jgrq;
+      this.selectId = this.kfxmglService.pageCache.selectId;
+      this.pageIndex = this.kfxmglService.pageCache.pageIndex;
+      this.pageSize = this.kfxmglService.pageCache.pageSize;
+    }
     this.search();
   }
 
@@ -229,6 +243,17 @@ export class KfxmglComponent implements OnInit {
     //   default:
     //     break;
     // }
+
+      this.kfxmglService.pageCache = {
+        xmmc:this.xmmc,
+        kfqymc:this.kfqymc,
+        kgrq:this.kgrq,
+        jgrq:this.jgrq,
+        auditType:this.auditType,
+        selectId:item?item.id:'',
+        pageIndex:1,
+        pageSize:10
+    }
 
     this.router.navigate(['/xmgl/kfxmgl/detail'], {
       queryParams: {
