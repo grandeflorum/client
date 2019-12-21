@@ -300,7 +300,8 @@ export class ValidationDirective implements AfterViewInit, OnDestroy {
             return (
                 value == null ||
                 value == '' ||
-                /^(?=.*[a-zA-Z])(?=.*\d)[^]{6,50}$/.test(value)
+                // /^(?=.*[a-zA-Z])(?=.*\d)[^]{6,50}$/.test(value)
+                value.length >= 6
             );
         }
     };
@@ -464,7 +465,8 @@ export class ValidationDirective implements AfterViewInit, OnDestroy {
             success: 'success'
         },
         password: {
-            error: '密码长度不少于6位，且必须包含字母和数字。',
+            // error: '密码长度不少于6位，且必须包含字母和数字。',
+            error: '密码长度不少于6位',
             success: 'success'
         }
     };
