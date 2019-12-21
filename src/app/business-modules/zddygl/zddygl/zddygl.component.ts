@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import { Router , ActivatedRoute} from '@angular/router';
 import { Localstorage } from '../../service/localstorage';
 import { ZddyglService } from '../../service/zddygl/zddygl.service';
 
@@ -42,7 +42,8 @@ export class ZddyglComponent implements OnInit {
     private msg: NzMessageService,
     private router: Router,
     private localstorage: Localstorage,
-    private zddyglService: ZddyglService
+    private zddyglService: ZddyglService,
+    private activatedRoute:ActivatedRoute
   ) { }
 
   //添加权限
@@ -80,6 +81,18 @@ export class ZddyglComponent implements OnInit {
     this.dictionaryObj = this.localstorage.getObject("dictionary");
     let regionList = this.localstorage.getObject("region");
     this.regionTreeNodes = this.generateTree2(regionList, null);
+
+    var isGoBack = this.activatedRoute.snapshot.queryParams.isGoBack;
+
+    if(isGoBack){
+      this.bdcdyh = this.zddyglService.pageCache.bdcdyh;
+      this.dybdclx = this.zddyglService.pageCache.dybdclx;
+      this.zjjzwzl = this.zddyglService.pageCache.zjjzwzl;
+      this.dy_type = this.zddyglService.pageCache.dy_type;
+      this.selectId = this.zddyglService.pageCache.selectId;
+      this.pageIndex = this.zddyglService.pageCache.pageIndex;
+      this.pageSize = this.zddyglService.pageCache.pageSize;
+    }
     this.search();
   }
 
@@ -195,6 +208,16 @@ export class ZddyglComponent implements OnInit {
   }
 
   add(m, item?) {
+
+    this.zddyglService.pageCache={
+      bdcdyh:this.bdcdyh,
+      dybdclx:this.dybdclx,
+      zjjzwzl:this.zjjzwzl,
+      dy_type:this.dy_type,
+      selectId:item?item.id:'',
+      pageIndex:1,
+      pageSize:10
+    }
 
     this.router.navigate(['/zddygl/detail'], {
       queryParams: {

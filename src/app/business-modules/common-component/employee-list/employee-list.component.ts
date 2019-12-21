@@ -139,16 +139,14 @@ export class EmployeeListComponent implements OnInit {
   }
 
   addEmployee(data, type) {
-    if(data){
       this.employeeService.pageCache = {
         name:this.name,
         cynx:this.cynx,
         fwjgmc:this.fwjgmc,
         auditType:this.auditType,
-        selectId:data.id,
+        selectId:data?data.id:'',
         pageIndex:1,
         pageSize:10
-    }
     }
 
     let param = {

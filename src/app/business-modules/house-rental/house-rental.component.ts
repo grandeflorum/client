@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import { Router , ActivatedRoute} from '@angular/router';
 import { Localstorage } from '../service/localstorage';
 import { HouseRentalService } from '../service/houserental/houserantal.service';
 
@@ -41,7 +41,8 @@ export class HouseRentalComponent implements OnInit {
     private msg: NzMessageService,
     private router: Router,
     private houseRentalService: HouseRentalService,
-    private localstorage: Localstorage
+    private localstorage: Localstorage,
+    private activatedRoute:ActivatedRoute
   ) { }
 
   //添加权限
@@ -79,6 +80,19 @@ export class HouseRentalComponent implements OnInit {
     this.dictionaryObj = this.localstorage.getObject("dictionary");
     let regionList = this.localstorage.getObject("region");
     this.regionTreeNodes = this.generateTree2(regionList, null);
+
+    var isGoBack = this.activatedRoute.snapshot.queryParams.isGoBack;
+
+    if(isGoBack){
+      this.regioncode = this.houseRentalService.pageCache.regioncode;
+      this.address = this.houseRentalService.pageCache.address;
+      this.usetype = this.houseRentalService.pageCache.usetype;
+      this.isdecorated = this.houseRentalService.pageCache.isdecorated;
+      this.selectId = this.houseRentalService.pageCache.selectId;
+      this.pageIndex = this.houseRentalService.pageCache.pageIndex;
+      this.pageSize = this.houseRentalService.pageCache.pageSize;
+    }
+
     this.search();
   }
 
@@ -194,6 +208,16 @@ export class HouseRentalComponent implements OnInit {
   }
 
   add(m, item?) {
+
+    this.houseRentalService.pageCache={
+       regioncode:this.regioncode,
+        address:this.address,
+        usetype:this.usetype,
+        isdecorated:this.isdecorated,
+        selectId:item?item.id:'',
+        pageIndex:1,
+        pageSize:10
+    }
 
     this.router.navigate(['/houserental/detail'], {
       queryParams: {

@@ -195,7 +195,7 @@ export class HouseRentalDetailComponent implements OnInit {
   quit() {
     this.router.navigate(['/houserental'], {
       queryParams: {
-
+        isGoBack:true
       }
     });
   }

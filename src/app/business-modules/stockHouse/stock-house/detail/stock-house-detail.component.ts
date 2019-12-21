@@ -194,7 +194,7 @@ export class StockHouseDetailComponent implements OnInit {
     this.tabsetIndex = m;
   }
   cancel() {
-    this.router.navigate(['/stockHouse']);
+    this.router.navigate(['/stockHouse'],{queryParams:{isGoBack:true}});
   }
 
   pageIndexChange(num) {

@@ -184,7 +184,7 @@ export class ZddyglDetailComponent implements OnInit {
   quit() {
     this.router.navigate(['/zddygl'], {
       queryParams: {
-
+          isGoBack:true
       }
     });
   }

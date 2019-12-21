@@ -7,6 +7,15 @@ import { HttpRestService } from '../http-rest.service';
 export class StockHouseService {
     constructor(private http: HttpRestService) { }
 
+    pageCache = {
+        cqrxm:'',
+        address:'',
+        auditType:'',
+        selectId:'',
+        pageIndex:1,
+        pageSize:10
+    }
+
     getStockHouseList(data): any {
         return this.http.post('/StockHouse/getStockHouseList', data);
     }
