@@ -19,9 +19,9 @@
                 <nz-option nzValue="" nzLabel="全部"></nz-option>
                 <nz-option nzValue="0" nzLabel="未提交"></nz-option>
                 <nz-option nzValue="1" nzLabel="待审核"></nz-option>
-                <nz-option nzValue="2" nzLabel="一次审核"></nz-option>
+                <nz-option nzValue="2" nzLabel="初审"></nz-option>
                 <nz-option nzValue="3" nzLabel="待修改"></nz-option>
-                <nz-option nzValue="4" nzLabel="二次审核"></nz-option>
+                <nz-option nzValue="4" nzLabel="复审"></nz-option>
             </nz-select>
         </div>
         <div nz-col [nzSpan]="5" class="ta_r">
@@ -86,7 +86,7 @@
                     <a class="table_a" *ngIf="(data.auditType==0||data.auditType==3)&&(canzsgc||onlybj)"
                         (click)="add(3,data)">编辑</a>
                     <a class="table_a" *ngIf="data.auditType==1&&cansh" (click)="audit(data)">审核</a>
-                    <a class="table_a" *ngIf="data.auditType==2&&canecsh" (click)="twoAudit(data)">二次审核</a>
+                    <a class="table_a" *ngIf="data.auditType==2&&canecsh" (click)="twoAudit(data)">复审</a>
                     <a class="table_a" *ngIf="(data.auditType==0||data.auditType==3)&&canzsgc" nz-popconfirm
                         nzTitle="确定删除吗?" (nzOnConfirm)="delete([data.id])">删除</a>
                     <a class="table_a" *ngIf="(data.auditType==0||data.auditType==3)&&cantjsh" nz-popconfirm

@@ -183,14 +183,28 @@ export class LpbDetailComponent implements OnInit {
 
   }
 
-  contract(hid) {
-    var route = "/contract/houseTrade/detail";
-    this.router.navigate([route], {
-      queryParams: {
-        type: 1,
-        hid: hid
-      }
-    });
+  contract(huparam) {
+    if(!huparam.id||!huparam.isnewstock){
+      this.msg.create('error', '该房屋信息信息有误，无法备案');
+    }
+    if(huparam.isnewstock==1&&huparam.tradeType==0){
+      var route = "/contract/houseTrade/detail";
+      this.router.navigate([route], {
+        queryParams: {
+          type: 1,
+          hid: huparam.id
+        }
+      });
+    }else{
+      var route = "/contract/stockTrade/detail";
+      this.router.navigate([route], {
+        queryParams: {
+          type: 1,
+          hid: huparam.id
+        }
+      });
+    }
+    
   }
 
 
