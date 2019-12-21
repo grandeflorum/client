@@ -214,7 +214,7 @@ export class CompanyDetailComponent implements OnInit {
   quit() {
     this.router.navigate(['/practitioner/company'], {
       queryParams: {
-
+        isGoBack:true
       }
     });
   }

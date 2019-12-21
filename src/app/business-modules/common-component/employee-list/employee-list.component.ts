@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { EmployeeService } from '../../service/employee/employee.service';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import { Router , ActivatedRoute} from '@angular/router';
 import { Localstorage } from '../../service/localstorage';
 
 @Component({
@@ -47,6 +47,7 @@ export class EmployeeListComponent implements OnInit {
     private router: Router,
     private NzModalService: NzModalService,
     private localstorage: Localstorage,
+    private ActivatedRoute: ActivatedRoute
   ) { }
 
 
@@ -86,6 +87,16 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnInit() {
     this.getRoles();
+    var isGoBack = this.ActivatedRoute.snapshot.queryParams.isGoBack;
+    if(isGoBack){
+      this.name = this.employeeService.pageCache.name;
+      this.cynx = this.employeeService.pageCache.cynx;
+      this.fwjgmc = this.employeeService.pageCache.fwjgmc;
+      this.auditType = this.employeeService.pageCache.auditType;
+      this.selectId = this.employeeService.pageCache.selectId;
+      this.pageIndex = this.employeeService.pageCache.pageIndex;
+      this.pageSize = this.employeeService.pageCache.pageSize;
+    }
 
     this.search();
   }
@@ -128,6 +139,17 @@ export class EmployeeListComponent implements OnInit {
   }
 
   addEmployee(data, type) {
+    if(data){
+      this.employeeService.pageCache = {
+        name:this.name,
+        cynx:this.cynx,
+        fwjgmc:this.fwjgmc,
+        auditType:this.auditType,
+        selectId:data.id,
+        pageIndex:1,
+        pageSize:10
+    }
+    }
 
     let param = {
       id: data ? data.id : null,

@@ -8,6 +8,16 @@ export class EmployeeService {
 
   constructor(private http: HttpRestService) { }
 
+  pageCache = {
+    name:'',
+    cynx:'',
+    fwjgmc:'',
+    auditType:'',
+    selectId:'',
+    pageIndex:1,
+    pageSize:10
+}
+
   /**
    * 根据id获取从业人员信息
    * @param id 

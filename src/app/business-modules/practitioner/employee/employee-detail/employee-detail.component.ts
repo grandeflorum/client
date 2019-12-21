@@ -123,12 +123,13 @@ export class EmployeeDetailComponent implements OnInit {
 
   quit() {
     if (this.module == 'employee') {
-      this.router.navigate(['/practitioner/employee']);
+      this.router.navigate(['/practitioner/employee'],{queryParams:{ isGoBack:true}});
     } else {
       let data = {
         id: this.companyId,
         type: this.operatorType,
-        quit: 1
+        quit: 1,
+        isGoBack:true
       }
       this.router.navigate(['/practitioner/' + this.module + '/detail'], {
         queryParams: data

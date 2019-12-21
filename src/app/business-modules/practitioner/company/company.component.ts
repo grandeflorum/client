@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import { Router , ActivatedRoute} from '@angular/router';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { CompanyService } from '../../service/practitioner/company.service';
@@ -73,7 +73,8 @@ export class CompanyComponent implements OnInit {
     private router: Router,
     private companyService: CompanyService,
     private localstorage: Localstorage,
-    private userService: UserService
+    private userService: UserService,
+    private ActivatedRoute: ActivatedRoute,
   ) { }
 
 
@@ -131,7 +132,20 @@ export class CompanyComponent implements OnInit {
     this.dictionaryObj = this.localstorage.getObject("dictionary");
     this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
     this.auditObj.shry = this.userinfo ? this.userinfo.realname : null;
-    this.search();
+
+    var isGoBack = this.ActivatedRoute.snapshot.queryParams.isGoBack;
+
+    if(isGoBack){
+      this.qymc = this.companyService.pageCache.qymc;
+      this.qylx = this.companyService.pageCache.qylx;
+      this.auditType = this.companyService.pageCache.auditType;
+      this.selectId = this.companyService.pageCache.selectId;
+      this.pageIndex = this.companyService.pageCache.pageIndex;
+      this.pageSize = this.companyService.pageCache.pageSize;
+    }
+      this.search();
+    
+   
   }
 
   async search() {
@@ -221,6 +235,16 @@ export class CompanyComponent implements OnInit {
   }
 
   add(m, item?) {
+    if(item){
+      this.companyService.pageCache = {
+        qymc:this.qymc,
+        qylx:this.qylx,
+        auditType:this.auditType,
+        selectId:item.id,
+        pageIndex:1,
+        pageSize:10
+      }
+    }
 
     this.router.navigate(['/practitioner/company/detail'], {
       queryParams: {

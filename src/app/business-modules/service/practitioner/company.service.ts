@@ -7,6 +7,15 @@ import { HttpRestService } from '../http-rest.service';
 export class CompanyService {
     constructor(private http: HttpRestService) { }
 
+    pageCache = {
+        qymc:'',
+        qylx:'',
+        auditType:'',
+        selectId:'',
+        pageIndex:1,
+        pageSize:10
+    }
+
     getCompanyList(data): any {
         return this.http.post('/Company/getCompanyList', data);
     }

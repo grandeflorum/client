@@ -179,7 +179,7 @@ export class EconomicCompanyDetailComponent implements OnInit {
   quit() {
     this.router.navigate(['/practitioner/economic'], {
       queryParams: {
-
+        isGoBack:true
       }
     });
   }
