@@ -227,7 +227,7 @@
 
 </div>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
   <!-- <app-upload #uploadComponent [refid]="detailObj.id" (outer)="outer($event)"></app-upload> -->
   <div nz-row style="height: 50px;padding: 10px;">
     <div nz-col [nzSpan]="24">

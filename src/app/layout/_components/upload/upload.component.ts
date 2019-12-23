@@ -43,19 +43,23 @@ export class uploadComponent implements OnInit {
         return false;
       }
     }
+    if(file.size/(1024*1024)>4){
+      this.msg.error('请上传小于4M文件');
+      return false;
+    }
     this.fileList = this.fileList.concat(file);
 
     return false;
   };
 
   import() {
-
     var that = this;
 
     const formData = new FormData();
 
     if (this.fileList.length == 0) {
       this.msg.warning('请选择需要上传的文件');
+      return;
     } else {
 
       this.fileList.forEach((file: any) => {

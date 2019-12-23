@@ -398,9 +398,9 @@
       </div>
 
       <nz-table #nestedTable [nzData]="fjList" class="commontable tablescoll_rainbow" [nzLoading]="Loading"
-        [nzPageIndex]="pageIndex" [nzPageSize]="pageSize" [nzTotal]="totalCount"
-        (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
-        (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
+        [nzPageIndex]="pageIndex" [nzPageSize]="pageSize" nzShowPagination nzShowQuickJumper nzShowSizeChanger
+        [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
+        (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll" [nzFrontPagination]="false">
         <thead>
           <tr>
             <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
@@ -459,7 +459,7 @@
 
 </div>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
   <app-upload #uploadComponent [refid]="detailObj.id" [type]="fileType" (outer)="outer($event)"></app-upload>
 </nz-modal>
 

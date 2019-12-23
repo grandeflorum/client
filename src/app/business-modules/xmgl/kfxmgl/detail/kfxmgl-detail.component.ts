@@ -273,11 +273,17 @@ export class KfxmglDetailComponent implements OnInit {
 
   handleCancel() {
     this.isVisible = false;
+    this.isOkLoading=false;
     this.uploadComponent.fileList = [];
   }
-
+  isOkLoading=false;
   //开始上传
   handleOk() {
+    if(this.isOkLoading){
+      this.msg.error('附件正在上传，请勿重复点击');
+      return;
+    }
+    this.isOkLoading=true;
     this.uploadComponent.import();
   }
 

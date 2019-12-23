@@ -240,9 +240,14 @@ export class XmscglComponent implements OnInit {
     this.isVisible = true;
   }
 
-
+  isOkLoading=false;
   handleOk() {
     if (this.modalSslm || this.modalSslm == "0") {
+      if(this.isOkLoading){
+        this.msg.error('附件正在上传，请勿重复点击');
+        return;
+      }
+      this.isOkLoading=true;
       this.uploadComponent.import();
     } else {
       this.msg.warning('请选择所属类别');
@@ -253,6 +258,7 @@ export class XmscglComponent implements OnInit {
 
   handleCancel() {
     this.isVisible = false;
+    this.isOkLoading=false;
     this.uploadComponent.fileList = [];
   }
 
