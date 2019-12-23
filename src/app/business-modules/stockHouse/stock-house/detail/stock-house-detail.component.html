@@ -483,7 +483,7 @@
     </div>
 
     <nz-table #nestedTable [nzData]="fjList" class="commontable tablescoll_rainbow" [nzLoading]="Loading"
-      [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize"
+    [nzShowTotal]="rangeTemplate" [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize"
       [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
       (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
       <thead>
@@ -553,4 +553,8 @@
   <p>面积：{{selectedHu.scjzmj}}</p>
   <p>不动产登记号：{{selectedHu.bdcdyh}}</p>
   <p>坐落：{{selectedHu.zl}}</p>
+</ng-template>
+
+<ng-template #rangeTemplate let-range="range" let-total>
+  共{{total}}条记录&nbsp;&nbsp;
 </ng-template>

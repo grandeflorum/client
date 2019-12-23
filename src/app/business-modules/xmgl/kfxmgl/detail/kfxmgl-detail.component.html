@@ -355,8 +355,8 @@
     </div>
 
     <nz-table #nestedTable [nzData]="fjList" class="commontable tablescoll_rainbow" [nzLoading]="Loading"
-      [nzPageIndex]="pageIndex" [nzPageSize]="pageSize" [nzTotal]="totalCount"
-      (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
+    [nzShowTotal]="rangeTemplate" [nzPageIndex]="pageIndex" [nzPageSize]="pageSize" [nzTotal]="totalCount"
+      (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)" nzShowPagination nzShowQuickJumper nzShowSizeChanger
       (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
       <thead>
         <tr>
@@ -416,3 +416,7 @@
 <nz-modal [(nzVisible)]="isImgVisible" nzTitle="附件预览" (nzOnCancel)="isImgVisible = false" [nzFooter]="null">
   <img src="{{currentImg}}" style="width:100%">
 </nz-modal>
+
+<ng-template #rangeTemplate let-range="range" let-total>
+  共{{total}}条记录&nbsp;&nbsp;
+</ng-template>
