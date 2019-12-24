@@ -449,7 +449,7 @@
         <button nz-button nzType="default" (click)="cancel()">返回</button>
         <button nz-button nzType="primary" *ngIf="!isDisable&&tabsetIndex==0" [disabled]="isbusy"
           (click)="save()">保存</button>
-        <button nz-button nzType="primary" *ngIf="!isDisable&&detailObj.ljzid" (click)="linkH()">关联户</button>
+        <button nz-button nzType="primary" *ngIf="!isDisable&&detailObj.ljzid&&tabsetIndex==0" (click)="linkH()">关联户</button>
       </div>
 
     </div>
