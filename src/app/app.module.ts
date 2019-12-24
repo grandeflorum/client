@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { IconsProviderModule } from './icons-provider.module';
-
+import { NgZorroAntdModule } from 'ng-zorro-antd';
 //service
 import { AuthGuardService } from './business-modules/service/auth-guard.service';
 import { ExceptionInterceptorService } from './business-modules/service/exception-interceptor.service';
@@ -18,6 +18,7 @@ import { ExceptionInterceptorService } from './business-modules/service/exceptio
 //component
 import { NotFoundComponent } from './not-found/not-found.component';
 import { EwmCheckComponent } from './ewm-check/ewm-check.component';
+import { ContractQueryComponent } from './contract-query/contract-query.component';
 
 registerLocaleData(zh);
 
@@ -25,7 +26,8 @@ registerLocaleData(zh);
   declarations: [
     AppComponent,
     NotFoundComponent,
-    EwmCheckComponent
+    EwmCheckComponent,
+    ContractQueryComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ registerLocaleData(zh);
     HttpClientModule,
     BrowserAnimationsModule,
     IconsProviderModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgZorroAntdModule
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
