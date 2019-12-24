@@ -261,7 +261,7 @@
       <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }" *ngIf="bg" [(ngModel)]="detailObj.bgly"
         maxlength="250" placeholder="请输入变更理由"></textarea>
 
-      <nz-divider nzText="共有权人" nzOrientation="left" style="font-size: 18px"></nz-divider>
+      <!-- <nz-divider nzText="共有权人" nzOrientation="left" style="font-size: 18px"></nz-divider>
       <div nz-row style="height: 50px;padding: 10px;">
         <div style="text-align: center;" nz-col [nzSpan]="6">
           <span class="clo_r">*</span>姓名
@@ -304,7 +304,7 @@
         <div style="text-align: center;" nz-col [nzSpan]="3">
           <button nz-button nzType="primary" [disabled]="isDisable" (click)="deletepeople(item,index)">删除</button>
         </div>
-      </div>
+      </div> -->
 
       <div *ngIf="detailObj.ljzid">
         <nz-divider nzText="楼盘表" nzOrientation="left" style="font-size: 18px"></nz-divider>
@@ -449,7 +449,7 @@
         <button nz-button nzType="default" (click)="cancel()">返回</button>
         <button nz-button nzType="primary" *ngIf="!isDisable&&tabsetIndex==0" [disabled]="isbusy"
           (click)="save()">保存</button>
-        <button nz-button nzType="primary" *ngIf="!isDisable&&detailObj.ljzid" (click)="linkH()">关联户</button>
+        <button nz-button nzType="primary" *ngIf="!isDisable&&detailObj.ljzid&&tabsetIndex==0" (click)="linkH()">关联户</button>
       </div>
 
     </div>
