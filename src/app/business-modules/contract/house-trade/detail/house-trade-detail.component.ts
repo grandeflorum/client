@@ -435,6 +435,7 @@ export class HouseTradeDetailComponent implements OnInit {
 
   outer(event) {
     if (event) {
+      this.isOkLoading=false;
       this.handleCancel();
       this.search();
       this.checkExistCompletionFile();

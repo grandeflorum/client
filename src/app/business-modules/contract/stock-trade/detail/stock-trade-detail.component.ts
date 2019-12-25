@@ -539,6 +539,7 @@ export class StockTradeDetailComponent implements OnInit {
 
   outer(event) {
     if (event) {
+      this.isOkLoading=false;
       this.handleCancel();
       this.search();
     }

@@ -208,7 +208,7 @@ export class BusinessModulesComponent implements OnInit {
             return;
         }
 
-        if (this.changeUser.passwordNew != this.logUser.password) {
+        if (this.changeUser.passwordNew == this.logUser.password) {
             this.msg.create("warning", "新密码不能与原始密码相同");
             return;
         }

@@ -110,6 +110,7 @@ export class AttachmentComponent implements OnInit {
 
     uploadCompelete(data) {
         this.fileList = [...this.fileList, ...data];
+        this.isOkLoading= false;
         this.isVisible = false;
 
     }
