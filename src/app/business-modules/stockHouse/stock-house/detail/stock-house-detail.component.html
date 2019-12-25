@@ -395,24 +395,21 @@
       </ul>
     </div>
 
-    <nz-divider nzText="与产权人关系" nzOrientation="left" style="font-size: 18px"></nz-divider>
+    <nz-divider nzText="产权所属关系" nzOrientation="left" style="font-size: 18px"></nz-divider>
     <div nz-row style="height: 50px;padding: 10px;">
-      <div nz-col [nzSpan]="4">
-        <div style="text-align: center;" class="label_div"><span class="clo_r">*</span>姓名</div>
+      <div nz-col [nzSpan]="5">
+        <div style="text-align: center;" class="label_div"> <span class="clo_r">*</span>联系单位（人）</div>
       </div>
-      <div nz-col [nzSpan]="3">
-        <div style="text-align: center;width: 110px;" class="label_div">性别</div>
+      <div style="text-align: center;" nz-col [nzSpan]="4">
+        证件种类
       </div>
-      <div nz-col [nzSpan]="4">
-        <div style="text-align: center;" class="label_div"><span class="clo_r">*</span>身份证号</div>
+      <div style="text-align: center;" nz-col [nzSpan]="4">
+        证件号码
       </div>
       <div nz-col [nzSpan]="4">
         <div style="text-align: center;" class="label_div">联系方式</div>
       </div>
-      <div nz-col [nzSpan]="3">
-        <div style="text-align: center;width: 110px;" class="label_div"><span class="clo_r">*</span>与产权人关系</div>
-      </div>
-      <div nz-col [nzSpan]="3">
+      <div nz-col [nzSpan]="4">
         <div style="text-align: center;width: 110px;" class="label_div">共有方式</div>
       </div>
       <div nz-col [nzSpan]="3">
@@ -420,39 +417,34 @@
       </div>
     </div>
     <div *ngFor="let item of detailObj.relationShips;index as index" nz-row style="height: 50px;padding: 10px;">
-      <div nz-col [nzSpan]="4">
+      <div nz-col [nzSpan]="5">
+        <span>
         <input nz-input nzSize="default" [(ngModel)]="item.name" title={{item.name}} [disabled]="isDisable" required
-          maxlength="50" [validation]="true" class="w200" placeholder="请输入姓名" />
+          maxlength="50" [validation]="true" class="w200" placeholder="联系单位（人）" />
+        </span>
       </div>
-      <div nz-col [nzSpan]="3">
-        <nz-select style="width: 110px !important;" nzPlaceHolder='请选择性别' [(ngModel)]="item.gender" class="w200"
-          [disabled]="isDisable">
-          <nz-option *ngFor="let option of genderList" [nzLabel]="option.name" [nzValue]="option.code">
+      <div nz-col [nzSpan]="4">
+
+        <nz-select nzPlaceHolder='请选择证件种类' [(ngModel)]="item.zjlb" title={{item.zjlb}} class="w200" [disabled]="isDisable">
+          <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
           </nz-option>
         </nz-select>
       </div>
       <div nz-col [nzSpan]="4">
-        <input nz-input nzSize="default" (keyup)="sfzhChange(item)" [(ngModel)]="item.sfzh" title={{item.sfzh}}
-          [disabled]="isDisable" required [validation]="true" [validationType]="'idcard'" maxlength="25" class="w200"
-          placeholder="请输入身份证号" />
+        <input nz-input nzSize="default" [(ngModel)]="item.sfzh" title={{item.sfzh}} [disabled]="isDisable" 
+        maxlength="25" class="w200" placeholder="请输入证件号码" />
       </div>
+
       <div nz-col [nzSpan]="4">
+        <span>
         <input nz-input nzSize="default" [(ngModel)]="item.lxdh" title={{item.lxdh}} maxlength="15"
-          [disabled]="isDisable" [validation]="true" [validationType]="'phonenumber'" class="w200"
-          placeholder="请输入联系方式" />
+          [disabled]="isDisable" [validation]="true" [validationType]="'nullphonenumber'" class="w200"
+          placeholder="请输入联系方式" /></span>
       </div>
-      <div nz-col [nzSpan]="3">
-        <nz-select style="width: 110px !important;" [(ngModel)]="item.cqrgx" class="w200" nzPlaceHolder="请选择与产权人关系"
-          [disabled]="isDisable" required [validation]="true">
-          <nz-option *ngFor="let option of cqrgxList" [nzLabel]="option.name" [nzValue]="option.code">
-          </nz-option>
-        </nz-select>
-      </div>
-      <div nz-col [nzSpan]="3">
-        <nz-select style="width: 110px !important;" [(ngModel)]="item.gyfs" class="w200" nzPlaceHolder="请选择共有方式"
-          [disabled]="isDisable" required [validation]="true">
-          <nz-option *ngFor="let option of gyfsList" [nzLabel]="option.name" [nzValue]="option.code">
-          </nz-option>
+      <div nz-col [nzSpan]="4">
+        <nz-select [(ngModel)]="item.gyfs" class="w200" nzPlaceHolder="请选择共有方式" [disabled]="isDisable" >
+            <nz-option *ngFor="let option of dictionaryObj.gyfs" [nzLabel]="option.name" [nzValue]="option.code">
+            </nz-option>
         </nz-select>
       </div>
       <div nz-col [nzSpan]="3">
