@@ -284,6 +284,7 @@ export class StockHouseDetailComponent implements OnInit {
     if (!this.detailObj.id) {
       delete this.detailObj.id;
     }
+    this.detailObj.mjdw = 1;
     let res = await this.stockHouseService.saveOrUpdateStockHouse(this.detailObj);
     this.isbusy = false;
     if (res && res.code == 200) {
