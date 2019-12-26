@@ -286,7 +286,7 @@ export class LpbDetailComponent implements OnInit {
     this.cValidation = true;
     this.cObj.ch = "";
     this.cObj.sjc = "";
-    this.cObj.sfqfdy = "";
+    this.cObj.sfqfdy = "1";
     this.isVisibleC = true;
     this.isAddCe = true;
   }

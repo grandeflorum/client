@@ -37,8 +37,8 @@
         &nbsp;㎡
       </div>
     </div>
-    <div nz-row style="height: 50px;padding: 10px;">
-      <!-- <div nz-col [nzSpan]="8">
+    <!-- <div nz-row style="height: 50px;padding: 10px;"> -->
+    <!-- <div nz-col [nzSpan]="8">
         <div class="label_div">行政区划：</div>
         <span>
           <nz-tree-select [nzDropdownStyle]="{ 'max-height': '300px' }" class="w200" [disabled]="isDisable"
@@ -49,7 +49,7 @@
 
       </div> -->
 
-      <div nz-col [nzSpan]="24">
+    <!-- <div nz-col [nzSpan]="24">
         <div class="label_div">详细地址：</div>
         <span>
           <input style="width: calc(100% - 166px);" nz-input nzSize="default" [(ngModel)]="detailObj.address"
@@ -58,7 +58,7 @@
 
 
       </div>
-    </div>
+    </div> -->
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="8">
         <div class="label_div"><span class="clo_r">*</span>层号：</div>
@@ -73,6 +73,16 @@
         <span>
           <input nz-input nzSize="default" [(ngModel)]="detailObj.zl" title={{detailObj.zl}} [disabled]="isDisable"
             required [validation]="true" maxlength="100" class="w200" placeholder="请输入坐落" />
+        </span>
+
+      </div>
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">户型结构：</div>
+        <span>
+          <nz-select [(ngModel)]="detailObj.hxjg" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable">
+            <nz-option *ngFor="let option of dictionaryObj.hxjg" [nzLabel]="option.name" [nzValue]="option.code">
+            </nz-option>
+          </nz-select>
         </span>
 
       </div>
@@ -114,8 +124,8 @@
         </span>
       </div>
     </div>
-    <div nz-row style="height: 50px;padding: 10px;">
-      <div nz-col [nzSpan]="8">
+    <!-- <div nz-row style="height: 50px;padding: 10px;"> -->
+    <!-- <div nz-col [nzSpan]="8">
         <div class="label_div">户型：</div>
         <span>
           <nz-select [(ngModel)]="detailObj.hx" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable">
@@ -124,25 +134,10 @@
           </nz-select>
         </span>
 
-      </div>
-      <div nz-col [nzSpan]="8">
-        <div class="label_div">户型结构：</div>
-        <span>
-          <nz-select [(ngModel)]="detailObj.hxjg" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable">
-            <nz-option *ngFor="let option of dictionaryObj.hxjg" [nzLabel]="option.name" [nzValue]="option.code">
-            </nz-option>
-          </nz-select>
-        </span>
+      </div> -->
 
-      </div>
-      <div nz-col [nzSpan]="8">
-        <div class="label_div">房屋用途：</div>
-        <nz-select [(ngModel)]="detailObj.fwyt1" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable">
-          <nz-option *ngFor="let option of dictionaryObj.fwyt" [nzLabel]="option.name" [nzValue]="option.code">
-          </nz-option>
-        </nz-select>
-      </div>
-    </div>
+
+    <!-- </div> -->
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="8">
         <div class="label_div">预测建筑面积：</div>
@@ -264,11 +259,11 @@
         &nbsp;㎡
       </div>
       <div nz-col [nzSpan]="8">
-        <div class="label_div"><span class="clo_r">*</span>分摊土地面积：</div>
+        <div class="label_div">分摊土地面积：</div>
         <span>
           <input nz-input nzSize="default" [(ngModel)]="detailObj.fttdmj" title={{detailObj.fttdmj}}
-            [disabled]="isDisable" maxlength="10" required [validation]="true" [validationType]="'nullAreaNumber'"
-            class="w200" placeholder="请输入分摊土地面积" />
+            [disabled]="isDisable" maxlength="10" [validation]="true" [validationType]="'nullAreaNumber'" class="w200"
+            placeholder="请输入分摊土地面积" />
         </span>
         &nbsp;㎡
       </div>
@@ -293,72 +288,80 @@
 
       </div>
       <div nz-col [nzSpan]="8">
-        <div class="label_div">房屋性质：</div>
+        <div class="label_div"><span class="clo_r">*</span>房屋性质：</div>
         <span>
-          <nz-select [(ngModel)]="detailObj.fwxz" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable">
+          <nz-select [(ngModel)]="detailObj.fwxz" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable" required
+            [validation]="true">
             <nz-option *ngFor="let option of dictionaryObj.fwxz" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
           </nz-select>
         </span>
 
       </div>
-      <div nz-col [nzSpan]="8">
+      <!-- <div nz-col [nzSpan]="8">
         <div class="label_div">房产分户图：</div>
         <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.fcfht" title={{detailObj.fcfht}}
             [disabled]="isDisable" maxlength="100" class="w200" placeholder="请输入房产分户图" />
+        </span>
+      </div> -->
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">户编号：</div>
+        <span>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.hbh" title={{detailObj.hbh}} [disabled]="isDisable"
+            maxlength="3" [validation]="true" [validationType]="'nullnumber'" class="w200" placeholder="户编号" />
         </span>
       </div>
     </div>
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="8">
-        <div class="label_div"><span class="clo_r">*</span>门牌号：</div>
+        <div class="label_div">门牌号：</div>
         <span>
           <input nz-input nzSize="default" [(ngModel)]="detailObj.mph" title={{detailObj.mph}} [disabled]="isDisable"
-            maxlength="30" required [validation]="true" class="w200" placeholder="门牌号" />
+            maxlength="30" class="w200" placeholder="门牌号" />
         </span>
       </div>
       <div nz-col [nzSpan]="8">
+        <div class="label_div"><span class="clo_r">*</span>房屋用途：</div>
+        <nz-select [(ngModel)]="detailObj.fwyt1" nzPlaceHolder="请选择" class="w200" [disabled]="isDisable" required
+          [validation]="true">
+          <nz-option *ngFor="let option of dictionaryObj.fwyt" [nzLabel]="option.name" [nzValue]="option.code">
+          </nz-option>
+        </nz-select>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">单元号：</div>
+        <span>
+          <input nz-input nzSize="default" [(ngModel)]="detailObj.dyh" title={{detailObj.dyh}} [disabled]="isDisable"
+            maxlength="2" [validation]="true" [validationType]="'nullnumber'" class="w200" placeholder="单元号" />
+        </span>
+      </div>
+      <!-- <div nz-col [nzSpan]="8">
         <div class="label_div">用途名称：</div>
         <span>
           <input nz-input nzSize="default" [(ngModel)]="detailObj.ytmc" title={{detailObj.ytmc}} [disabled]="isDisable"
             maxlength="30" class="w200" placeholder="用途名称" />
         </span>
-      </div>
-      <div nz-col [nzSpan]="8">
+      </div> -->
+      <!-- <div nz-col [nzSpan]="8">
         <div class="label_div">房屋类型名称：</div>
         <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.fwlxmc" title={{detailObj.fwlxmc}}
             [disabled]="isDisable" maxlength="30" class="w200" placeholder="房屋类型名称" />
         </span>
-      </div>
+      </div> -->
     </div>
     <div nz-row style="height: 50px;padding: 10px;">
-      <div nz-col [nzSpan]="8">
+      <!-- <div nz-col [nzSpan]="8">
         <div class="label_div">房屋性质名称：</div>
         <span>
           <input nz-input nzSize="default" [(ngModel)]="detailObj.fwxzmc" title={{detailObj.fwxzmc}}
             [disabled]="isDisable" maxlength="30" class="w200" placeholder="房屋性质名称" />
         </span>
-      </div>
+      </div> -->
+
       <div nz-col [nzSpan]="8">
-        <div class="label_div"><span class="clo_r">*</span>单元号：</div>
-        <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.dyh" title={{detailObj.dyh}} [disabled]="isDisable"
-            maxlength="2" required [validation]="true" [validationType]="'number'" class="w200" placeholder="单元号" />
-        </span>
-      </div>
-      <div nz-col [nzSpan]="8">
-        <div class="label_div"><span class="clo_r">*</span>单元名称：</div>
+        <div class="label_div">单元名称：</div>
         <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.dymc" title={{detailObj.dymc}}
-            [disabled]="isDisable" maxlength="30" required [validation]="true" class="w200" placeholder="单元名称" />
-        </span>
-      </div>
-    </div>
-    <div nz-row style="height: 50px;padding: 10px;">
-      <div nz-col [nzSpan]="8">
-        <div class="label_div"><span class="clo_r">*</span>户编号：</div>
-        <span>
-          <input nz-input nzSize="default" [(ngModel)]="detailObj.hbh" title={{detailObj.hbh}} [disabled]="isDisable"
-            maxlength="3" required [validation]="true" [validationType]="'number'" class="w200" placeholder="户编号" />
+            [disabled]="isDisable" maxlength="30" class="w200" placeholder="单元名称" />
         </span>
       </div>
     </div>
@@ -398,19 +401,19 @@
     <nz-divider nzText="产权所属关系" nzOrientation="left" style="font-size: 18px"></nz-divider>
     <div nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="5">
-        <div style="text-align: center;" class="label_div"> <span class="clo_r">*</span>联系单位（人）</div>
+        <div style="text-align: left;" class="label_div"> <span class="clo_r">*</span>名称</div>
       </div>
-      <div style="text-align: center;" nz-col [nzSpan]="4">
+      <div style="text-align: left;" nz-col [nzSpan]="4">
         证件种类
       </div>
-      <div style="text-align: center;" nz-col [nzSpan]="4">
+      <div style="text-align: left;" nz-col [nzSpan]="4">
         证件号码
       </div>
       <div nz-col [nzSpan]="4">
-        <div style="text-align: center;" class="label_div">联系方式</div>
+        <div style="text-align: left;" class="label_div">联系方式</div>
       </div>
       <div nz-col [nzSpan]="4">
-        <div style="text-align: center;width: 110px;" class="label_div">共有方式</div>
+        <div style="text-align: left;width: 110px;" class="label_div">共有方式</div>
       </div>
       <div nz-col [nzSpan]="3">
         <button nz-button nzType="primary" [disabled]="isDisable" (click)="addpeople()">添加</button>
@@ -419,32 +422,33 @@
     <div *ngFor="let item of detailObj.relationShips;index as index" nz-row style="height: 50px;padding: 10px;">
       <div nz-col [nzSpan]="5">
         <span>
-        <input nz-input nzSize="default" [(ngModel)]="item.name" title={{item.name}} [disabled]="isDisable" required
-          maxlength="50" [validation]="true" class="w200" placeholder="联系单位（人）" />
+          <input nz-input nzSize="default" [(ngModel)]="item.name" title={{item.name}} [disabled]="isDisable" required
+            maxlength="50" [validation]="true" class="w200" placeholder="名称" />
         </span>
       </div>
       <div nz-col [nzSpan]="4">
 
-        <nz-select nzPlaceHolder='请选择证件种类' [(ngModel)]="item.zjlb" title={{item.zjlb}} class="w200" [disabled]="isDisable">
+        <nz-select nzPlaceHolder='请选择证件种类' [(ngModel)]="item.zjlb" title={{item.zjlb}} class="w200"
+          [disabled]="isDisable">
           <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
           </nz-option>
         </nz-select>
       </div>
       <div nz-col [nzSpan]="4">
-        <input nz-input nzSize="default" [(ngModel)]="item.sfzh" title={{item.sfzh}} [disabled]="isDisable" 
-        maxlength="25" class="w200" placeholder="请输入证件号码" />
+        <input nz-input nzSize="default" [(ngModel)]="item.sfzh" title={{item.sfzh}} [disabled]="isDisable"
+          maxlength="25" class="w200" placeholder="请输入证件号码" />
       </div>
 
       <div nz-col [nzSpan]="4">
         <span>
-        <input nz-input nzSize="default" [(ngModel)]="item.lxdh" title={{item.lxdh}} maxlength="15"
-          [disabled]="isDisable" [validation]="true" [validationType]="'nullphonenumber'" class="w200"
-          placeholder="请输入联系方式" /></span>
+          <input nz-input nzSize="default" [(ngModel)]="item.lxdh" title={{item.lxdh}} maxlength="15"
+            [disabled]="isDisable" [validation]="true" [validationType]="'nullphonenumber'" class="w200"
+            placeholder="请输入联系方式" /></span>
       </div>
       <div nz-col [nzSpan]="4">
-        <nz-select [(ngModel)]="item.gyfs" class="w200" nzPlaceHolder="请选择共有方式" [disabled]="isDisable" >
-            <nz-option *ngFor="let option of dictionaryObj.gyfs" [nzLabel]="option.name" [nzValue]="option.code">
-            </nz-option>
+        <nz-select [(ngModel)]="item.gyfs" class="w200" nzPlaceHolder="请选择共有方式" [disabled]="isDisable">
+          <nz-option *ngFor="let option of dictionaryObj.gyfs" [nzLabel]="option.name" [nzValue]="option.code">
+          </nz-option>
         </nz-select>
       </div>
       <div nz-col [nzSpan]="3">
@@ -475,9 +479,10 @@
     </div>
 
     <nz-table #nestedTable [nzData]="fjList" class="commontable tablescoll_rainbow" [nzLoading]="Loading"
-    [nzShowTotal]="rangeTemplate" [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger [nzPageSize]="pageSize"
-      [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
-      (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll">
+      [nzShowTotal]="rangeTemplate" [nzPageIndex]="pageIndex" nzShowPagination nzShowQuickJumper nzShowSizeChanger
+      [nzPageSize]="pageSize" [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)"
+      (nzPageSizeChange)="pageSizeChange($event)" (nzCurrentPageDataChange)="currentPageDataChange($event)"
+      [nzScroll]="tableIsScroll">
       <thead>
         <tr>
           <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
@@ -530,7 +535,8 @@
 
 </div>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading">
   <app-upload #uploadComponent [refid]="detailObj.id" (outer)="outer($event)"></app-upload>
 </nz-modal>
 
