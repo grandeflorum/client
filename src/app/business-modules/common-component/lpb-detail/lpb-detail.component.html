@@ -144,6 +144,12 @@
     </div>
   </div>
 
+  <div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
+    <div class="label_div">预售许可证：</div>
+    <span><input name="ysxkz" maxlength="50" nz-input class="w200" [disabled]="isDisable" nzSize="default"
+        [(ngModel)]="detailObj.ysxkz" title={{detailObj.ysxkz}} /></span>
+  </div>
+
 
   <div *ngIf="zrzShow" style="width:calc(100% + 40px);height:25px;background:#f0f2f5;position: relative;left:-20px">
   </div>
