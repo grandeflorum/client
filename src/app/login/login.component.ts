@@ -9,6 +9,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { OrganizationService } from '../business-modules/service/system/organization.service';
 import { RoleService } from '../business-modules/service/system/role.service';
 import { MenuService } from '../business-modules/service/system/menu.service';
+declare var QRCode;
 
 @Component({
   selector: 'app-login',
@@ -466,6 +467,13 @@ export class LoginComponent implements OnInit {
       }
     });
     return isValid;
+  }
+
+  ngAfterViewInit() {
+    new QRCode(document.getElementById('qrcode'), {
+        width: 60,
+        height: 60
+      }).makeCode(AppConfig.Configuration.appUrl);
   }
 
 

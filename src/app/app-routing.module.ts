@@ -7,6 +7,7 @@ import { ContractQueryComponent } from './contract-query/contract-query.componen
 const routes: Routes = [
   { path: '', loadChildren: () => import('./business-modules/business-modules.module').then(m => m.BusinessModulesModule) },
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
+  { path: 'applogin', loadChildren: () => import('./app-login/app-login.module').then(m => m.AppLoginModule) },
   { path: 'ewmcheck', component: EwmCheckComponent},
   { path: 'contractquery', component: ContractQueryComponent},
   { path: '**', component: NotFoundComponent },

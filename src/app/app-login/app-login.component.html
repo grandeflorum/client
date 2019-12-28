@@ -1,0 +1,222 @@
+<div class="login_div">
+
+  <!--登录-->
+  <div class="login_contain">
+
+    <div class="login_title">
+      万年县房地产交易备案系统
+    </div>
+
+
+    <div>
+      <div>
+        <nz-input-group [nzPrefix]="prefixUser">
+          <input nz-input placeholder="用户名" (keydown.enter)="login()" class="login_input" [(ngModel)]="username" />
+        </nz-input-group>
+      </div>
+
+      <div>
+        <nz-input-group [nzPrefix]="prefixPsw">
+          <input nz-input type="password" placeholder="密码" (keydown.enter)="login()" class="login_input"
+            [(ngModel)]="password" />
+        </nz-input-group>
+      </div>
+
+      <div [hidden]="errorCount<3">
+        <nz-input-group [nzPrefix]="prefixIdy" [nzSuffix]="suffixIdy">
+          <input nz-input placeholder="验证码" class="login_input" (keydown.enter)="login()" [(ngModel)]="code"
+            style="margin-bottom:30px" id="verify" />
+        </nz-input-group>
+      </div>
+
+      <div style="text-align: left;">
+        <label nz-checkbox [(ngModel)]="remebermeChecked" style="color:#fff;">记住我</label>
+        <div style="color: #ff2828;height: 0;float: right;">
+          {{ loginMessage }}
+        </div>
+      </div>
+
+      <div>
+        <button nz-button nzType="primary" class="login_btn" [nzLoading]="isLogining" (click)="login()">
+          登&nbsp;录
+        </button>
+      </div>
+
+      <!-- <div class="login_register" (click)="register()">
+        立即注册
+      </div> -->
+
+
+    </div>
+
+
+
+    <ng-template #prefixUser>
+      <i nz-icon nzType="user" nzTheme="outline" style="margin-bottom: 10px;font-size: 18px;"></i>
+    </ng-template>
+    <ng-template #prefixPsw>
+      <i nz-icon nzType="lock" nzTheme="outline" style="margin-bottom: 10px;font-size: 18px;"></i>
+    </ng-template>
+    <ng-template #prefixIdy>
+      <i nz-icon nzType="safety" nzTheme="outline" style="margin-bottom: 30px;font-size: 18px;"></i>
+    </ng-template>
+    <ng-template #prefixIdy1>
+      <i nz-icon nzType="safety" nzTheme="outline" style="margin-bottom: 8px;font-size: 18px;"></i>
+    </ng-template>
+
+    <ng-template #suffixIdy>
+      <canvas width="100" height="40" id="verifyCanvas"></canvas>
+      <img id="code_img" style="margin-bottom: 30px;margin-right: -12px;cursor: pointer;" />
+    </ng-template>
+  </div>
+
+  <!-- <div class="login_copy2">
+    Copyright © 2019 万年县自然资源局 版权所有 | 版本信息：V.190619
+  </div> -->
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="注册" (nzOnCancel)="isVisible=false" [nzFooter]=null [nzWidth]="800">
+
+
+  <nz-steps [nzCurrent]="current">
+    <nz-step nzTitle="账号信息"></nz-step>
+    <nz-step nzTitle="其他信息"></nz-step>
+    <nz-step nzTitle="完成"></nz-step>
+  </nz-steps>
+
+  <div class="steps-content">
+    <div *ngIf="current == 0">
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>用户名：
+          <input nz-input style="width:calc(100% - 150px)" name="username" required [validation]="true" nzSize="default"
+            [(ngModel)]="registerUser.username" class="w200" [validationType]="'maxlength'" [validationLenth]="60" />
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>密码：
+          <input type="password" maxlength="50" nz-input style="width:calc(100% - 150px)" required [validation]="true"
+            [validationType]="'password'" nzSize="default" [(ngModel)]="registerUser.password" class="w200"
+            name="password" />
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>确认密码：
+          <input type="password" maxlength="50" nz-input style="width:calc(100% - 150px)" required [validation]="true"
+            [validationType]="'password'" nzSize="default" [(ngModel)]="comfirmPassword" class="w200"
+            name="comfirmPassword" />
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="current == 1">
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>真实姓名：
+          <input nz-input style="width:calc(100% - 150px)" required [validation]="true" nzSize="default"
+            [(ngModel)]="registerUser.realname" class="w200" [validationType]="'maxlength'" [validationLenth]="50" />
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>身份证号：
+          <input nz-input style="width:calc(100% - 150px)" required [validation]="true" nzSize="default"
+            [(ngModel)]="registerUser.card" class="w200" [validationType]="'idcard'" [validationLenth]="50" />
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          电话：
+          <input nz-input style="width:calc(100% - 150px)" [validation]="true" [validationType]="'nullphonenumber'"
+            nzSize="default" [(ngModel)]="registerUser.mobile" class="w200" maxlength="50" />
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          邮箱：
+          <input nz-input maxlength="50" style="width:calc(100% - 150px)" nzSize="default"
+            [(ngModel)]="registerUser.email" [validation]="true" [validationType]="'nullEmail'" class="w200" />
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>从业主体:
+          <nz-select style="width:calc(100% - 150px)" required [validation]="true"
+            [(ngModel)]="registerUser.companyType" class="w200" nzPlaceHolder="请选择">
+            <nz-option nzValue="1" nzLabel="开发企业"></nz-option>
+            <nz-option nzValue="2" nzLabel="经纪企业"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>{{registerUser.companyType=='1'?'开发企业名称：':'经纪企业名称：'}}
+          <input nz-input maxlength="50" style="width:calc(100% - 150px)" nzSize="default"
+            [(ngModel)]="registerUser.qymc" [validation]="true" required class="w200" />
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          {{registerUser.companyType=='1'?'营业执照：':'营业执照注册号：'}}
+          <input nz-input maxlength="50" style="width:calc(100% - 150px)" nzSize="default"
+            [(ngModel)]="registerUser.yyzz" [validation]="true" class="w200" />
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          {{registerUser.companyType=='1'?'社会信用代码：':'企业机构代码证号：'}}
+          <input nz-input maxlength="50" style="width:calc(100% - 150px)" nzSize="default"
+            [(ngModel)]="registerUser.shxydm" [validation]="true" class="w200" />
+        </div>
+      </div>
+      <!-- <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          <span class="clo_r">*</span>所在部门：
+          <nz-tree-select [nzDropdownStyle]="{ 'max-height': '300px' }" style="width:calc(100% - 100px)"
+            nzPlaceHolder="请选择部门" [nzNodes]="orgTreeNodes" [nzDefaultExpandAll]="true" [nzAllowClear]="true"
+            [(ngModel)]="registerUser.orgId" nzShowExpand>
+          </nz-tree-select>
+        </div>
+      </div>
+      <div nz-row style="height: 60px;">
+        <div class="ta_r">
+          角色：
+          <nz-select style="width:calc(100% - 100px)" [(ngModel)]="registerUser.roleList" class="w200" nzMode="multiple"
+            [validation]="true">
+            <nz-option *ngFor="let option of allRoles" [nzLabel]="option.name" [nzValue]="option.id">
+            </nz-option>
+          </nz-select>
+        </div>
+      </div> -->
+    </div>
+
+    <div *ngIf="current == 2">
+      <div>
+        <nz-input-group style="width: 300px; margin-top: 40px;" [nzPrefix]="prefixIdy1" [nzSuffix]="suffixIdy1">
+          <input nz-input placeholder="请输入验证码" class="login_input" [(ngModel)]="registerCode" id="verify1" />
+        </nz-input-group>
+      </div>
+
+      <ng-template #suffixIdy1>
+        <canvas width="100" height="40" id="verifyCanvas1"></canvas>
+        <img id="code_img1" style="    margin-bottom: 10px;
+          margin-right: -81px;cursor: pointer;" />
+      </ng-template>
+    </div>
+
+  </div>
+  <div class="steps-action">
+    <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
+      <span>上一步</span>
+    </button>
+    <button nz-button nzType="default" (click)="next()" *ngIf="current < 2">
+      <span>下一步</span>
+    </button>
+    <button nz-button nzType="primary" (click)="done()" *ngIf="current == 2">
+      <span>注册</span>
+    </button>
+  </div>
+
+</nz-modal>

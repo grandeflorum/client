@@ -1,308 +1,464 @@
+<div class="div_body">
 <div class="div1">
-    <div class="step1" [hidden]="type!=''">
-        <div><button nz-button nzType="primary" (click)="typeChange('1')">商品房</button></div>
-        <div><button nz-button nzType="primary" (click)="typeChange('2')">存量房</button></div>
+    <!-- <div class="step1" [hidden]="type!=''">
+        <div><button nz-button nzType="primary" (click)="typeChange('1')">商品房合同</button></div>
+        <div><button nz-button nzType="primary" (click)="typeChange('2')">存量房合同</button></div>
+        <div><button nz-button nzType="primary" (click)="typeChange('3')">预售证查询</button></div>
+        <div><button nz-button nzType="primary" (click)="typeChange('4')">房源查询</button></div>
+    </div> -->
+    <div class="step2"  [hidden]="type!=''">
+        <div class="btn_wrap" (click)="typeChange('1')">
+            <h3>商品房合同</h3>
+        </div>
+        <div class="btn_wrap" (click)="typeChange('2')">
+                <h3>存量房合同</h3>
+            </div>
+            <div class="btn_wrap" (click)="typeChange('3')">
+                    <h3>预售证查询</h3>
+                </div>
+                <div class="btn_wrap" (click)="typeChange('4')">
+                        <h3>房源查询</h3>
+                    </div>
     </div>
     
-    <div class="div2" [hidden]="type==''" style="border:none">
-           <a (click)="back()"><i nz-icon nzType="left" nzTheme="outline"></i>返回</a> 
-            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" style="margin-top:10px">
-                    <input  name="idname" type="text" nz-input placeholder="请输入身份证号码" [(ngModel)]="id"/>
+    <div class="div2" [hidden]="type==''" style="border:none;position: relative;background: #fafafa;">
+           <a (click)="back()" class="back_a"><i nz-icon nzType="left" nzTheme="outline"></i>返回</a> 
+            <span class="title_span">{{title}}</span>        
+            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" style="margin-top:50px">
+                    <input  name="idname" type="text" nz-input placeholder="{{placeholder}}" [(ngModel)]="id"/>
                   </nz-input-group>
                   <ng-template #suffixIconButton>
-                    <button nz-button nzType="primary" nzSearch style="margin-left:0" (click)="QueryHouseTradeByCode()"><i nz-icon nzType="search"></i></button>
+                    <button nz-button nzType="primary" nzSearch style="margin-left:0" (click)="QueryHouseTradeByCode()" [disabled]="isDisable"><i nz-icon nzType="search"></i></button>
                   </ng-template>
-        <div class="div2" *ngIf="type=='1'&&data&&data.SFZH" style="margin-top:10px;height:auto">
-        <div class="row1">
-            <div class="tr">
-                合同备案号：
-            </div>
-            <div >
-                {{data.HTBH}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                合同状态：
-            </div>
-            <div >
-                {{data.CURRENTSTATUS}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                备案时间：
-            </div>
-            <div >
-                {{data.BASJ}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                出卖人：
-            </div>
-            <div >
-                {{data.QYMC}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                注册地址：
-            </div>
-            <div >
-                {{data.ADDRESS}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                营业执照号：
-            </div>
-            <div >
-                {{data.YYZZ}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                法定代表人：
-            </div>
-            <div >
-                {{data.QYFR}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                联系电话：
-            </div>
-            <div >
-                {{data.PHONE}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                买受人：
-            </div>
-            <div >
-                {{data.MSR}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                身份证号：
-            </div>
-            <div >
-                {{data.SFZH}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                联系地址：
-            </div>
-            <div >
-                {{data.LXDZ}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                项目名称：
-            </div>
-            <div >
-                {{data.XMMC}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                预售许可证：
-            </div>
-            <div >
-                {{data.YSXKZ}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                购买房号：
-            </div>
-            <div >
-                {{data.MPH}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                房屋用途：
-            </div>
-            <div >
-                {{data.FWYT}}
-            </div>
-        </div>
-        <!-- <div class="row1">
-            <div  class="tr">
-                坐落：
-            </div>
-            <div >
-                {{data.house.zl}}
-            </div>
-        </div> -->
-        <div class="row1">
-            <div  class="tr">
-                建筑面积：
-            </div>
-            <div >
-                {{data.SCJZMJ}}
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                套内面积：
-            </div>
-            <div >
-                {{data.SCTNJZMJ}}
-            </div>
-        </div>
-        <div class="row1">
-                <div  class="tr">
-                    分摊面积：
-                </div>
-                <div >
-                    {{data.SCFTJZMJ}}
-                </div>
-            </div>
-        <div class="row1">
-            <div  class="tr">
-                单价：
-            </div>
-            <div >
-                {{data.DJ}}（元/平方）
-            </div>
-        </div>
-        <div class="row1">
-            <div  class="tr">
-                总金额：
-            </div>
-            <div >
-                {{data.ZJ}}（元）
-            </div>
-        </div>
-    </div>
 
-            <div class="div2" *ngIf="type=='2'&&data&&data.SFZH" style="margin-top:10px;height:auto">
-                <div class="row1">
-                    <div  class="tr">
-                        合同备案号：
+        <div *ngIf="hasData">
+            <div *ngIf="type=='1'" style="margin-top:10px;height:auto">
+                    <div class="div2" *ngFor="let data of data;index as index"  style="margin-top:10px;height:auto">
+                            <div class="row1">
+                                <div class="tr">
+                                    合同备案号：
+                                </div>
+                                <div >
+                                    {{data.HTBH}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    合同状态：
+                                </div>
+                                <div >
+                                    {{data.CURRENTSTATUS}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    备案时间：
+                                </div>
+                                <div >
+                                    {{data.BASJ}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    出卖人：
+                                </div>
+                                <div >
+                                    {{data.QYMC}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    注册地址：
+                                </div>
+                                <div >
+                                    {{data.ADDRESS}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    营业执照号：
+                                </div>
+                                <div >
+                                    {{data.YYZZ}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    法定代表人：
+                                </div>
+                                <div >
+                                    {{data.QYFR}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    联系电话：
+                                </div>
+                                <div >
+                                    {{data.PHONE}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    买受人：
+                                </div>
+                                <div >
+                                    {{data.MSR}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    身份证号：
+                                </div>
+                                <div >
+                                    {{data.SFZH}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    联系地址：
+                                </div>
+                                <div >
+                                    {{data.LXDZ}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    项目名称：
+                                </div>
+                                <div >
+                                    {{data.XMMC}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    预售许可证：
+                                </div>
+                                <div >
+                                    {{data.YSXKZ}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    购买房号：
+                                </div>
+                                <div >
+                                    {{data.MPH}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    房屋用途：
+                                </div>
+                                <div >
+                                    {{data.FWYT}}
+                                </div>
+                            </div>
+                            <!-- <div class="row1">
+                                <div  class="tr">
+                                    坐落：
+                                </div>
+                                <div >
+                                    {{data.house.zl}}
+                                </div>
+                            </div> -->
+                            <div class="row1">
+                                <div  class="tr">
+                                    建筑面积：
+                                </div>
+                                <div >
+                                    {{data.SCJZMJ}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    套内面积：
+                                </div>
+                                <div >
+                                    {{data.SCTNJZMJ}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                    <div  class="tr">
+                                        分摊面积：
+                                    </div>
+                                    <div >
+                                        {{data.SCFTJZMJ}}
+                                    </div>
+                                </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    单价：
+                                </div>
+                                <div >
+                                    {{data.DJ}}（元/平方）
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    总金额：
+                                </div>
+                                <div >
+                                    {{data.ZJ}}（元）
+                                </div>
+                            </div>
                     </div>
-                    <div >
-                        {{data.HTBH}}
+
+                    <div class="row1" *ngIf="data.length==0" style="text-align: center;">
+                            无数据
                     </div>
-                </div>
-                <div class="row1">
-                    <div  class="tr">
-                        入网时间：
-                    </div>
-                    <div >
-                        {{data.RWSJ}}
-                    </div>
-                </div>
-                <div class="row1">
-                    <div  class="tr">
-                        合同状态：
-                    </div>
-                    <div >
-                        {{data.CURRENTSTATUS}}
-                    </div>
-                </div>
-            <div class="row1">
-                    <div  class="tr">
-                        不动产权证号：
-                    </div>
-                    <div >
-                        {{data.BDCQZH}}
-                    </div>
-                </div>
-                <div class="row1">
-                        <div  class="tr">
-                            权证地址：
+            </div>
+           
+
+            <div *ngIf="type=='2'" style="margin-top:10px;height:auto">
+                    <div class="div2" *ngFor="let data of data;index as index" style="margin-top:10px;height:auto">
+                            <div class="row1">
+                                <div  class="tr">
+                                    合同备案号：
+                                </div>
+                                <div >
+                                    {{data.HTBH}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    入网时间：
+                                </div>
+                                <div >
+                                    {{data.RWSJ}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    合同状态：
+                                </div>
+                                <div >
+                                    {{data.CURRENTSTATUS}}
+                                </div>
+                            </div>
+                        <div class="row1">
+                                <div  class="tr">
+                                    不动产权证号：
+                                </div>
+                                <div >
+                                    {{data.BDCQZH}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                    <div  class="tr">
+                                        权证地址：
+                                    </div>
+                                    <div >
+                                        {{data.ZL}}
+                                    </div>
+                                </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                        产权人：
+                                </div>
+                                <div >
+                                    {{data.CQR}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                    <div  class="tr">
+                                            户型：
+                                    </div>
+                                    <div >
+                                        {{data.HX}}
+                                    </div>
+                                </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    房屋用途：
+                                </div>
+                                <div >
+                                    {{data.FWYT}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                    <div  class="tr">
+                                        甲方：
+                                    </div>
+                                    <div >
+                                        {{data.JF}}
+                                    </div>
+                                </div>
+                                <div class="row1">
+                                    <div  class="tr">
+                                        甲方身份证：
+                                    </div>
+                                    <div >
+                                        {{data.JFZJHM}}
+                                    </div>
+                                </div>
+                               <div class="row1">
+                                    <div  class="tr">
+                                        乙方：
+                                    </div>
+                                    <div >
+                                        {{data.YF}}
+                                    </div>
+                                </div>
+                               <div class="row1">
+                                    <div  class="tr">
+                                        乙方身份证：
+                                    </div>
+                                    <div >
+                                        {{data.YFZJHM}}
+                                    </div>
+                                </div>
+                            
+                            <div class="row1">
+                                <div  class="tr">
+                                    建筑面积：
+                                </div>
+                                <div >
+                                    {{data.JZMJ}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    总金额：
+                                </div>
+                                <div >
+                                    {{data.CRZJ}}（元）
+                                </div>
+                            </div>
                         </div>
-                        <div >
-                            {{data.ZL}}
+
+                        <div class="row1" *ngIf="data.length==0" style="text-align: center;">
+                                无数据
                         </div>
-                    </div>
-                <div class="row1">
-                    <div  class="tr">
-                            产权人：
-                    </div>
-                    <div >
-                        {{data.CQR}}
-                    </div>
-                </div>
-                <div class="row1">
-                        <div  class="tr">
-                                户型：
+            </div>
+        
+                    
+                    
+                  
+        
+                    <div *ngIf="type=='3'" style="margin-top:10px;height:auto">
+                        <div class="div2" *ngFor="let data of data;index as index" style="margin-top:10px;height:auto">
+                        <div class="row1">
+                            <div  class="tr">
+                                楼盘名称：
+                            </div>
+                            <div >
+                                {{data.LPMC}}
+                            </div>
                         </div>
-                        <div >
-                            {{data.HX}}
+                        <div class="row1">
+                            <div  class="tr">
+                                楼盘幢号：
+                            </div>
+                            <div >
+                                {{data.LPZH}}
+                            </div>
                         </div>
-                    </div>
-                <div class="row1">
-                    <div  class="tr">
-                        房屋用途：
-                    </div>
-                    <div >
-                        {{data.FWYT}}
-                    </div>
-                </div>
-                <div class="row1">
-                        <div  class="tr">
-                            甲方：
+                        <div class="row1">
+                            <div  class="tr">
+                                总层数：
+                            </div>
+                            <div >
+                                {{data.ZCS}}
+                            </div>
                         </div>
-                        <div >
-                            {{data.JF}}
-                        </div>
-                    </div>
                     <div class="row1">
-                        <div  class="tr">
-                            甲方身份证：
+                            <div  class="tr">
+                                房屋用途：
+                            </div>
+                            <div >
+                                {{data.FWYT}}
+                            </div>
                         </div>
-                        <div >
-                            {{data.JFZJHM}}
+                        <div class="row1">
+                                <div  class="tr">
+                                    预售许可证号：
+                                </div>
+                                <div >
+                                    {{data.YSXKZ}}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                   <div class="row1">
-                        <div  class="tr">
-                            乙方：
-                        </div>
-                        <div >
-                            {{data.YF}}
-                        </div>
-                    </div>
-                   <div class="row1">
-                        <div  class="tr">
-                            乙方身份证：
-                        </div>
-                        <div >
-                            {{data.YFZJHM}}
+                        <div class="row1" *ngIf="data.length==0" style="text-align: center;">
+                                无数据
                         </div>
                     </div>
-                
-                <div class="row1">
-                    <div  class="tr">
-                        建筑面积：
-                    </div>
-                    <div >
-                        {{data.JZMJ}}
-                    </div>
-                </div>
-                <div class="row1">
-                    <div  class="tr">
-                        总金额：
-                    </div>
-                    <div >
-                        {{data.CRZJ}}（元）
-                    </div>
-                </div>
-            </div>
-
-            <div class="div2" *ngIf="type!=''&&data&&!data.SFZH" style="margin-top:10px;height:auto;text-align: center;border:none">
+        
+                    <div *ngIf="type=='4'" style="margin-top:10px;height:auto">
+                        <div class="div2" *ngFor="let data of data;index as index" style="margin-top:10px;height:auto">
+                        <div class="row1">
+                            <div  class="tr">
+                                楼盘名称：
+                            </div>
+                            <div >
+                                {{data.LPMC}}
+                            </div>
+                        </div>
+                        <div class="row1">
+                            <div  class="tr">
+                                坐落：
+                            </div>
+                            <div >
+                                {{data.ZL}}
+                            </div>
+                        </div>
+                        <div class="row1">
+                            <div  class="tr">
+                                面积：
+                            </div>
+                            <div >
+                                {{data.MJ}}
+                            </div>
+                        </div>
                     <div class="row1">
-                        无数据
-            </div>
+                            <div  class="tr">
+                                几室几厅：
+                            </div>
+                            <div >
+                                {{data.JSJT}}
+                            </div>
+                        </div>
+                        <div class="row1">
+                                <div  class="tr">
+                                    用途：
+                                </div>
+                                <div >
+                                    {{data.YT}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    结构：
+                                </div>
+                                <div >
+                                    {{data.JG}}
+                                </div>
+                            </div>
+                            <div class="row1">
+                                <div  class="tr">
+                                    房屋状态：
+                                </div>
+                                <div >
+                                    {{data.FWZT}}
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="row1" *ngIf="data.length==0" style="text-align: center;">
+                                无数据
+                        </div>
+                    </div>
+        </div>
+
+
+            <div class="div2" *ngIf="!hasData" style="margin-top:10px;height:100px;text-align: center;border:none;background: #fafafa;">
+
+                    <div class="row1" *ngIf="!isDisable">
+                            无数据
+                    </div>
+                    
+                    <nz-spin nzTip="Loading..." *ngIf="isDisable" style="margin-top:20px"></nz-spin>
+            </div>
+</div>
 </div>
 </div>

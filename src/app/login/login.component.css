@@ -79,3 +79,9 @@
 .steps-action {
   margin-top: 24px;
 }
+
+#qrcode{
+  position: absolute;
+    bottom: 7px;
+    left: calc(50% + 220px);
+}
