@@ -364,6 +364,12 @@
             [disabled]="isDisable" maxlength="30" class="w200" placeholder="单元名称" />
         </span>
       </div>
+      <div nz-col [nzSpan]="8">
+        <div class="label_div">产权证号：</div>
+        <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.cqzh" title={{detailObj.cqzh}}
+            [disabled]="isDisable" maxlength="50" class="w200" placeholder="产权证号" />
+        </span>
+      </div>
     </div>
 
     <div *ngIf="detailObj.ljzid">
