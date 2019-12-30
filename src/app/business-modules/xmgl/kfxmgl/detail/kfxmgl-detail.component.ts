@@ -6,7 +6,7 @@ import { Localstorage } from '../../../service/localstorage';
 import { KfxmglService } from '../../../service/xmgl/kfxmgl.service';
 import { FileService } from '../../../service/file/file.service';
 import { UtilitiesSercice } from 'src/app/business-modules/service/common/utilities.services';
-
+import Viewer from 'viewerjs';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { CompanyService } from 'src/app/business-modules/service/practitioner/company.service';
@@ -298,6 +298,15 @@ export class KfxmglDetailComponent implements OnInit {
     if (item.fileSuffix != 'pdf') {
       this.currentImg = this.downLoadurl + "?id=" + item.id + "&type=0";
       this.isImgVisible = true;
+
+      setTimeout(() => {
+        var image = new Viewer(document.getElementById('image'),{
+          hidden:function(e){
+            image.destroy();          }
+        });
+      }, 200);
+
+     
     } else {
       window.open(this.downLoadurl + "?id=" + item.id + "&type=0");
     }

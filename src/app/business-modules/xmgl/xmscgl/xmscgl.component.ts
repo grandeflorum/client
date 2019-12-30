@@ -6,6 +6,8 @@ import { Localstorage } from '../../service/localstorage';
 import { FileService } from '../../service/file/file.service';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
+import Viewer from 'viewerjs';
+
 
 @Component({
   selector: 'app-xmscgl',
@@ -273,6 +275,13 @@ export class XmscglComponent implements OnInit {
     if (item.fileSuffix != 'pdf') {
       this.currentImg = this.downLoadurl + "?id=" + item.id + "&type=0";
       this.isImgVisible = true;
+
+      setTimeout(() => {
+        var image = new Viewer(document.getElementById('image'),{
+          hidden:function(e){
+            image.destroy();          }
+        });
+      }, 200);
     } else {
       window.open(this.downLoadurl + "?id=" + item.id + "&type=0");
     }

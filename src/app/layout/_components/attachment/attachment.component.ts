@@ -4,7 +4,7 @@ import { UploadXHRArgs, NzMessageService } from 'ng-zorro-antd';
 import { HttpRequest, HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { AttachmentSercice } from 'src/app/business-modules/service/common/attachment.service';
 import { UtilitiesSercice } from 'src/app/business-modules/service/common/utilities.services';
-
+import Viewer from 'viewerjs';
 
 @Component({
     selector: 'app-attachment',
@@ -81,6 +81,13 @@ export class AttachmentComponent implements OnInit {
 
         this.isVisiblePic = true;
         this.previewUrl = this.downLoadurl + "?id=" + item.uid + "&type=1";
+
+        setTimeout(() => {
+            var image = new Viewer(document.getElementById('image'),{
+              hidden:function(e){
+                image.destroy();          }
+            });
+          }, 200);
 
     }
 

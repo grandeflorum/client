@@ -33,5 +33,6 @@
 </nz-modal>
 
 <nz-modal [(nzVisible)]="isVisiblePic" nzTitle="预览" [nzOkText]="okText" (nzOnCancel)="isVisiblePic=false;">
-    <img [src]="previewUrl" style="width: 470px;height: 300px;"/>
+        <img id="image" [src]="previewUrl" style="width: 470px;height: 300px;"/>
+    
 </nz-modal>

@@ -14,7 +14,7 @@ import { HouseTradeService } from "../../service/contract/house-trade.service";
 import { StockTradeService } from "../../service/contract/stock-trade.service";
 import { ZddyglService } from '../../service/zddygl/zddygl.service';
 import { StockHouseService } from "../../service/stockHouse/stock-house.service";
-
+import Viewer from 'viewerjs';
 
 
 @Component({
@@ -393,6 +393,13 @@ export class LpbglDetailComponent implements OnInit {
     if (item.fileSuffix != 'pdf') {
       this.currentImg = this.downLoadurl + "?id=" + item.id + "&type=0";
       this.isImgVisible = true;
+
+      setTimeout(() => {
+        var image = new Viewer(document.getElementById('image'),{
+          hidden:function(e){
+            image.destroy();          }
+        });
+      }, 200);
     } else {
       window.open(this.downLoadurl + "?id=" + item.id + "&type=0");
     }
