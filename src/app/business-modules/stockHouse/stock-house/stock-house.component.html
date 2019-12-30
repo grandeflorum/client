@@ -57,7 +57,7 @@
                 <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
                     [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
                 <th>产权人姓名</th>
-                <th>详细地址</th>
+                <th>产权证号</th>
                 <th>房型</th>
                 <th>建筑面积</th>
                 <th nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th>
@@ -70,7 +70,7 @@
                 <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]"
                     [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
                 <td title="{{data.cqrxm}}">{{ data.cqrxm |tooltips:15}}</td>
-                <td title="{{data.address}}">{{ data.address |tooltips:15}}</td>
+                <td title="{{data.cqzh}}">{{ data.cqzh |tooltips:15}}</td>
                 <td>{{ data.fx }}</td>
                 <td>{{ data.jzmj }}</td>
                 <td
