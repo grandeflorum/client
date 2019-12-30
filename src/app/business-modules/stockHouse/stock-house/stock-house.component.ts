@@ -20,7 +20,7 @@ export class StockHouseComponent implements OnInit {
   sortList: any = [];
   selectId: any = '';
   cqrxm = '';
-  address = '';
+  cqzh = '';
   auditType = '';
   dataSet = [];
 
@@ -106,7 +106,7 @@ export class StockHouseComponent implements OnInit {
 
     if(isGoBack){
       this.cqrxm = this.stockHouseService.pageCache.cqrxm;
-      this.address = this.stockHouseService.pageCache.address;
+      this.cqzh = this.stockHouseService.pageCache.cqzh;
       this.auditType = this.stockHouseService.pageCache.auditType;
       this.selectId = this.stockHouseService.pageCache.selectId;
       this.pageIndex = this.stockHouseService.pageCache.pageIndex;
@@ -127,8 +127,8 @@ export class StockHouseComponent implements OnInit {
     if (this.cqrxm) {
       option.conditions.push({ key: 'cqrxm', value: this.cqrxm });
     }
-    if (this.address) {
-      option.conditions.push({ key: 'address', value: this.address });
+    if (this.cqzh) {
+      option.conditions.push({ key: 'cqzh', value: this.cqzh });
     }
     if (this.auditType || this.auditType === "0") {
       option.conditions.push({ key: 'auditType', value: this.auditType });
@@ -171,7 +171,7 @@ export class StockHouseComponent implements OnInit {
 
   reset() {
     this.cqrxm = '';
-    this.address = '';
+    this.cqzh = '';
     this.auditType = '';
     this.search();
 
@@ -287,7 +287,7 @@ export class StockHouseComponent implements OnInit {
 
       this.stockHouseService.pageCache = {
         cqrxm:this.cqrxm,
-        address:this.address,
+        cqzh:this.cqzh,
         auditType:this.auditType,
         selectId:item?item.id:'',
         pageIndex:1,

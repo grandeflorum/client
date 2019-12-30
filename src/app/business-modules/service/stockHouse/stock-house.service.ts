@@ -9,7 +9,7 @@ export class StockHouseService {
 
     pageCache = {
         cqrxm:'',
-        address:'',
+        cqzh:'',
         auditType:'',
         selectId:'',
         pageIndex:1,
