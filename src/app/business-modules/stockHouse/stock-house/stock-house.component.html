@@ -5,8 +5,8 @@
             <input nz-input nzSize="default" [(ngModel)]="cqrxm" class="w150" placeholder="请输入产权人姓名" />
         </div>
         <div nz-col [nzSpan]="7">
-            产权证号：
-            <input nz-input nzSize="default" [(ngModel)]="cqzh" class="w150" placeholder="请输入产权证号" />
+            不动产权属证号：
+            <input nz-input nzSize="default" [(ngModel)]="cqzh" class="w150" placeholder="请输入不动产权属证号" />
         </div>
 
         <div nz-col [nzSpan]="6">
@@ -57,7 +57,7 @@
                 <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
                     [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
                 <th>产权人姓名</th>
-                <th>产权证号</th>
+                <th>不动产权属证号</th>
                 <th>房型</th>
                 <th>建筑面积</th>
                 <th nzShowSort nzSortKey="AUDIT_TYPE">审核状态</th>
