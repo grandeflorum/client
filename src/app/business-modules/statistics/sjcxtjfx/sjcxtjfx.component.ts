@@ -138,17 +138,25 @@ export class SjcxtjfxComponent implements OnInit {
     };
 
 
+    let data;
+
+    data = {};
+
     if (this.kssj) {
       option.conditions.push({ key: 'kssj', value: this.kssj });
+
+      data.kssj = this.kssj;
     }
 
     if (this.jssj) {
       option.conditions.push({ key: 'jssj', value: this.jssj });
+
+      data.jssj = this.jssj;
     }
 
 
 
-    var res = await this.statisticService.getTimeQueryStatistics(option);
+    var res = await this.statisticService.getTimeQueryStatistics(data);
     this.Loading = false;
     if (res.code == 200) {
       this.staticValue = res.msg[0];
