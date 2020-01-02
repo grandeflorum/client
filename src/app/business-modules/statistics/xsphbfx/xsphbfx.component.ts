@@ -200,7 +200,7 @@ export class XsphbfxComponent implements OnInit {
       option.conditions.push({ key: 'jssj', value: this.jssj });
     }
 
-    option.conditions.push({ key: 'sort', value: ['xsl'] });
+    option.conditions.push({ key: 'sort', value: ['xsl desc'] });
 
 
     var res = await this.statisticService.getProjectSalesVolumeList(option);
@@ -266,7 +266,7 @@ export class XsphbfxComponent implements OnInit {
   }
 
   export() {
-    window.open(AppConfig.Configuration.baseUrl + "/Statistic/excelDownload?mc=" + this.mc + "&kssj=" + this.kssj + "&jssj=" + this.jssj+'&exportType=sales');
+    window.open(AppConfig.Configuration.baseUrl + "/Statistic/excelDownload?mc=" + this.mc + "&kssj=" + this.kssj + "&jssj=" + this.jssj + '&exportType=sales');
   }
 
 
