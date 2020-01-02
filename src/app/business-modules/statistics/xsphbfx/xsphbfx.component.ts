@@ -161,7 +161,7 @@ export class XsphbfxComponent implements OnInit {
       this.jssj = this.ghGetNextQuarterStartDate();
     } else if (m == 5) {//本年
       this.kssj = Moment(new Date(new Date().getFullYear(), 0, 1)).format('YYYY-MM-DD');
-      this.jssj = Moment(new Date()).format('YYYY-MM-DD');
+      this.jssj = Moment(new Date(new Date().getFullYear() + 1, 0, 1)).format('YYYY-MM-DD');
     }
     this.searchTopTen();
     this.search();
