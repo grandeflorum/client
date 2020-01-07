@@ -174,6 +174,8 @@ export class StockTradeDetailComponent implements OnInit {
       var jfzjlx = this.buildInfoList(this.detailObj.jfzjlx);
       var jfzjhm = this.buildInfoList(this.detailObj.jfzjhm);
       var jflxdh = this.buildInfoList(this.detailObj.jflxdh);
+      var jfgyfs = this.buildInfoList(this.detailObj.jfgyfs);
+      var jfgybl = this.buildInfoList(this.detailObj.jfgybl);
 
       this.jfList = [];
       for (let idx = 0; idx < jf.length; idx++) {
@@ -182,7 +184,9 @@ export class StockTradeDetailComponent implements OnInit {
           jflxdz: jflxdz[idx],
           jfzjlx: jfzjlx[idx],
           jfzjhm: jfzjhm[idx],
-          jflxdh: jflxdh[idx]
+          jflxdh: jflxdh[idx],
+          jfgyfs: jfgyfs[idx],
+          jfgybl: jfgybl[idx]
         });
       }
 
@@ -192,6 +196,8 @@ export class StockTradeDetailComponent implements OnInit {
       var yfzjlx = this.buildInfoList(this.detailObj.yfzjlx);
       var yfzjhm = this.buildInfoList(this.detailObj.yfzjhm);
       var yflxdh = this.buildInfoList(this.detailObj.yflxdh);
+      var yfgyfs = this.buildInfoList(this.detailObj.yfgyfs);
+      var yfgybl = this.buildInfoList(this.detailObj.yfgybl);
 
       this.yfList = [];
       for (let idx = 0; idx < yf.length; idx++) {
@@ -200,7 +206,9 @@ export class StockTradeDetailComponent implements OnInit {
           yflxdz: yflxdz[idx],
           yfzjlx: yfzjlx[idx],
           yfzjhm: yfzjhm[idx],
-          yflxdh: yflxdh[idx]
+          yflxdh: yflxdh[idx],
+          yfgyfs: yfgyfs[idx],
+          yfgybl: yfgybl[idx]
         });
       }
 
@@ -445,6 +453,9 @@ export class StockTradeDetailComponent implements OnInit {
     this.detailObj.jfzjlx = "";
     this.detailObj.jfzjhm = "";
     this.detailObj.jflxdh = "";
+    this.detailObj.jfgyfs = "";
+    this.detailObj.jfgybl = "";
+
 
     for (let idx = 0; idx < this.jfList.length; idx++) {
 
@@ -454,12 +465,17 @@ export class StockTradeDetailComponent implements OnInit {
         this.detailObj.jfzjlx += this.jfList[idx].jfzjlx + ",";
         this.detailObj.jfzjhm += this.jfList[idx].jfzjhm + ",";
         this.detailObj.jflxdh += this.jfList[idx].jflxdh + ",";
+        this.detailObj.jfgyfs += this.jfList[idx].jfgyfs + ",";
+        this.detailObj.jfgybl += this.jfList[idx].jfgybl + ",";
+
       } else {
         this.detailObj.jf += this.jfList[idx].jf;
         this.detailObj.jflxdz += this.jfList[idx].jflxdz;
         this.detailObj.jfzjlx += this.jfList[idx].jfzjlx;
         this.detailObj.jfzjhm += this.jfList[idx].jfzjhm;
         this.detailObj.jflxdh += this.jfList[idx].jflxdh;
+        this.detailObj.jfgyfs += this.jfList[idx].jfgyfs;
+        this.detailObj.jfgybl += this.jfList[idx].jfgybl;
       }
 
     }
@@ -469,6 +485,8 @@ export class StockTradeDetailComponent implements OnInit {
     this.detailObj.yfzjlx = "";
     this.detailObj.yfzjhm = "";
     this.detailObj.yflxdh = "";
+    this.detailObj.yfgyfs = "";
+    this.detailObj.yfgybl = "";
 
     for (let idx = 0; idx < this.yfList.length; idx++) {
 
@@ -478,12 +496,16 @@ export class StockTradeDetailComponent implements OnInit {
         this.detailObj.yfzjlx += this.yfList[idx].yfzjlx + ",";
         this.detailObj.yfzjhm += this.yfList[idx].yfzjhm + ",";
         this.detailObj.yflxdh += this.yfList[idx].yflxdh + ",";
+        this.detailObj.yfgyfs += this.yfList[idx].yfgyfs + ",";
+        this.detailObj.yfgybl += this.yfList[idx].yfgybl + ",";
       } else {
         this.detailObj.yf += this.yfList[idx].yf ;
         this.detailObj.yflxdz += this.yfList[idx].yflxdz ;
         this.detailObj.yfzjlx += this.yfList[idx].yfzjlx ;
         this.detailObj.yfzjhm += this.yfList[idx].yfzjhm ;
         this.detailObj.yflxdh += this.yfList[idx].yflxdh ;
+        this.detailObj.yfgyfs += this.yfList[idx].yfgyfs ;
+        this.detailObj.yfgybl += this.yfList[idx].yfgybl ;
       }
 
     }
@@ -636,7 +658,9 @@ export class StockTradeDetailComponent implements OnInit {
       jflxdz: "",
       jfzjlx: "",
       jfzjhm: "",
-      jflxdh: ""
+      jflxdh: "",
+      jfgyfs: "",
+      jfgybl: ""
     }
     this.jfList.push(jf);
 
@@ -656,7 +680,9 @@ export class StockTradeDetailComponent implements OnInit {
       yflxdz: "",
       yfzjlx: "",
       yfzjhm: "",
-      yflxdh: ""
+      yflxdh: "",
+      yfgyfs: "",
+      yfgybl: ""
     }
     this.yfList.push(yf);
 

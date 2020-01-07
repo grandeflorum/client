@@ -129,6 +129,14 @@ body, html {
       width: 150px;
     }
   }
+
+  .w110 {
+    width: 110px;
+
+    .ant-calendar-picker {
+      width: 110px;
+    }
+  }
   
   [nz-button] {
     margin-left: 10px;

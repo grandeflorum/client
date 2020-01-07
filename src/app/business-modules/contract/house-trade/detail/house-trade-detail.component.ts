@@ -374,6 +374,12 @@ export class HouseTradeDetailComponent implements OnInit {
     if (!this.detailObj.id) {
       delete this.detailObj.id;
     }
+    if(this.detailObj.gyqk==1){
+      if(!this.detailObj.relationShips||this.detailObj.relationShips.length==0){
+        this.msg.create('error', '共有方式为单独所有时需填写共有权人');
+        return;
+      }
+    }
     if (this.isbusy) {
       this.msg.create('error', '数据正在保存，请勿重复点击');
       return;

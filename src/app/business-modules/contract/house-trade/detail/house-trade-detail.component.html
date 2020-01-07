@@ -162,43 +162,50 @@
 
       <nz-divider nzText="共有权人" nzOrientation="left" style="font-size: 18px"></nz-divider>
       <div nz-row style="height: 50px;padding: 10px;">
-        <div style="text-align: center;" nz-col [nzSpan]="6">
+        <div style="text-align: center;" nz-col [nzSpan]="5">
           <span class="clo_r">*</span>姓名
         </div>
-        <div style="text-align: center;" nz-col [nzSpan]="5">
+        <div style="text-align: center;" nz-col [nzSpan]="4">
           证件种类
         </div>
-        <div style="text-align: center;" nz-col [nzSpan]="5">
+        <div style="text-align: center;" nz-col [nzSpan]="4">
           <span class="clo_r">*</span>证件号码
         </div>
-        <div style="text-align: center;" nz-col [nzSpan]="5">
+        <div style="text-align: center;" nz-col [nzSpan]="4">
           <span class="clo_r">*</span>共有方式
+        </div>
+        <div style="text-align: center;" nz-col [nzSpan]="4">
+          共有比例
         </div>
         <div style="text-align: center;" nz-col [nzSpan]="3">
           <button nz-button nzType="primary" [disabled]="isDisable" (click)="addpeople()">添加</button>
         </div>
       </div>
       <div *ngFor="let item of detailObj.relationShips;index as index" nz-row style="height: 50px;padding: 10px;">
-        <div style="text-align: center;" nz-col [nzSpan]="6">
+        <div style="text-align: center;" nz-col [nzSpan]="5">
           <input nz-input nzSize="default" [(ngModel)]="item.name" title={{item.name}} (keyup)="nameChange()" [disabled]="isDisable"
             required maxlength="50" [validation]="true" class="w200" placeholder="请输入姓名" />
         </div>
-        <div style="text-align: center;" nz-col [nzSpan]="5">
+        <div style="text-align: center;" nz-col [nzSpan]="4">
           <nz-select nzPlaceHolder='请选择证件类别' [(ngModel)]="item.zjlb" title={{item.zjlb}} class="w200" [disabled]="isDisable">
             <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
           </nz-select>
         </div>
-        <div style="text-align: center;" nz-col [nzSpan]="5">
+        <div style="text-align: center;" nz-col [nzSpan]="4">
           <input nz-input nzSize="default" [(ngModel)]="item.sfzh" title={{item.sfzh}} [disabled]="isDisable" required [validation]="true"
             maxlength="25" class="w200" placeholder="请输入证件号码" />
         </div>
-        <div style="text-align: center;" nz-col [nzSpan]="5">
+        <div style="text-align: center;" nz-col [nzSpan]="4">
           <nz-select [(ngModel)]="item.gyfs" class="w200" nzPlaceHolder="请选择共有方式" [disabled]="isDisable" required
             [validation]="true">
             <nz-option *ngFor="let option of dictionaryObj.gyfs" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
           </nz-select>
+        </div>
+        <div style="text-align: center;" nz-col [nzSpan]="4">
+          <input nz-input nzSize="default" [(ngModel)]="item.gybl" title={{item.gybl}}  [disabled]="isDisable"
+             maxlength="25"  class="w200" placeholder="请输入共有比例" />
         </div>
         <div style="text-align: center;" nz-col [nzSpan]="3">
           <button nz-button nzType="primary" [disabled]="isDisable" (click)="deletepeople(item,index)">删除</button>
