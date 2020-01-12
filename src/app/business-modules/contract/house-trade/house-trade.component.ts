@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList, ViewChild } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router , ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { HouseTradeService } from "../../service/contract/house-trade.service";
@@ -49,7 +49,8 @@ export class HouseTradeComponent implements OnInit {
   ]
   //审核对象
   auditObj: any = {
-    shrq: new Date()
+    zrzyj:{},
+    zjj:{}
   };
 
   auditIsVisible: any = false;
@@ -85,13 +86,19 @@ export class HouseTradeComponent implements OnInit {
     private houseTradeService: HouseTradeService,
     private localstorage: Localstorage,
     private utilitiesSercice: UtilitiesSercice,
-    private activatedRoute:ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) { }
 
   //添加权限
   canzsgc: boolean = false;
   cantjsh: boolean = false;
   cansh: boolean = false;
+
+  //开发企业
+  isKfqy: boolean = false;
+
+  //新审核
+  auditIsVisibleNew: any = false;
 
   getRoles() {
     let roles = this.localstorage.getObject("roles");
@@ -116,10 +123,15 @@ export class HouseTradeComponent implements OnInit {
         this.canzsgc = true;
         this.cantjsh = true;
       }
+
+      if (roles.some(x => x == '开发企业')) {
+        this.isKfqy = true;
+      }
     }
   }
 
   ngOnInit() {
+
     this.config = {
       readonly: true,
       toolbars: [],
@@ -137,7 +149,7 @@ export class HouseTradeComponent implements OnInit {
 
     var isGoBack = this.activatedRoute.snapshot.queryParams.isGoBack;
 
-    if(isGoBack){
+    if (isGoBack) {
       this.xmmc = this.houseTradeService.pageCache.xmmc;
       this.jzwmc = this.houseTradeService.pageCache.jzwmc;
       this.currentStatus = this.houseTradeService.pageCache.currentStatus;
@@ -298,14 +310,14 @@ export class HouseTradeComponent implements OnInit {
     //     break;
     // }
 
-      this.houseTradeService.pageCache={
-        xmmc:this.xmmc,
-        jzwmc:this.jzwmc,
-        currentStatus:this.currentStatus,
-        selectId:item?item.id:'',
-        pageIndex:1,
-        pageSize:10
-      }
+    this.houseTradeService.pageCache = {
+      xmmc: this.xmmc,
+      jzwmc: this.jzwmc,
+      currentStatus: this.currentStatus,
+      selectId: item ? item.id : '',
+      pageIndex: 1,
+      pageSize: 10
+    }
 
     this.router.navigate(['/contract/houseTrade/detail'], {
       queryParams: {
@@ -314,13 +326,13 @@ export class HouseTradeComponent implements OnInit {
       }
     });
   }
-  
-  bg(item){
+
+  bg(item) {
     this.router.navigate(['/contract/houseTrade/detail'], {
       queryParams: {
-        id: item.id ,
+        id: item.id,
         type: 3,
-        bg:"bg"
+        bg: "bg"
       }
     });
   }
@@ -338,8 +350,8 @@ export class HouseTradeComponent implements OnInit {
     }
   }
 
-  async sh(data){
-    if(!data.houseId){
+  async sh(data) {
+    if (!data.houseId) {
       this.msg.create('error', '该合同未关联户，不能提交审核');
       return;
     }
@@ -355,38 +367,87 @@ export class HouseTradeComponent implements OnInit {
 
   }
   //审核
-  audit(data, type?) {
-    if(!data.houseId){
+  async audit(data) {
+    if (!data.houseId) {
+      this.msg.create('error', '该合同未关联户，不能提交审核');
+      return;
+    }
+
+    this.auditIsVisibleNew = true;
+    switch (data.currentStatus) {
+      case 1:
+        this.auditName = "受理";
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
+        break;
+      case 2:
+        this.auditName = "初审";
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
+        break;
+      case 3:
+        this.auditName = "核定";
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
+        break;
+      case 4:
+        this.auditName = "登簿";
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
+        break;
+      default:
+        this.auditName = "审核";
+        this.auditResultVisible = true;
+        this.auditPeople = "审核人";
+        this.auditdate = "审核日期";
+        break;
+    }
+    this.isOkLoading = false;
+
+
+    let res = await this.houseTradeService.getAuditNewInfo(data.id, data.currentStatus);
+    if (res && res.code == 200) {
+
+      this.auditObj = res.msg;
+
+      if (this.userinfo.rootOrgName == "万年县自然资源局") {
+
+        this.auditObj.zrzyj = this.auditObj.zrzyj ? this.auditObj.zrzyj : {};
+        this.auditObj.zrzyj.shrq = new Date();
+        this.auditObj.zrzyj.shry = this.userinfo ? this.userinfo.realname : null;
+
+
+        this.auditObj.zrzyj.projectid = data.id;
+        this.auditObj.zrzyj.userType = 1
+        this.auditObj.zrzyj.userId = this.userinfo.id;
+
+      } else if (this.userinfo.rootOrgName == "万年县住建局") {
+
+        this.auditObj.zjj = this.auditObj.zjj ? this.auditObj.zjj : {};
+        this.auditObj.zjj.shrq = new Date();
+        this.auditObj.zjj.shry = this.userinfo ? this.userinfo.realname : null;
+
+        this.auditObj.zjj.projectid = data.id;
+        this.auditObj.zjj.userType = 2;
+        this.auditObj.zjj.userId = this.userinfo.id;
+      }
+
+
+    }
+
+
+
+  }
+
+
+  zx(data, type?) {
+    if (!data.houseId) {
       this.msg.create('error', '该合同未关联户，不能提交审核');
       return;
     }
 
     this.auditIsVisible = true;
     switch (data.currentStatus) {
-      case 1:
-        this.auditName = "受理";
-        this.auditResultVisible = true;
-        this.auditPeople = "审核人";
-        this.auditdate = "审核日期";
-        break;
-      case 2:
-        this.auditName = "初审";
-        this.auditResultVisible = true;
-        this.auditPeople = "审核人";
-        this.auditdate = "审核日期";
-        break;
-      case 3:
-        this.auditName = "核定";
-        this.auditResultVisible = true;
-        this.auditPeople = "审核人";
-        this.auditdate = "审核日期";
-        break;
-      case 4:
-        this.auditName = "登簿";
-        this.auditResultVisible = true;
-        this.auditPeople = "审核人";
-        this.auditdate = "审核日期";
-        break;
       case 5:
 
         if (1 == type) {
@@ -420,12 +481,42 @@ export class HouseTradeComponent implements OnInit {
       shrq: new Date(),
       shry: this.userinfo ? this.userinfo.realname : null
     };
-
   }
 
   handleCancel() {
     this.auditIsVisible = false;
   }
+
+  //新审核
+  handleCancelNew() {
+    this.auditIsVisibleNew = false;
+  }
+
+  async handleOkNew() {
+    if (!this.FormValidation()) {
+      return;
+    }
+
+    var data: any = {};
+
+    if (this.userinfo.rootOrgName == "万年县自然资源局") {
+      data = this.auditObj.zrzyj;
+    } else if (this.userinfo.rootOrgName == "万年县住建局") {
+      data = this.auditObj.zjj;
+    }
+
+    let res = await this.houseTradeService.AuditHouseTradeNew(data);
+    if (res && res.code == 200) {
+      this.msg.create('success', '审核成功');
+      this.isOkLoading = false;
+      this.auditIsVisibleNew = false;
+      this.search();
+    } else {
+      this.msg.create('error', '审核失败');
+    }
+
+  }
+
 
   //批量审核
   btachAudit() {
@@ -545,6 +636,29 @@ export class HouseTradeComponent implements OnInit {
     let url = AppConfig.Configuration.baseUrl + "/HouseTrade/previewHt?id=" + data.id;
     url = this.utilitiesSercice.wrapUrl(url);
     window.open('assets/usermanual/web/viewer.html?url=' + url, '_blank');
+  }
+
+  /**
+   * 编辑合同
+   */
+
+  tradeEdit(id) {
+
+    this.houseTradeService.pageCache = {
+      xmmc: this.xmmc,
+      jzwmc: this.jzwmc,
+      currentStatus: this.currentStatus,
+      selectId: id ? id : '',
+      pageIndex: 1,
+      pageSize: 10
+    }
+
+    this.router.navigate(['contract/contractTemplate/tradeEdit'], {
+      queryParams: {
+        id: id,
+        type: "house-trade"
+      }
+    });
   }
 
 }

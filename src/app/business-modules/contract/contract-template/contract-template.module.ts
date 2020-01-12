@@ -8,6 +8,7 @@ import { ContractTemplateComponent } from "./contract-template.component";
 import { TemplateDetailComponent } from './template-detail/template-detail.component';
 import { TemplateHistoryComponent } from './template-history/template-history.component';
 import { ContractContentComponent } from './contract-content/contract-content.component';
+import { TradeEditComponent } from './trade-edit/trade-edit.component';
 
 const routes: Routes = [
   {
@@ -22,10 +23,15 @@ const routes: Routes = [
     path: 'history',
     component: TemplateHistoryComponent
   },
+  {
+    path:"tradeEdit",
+    component:TradeEditComponent
+  }
+
 ];
 
 @NgModule({
-  declarations: [ContractTemplateComponent, TemplateDetailComponent, TemplateHistoryComponent, ContractContentComponent],
+  declarations: [ContractTemplateComponent, TemplateDetailComponent, TemplateHistoryComponent, ContractContentComponent, TradeEditComponent],
   imports: [
     CommonModule,
     FormsModule,

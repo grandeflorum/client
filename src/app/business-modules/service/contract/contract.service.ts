@@ -37,5 +37,13 @@ export class ContractService {
   getContractTemplateHistoryById(id): Promise<any> {
     return this.http.get('/ContractTemplate/getContractTemplateHistoryById?id=' + id);
   }
+
+  getTradeEditByTradeId(tradeId,type): Promise<any> {
+    return this.http.get('/ContractTemplate/getTradeEditByTradeId?tradeId=' + tradeId+"&type="+type);
+  }
+
+  saveTradeEdit(data): Promise<any> {
+    return this.http.post('/ContractTemplate/saveTradeEdit', data);
+  }
   
 }

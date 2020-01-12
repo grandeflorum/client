@@ -1,0 +1,13 @@
+<div style="height: 100%;">
+
+    <div id="divheight" style="width:100%;height:calc(100% - 50px)">
+        <ueditor [(ngModel)]="contractObj.content" #ueditor [config]="config"></ueditor>
+    </div>
+    
+    <div nz-row style="height: 50px;padding: 10px;text-align: right;padding-right: 20px;">
+        <div nz-col [nzSpan]="24">
+            <button nz-button nzType="default" (click)="cancel()">返回</button>
+            <button nz-button nzType="primary" (click)="save()">保存</button>
+        </div>
+    </div>
+</div>

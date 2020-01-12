@@ -56,5 +56,7 @@ export class StockTradeService {
     return this.http.get('/StockTrade/getHInfo?hid=' + hid);
   }
 
-
+  AuditHouseTradeNew(data):any{
+    return this.http.post('/StockTrade/AuditHouseTradeNew',data);
+  }
 }

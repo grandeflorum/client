@@ -68,4 +68,12 @@ export class HouseTradeService {
   sh(id):any{
     return this.http.get('/HouseTrade/sh?id=' + id);
   }
+
+  getAuditNewInfo(id,type):any{
+    return this.http.get('/AuditNew/getAuditNewInfo?id=' + id+"&type="+type);
+  }
+
+  AuditHouseTradeNew(data):any{
+    return this.http.post('/HouseTrade/AuditHouseTradeNew',data);
+  }
 }
