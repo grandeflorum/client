@@ -140,6 +140,159 @@
 
       </div>
 
+      <!--20200115新增-->
+      <div >
+
+        <div nz-row style="height: 50px;padding: 10px;">
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">甲方邮政编码：</div>
+            <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.jfyzbm" title={{detailObj.jfyzbm}}
+                maxlength="50" [disabled]="isDisable" class="w200" /></span>
+  
+          </div>
+  
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">乙方邮政编码：</div>
+            <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.yfyzbm" title={{detailObj.yfyzbm}}
+              maxlength="50" [disabled]="isDisable" class="w200" /></span>
+  
+          </div>
+        </div>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">办证时间：</div>
+            <span> <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.bzsj" [disabled]="isDisable">
+            </nz-date-picker></span>
+  
+          </div>
+  
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">乙方首付款时间：</div>
+            <span> <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.yfsfksj" [disabled]="isDisable">
+            </nz-date-picker></span>
+
+          </div>
+        </div>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">乙方首付款金额（元）：</div>
+            <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.yfsfkje" title={{detailObj.yfsfkje}} maxlength="10"
+              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+
+          </div>
+  
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">乙方剩余房款（元）：</div>
+            <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.yfsyfk" title={{detailObj.yfsyfk}} maxlength="10"
+              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+
+
+          </div>
+        </div>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">乙方付款方式：</div>
+            <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.yffkfs" title={{detailObj.yffkfs}}
+                maxlength="100" [disabled]="isDisable" class="w200" /></span>
+  
+          </div>
+  
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">甲乙两方缴纳税费约定：</div>
+            <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.jylfjnsfyd" title={{detailObj.jylfjnsfyd}}
+              maxlength="1000" [disabled]="isDisable" class="w200" /></span>
+  
+          </div>
+        </div>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">合同签订日起多少日内：</div>
+            <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.htqjrdsrn" title={{detailObj.htqjrdsrn}} maxlength="10"
+              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+
+          </div>
+  
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">房屋约定交付时间：</div>
+            <span> <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.fwydjfsj" [disabled]="isDisable">
+            </nz-date-picker></span>
+
+  
+          </div>
+        </div>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">甲方房屋欠费交清时间：</div>
+            
+              <span> <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.jffwqfjqsj" [disabled]="isDisable">
+              </nz-date-picker></span>
+          </div>
+  
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">甲方违约金（元）：</div>
+           
+            <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.jfwyj" title={{detailObj.jfwyj}} maxlength="10"
+              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+  
+          </div>
+        </div>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">甲方违约天数：</div>
+            
+            <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.jfwyts" title={{detailObj.jfwyts}} maxlength="10"
+              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+  
+          </div>
+  
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">乙方违约金（元）：</div>
+           
+            <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.yfwyj" title={{detailObj.yfwyj}} maxlength="10"
+              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+  
+          </div>
+        </div>
+
+        <div nz-row style="height: 50px;padding: 10px;">
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">乙方违约天数：</div>
+            
+            <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.yfwyts" title={{detailObj.yfwyts}} maxlength="10"
+              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+  
+          </div>
+  
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">违约处理方式：</div>
+           
+            <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.wyclfs" title={{detailObj.wyclfs}} maxlength="50"
+               [disabled]="isDisable" class="w200" /></span>
+  
+          </div>
+        </div>
+
+        
+        <div nz-row style="height: 50px;padding: 10px;">
+          <div nz-col [nzSpan]="12">
+            <div class="label_div">违约方违约金（元）：</div>
+            
+            <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.wyfwyj" title={{detailObj.wyfwyj}} maxlength="10"
+              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+  
+          </div>
+  
+        </div>
+
+      </div>
+
+
       <nz-divider nzText="甲方" nzOrientation="left" style="font-size: 18px"></nz-divider>
       <div nz-row style="height: 50px;padding: 10px;">
         <div style="text-align: center;" nz-col [nzSpan]="3">
@@ -295,6 +448,8 @@
       <nz-divider *ngIf="bg" nzText="变更理由" nzOrientation="left" style="font-size: 18px"></nz-divider>
       <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }" *ngIf="bg" [(ngModel)]="detailObj.bgly"
         maxlength="250" placeholder="请输入变更理由"></textarea>
+
+    
 
       <!-- <nz-divider nzText="共有权人" nzOrientation="left" style="font-size: 18px"></nz-divider>
       <div nz-row style="height: 50px;padding: 10px;">

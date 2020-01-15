@@ -83,7 +83,7 @@ export class StockTradeComponent implements OnInit {
     private stockTradeService: StockTradeService,
     private utilitiesSercice: UtilitiesSercice,
     private activatedRoute: ActivatedRoute,
-    private houseTradeService :HouseTradeService
+    private houseTradeService: HouseTradeService
   ) { }
 
   //添加权限
@@ -91,8 +91,8 @@ export class StockTradeComponent implements OnInit {
   cantjsh: boolean = false;
   cansh: boolean = false;
 
-   //新审核
-   auditIsVisibleNew: any = false;
+  //新审核
+  auditIsVisibleNew: any = false;
 
   getRoles() {
     let roles = this.localstorage.getObject("roles");
@@ -347,14 +347,87 @@ export class StockTradeComponent implements OnInit {
   }
 
 
-   //审核
-   async audit(data) {
+  //审核
+  //  async audit(data) {
+  //   if (!data.houseId) {
+  //     this.msg.create('error', '该合同未关联户，不能提交审核');
+  //     return;
+  //   }
+
+  //   this.auditIsVisibleNew = true;
+  //   switch (data.currentStatus) {
+  //     case 1:
+  //       this.auditName = "受理";
+  //       this.auditPeople = "审核人";
+  //       this.auditdate = "审核日期";
+  //       break;
+  //     case 2:
+  //       this.auditName = "初审";
+  //       this.auditPeople = "审核人";
+  //       this.auditdate = "审核日期";
+  //       break;
+  //     case 3:
+  //       this.auditName = "核定";
+  //       this.auditPeople = "审核人";
+  //       this.auditdate = "审核日期";
+  //       break;
+  //     case 4:
+  //       this.auditName = "登簿";
+  //       this.auditPeople = "审核人";
+  //       this.auditdate = "审核日期";
+  //       break;
+  //     default:
+  //       this.auditName = "审核";
+  //       this.auditResultVisible = true;
+  //       this.auditPeople = "审核人";
+  //       this.auditdate = "审核日期";
+  //       break;
+  //   }
+  //   this.isOkLoading = false;
+
+
+  //   let res = await this.houseTradeService.getAuditNewInfo(data.id, data.currentStatus);
+  //   if (res && res.code == 200) {
+
+  //     this.auditObj = res.msg;
+
+  //     if (this.userinfo.rootOrgName == "万年县自然资源局") {
+
+  //       this.auditObj.zrzyj = this.auditObj.zrzyj ? this.auditObj.zrzyj : {};
+  //       this.auditObj.zrzyj.shrq = new Date();
+  //       this.auditObj.zrzyj.shry = this.userinfo ? this.userinfo.realname : null;
+
+
+  //       this.auditObj.zrzyj.projectid = data.id;
+  //       this.auditObj.zrzyj.userType = 1
+  //       this.auditObj.zrzyj.userId = this.userinfo.id;
+
+  //     } else if (this.userinfo.rootOrgName == "万年县住建局") {
+
+  //       this.auditObj.zjj = this.auditObj.zjj ? this.auditObj.zjj : {};
+  //       this.auditObj.zjj.shrq = new Date();
+  //       this.auditObj.zjj.shry = this.userinfo ? this.userinfo.realname : null;
+
+  //       this.auditObj.zjj.projectid = data.id;
+  //       this.auditObj.zjj.userType = 2;
+  //       this.auditObj.zjj.userId = this.userinfo.id;
+  //     }
+
+
+  //   }
+
+
+
+  // }
+
+
+  audit(data, type?) {
     if (!data.houseId) {
       this.msg.create('error', '该合同未关联户，不能提交审核');
       return;
     }
 
-    this.auditIsVisibleNew = true;
+    this.auditIsVisible = true;
     switch (data.currentStatus) {
       case 1:
         this.auditName = "受理";
@@ -376,59 +449,7 @@ export class StockTradeComponent implements OnInit {
         this.auditPeople = "审核人";
         this.auditdate = "审核日期";
         break;
-      default:
-        this.auditName = "审核";
-        this.auditResultVisible = true;
-        this.auditPeople = "审核人";
-        this.auditdate = "审核日期";
-        break;
-    }
-    this.isOkLoading = false;
 
-
-    let res = await this.houseTradeService.getAuditNewInfo(data.id, data.currentStatus);
-    if (res && res.code == 200) {
-
-      this.auditObj = res.msg;
-
-      if (this.userinfo.rootOrgName == "万年县自然资源局") {
-
-        this.auditObj.zrzyj = this.auditObj.zrzyj ? this.auditObj.zrzyj : {};
-        this.auditObj.zrzyj.shrq = new Date();
-        this.auditObj.zrzyj.shry = this.userinfo ? this.userinfo.realname : null;
-
-
-        this.auditObj.zrzyj.projectid = data.id;
-        this.auditObj.zrzyj.userType = 1
-        this.auditObj.zrzyj.userId = this.userinfo.id;
-
-      } else if (this.userinfo.rootOrgName == "万年县住建局") {
-
-        this.auditObj.zjj = this.auditObj.zjj ? this.auditObj.zjj : {};
-        this.auditObj.zjj.shrq = new Date();
-        this.auditObj.zjj.shry = this.userinfo ? this.userinfo.realname : null;
-
-        this.auditObj.zjj.projectid = data.id;
-        this.auditObj.zjj.userType = 2;
-        this.auditObj.zjj.userId = this.userinfo.id;
-      }
-
-
-    }
-
-
-
-  }
-
-
-  zx(data, type?) {
-    if (!data.houseId) {
-      this.msg.create('error', '该合同未关联户，不能提交审核');
-      return;
-    }
-
-    this.auditIsVisible = true;
-    switch (data.currentStatus) {
       case 5:
 
         if (1 == type) {
@@ -535,35 +556,35 @@ export class StockTradeComponent implements OnInit {
 
   }
 
-    //新审核
-    handleCancelNew() {
+  //新审核
+  handleCancelNew() {
+    this.auditIsVisibleNew = false;
+  }
+
+  async handleOkNew() {
+    if (!this.FormValidation()) {
+      return;
+    }
+
+    var data: any = {};
+
+    if (this.userinfo.rootOrgName == "万年县自然资源局") {
+      data = this.auditObj.zrzyj;
+    } else if (this.userinfo.rootOrgName == "万年县住建局") {
+      data = this.auditObj.zjj;
+    }
+
+    let res = await this.stockTradeService.AuditHouseTradeNew(data);
+    if (res && res.code == 200) {
+      this.msg.create('success', '审核成功');
+      this.isOkLoading = false;
       this.auditIsVisibleNew = false;
+      this.search();
+    } else {
+      this.msg.create('error', '审核失败');
     }
-  
-    async handleOkNew() {
-      if (!this.FormValidation()) {
-        return;
-      }
-  
-      var data: any = {};
-  
-      if (this.userinfo.rootOrgName == "万年县自然资源局") {
-        data = this.auditObj.zrzyj;
-      } else if (this.userinfo.rootOrgName == "万年县住建局") {
-        data = this.auditObj.zjj;
-      }
-  
-      let res = await this.stockTradeService.AuditHouseTradeNew(data);
-      if (res && res.code == 200) {
-        this.msg.create('success', '审核成功');
-        this.isOkLoading = false;
-        this.auditIsVisibleNew = false;
-        this.search();
-      } else {
-        this.msg.create('error', '审核失败');
-      }
-  
-    }
+
+  }
 
   FormValidation() {
     let isValid = true;
