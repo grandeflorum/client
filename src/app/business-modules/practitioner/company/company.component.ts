@@ -15,6 +15,15 @@ import { UserService } from '../../service/system/user.service';
 })
 export class CompanyComponent implements OnInit {
 
+  constructor(
+    private msg: NzMessageService,
+    private router: Router,
+    private companyService: CompanyService,
+    private localstorage: Localstorage,
+    private userService: UserService,
+    private ActivatedRoute: ActivatedRoute,
+  ) { }
+
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
 
   pageIndex: any = 1;
@@ -42,15 +51,15 @@ export class CompanyComponent implements OnInit {
   dictionaryObj: any = [];
 
   auditList: any = [
-    { name: "通过", code: 1 },
-    { name: "不通过", code: 2 }
+    { name: '通过', code: 1 },
+    { name: '不通过', code: 2 }
   ];
 
-  arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
-    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+  arr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-  //审核对象
+  // 审核对象
   auditObj: any = {
     shrq: new Date()
   };
@@ -60,7 +69,7 @@ export class CompanyComponent implements OnInit {
 
   auditProjectId: any = [];
 
-  //权限管理
+  // 权限管理
   isVisibleRole: any = false;
   isOkLoadingRole: any = false;
 
@@ -68,29 +77,25 @@ export class CompanyComponent implements OnInit {
 
   userinfo: any = {};
 
-  constructor(
-    private msg: NzMessageService,
-    private router: Router,
-    private companyService: CompanyService,
-    private localstorage: Localstorage,
-    private userService: UserService,
-    private ActivatedRoute: ActivatedRoute,
-  ) { }
 
 
+  // 添加权限
+  canzsgc = false;
+  cantjsh = false;
+  cansh = false;
+  canecsh = false;
 
-  //添加权限
-  canzsgc: boolean = false;
-  cantjsh: boolean = false;
-  cansh: boolean = false;
-  canecsh: boolean = false;
+  qxgl = false;
 
-  qxgl: boolean = false;
+  onlybj = false;
 
-  onlybj: boolean = false;
+
+  // 添加二次审核
+
+  twoAuditPD = false;
 
   getRoles() {
-    let roles = this.localstorage.getObject("roles");
+    const roles = this.localstorage.getObject('roles');
 
     if (roles) {
       if (roles.some(x => x == '管理员')) {
@@ -101,7 +106,7 @@ export class CompanyComponent implements OnInit {
         this.canecsh = true;
       }
 
-      if (roles.some(x => x == "默认开发企业")) {
+      if (roles.some(x => x == '默认开发企业')) {
         this.onlybj = true;
         this.cantjsh = true;
       }
@@ -117,7 +122,7 @@ export class CompanyComponent implements OnInit {
       }
 
       if (roles.some(x => x == '审核员')) {
-        this.cansh = true;
+        this.cansh = true; 
       }
 
       if (roles.some(x => x == '开发企业') || roles.some(x => x == '经纪公司')) {
@@ -129,13 +134,13 @@ export class CompanyComponent implements OnInit {
 
   ngOnInit() {
     this.getRoles();
-    this.dictionaryObj = this.localstorage.getObject("dictionary");
-    this.userinfo = JSON.parse(sessionStorage.getItem("userinfo"));
+    this.dictionaryObj = this.localstorage.getObject('dictionary');
+    this.userinfo = JSON.parse(sessionStorage.getItem('userinfo'));
     this.auditObj.shry = this.userinfo ? this.userinfo.realname : null;
 
-    var isGoBack = this.ActivatedRoute.snapshot.queryParams.isGoBack;
+    const isGoBack = this.ActivatedRoute.snapshot.queryParams.isGoBack;
 
-    if(isGoBack){
+    if (isGoBack) {
       this.qymc = this.companyService.pageCache.qymc;
       this.qylx = this.companyService.pageCache.qylx;
       this.auditType = this.companyService.pageCache.auditType;
@@ -143,14 +148,14 @@ export class CompanyComponent implements OnInit {
       this.pageIndex = this.companyService.pageCache.pageIndex;
       this.pageSize = this.companyService.pageCache.pageSize;
     }
-      this.search();
-    
-   
+    this.search();
+
+
   }
 
   async search() {
     this.Loading = true;
-    let option = {
+    const option = {
       pageNo: this.pageIndex,
       pageSize: this.pageSize,
       conditions: []
@@ -169,7 +174,7 @@ export class CompanyComponent implements OnInit {
     option.conditions.push({ key: 'CompanyType', value: 1 });
     option.conditions.push({ key: 'sort', value: this.sortList });
 
-    let res = await this.companyService.getCompanyList(option);
+    const res = await this.companyService.getCompanyList(option);
 
     if (res) {
       this.dataSet = res.msg.currentList;
@@ -236,15 +241,15 @@ export class CompanyComponent implements OnInit {
 
   add(m, item?) {
       this.companyService.pageCache = {
-        qymc:this.qymc,
-        qylx:this.qylx,
-        auditType:this.auditType,
-        selectId:item?item.id:'',
-        pageIndex:1,
-        pageSize:10
-      }
+        qymc: this.qymc,
+        qylx: this.qylx,
+        auditType: this.auditType,
+        selectId: item ? item.id : '',
+        pageIndex: 1,
+        pageSize: 10
+      };
 
-    this.router.navigate(['/practitioner/company/detail'], {
+      this.router.navigate(['/practitioner/company/detail'], {
       queryParams: {
         id: item ? item.id : '',
         type: m
@@ -255,11 +260,11 @@ export class CompanyComponent implements OnInit {
   async delete(datas) {
 
     if (datas && datas.length == 0) {
-      this.msg.create("warning", "请选择要删除的企业");
+      this.msg.create('warning', '请选择要删除的企业');
       return;
     }
 
-    let res = await this.companyService.deleteCompanyByIds(datas);
+    const res = await this.companyService.deleteCompanyByIds(datas);
 
     if (res && res.code == 200) {
       this.msg.create('success', '删除成功');
@@ -271,7 +276,7 @@ export class CompanyComponent implements OnInit {
 
   btachDelete() {
 
-    let datas = [];
+    const datas = [];
 
     if (this.listOfDisplayData.length > 0) {
       this.listOfDisplayData.forEach(element => {
@@ -286,10 +291,10 @@ export class CompanyComponent implements OnInit {
 
   }
 
-  //提交审核
+  // 提交审核
   async auditCompany(id, type) {
 
-    let res = await this.companyService.auditCompanyById(id, type);
+    const res = await this.companyService.auditCompanyById(id, type);
 
     if (res && res.code == 200) {
       this.msg.create('success', '提交审核成功');
@@ -300,7 +305,7 @@ export class CompanyComponent implements OnInit {
   }
 
 
-  //审核
+  // 审核
   audit(data) {
 
     this.isVisible = true;
@@ -320,7 +325,7 @@ export class CompanyComponent implements OnInit {
     this.isVisible = false;
   }
 
-  //批量审核
+  // 批量审核
   btachAudit() {
     this.auditProjectId = [];
 
@@ -338,12 +343,12 @@ export class CompanyComponent implements OnInit {
 
     if (this.auditProjectId.length == 0) {
 
-      this.msg.create("warning", "请选择要审核的企业");
+      this.msg.create('warning', '请选择要审核的企业');
       return;
     }
 
     if (flag) {
-      this.msg.create("warning", "只能选择待审核的企业进行审核");
+      this.msg.create('warning', '只能选择待审核的企业进行审核');
       return;
     }
 
@@ -353,7 +358,7 @@ export class CompanyComponent implements OnInit {
 
   }
 
-  //审核保存
+  // 审核保存
   async handleOk() {
 
     if (!this.FormValidation()) {
@@ -361,13 +366,13 @@ export class CompanyComponent implements OnInit {
     }
 
     this.isOkLoading = true;
-    var data = {
+    const data = {
       ids: this.auditProjectId,
       wfAudit: this.auditObj,
       type: this.twoAuditPD ? 1 : 0
-    }
+    };
 
-    let res = await this.companyService.btachAuditCompany(data);
+    const res = await this.companyService.btachAuditCompany(data);
     if (res && res.code == 200) {
       this.msg.create('success', '审核成功');
       this.isOkLoading = false;
@@ -381,9 +386,9 @@ export class CompanyComponent implements OnInit {
 
   }
 
-  //排序
+  // 排序
   sort(evt) {
-    let key = evt.key;
+    const key = evt.key;
 
     if (this.sortList.some(x => x.indexOf(key) > -1)) {
       this.sortList.splice(this.sortList.findIndex(x => x.indexOf(key) > -1), 1);
@@ -402,20 +407,20 @@ export class CompanyComponent implements OnInit {
 
 
   alculationHeight() {
-    const bodyHeight = $('body').height()
+    const bodyHeight = $('body').height();
     const height = this.dataSet.length * 50;
     if (height > bodyHeight - 350) {
-      this.tableIsScroll = { y: bodyHeight - 350 + 'px' }
+      this.tableIsScroll = { y: bodyHeight - 350 + 'px' };
     } else {
-      this.tableIsScroll = null
+      this.tableIsScroll = null;
     }
   }
 
   ngAfterViewInit() {
-    var that = this;
-    $(window).resize(function () {
-      that.alculationHeight()
-    })
+    const that = this;
+    $(window).resize(function() {
+      that.alculationHeight();
+    });
   }
 
   FormValidation() {
@@ -432,7 +437,7 @@ export class CompanyComponent implements OnInit {
 
     this.isVisibleRole = true;
 
-    let res = await this.userService.findUserByCard(data.zjh);
+    const res = await this.userService.findUserByCard(data.zjh);
 
     if (res && res.msg && res.code == 200) {
 
@@ -457,10 +462,10 @@ export class CompanyComponent implements OnInit {
   }
 
   getPassword() {
-    let password = "";
+    let password = '';
     for (let i = 0; i < 6; i++) {
 
-      let x = Math.floor((Math.random() * 62));
+      const x = Math.floor((Math.random() * 62));
       password += this.arr[x];
     }
 
@@ -474,11 +479,11 @@ export class CompanyComponent implements OnInit {
   async handleOkRole() {
 
     if (!this.roleData.zjh) {
-      this.msg.create("warning", "用户名不能为空");
+      this.msg.create('warning', '用户名不能为空');
       return;
     }
     if (!this.roleData.password) {
-      this.msg.create("warning", "密码不能为空");
+      this.msg.create('warning', '密码不能为空');
       return;
     }
     // if (this.roleData.password != this.roleData.passwordSure) {
@@ -486,28 +491,23 @@ export class CompanyComponent implements OnInit {
     //   return;
     // }
 
-    let data = {
+    const data = {
       id: this.roleData.id,
       username: this.roleData.zjh,
       password: this.roleData.password,
       realname: this.roleData.name,
       isVaild: this.roleData.switchValue ? 1 : 2,
       card: this.roleData.zjh
-    }
+    };
 
-    let resRole = await this.userService.insertRoleManage(data, 1);
+    const resRole = await this.userService.insertRoleManage(data, 1);
     if (resRole && resRole.code == 200) {
-      this.msg.create("success", "设置成功");
+      this.msg.create('success', '设置成功');
       this.isVisibleRole = false;
     } else {
-      this.msg.create("error", resRole.msg);
+      this.msg.create('error', resRole.msg);
     }
   }
-
-
-  //添加二次审核
-
-  twoAuditPD: boolean = false;
 
   twoAudit(data) {
     this.twoAuditPD = true;

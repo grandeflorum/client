@@ -1,9 +1,17 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-01-13 13:11:01
+ * @LastEditTime: 2020-05-27 20:32:50
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \client\src\app\business-modules\xmgl\xmscgl\xmscgl.component.html
+--> 
 <div class="list_content_wrap">
   <div nz-row style="height: 50px;padding: 10px;">
 
     <div nz-col [nzSpan]="8">
       手册名称：
-      <input nz-input nzSize="default" [(ngModel)]="txt" class="w200" placeholder="请输入" />
+      <input nz-input nzSize="default" [(ngModel)]="txt" class="w200" placeholder="请输入" (keyup.enter)="search()" />
     </div>
 
     <div nz-col [nzSpan]="8">

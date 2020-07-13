@@ -9,7 +9,7 @@
         </div>
         <div nz-col [nzSpan]="8">
             详细地址：
-            <input nz-input nzSize="default" [(ngModel)]="address" class="w150" placeholder="请输入详细地址" />
+            <input nz-input nzSize="default" [(ngModel)]="address" class="w150" placeholder="请输入详细地址" (keyup.enter)="search()" />
         </div>
 
         <div nz-col [nzSpan]="8">

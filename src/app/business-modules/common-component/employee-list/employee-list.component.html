@@ -2,15 +2,15 @@
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="6">
             姓名：
-            <input nz-input nzSize="default" [(ngModel)]="name" class="w150" placeholder="请输入姓名" />
+            <input nz-input nzSize="default" [(ngModel)]="name" class="w150" placeholder="请输入姓名" (keyup.enter)="search()" />
         </div>
         <div *ngIf="module=='company'||module=='economic'" nz-col [nzSpan]="6">
             从业年限：
-            <input nz-input nzSize="default" [(ngModel)]="cynx" class="w150" placeholder="请输入开发企业名称" />
+            <input nz-input nzSize="default" [(ngModel)]="cynx" class="w150" placeholder="请输入从业年限" (keyup.enter)="search()" />
         </div>
         <div nz-col [nzSpan]="7">
             服务机构名称：
-            <input nz-input nzSize="default" [(ngModel)]="fwjgmc" class="w150" placeholder="请输入开发企业名称" />
+            <input nz-input nzSize="default" [(ngModel)]="fwjgmc" class="w150" placeholder="请输入服务机构名称" (keyup.enter)="search()" />
         </div>
         <div *ngIf="module=='employee'" nz-col [nzSpan]="6">
             审核状态：

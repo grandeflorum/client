@@ -2,16 +2,16 @@
   <div nz-row style="height: 50px;padding: 10px;">
     <div nz-col [nzSpan]="7">
       账号：
-      <input nz-input nzSize="default" [(ngModel)]="username" class="w150" placeholder="请输入账号" />
+      <input nz-input nzSize="default" [(ngModel)]="username" class="w150" placeholder="请输入账号" (keyup.enter)="search()" />
     </div>
     <div nz-col [nzSpan]="6">
       姓名：
-      <input nz-input nzSize="default" [(ngModel)]="realname" class="w150" placeholder="请输入姓名" />
+      <input nz-input nzSize="default" [(ngModel)]="realname" class="w150" placeholder="请输入姓名" (keyup.enter)="search()"  />
     </div>
 
     <div nz-col [nzSpan]="6">
       电话：
-      <input nz-input nzSize="default" [(ngModel)]="mobile" class="w150" placeholder="请输入电话" />
+      <input nz-input nzSize="default" [(ngModel)]="mobile" class="w150" placeholder="请输入电话" (keyup.enter)="search()" />
     </div>
 
     <div nz-col [nzSpan]="5" class="ta_r">

@@ -2,11 +2,11 @@
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="7">
             产权人姓名：
-            <input nz-input nzSize="default" [(ngModel)]="cqrxm" class="w150" placeholder="请输入产权人姓名" />
+            <input nz-input nzSize="default" [(ngModel)]="cqrxm" class="w150" placeholder="请输入产权人姓名" (keyup.enter)="search()" />
         </div>
         <div nz-col [nzSpan]="7">
             不动产权属证号：
-            <input nz-input nzSize="default" [(ngModel)]="cqzh" class="w150" placeholder="请输入不动产权属证号" />
+            <input nz-input nzSize="default" [(ngModel)]="cqzh" class="w150" placeholder="请输入不动产权属证号" (keyup.enter)="search()" />
         </div>
 
         <div nz-col [nzSpan]="6">

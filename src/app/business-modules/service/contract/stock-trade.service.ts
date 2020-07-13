@@ -8,13 +8,13 @@ export class StockTradeService {
 
   constructor(private http: HttpRestService) { }
   pageCache = {
-    xmmc:'',
-    jzwmc:'',
-    currentStatus:'',
-    selectId:'',
-    pageIndex:1,
-    pageSize:10
-}
+    xmmc: '',
+    jzwmc: '',
+    currentStatus: '',
+    selectId: '',
+    pageIndex: 1,
+    pageSize: 10
+};
 
   getStockTradeList(data): any {
     return this.http.post('/StockTrade/getStockTradeList', data);
@@ -41,22 +41,22 @@ export class StockTradeService {
   }
 
   auditStockTradeById(id, type): any {
-    return this.http.get('/StockTrade/auditStockTradeById?id=' + id + "&type=" + type);
+    return this.http.get('/StockTrade/auditStockTradeById?id=' + id + '&type=' + type);
   }
 
   linkH(id, hid): any {
-    return this.http.get('/StockTrade/linkH?id=' + id + "&hid=" + hid);
+    return this.http.get('/StockTrade/linkH?id=' + id + '&hid=' + hid);
   }
 
-  sh(id):any{
+  sh(id): any {
     return this.http.get('/StockTrade/sh?id=' + id);
   }
-  
+
   getHInfo(hid): any {
     return this.http.get('/StockTrade/getHInfo?hid=' + hid);
   }
 
-  AuditHouseTradeNew(data):any{
-    return this.http.post('/StockTrade/AuditHouseTradeNew',data);
+  AuditHouseTradeNew(data): any {
+    return this.http.post('/StockTrade/AuditHouseTradeNew', data);
   }
 }

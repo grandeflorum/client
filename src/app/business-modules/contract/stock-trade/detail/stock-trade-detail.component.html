@@ -7,8 +7,14 @@
   </div>
 
   <div *ngIf="tabsetIndex==0" style="width:100%;height:calc(100% - 90px);overflow: auto">
+    
     <!-- 基本信息 -->
     <div class="jbxx left_wrap" [ngClass]="{'show_balc_lfet':showBalc}">
+      <div nz-col [nzSpan]="23" class="ta_r" style="padding-top:10px;">
+        <button nz-button nzType="primary" *ngIf="btShow" (click)="wordShow()">
+          预览
+        </button>
+      </div>
       <nz-divider nzText="基本信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
       <div nz-row style="height: 50px;padding: 10px;">
@@ -63,14 +69,14 @@
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="12">
           <div class="label_div">单价（元/平方）：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.dj" title={{detailObj.dj}} maxlength="10"
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.dj" title={{detailObj.dj}} maxlength="10" (blur)="djValue(detailObj.dj)" 
               [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
 
         </div>
 
         <div nz-col [nzSpan]="12">
           <div class="label_div">总价（元）：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.zj" title={{detailObj.zj}} maxlength="10"
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.zj"  title={{detailObj.zj}} maxlength="10" (blur)="zjValue(detailObj.zj)"  
               [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
 
         </div>
@@ -97,15 +103,15 @@
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="12">
           <div class="label_div">不动产权证号：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.bdcqzh" title={{detailObj.bdcqzh}}
+          <span> <input nz-input nzSize="default"  [(ngModel)]="detailObj.bdcqzh" title={{detailObj.bdcqzh}} (blur)="bdcqzhValue(detailObj.bdcqzh)"
               maxlength="50" [disabled]="isDisable" class="w200" /></span>
 
         </div>
 
         <div nz-col [nzSpan]="12">
-          <div class="label_div">登记时间：</div>
+          <div class="label_div">权证时间：</div>
           <span>
-            <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.djsj" [disabled]="isDisable">
+            <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.djsj" [disabled]="isDisable" (ngModelChange)="djsjValue(detailObj.djsj)">
             </nz-date-picker>
           </span>
 
@@ -131,6 +137,31 @@
 
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="12">
+          <div class="label_div">房屋用途：</div>
+          <nz-select [(ngModel)]="detailObj.htfwyt" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+            <nz-option *ngFor="let option of dictionaryObj.htfwyt" [nzLabel]="option.name" [nzValue]="option.code">
+            </nz-option>
+          </nz-select>
+        </div>
+
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">户型：</div>
+          <nz-select [(ngModel)]="detailObj.hthx" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+            <nz-option *ngFor="let option of dictionaryObj.hthx" [nzLabel]="option.name" [nzValue]="option.code">
+            </nz-option>
+          </nz-select>
+        </div>
+      </div>
+
+      <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">房屋结构：</div>
+          <nz-select [(ngModel)]="detailObj.fwjg" (ngModelChange)="fwjgValue($event)" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+            <nz-option *ngFor="let option of dictionaryObj.fwjg" [nzLabel]="option.name" [nzValue]="option.code">
+            </nz-option>
+          </nz-select>
+        </div>
+        <div nz-col [nzSpan]="12">
           <div class="label_div">交易方式：</div>
           <nz-select [(ngModel)]="detailObj.jyfs" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
             <nz-option *ngFor="let option of dictionaryObj.jyfs" [nzLabel]="option.name" [nzValue]="option.code">
@@ -141,7 +172,22 @@
       </div>
 
       <!--20200115新增-->
-      <div >
+      <div nz-row style="height: 50px;padding: 10px;">
+        <!-- <div nz-col [nzSpan]="12">
+          <div class="label_div">办证时间：</div>
+          <span> <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.bzsj" [disabled]="isDisable">
+          </nz-date-picker></span>
+
+        </div> -->
+         
+        <!-- <div nz-col [nzSpan]="12">
+          <div class="label_div">乙方首付款时间：</div>
+          <span> <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.yfsfksj" [disabled]="isDisable">
+          </nz-date-picker></span>
+
+        </div> -->
+      </div>
+      <!-- <div >
 
         <div nz-row style="height: 50px;padding: 10px;">
           <div nz-col [nzSpan]="12">
@@ -157,23 +203,24 @@
               maxlength="50" [disabled]="isDisable" class="w200" /></span>
   
           </div>
+          
         </div>
-
         <div nz-row style="height: 50px;padding: 10px;">
           <div nz-col [nzSpan]="12">
-            <div class="label_div">办证时间：</div>
-            <span> <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.bzsj" [disabled]="isDisable">
-            </nz-date-picker></span>
-  
+            <div class="label_div">定金（元）：</div>
+            <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.yfsfkje" title={{detailObj.dj}} maxlength="10"
+              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+
           </div>
-  
           <div nz-col [nzSpan]="12">
             <div class="label_div">乙方首付款时间：</div>
             <span> <nz-date-picker class="w200" [nzAllowClear]="false" [(ngModel)]="detailObj.yfsfksj" [disabled]="isDisable">
             </nz-date-picker></span>
 
           </div>
+           
         </div>
+       
 
         <div nz-row style="height: 50px;padding: 10px;">
           <div nz-col [nzSpan]="12">
@@ -237,7 +284,7 @@
             <div class="label_div">甲方违约金（元）：</div>
            
             <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.jfwyj" title={{detailObj.jfwyj}} maxlength="10"
-              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+              [validation]="true" [validationType]="'nullAreaNumber'" [disabled]="isDisable" class="w200" /></span>
   
           </div>
         </div>
@@ -247,7 +294,7 @@
             <div class="label_div">甲方违约天数：</div>
             
             <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.jfwyts" title={{detailObj.jfwyts}} maxlength="10"
-              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+              [validation]="true" [validationType]="'nullAreaNumber'" [disabled]="isDisable" class="w200" /></span>
   
           </div>
   
@@ -255,7 +302,7 @@
             <div class="label_div">乙方违约金（元）：</div>
            
             <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.yfwyj" title={{detailObj.yfwyj}} maxlength="10"
-              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+              [validation]="true" [validationType]="'nullAreaNumber'" [disabled]="isDisable" class="w200" /></span>
   
           </div>
         </div>
@@ -265,7 +312,7 @@
             <div class="label_div">乙方违约天数：</div>
             
             <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.yfwyts" title={{detailObj.yfwyts}} maxlength="10"
-              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+              [validation]="true" [validationType]="'nullAreaNumber'" [disabled]="isDisable" class="w200" /></span>
   
           </div>
   
@@ -284,15 +331,15 @@
             <div class="label_div">违约方违约金（元）：</div>
             
             <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.wyfwyj" title={{detailObj.wyfwyj}} maxlength="10"
-              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+              [validation]="true" [validationType]="'nullAreaNumber'" [disabled]="isDisable" class="w200" /></span>
   
           </div>
   
         </div>
 
-      </div>
+      </div> -->
 
-
+      <!-- <div *ngIf="jyDiv">
       <nz-divider nzText="甲方" nzOrientation="left" style="font-size: 18px"></nz-divider>
       <div nz-row style="height: 50px;padding: 10px;">
         <div style="text-align: center;" nz-col [nzSpan]="3">
@@ -444,12 +491,13 @@
           <button nz-button nzType="primary" [disabled]="isDisable" (click)="deleteYf(item,index)">删除</button>
         </div>
       </div>
+      </div>  -->
 
       <nz-divider *ngIf="bg" nzText="变更理由" nzOrientation="left" style="font-size: 18px"></nz-divider>
       <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }" *ngIf="bg" [(ngModel)]="detailObj.bgly"
         maxlength="250" placeholder="请输入变更理由"></textarea>
 
-    
+       
 
       <!-- <nz-divider nzText="共有权人" nzOrientation="left" style="font-size: 18px"></nz-divider>
       <div nz-row style="height: 50px;padding: 10px;">
@@ -509,7 +557,7 @@
           <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}" *ngFor="let item of lpbList.cList; index as index">
             <li class="ch_td" style="background: #fff">{{item.ch}}层</li>
             <li *ngFor="let hu of item.hList"
-              [ngClass]="{'lpb_ydy':hu.status == 1 , 'lpb_ycf':hu.cfStatus == 1,'lpb_yba':hu.tradeType>0,'lpb_yzl':hu.zlStatus==1}"
+              [ngClass]="{'lpb_ydy':hu.status == 1 , 'lpb_ycf':hu.cfStatus == 1,'lpb_yba':hu.tradeType>0,'lpb_yzl':hu.zlStatus==1,'lpb_khk':hu.id==null}"
               nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent"
               (mouseenter)="selectedHuChange(hu)" [ngStyle]="{'border-color':selectH==hu.id?'red':'#ccc'}"
               (click)="selectH=hu.id">
@@ -555,9 +603,504 @@
 
     </div>
   </div>
+  <div class="jbxx" *ngIf="tabsetIndex==1" style="width:100%;height:calc(100% - 90px);overflow: auto;background: #fff">
+    <div class="WordSection" [ngClass]="{'show_balc_lfet':showBalc}">
+      <h1 class="h1_center">存量房经济委托合同</h1>
+      <p class="txt_center">（合同编号：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.ht1" title={{contractEntrustment.ht1}} class="input_line input_w200" />）</p>
+
+      <p>委托人（甲方）：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.jf1" title={{contractEntrustment.jf1}} class="input_line input_w200" /></p>          
+      <p id="checkboxDiv">【<input name="jfgx" type="checkbox" value="1" />身份证照号】
+        【<input name="jfgx" type="checkbox" value="2" />护照号】
+        【<input name="jfgx" type="checkbox" value="3" />营业执照注册号】
+        【<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.jf2" title={{contractEntrustment.jf2}} class="input_line input_w150" (focus)="jfChoose()" />】
+          <input [readonly]="isDisable" [(ngModel)]="contractEntrustment.jf3" title={{contractEntrustment.jf3}} class="input_line input_w200" /> </p>   
+      <p>法定代表人：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.jf4" title={{contractEntrustment.jf4}} class="input_line input_w200" />
+        身份证号：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.jf5" title={{contractEntrustment.jf5}} class="input_line input_w200" /> </p>          
+      <p>委托代理人：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.jf6" title={{contractEntrustment.jf6}} class="input_line input_w200" /> 
+        身份证号：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.jf7" title={{contractEntrustment.jf7}} class="input_line input_w200" /> </p>         
+      <p>联系电话：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.jf8" title={{contractEntrustment.jf8}} class="input_line input_w200" />
+        联系地址：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.jf9" title={{contractEntrustment.jf9}} class="input_line input_w200" /></p>     
+          
+          
+      
+
+      <p>委托人（乙方）：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.yf1" title={{contractEntrustment.yf1}} class="input_line input_w200" /></p> 
+      <p>【<input id="checkbox1" type="checkbox" value="101"/>身份证照号】
+        【<input id="checkbox1" type="checkbox" value="101"/>护照号】
+        【<input id="checkbox1" type="checkbox" value="101"/>营业执照注册号】
+        【<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.yf2" title={{contractEntrustment.yf2}} class="input_line input_w150" />】
+          <input [readonly]="isDisable" [(ngModel)]="contractEntrustment.yf3" title={{contractEntrustment.yf3}} class="input_line input_w200" /> </p>   
+      <p>法定代表人：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.yf4" title={{contractEntrustment.yf4}} class="input_line input_w200" />
+        机构备案证号：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.yf5" title={{contractEntrustment.yf5}} class="input_line input_w200" /> </p>          
+      <p>执业经纪人：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.yf6" title={{contractEntrustment.yf6}} class="input_line input_w200" />
+        资格证号：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.yf7" title={{contractEntrustment.yf7}} class="input_line input_w200" /> </p>         
+      <p>联系电话：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.yf8" title={{contractEntrustment.yf8}} class="input_line input_w200" />
+        联系地址：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.yf9" title={{contractEntrustment.yf9}} class="input_line input_w200" /></p>                                
+
+      <p>根据国家、江西省、上饶市的有关法律、法规的规定，委托人和受托人本着平等、自愿、公平、诚实信用的原则，经协商一致，达成如下协议。</p>
+    <p>第一条：甲方委托乙方就房地产<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.d1t1" title={{contractEntrustment.d1t1}} class="input_line input_w50 txt_center" />事宜提供经纪服务。</p>  
+      <p>【1】出售【2】出租【3】承购【4】承租【5】置换</p>
+    <p>第二条：甲方委托方式约定为下列第<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.d2t1" title={{contractEntrustment.d2t1}} class="input_line input_w50 txt_center" />款。（仅选一款）</p>
+      <p>【1】甲方委托包括乙方在内的多家（不超过三家）房地产经纪机构。</p>
+      <p>【2】甲方仅委托乙方一家房地产经纪机构。</p>
+      <p>委托方式为独家委托的，有效期内甲方不得另行委托。</p>
+    <p>第三条：委托事项约定为下列第<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.d3t1" title={{contractEntrustment.d3t1}} class="input_line input_w50 txt_center" />款。</p>
+      <p>【1】提供相关的法律法规、政策、市场行情资讯。</p>
+      <p>【2】介绍客源信息、组织房源察勘。</p>
+      <p>【3】在约定期限内代管房屋。</p>
+      <p>【4】协助上网签订《存量房买卖合同》。</p>
+      <p>【5】协助签订《租赁合同》。</p>
+      <p>【6】代办房地产评估。</p>
+      <p>【7】代办各种相关税费缴纳。</p>
+      <p>【8】协助办理房地产权属转移及变更登记手续。</p>
+      <p>【9】协助交割房屋及配套附属设备（包括水、电及业务管理等）。</p>
+      <p>【10】协助办理购房抵押贷款手续。</p>
+      <p>【11】其他：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.d3t2" title={{contractEntrustment.d3t2}} class="input_line input_w300" />。</p>
+    <p>第四条：甲方委托乙方【出售】【出租】【承购】【承租】【置换】房地产，委托房地产的基本情况见附件一。</p>
+      <p>委托期限自
+        <span>
+        <nz-date-picker class="datapicker-line" [nzAllowClear]="false" [(ngModel)]="contractEntrustment.d4t1" title={{contractEntrustment.d4t1}} [disabled]="isDisable">
+        </nz-date-picker>
+        </span>起至
+        <span>
+          <nz-date-picker class="datapicker-line" [nzAllowClear]="false" [(ngModel)]="contractEntrustment.d4t2" title={{contractEntrustment.d4t2}} [disabled]="isDisable">
+          </nz-date-picker>
+          </span>止（不得超过90天），到期视作本合同自行终止。</p>
+    <p>第六条：佣金支付：乙方完成本合同约定的经济服务事项后，甲方按照下列第<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.d6t1" title={{contractEntrustment.d6t1}} class="input_line input_w50 txt_center" />种方式计算和支付佣金。</p>
+      <p>【1】按该房地产成交金额或月租金额的<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.d6t2" title={{contractEntrustment.d6t2}} class="input_line input_w50 txt_center" />%支付给乙方。</p>
+      <p>【2】按约定金额人民币<input readonly [(ngModel)]="contractEntrustment.d6t3" title={{contractEntrustment.d6t3}} class="input_line input_w300" />元整（大写），
+        <input [readonly]="isDisable" [(ngModel)]="contractEntrustment.d6t4" title={{contractEntrustment.d6t4}} [validation]="true" [validationType]="'nullMoney'" maxlength="8" class="input_line input_w150 txt_center" />元（小写）支付给乙方。</p>
+      <p>【3】其他：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.d6t5" title={{contractEntrustment.d6t5}} class="input_line input_w300" />。</p>
+    <p>第七条 限制交易的情况：</p>
+      <p>如该房地产有下列限制交易的情况，甲方不得委托乙方为其代理交易，否则由此引起的一切法律及赔偿责任概有甲方承担。同时乙方有权拒绝甲方委托的下列服务或在履行中发现下列情况后随时终止合同。</p>
+      <p>被司法机关查封、罚没、财产保全等；</p>
+      <p>属公告拆迁范围，即将实施拆迁；</p>
+      <p>已作为抵押担保物，未经抵押权同意或告知受让人的；</p>
+      <p>房屋所有权人没有达成一致意见的；</p>
+      <p>其他法律、法规限制交易的情况。</p>
+    <p>第八条 甲方的责任：</p>
+      <p>甲方应当向乙方提供相关真实、准确、合法、有效的资料和信息；甲方不得向无关者泄露有损于乙方权益的商业秘密以及乙方介绍的客源之秘密；甲方不得在本合同第五条约定的委托期限内，或委托时限届满之后，与乙方介绍的客源私下洽谈并签订《存量房交易合同》。</p>
+      <p>甲方有虚假委托、擅自毁约或在本合同第五条约定的委托期限内或委托时限届满之后与乙方介绍的客源私下洽谈并签订《存量房交易合同》的，甲方向乙方支付 元或佣金的 倍作为违约金。</p>
+      <p>甲方向乙方提供的证件和证明材料应具有真实性、有效性、合法性。</p>
+      <p>及时向乙方支付佣金。</p>
+    <p>第九条 乙方的责任：</p>
+      <p>1、乙方应当明示相关合法的经营资格文件；按委托事项的要求为甲方提供经纪服务，并按甲方要求及时报告业务处理情况；应当如实报告房价或租赁价，不得赚取差价，不得向客户或第三人做虚假承诺或广告宣传；不得扣押甲方的证件、资料和财务；乙方不得想无关者泄露有损于甲方权益的秘密。</p>
+      <p>2、乙方有谋取非法收益、赚取差价或利用虚假信息赚取中介费的，乙方向甲方支付<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.d9t1" title={{contractEntrustment.d9t1}} [validation]="true" [validationType]="'nullMoney'" maxlength="8" class="input_line input_w150 txt_center" />元或
+        佣金的<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.d9t2" title={{contractEntrustment.d9t2}} class="input_line input_w50 txt_center" />倍作为违约金。</p>
+      <p>3、乙方同时接受交易双方委托的，影响双方当事人如实说明情况，在双方同时允许的情况下，方可办理委托事项。</p>
+    <p>第十条：存量房经纪委托合同打印后，合同内容不得变更。</p>
+    <p>第十一条：甲、乙双方在履行本合同过程中发生争议的，由双方协商解决；协商不成的，向人民法院提起诉讼。</p>
+    <p>第十二条：本合同连同补充条款及附件页共<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.d12t1" title={{contractEntrustment.d12t1}} class="input_line input_w50 txt_center" />页，一式三份，具有同等法律效力，一份电子文档2日内存入房产交易管理中心备案，打印文本由合同双方各执一份。</p>
+    <p>第十三条：其他未尽事宜，可有合同双方协商约定补充条款。</p>
+    <p>第十四条：本合同自甲乙两方签订之日起生效。</p>
 
 
-  <div *ngIf="tabsetIndex==1" style="width:100%;height:calc(100% - 90px);overflow: auto;background: #fff">
+    <p>附件一：                         委托房地产基本信息</p>
+    <p>市场供给情况：</p>
+    <p>1.坐落：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw1" title={{contractEntrustment.fj1jw1}} class="input_line input_w300" />。</p>
+    <p>2.房屋所有权证编号：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw2" title={{contractEntrustment.fj1jw2}} class="input_line input_w200" />。</p>
+    <p>3.土地使用权证编号：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw3" title={{contractEntrustment.fj1jw3}} class="input_line input_w200" />；土地使用性质、
+      类型：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw4" title={{contractEntrustment.fj1jw4}} class="input_line input_w200" />。</p>
+    <p>4.房屋情况：</p>
+    <p>幢号<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw5" title={{contractEntrustment.fj1jw5}} class="input_line input_w100" />，
+      房号<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw6" title={{contractEntrustment.fj1jw6}} class="input_line input_w100" />，
+      结构<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw7" title={{contractEntrustment.fj1jw7}} class="input_line input_w100" />，
+      建筑面积<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw8" title={{contractEntrustment.fj1jw8}} class="input_line input_w100" />，
+      套内建筑面积<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw9" title={{contractEntrustment.fj1jw9}} class="input_line input_w100" />，
+      规划用途<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw10" title={{contractEntrustment.fj1jw10}} class="input_line input_w100" />。</p>
+    <p>5.房屋性质：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw11" title={{contractEntrustment.fj1jw11}} class="input_line input_w200" />；
+      建成年份<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw12" title={{contractEntrustment.fj1jw12}} class="input_line input_w100" />；</p>
+    <p>所在楼层/总楼层：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw13" title={{contractEntrustment.fj1jw13}} class="input_line input_w100" />；
+      房型：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw14" title={{contractEntrustment.fj1jw14}} class="input_line input_w100" />；</p>
+    <p>6.装修情况：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw15" title={{contractEntrustment.fj1jw15}} class="input_line input_w200" />。</p>
+    <p>7.转让拟市价：不高于人民币（¥<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw16" title={{contractEntrustment.fj1jw16}} class="input_line input_w150 txt_center" />元）；</p>
+    <p>8.承租拟市价：不高于人民币（¥<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw17" title={{contractEntrustment.fj1jw17}} class="input_line input_w150 txt_center" />元/月）；</p>
+    <p>9.房屋的其他情况详见信息发布的内容。</p>
+    <p>10.其他：<input [readonly]="isDisable" [(ngModel)]="contractEntrustment.fj1jw18" title={{contractEntrustment.fj1jw18}} class="input_line input_w300" />。 </p>
+
+
+
+
+
+    <p>附件二：                            补充条款</p>
+
+    <HR class="hr_top">
+  
+    <p class="txt_center hr_top">合同各方当事人签章</p>
+
+    <div>
+      <div style="float:left;margin-left: 10%;margin-right:10%;">
+        <p class="">甲方（签章）：<input  [(ngModel)]="contractEntrustment.qz1" title={{contractEntrustment.qz1}} class="input_line input_w200" [readonly]="isDisable"/> </p>
+        <p class="">法定代表人（签章）：<input [(ngModel)]="contractEntrustment.qz2" title={{contractEntrustment.qz2}} class="input_line input_w200" [readonly]="isDisable" /> </p>
+        <p class="">监护人（签章）：<input [(ngModel)]="contractEntrustment.qz3" title={{contractEntrustment.qz3}} class="input_line input_w200"  [readonly]="isDisable" /></p>
+        <p class="">委托代理人（签章）：<input [(ngModel)]="contractEntrustment.qz3" title={{contractEntrustment.qz3}} class="input_line input_w200"  [readonly]="isDisable" /></p>
+        <p class="">日期：
+          <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="contractEntrustment.qz4" title={{contractEntrustment.qz4}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+          </span> </p>
+      </div>
+      <div>
+        <p class="">乙方（签章）：<input [(ngModel)]="contractEntrustment.qz5" title={{contractEntrustment.qz5}} class="input_line input_w200" [readonly]="isDisable" /></p>
+        <p class="">机构负责人（签章）:<input [(ngModel)]="contractEntrustment.qz6" title={{contractEntrustment.qz6}} class="input_line input_w200" [readonly]="isDisable" /></p>
+        <p class="">代理经纪人（签章）:<input [(ngModel)]="contractEntrustment.qz7" title={{contractEntrustment.qz7}} class="input_line input_w200" [readonly]="isDisable" /></p>
+        <br>
+        <br>
+        <p class="">日期：
+          <span>
+          <nz-date-picker class="datapicker-line" [nzAllowClear]="false" [(ngModel)]="contractEntrustment.qz8" title={{contractEntrustment.qz8}} [disabled]="isDisable">
+          </nz-date-picker>
+          </span></p>
+      </div>
+    </div>
+ 
+    </div>
+  </div>
+  <div class="jbxx" *ngIf="tabsetIndex==2" style="width:100%;height:calc(100% - 90px);overflow: auto;background: #fff">
+    <div class="WordSection" [ngClass]="{'show_balc_lfet':showBalc}">
+
+    <p class="txt_right">  合同编号：<input [(ngModel)]="stockTradeTemplate.ht1" title={{stockTradeTemplate.ht1}} readonly class="input_line input_w200" /></p> 
+    <h1 class="h1_center">万年县存量房买卖合同</h1>
+
+
+
+    <h3 class="h3_center"> 出卖人：<input [(ngModel)]="stockTradeTemplate.ht2" title={{stockTradeTemplate.ht2}} class="input_line input_w300" [readonly]="isDisable" /></h3>                      
+    <h3 class="h3_center"> 买受人：<input [(ngModel)]="stockTradeTemplate.ht3" title={{stockTradeTemplate.ht3}} class="input_line input_w300" [readonly]="isDisable" /></h3>                           
+
+
+
+
+
+    <h2 class="h2_center txt_top">万年县自然资源局 监制</h2>
+
+    <h2 class="h2_center txt_top">存量房买卖合同说明及提示</h2>
+
+    <p>1.本合同是万年县自然资源局根据《中华人民共和国合同法》、《城市房地产管理法》、《中华人民共和国物权法》等法律法规制定的示范文本，仅适用于存量房买卖使用。</p>
+    <p>2.本合同签订之前，双方当事人应当仔细阅读本合同全部条款，对本合同条款及用词理解不一致的，应当协商达成一致意见，必要时可在合同中对其进行明确约定。</p>
+    <p>3.为体现合同双方当事人的自愿原则，本合同文本中相关条款后都有空白行，供当事人协商。当事人可以对文本条款的内容进行修改、增补或删减。合同生效后，未被修改的文本印刷文字视为双方当事人同意的内容。</p>
+    <p>4.本合同适用于国有土地上已取得房屋所有权证或不动产权证的房屋（不包括保障性住房及房地产开发建设的已进行房屋所有权初始登记或不动产权首次登记尚未出售的商品房）再行转让的行为。因赠与、继承、受遗赠、离婚析产、人民法院及仲裁机构生效法律文书受让的除外。</p>
+    <p>5.卖方当事人应当慎重选择付款方式交割房款，为保护存量房交易资金安全，应选择交易资金托管的方式交割房款，以减轻风险，避免引起纠纷。</p>
+    <p>6.房屋买卖当事人应在签订本合同90日内持有房屋所有权证或不动产权证、当事人合法证明连同本合同等有关证件向县不动产登记中心提出登记申请。</p>
+    <p>7.买卖双方应当如实申报交易价格，不得以低保、瞒报、漏报等方式偷税漏税，否则应承担由此产生的法律责任。</p>
+    <p>8.本合同签订不等于产权过户，只有完成不动产登记部门的过户登记，产权过户才算完成。合同签订到产权过户有一个时间过程，期间可能会出现产权被查封等特殊情况，因此请买卖双方务必注意交易风险。</p>
+
+
+
+
+
+
+
+    <h1 class="h1_center">存 量 房 买 卖 合 同</h1>
+
+    <p class="txt_left txt_top">甲方（卖方）：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf1" title={{stockTradeTemplate.jf1}} class="input_line input_w300" />    
+                          法定代表人：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf2" title={{stockTradeTemplate.jf2}} class="input_line input_w300" />；</p>
+    <p class="txt_left">联系地址：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf3" title={{stockTradeTemplate.jf3}} class="input_line input_w600" />；</p>
+    <p class="txt_left">证件类型：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf5" title={{stockTradeTemplate.jf5}} class="input_line input_w300" />；
+                        证件号码：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf6" title={{stockTradeTemplate.jf6}} class="input_line input_w300" />；</p>
+    <p class="txt_left">联系电话：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf7" title={{stockTradeTemplate.jf7}} class="input_line input_w300" />；
+                        电子邮箱：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf8" title={{stockTradeTemplate.jf8}} class="input_line input_w300" />；</p>
+                        <!-- 移动位置 -->
+    <p class="txt_left"> 邮政编码：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf4" title={{stockTradeTemplate.jf4}} class="input_line input_w300" />；</p>
+    
+    <p class="txt_left">共有权人：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf9" title={{stockTradeTemplate.jf9}} class="input_line input_w600" />；</p>
+    <p class="txt_left">证件类型：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf10" title={{stockTradeTemplate.jf10}} class="input_line input_w300" />；
+                        证件号码：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf11" title={{stockTradeTemplate.jf11}} class="input_line input_w300" />；</p>
+    <p class="txt_left">委托代理人：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf12" title={{stockTradeTemplate.jf12}} class="input_line input_w600" />；</p>
+    <p class="txt_left">联系地址：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf13" title={{stockTradeTemplate.jf13}} class="input_line input_w600" />；</p> 
+    <p class="txt_left">证件类型：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf15" title={{stockTradeTemplate.jf15}} class="input_line input_w300" />；
+                        证件号码：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf16" title={{stockTradeTemplate.jf16}} class="input_line input_w300" />；</p>
+    <p class="txt_left">联系电话：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf17" title={{stockTradeTemplate.jf17}} class="input_line input_w300" />；
+                        电子邮箱：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf18" title={{stockTradeTemplate.jf18}} class="input_line input_w300" />；</p>
+                        <!-- 移动位置 -->
+    <p class="txt_left">邮政编码：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.jf14" title={{stockTradeTemplate.jf14}} class="input_line input_w300" />；</p>                        
+
+    <p class="txt_left txt_top">乙方（买方）：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf1" title={{stockTradeTemplate.yf1}} class="input_line input_w300" />
+                        法定代表人：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf2" title={{stockTradeTemplate.yf2}} class="input_line input_w300" />；</p>
+    <p class="txt_left">联系地址：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf3" title={{stockTradeTemplate.yf3}} class="input_line input_w600" />；</p>
+    <p class="txt_left">证件类型：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf5" title={{stockTradeTemplate.yf5}} class="input_line input_w300" />；
+                        证件号码：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf6" title={{stockTradeTemplate.yf6}} class="input_line input_w300" />；</p>
+    <p class="txt_left">联系电话：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf7" title={{stockTradeTemplate.yf7}} class="input_line input_w300" />；
+                        电子邮箱：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf8" title={{stockTradeTemplate.yf8}} class="input_line input_w300" />；</p>
+                        <!-- 移动位置 -->
+    <p class="txt_left"> 邮政编码：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf4" title={{stockTradeTemplate.yf4}} class="input_line input_w300" />；</p>
+        
+    <p class="txt_left">共有权人：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf9" title={{stockTradeTemplate.yf9}} class="input_line input_w600" />；</p>
+    <p class="txt_left">证件类型：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf10" title={{stockTradeTemplate.yf10}} class="input_line input_w300" />；   
+                        证件号码：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf11" title={{stockTradeTemplate.yf11}} class="input_line input_w300" />；</p>
+    <p class="txt_left">委托代理人：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf12" title={{stockTradeTemplate.yf12}} class="input_line input_w600" />；</p>
+    <p class="txt_left">联系地址：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf13" title={{stockTradeTemplate.yf13}} class="input_line input_w600" />；</p>  
+    <p class="txt_left">证件类型：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf15" title={{stockTradeTemplate.yf15}} class="input_line input_w300" />； 
+                        证件号码：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf16" title={{stockTradeTemplate.yf16}} class="input_line input_w300" />；</p>
+    <p class="txt_left">联系电话：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf17" title={{stockTradeTemplate.yf17}} class="input_line input_w300" />；
+                        电子邮箱：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf18" title={{stockTradeTemplate.yf18}} class="input_line input_w300" />；</p>
+                        <!-- 移动位置 -->
+    <p class="txt_left">邮政编码：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.yf14" title={{stockTradeTemplate.yf14}} class="input_line input_w300" />；</p>
+    <p class="txt_top">甲乙双方本着诚实信用的原则，经好友协商一致达成如下条款：</p>
+    <h2 class="h2_left">第一条  转让标的物情况</h2>
+    <p>1.交易房屋坐落于<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d1t1" title={{stockTradeTemplate.d1t1}} class="input_line input_w600" />，
+      位于<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d1t2" title={{stockTradeTemplate.d1t2}} class="input_line input_w200" />区。</p>
+    <p>2.本宗房屋规划用途为<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d1t3" title={{stockTradeTemplate.d1t3}} class="input_line input_w300" />【住宅，户型为    室    厅】【公寓】【别墅】【办公】【商业】【其它】；
+      结构为<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d1t4" title={{stockTradeTemplate.d1t4}} class="input_line input_w200" />；
+      建筑面积<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d1t5" title={{stockTradeTemplate.d1t5}} class="input_line input_w150 txt_center" />平方米。
+      【不动产权证】号<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d1t6" title={{stockTradeTemplate.d1t6}} class="input_line input_w200" />；
+      【共有权证】号<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d1t7" title={{stockTradeTemplate.d1t7}} class="input_line input_w200" />。
+      办证时间：<span>
+        <nz-date-picker class="datapicker-line" [nzAllowClear]="false" [(ngModel)]="stockTradeTemplate.d1t8" title={{stockTradeTemplate.d1t8}} [disabled]="isDisable">
+        </nz-date-picker>
+      </span> 。</p>
+    <p>3.甲方声明并保证：该宗房屋未被查封，甲方对该宗房屋享有完全的处分权。如该宗房屋已设定抵押或已出租，具体约定如下：</p>
+    <p> <input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d1t9" title={{stockTradeTemplate.d1t9}} class="input_line input_wAll" />。</p>                                                                
+                                                                    
+    <p>4.该宗房屋以现状售予乙方，乙方或其代理人应认真查勘和了解该宗房屋的情况。甲乙双方确认该宗房屋现状为：
+      <input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d1t10" title={{stockTradeTemplate.d1t10}} class="input_line input_wAll" />。</p>
+
+
+<h2 class="h2_left">第二条  转让价款</h2>
+<p>该宗房屋转让总价款为人民币（大写）：
+  <input readonly [(ngModel)]="this.fwzrjeqw" title={{this.fwzrjeqw}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.fwzrjebw" title={{this.fwzrjebw}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.fwzrjesw" title={{this.fwzrjesw}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.fwzrjew" title={{this.fwzrjew}} class="input_line input_w50 txt_center" />万
+  <input readonly [(ngModel)]="this.fwzrjeq" title={{this.fwzrjeq}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.fwzrjeb" title={{this.fwzrjeb}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.fwzrjes" title={{this.fwzrjes}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.fwzrjey" title={{this.fwzrjey}} class="input_line input_w50 txt_center" />元整
+  （小写：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d2t1" title={{stockTradeTemplate.d2t1}} (ngModelChange)="fwzrjeTodx(stockTradeTemplate.d2t1)"  [validation]="true" [validationType]="'nullMoney'" maxlength="8" class="input_line input_w150 txt_center" />元），
+  计<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d2t2" title={{stockTradeTemplate.d2t2}}  [validation]="true" [validationType]="'nullMoney'" maxlength="8"  class="input_line input_w150 txt_center" />元/㎡。该转让价款不含税费。</p>
+
+
+<h2 class="h2_left">第三条  付款方式</h2>
+<p>甲乙双方经协商选择以下第<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t1" title={{stockTradeTemplate.d3t1}} class="input_line input_w50 txt_center" />方式交割房款。该宗房屋经协商交易资金不进行托管的，由此产生的后果由甲乙双方自行负责。</p>
+<p>1.自行交割房款</p>
+<p>签订本合同时，乙方向甲方支付人民币（大写）：
+<input readonly [(ngModel)]="this.jgfkjeqw" title={{stockTradeTemplate.jgfkjeqw}} class="input_line input_w50 txt_center" />仟
+<input readonly [(ngModel)]="this.jgfkjebw" title={{stockTradeTemplate.jgfkjebw}} class="input_line input_w50 txt_center" />佰
+<input readonly [(ngModel)]="this.jgfkjesw" title={{stockTradeTemplate.jgfkjesw}} class="input_line input_w50 txt_center" />拾
+<input readonly [(ngModel)]="this.jgfkjew" title={{stockTradeTemplate.jgfkjew}} class="input_line input_w50 txt_center" />万
+<input readonly [(ngModel)]="this.jgfkjeq" title={{stockTradeTemplate.jgfkjeq}} class="input_line input_w50 txt_center" />仟
+<input readonly [(ngModel)]="this.jgfkjeb" title={{stockTradeTemplate.jgfkjeb}} class="input_line input_w50 txt_center" />佰
+<input readonly [(ngModel)]="this.jgfkjes" title={{stockTradeTemplate.jgfkjes}} class="input_line input_w50 txt_center" />拾
+<input readonly [(ngModel)]="this.jgfkjey" title={{stockTradeTemplate.jgfkjey}} class="input_line input_w50 txt_center" />元整
+（小写：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t2" title={{stockTradeTemplate.d3t2}} (ngModelChange)="jgfkjeTodx(stockTradeTemplate.d3t2)" [validation]="true" [validationType]="'nullMoney'" maxlength="8" class="input_line input_w150 txt_center" />元），作为购房定金（首次支付房款时自动转为房款的一部分），
+并按照下列第<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t3" title={{stockTradeTemplate.d3t3}} class="input_line input_w50 txt_center" />种方式付款：</p>
+<p>（1）一次性付款</p>
+<p> <input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t4" title={{stockTradeTemplate.d3t4}} class="input_line input_wAll" />。</p>  
+<p>（2）分期付款</p>
+<p> <input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t5" title={{stockTradeTemplate.d3t5}} class="input_line input_wAll" />。</p>  
+<p>（3）按揭方式付款</p>
+<p>首付款：乙方应于
+  <span>
+  <nz-date-picker class="datapicker-line" [nzAllowClear]="false" [(ngModel)]="stockTradeTemplate.d3t6" title={{stockTradeTemplate.d3t6}} [disabled]="isDisable">
+  </nz-date-picker>
+  </span>前向甲方支付首付款人民币（大写）：
+  <input readonly [(ngModel)]="this.ajsfkjeqw" title={{stockTradeTemplate.ajsfkjeqw}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.ajsfkjebw" title={{stockTradeTemplate.ajsfkjebw}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.ajsfkjesw" title={{stockTradeTemplate.ajsfkjesw}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.ajsfkjew" title={{stockTradeTemplate.ajsfkjew}} class="input_line input_w50 txt_center" />万
+  <input readonly [(ngModel)]="this.ajsfkjeq" title={{stockTradeTemplate.ajsfkjeq}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.ajsfkjeb" title={{stockTradeTemplate.ajsfkjeb}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.ajsfkjes" title={{stockTradeTemplate.ajsfkjes}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.ajsfkjey" title={{stockTradeTemplate.ajsfkjey}} class="input_line input_w50 txt_center" />元整
+  （小写：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t7" title={{stockTradeTemplate.d3t7}}  (ngModelChange)="ajsfkjeTodx(stockTradeTemplate.d3t7)" [validation]="true" [validationType]="'nullMoney'" maxlength="8" class="input_line input_w150 txt_center" />元）。</p>
+<p>剩余房款：除前述房款外，剩余房款人民币（大写）：
+  <input readonly [(ngModel)]="this.ajyfkjeqw" title={{this.ajyfkjeqw}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.ajyfkjebw" title={{this.ajyfkjebw}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.ajyfkjesw" title={{this.ajyfkjesw}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.ajyfkjew" title={{this.ajyfkjew}} class="input_line input_w50 txt_center" />万
+  <input readonly [(ngModel)]="this.ajyfkjeq" title={{this.ajyfkjeq}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.ajyfkjeb" title={{this.ajyfkjeb}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.ajyfkjes" title={{this.ajyfkjes}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.ajyfkjey" title={{this.ajyfkjey}} class="input_line input_w50 txt_center" />元整
+  （小写：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t8" title={{stockTradeTemplate.d3t8}}  (ngModelChange)="ajyfkjeTodx(stockTradeTemplate.d3t8)" [validation]="true" [validationType]="'nullMoney'" maxlength="8" class="input_line input_w150 txt_center" />元），由乙方按照按揭方式付款，甲乙双方应当及时提供办理按揭手续所需的资料。具体约定如下：</p>
+<p><input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t9" title={{stockTradeTemplate.d3t9}} class="input_line input_wAll" />。</p>
+<p>如乙方的贷款申请未被批准或贷款金额少于乙方申请的贷款金额，双方当事人同意按照下列第<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t10" title={{stockTradeTemplate.d3t10}} class="input_line input_w50 txt_center" />种方式处理：</p>
+<p>a.合同继续履行，乙方以<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t11" title={{stockTradeTemplate.d3t11}} class="input_line input_w800" />方式向甲方支付剩余房款。</p>
+<p>b.解除合同，终止交易，甲方向乙方退还所付的全部房款，双方当事人互不追究违约责任。</p>
+<p>c.其他：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t12" title={{stockTradeTemplate.d3t12}} class="input_line input_w800" />。</p>
+<p>2.交易资金托管方式交割房款</p>
+<p>本宗房屋交易资金托管按照有关规定执行，双方另签订《存量房交易资金托管协议》，并按照下列第
+  <input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t13" title={{stockTradeTemplate.d3t13}} class="input_line input_w50 txt_center" />种类型将交易资金存入存量房交易资金监管专用账户。</p>
+<p>（1）一次性支付房款类型</p>
+<p>托管全部房款人民币（大写）：
+  <input readonly [(ngModel)]="this.ycxfkjeqw" title={{this.ycxfkjeqw}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.ycxfkjebw" title={{this.ycxfkjebw}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.ycxfkjesw" title={{this.ycxfkjesw}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.ycxfkjew" title={{this.ycxfkjew}} class="input_line input_w50 txt_center" />万
+  <input readonly [(ngModel)]="this.ycxfkjeq" title={{this.ycxfkjeq}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.ycxfkjeb" title={{this.ycxfkjeb}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.ycxfkjes" title={{this.ycxfkjes}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.ycxfkjey" title={{this.ycxfkjey}} class="input_line input_w50 txt_center" />元整
+  （小写：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t14" title={{stockTradeTemplate.d3t14}}  (ngModelChange)="ycxfkjeTodx(stockTradeTemplate.d3t14)" class="input_line input_w150 txt_center" [validation]="true" [validationType]="'nullMoney'" maxlength="8" />元），甲乙双方关于办理资金托管手续约定如下： </p>  
+<p>  <input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t15" title={{stockTradeTemplate.d3t15}} class="input_line input_wAll" />。</p>
+<p>（2）分期付款类型</p>
+<p>首笔房款：托管金额人民币（大写）：
+  <input readonly [(ngModel)]="this.fqsfkjeqw" title={{this.fqsfkjeqw}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.fqsfkjebw" title={{this.fqsfkjebw}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.fqsfkjesw" title={{this.fqsfkjesw}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.fqsfkjew" title={{this.fqsfkjew}} class="input_line input_w50 txt_center" />万
+  <input readonly [(ngModel)]="this.fqsfkjeq" title={{this.fqsfkjeq}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.fqsfkjeb" title={{this.fqsfkjeb}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.fqsfkjes" title={{this.fqsfkjes}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.fqsfkjey" title={{this.fqsfkjey}} class="input_line input_w50 txt_center" />元整
+  （小写：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t16" title={{stockTradeTemplate.d3t16}}  (ngModelChange)="fqsfkjeTodx(stockTradeTemplate.d3t16)" class="input_line input_w150 txt_center" [validation]="true" [validationType]="'nullMoney'" maxlength="8" />元），甲乙双方关于办理资金托管手续约定如下：</p>		                                                                        
+  <p>  <input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t17" title={{stockTradeTemplate.d3t17}} class="input_line input_wAll" />。</p>     
+<p>剩余房款：除前述房款外，剩余房款托管金额人民币（大写）：
+  <input readonly [(ngModel)]="this.fqyfkjeqw" title={{this.fqyfkjeqw}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.fqyfkjebw" title={{this.fqyfkjebw}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.fqyfkjesw" title={{this.fqyfkjesw}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.fqyfkjew" title={{this.fqyfkjew}} class="input_line input_w50 txt_center" />万
+  <input readonly [(ngModel)]="this.fqyfkjeq" title={{this.fqyfkjeq}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.fqyfkjeb" title={{this.fqyfkjeb}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.fqyfkjes" title={{this.fqyfkjes}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.fqyfkjey" title={{this.fqyfkjey}} class="input_line input_w50 txt_center" />元整
+  （小写：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t18" title={{stockTradeTemplate.d3t18}}  (ngModelChange)="fqyfkjeTodx(stockTradeTemplate.d3t18)" class="input_line input_w150 txt_center" [validation]="true" [validationType]="'nullMoney'" maxlength="8" />元），甲乙双方关于办理资金托管手续约定如下：</p>		                                                                        
+  <p>  <input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t19" title={{stockTradeTemplate.d3t19}} class="input_line input_wAll" />。</p>   
+<p>（3）按揭方式付款的类型</p>
+<p>首付款：托管金额人民币（大写）：
+  <input readonly [(ngModel)]="this.ajtgsfkjeqw" title={{this.ajtgsfkjeqw}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.ajtgsfkjebw" title={{this.ajtgsfkjebw}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.ajtgsfkjesw" title={{this.ajtgsfkjesw}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.ajtgsfkjew" title={{this.ajtgsfkjew}} class="input_line input_w50 txt_center" />万
+  <input readonly [(ngModel)]="this.ajtgsfkjeq" title={{this.ajtgsfkjeq}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.ajtgsfkjeb" title={{this.ajtgsfkjeb}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.ajtgsfkjes" title={{this.ajtgsfkjes}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.ajtgsfkjey" title={{this.ajtgsfkjey}} class="input_line input_w50 txt_center" />元整
+  （小写：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t20" title={{stockTradeTemplate.d3t20}}  (ngModelChange)="ajtgsfkjeTodx(stockTradeTemplate.d3t20)" class="input_line input_w150 txt_center" [validation]="true" [validationType]="'nullMoney'" maxlength="8" />元），甲乙双方关于办理资金托管手续约定如下：</p>		                                                                        
+  <p>  <input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t21" title={{stockTradeTemplate.d3t21}} class="input_line input_wAll" />。</p>   
+<p>剩余房款：除前述房款外，剩余房款人民币（大写）：
+  <input readonly [(ngModel)]="this.ajtgyfkjeqw" title={{this.ajtgyfkjeqw}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.ajtgyfkjebw" title={{this.ajtgyfkjebw}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.ajtgyfkjesw" title={{this.ajtgyfkjesw}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.ajtgyfkjew" title={{this.ajtgyfkjew}} class="input_line input_w50 txt_center" />万
+  <input readonly [(ngModel)]="this.ajtgyfkjeq" title={{this.ajtgyfkjeq}} class="input_line input_w50 txt_center" />仟
+  <input readonly [(ngModel)]="this.ajtgyfkjeb" title={{this.ajtgyfkjeb}} class="input_line input_w50 txt_center" />佰
+  <input readonly [(ngModel)]="this.ajtgyfkjes" title={{this.ajtgyfkjes}} class="input_line input_w50 txt_center" />拾
+  <input readonly [(ngModel)]="this.ajtgyfkjey" title={{this.ajtgyfkjey}} class="input_line input_w50 txt_center" />元整
+  （小写：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t22" title={{stockTradeTemplate.d3t22}}  (ngModelChange)="ajtgyfkjeTodx(stockTradeTemplate.d3t22)" class="input_line input_w150 txt_center" [validation]="true" [validationType]="'nullMoney'" maxlength="8" />元），
+  由乙方申请按揭，按揭款由贷款银行直接划转至托管账户，甲乙双方关于办理资金托管手续约定如下：</p>                                                                        
+  <p>  <input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t23" title={{stockTradeTemplate.d3t23}} class="input_line input_wAll" />。</p>   
+<p>如乙方的贷款申请未被批准或贷款金额少于乙方申请的贷款金额，双方当事人同意按照下列第<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t24" title={{stockTradeTemplate.d3t24}} class="input_line input_w50 txt_center" />种方式处理：</p>
+<p>a.合同继续履行，乙方以<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t25" title={{stockTradeTemplate.d3t25}} class="input_line input_w800" />方式向甲方支付剩余房款。</p>
+<p>b.解除合同，终止交易，乙方申请退回托管房款，双方当事人互不追究违约责任。</p>
+<p>c.其他：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t26" title={{stockTradeTemplate.d3t26}} class="input_line input_w800" />。</p>
+<p>3.其他方式：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d3t27" title={{stockTradeTemplate.d3t27}} class="input_line input_w800" />。</p>
+
+
+<h2 class="h2_left">第四条  税费缴交</h2>
+<p>1.甲乙双方缴纳税费约定如下：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d4t1" title={{stockTradeTemplate.d4t1}} class="input_line input_w800" />。</p>
+<p>2.签订本合同后，如遇政府及有关部门调整税费，对于调整部分双方约定如下：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d4t2" title={{stockTradeTemplate.d4t2}} class="input_line input_w800" />。</p>    
+
+
+<h2 class="h2_left">第五条</h2> 
+<p>自本合同签订之日起<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d5t1" title={{stockTradeTemplate.d5t1}} class="input_line input_w50 txt_center" />日内，双方当事人应到县不动产登记中心分别申请办理交易和登记手续，甲方应当给予协助。</p>
+
+
+<h2 class="h2_left">第六条 交房时间和交接手续</h2>
+<p>1.甲乙双方约定该宗房屋交付的时间为
+  <span>
+  <nz-date-picker class="datapicker-line" [nzAllowClear]="false" [(ngModel)]="stockTradeTemplate.d6t1" title={{stockTradeTemplate.d6t1}} [disabled]="isDisable">
+  </nz-date-picker>
+  </span>。甲乙双方应在交房当天一起到场查验房屋，查验后双方签订房地产交接确认书，并交付钥匙，即视为房屋交付使用。</p>
+<p>2.甲方应于<span>
+  <nz-date-picker class="datapicker-line" [nzAllowClear]="false" [(ngModel)]="stockTradeTemplate.d6t2" title={{stockTradeTemplate.d6t2}} [disabled]="isDisable">
+  </nz-date-picker>
+  </span>前，交清该宗房屋在交房前发生的所有欠款及费用（如银行贷款、欠税款、债务及水电、煤气、电话、网络、有线电视、物业管理等费用）。甲方保证在交易后乙方无须对上述甲方欠款及应付费用负责。</p>
+<p>3.如该房已交存住宅专项维修资金，甲、乙双方同意该维修资金随上述房屋所有权同时转移。乙方取得房屋所有权后，自动承受该住宅专项维修资金的权利和义务。</p>
+<p>4.如办理过户或者更名（包括但不限于房产及水电、煤气、电话、网络、有线电视、物业专项维修资金等与该房产有关的一切过户或者更名）需甲方配合办理，甲方承诺无条件予以配合。</p>
+
+
+<h2 class="h2_left">第七条  交易失败的违约责任</h2>
+<p>1.甲方不按本合同约定将该宗房屋出售给乙方的，应当向乙方支付违约金，违约金为<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d7t1" title={{stockTradeTemplate.d7t1}} class="input_line input_w150 txt_center" />，
+  并于交易失败之日起<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d7t2" title={{stockTradeTemplate.d7t2}} class="input_line input_w50 txt_center" />日内退回乙方已付的全部房款。</p>
+<P>2.乙方不按本合同约定买入该宗房屋的，应当向甲方支付违约金，违约金为<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d7t3" title={{stockTradeTemplate.d7t3}} class="input_line input_w150 txt_center" />，
+已付房款由甲方于交易失败之日起<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d7t4" title={{stockTradeTemplate.d7t4}} class="input_line input_w50 txt_center" />日内退还乙方。</P>
+
+
+<h2 class="h2_left">第八条  延期交房的违约责任</h2>
+<p>甲方如未按本合同约定交房的，应当每日按总房款万分之<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d8t1" title={{stockTradeTemplate.d8t1}} class="input_line input_w50 txt_center" />的标准向乙方支付违约金，
+逾期超过<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d8t2" title={{stockTradeTemplate.d8t2}} class="input_line input_w50 txt_center" />日仍交房的，乙方有权解除合同。
+如果乙方要求继续履行合同的，自本合同第六条约定的房地产交付使用日期的第二日起至实际交付之日止，甲方每日按总房款万分之<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d8t3" title={{stockTradeTemplate.d8t3}} class="input_line input_w50 txt_center" />的标准向乙方支付违约金。</p>
+<p>乙方要求解除合同的，甲方应乙方要求解除合同通知书到达之日起10日内，将乙方已支付的房款退还给乙方，甲方向乙方支付违约金<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d8t4" title={{stockTradeTemplate.d8t4}} class="input_line input_w150 txt_center" />。</p>
+
+
+<h2 class="h2_left">第九条  逾期付款的违约责任</h2>
+<p>乙方未能按照本合同约定支付房款的，应当每日按未付房款万分之<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d9t1" title={{stockTradeTemplate.d9t1}} class="input_line input_w50 txt_center" />的标准向甲方支付违约金，
+逾期超过<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d9t2" title={{stockTradeTemplate.d9t2}} class="input_line input_w50 txt_center" />日仍未支付的，甲方有权解除合同。如果甲方要求继续履行合同的，自逾期付款第二日起至实际支付之日止，
+乙方每日按未支付房款万分之<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d9t3" title={{stockTradeTemplate.d9t3}} class="input_line input_w50 txt_center" />的标准向甲方支付违约金。</p>
+<p>甲方要求解除合同的，应自其要求解除合同通知书到达乙方之日起10日内，将乙方已支付的房款退还给乙方，乙方向甲方支付违约金<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d9t4" title={{stockTradeTemplate.d9t4}} class="input_line input_w150 txt_center" />。</p>
+
+
+<h2 class="h2_left">第十条  逾期办理产权登记的违约责任</h2>
+<p>如因甲方或乙方原因造成不能按期取得不动产权证的，甲乙双方当事人同意按下列第<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d10t1" title={{stockTradeTemplate.d10t1}} class="input_line input_w50 txt_center" />种方式处理：</p>
+<p>1.违约方支付违约金<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d10t2" title={{stockTradeTemplate.d10t2}} class="input_line input_w150 txt_center" />，合同继续履行。</p>
+<p>2.解除合同，终止交易，甲方向乙方退还所付的全部房款，双方当事人互不追究违约责任。</p>
+<p>3.其他：<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d10t3" title={{stockTradeTemplate.d10t3}} class="input_line input_w800" />。</p>
+
+
+<h2 class="h2_left">第十一条  争议的解决方式</h2>
+<P>本合同在履行过程中发生的争议，由双方当事人协商解决，也可通过消费者协会等相关机构调解；或按照下列第<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d11t1" title={{stockTradeTemplate.d11t1}} class="input_line input_w50 txt_center" />种方式解决：</P>
+<P>1、依法向房屋所在地人民法院起诉。</P>
+<P>2、提交<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d11t2" title={{stockTradeTemplate.d11t2}} class="input_line input_w600" />仲裁委员会仲裁。</P>
+
+
+<h2 class="h2_left">第十二条  送达约定</h2>
+    <p>出卖人和买受人保证在本合同中记载的通讯地址、联系电话均真实有效。任何根据本合同发出的文件，均应采用书面形式，
+    以【邮政快递】【邮寄挂号信】【<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d12t1" title={{stockTradeTemplate.d12t1}} class="input_line input_w100" />】方式送达对方。
+    任何一方变更通讯地址、联系电话的，应在变更之日起<input [readonly]="isDisable" [(ngModel)]="stockTradeTemplate.d12t2" title={{stockTradeTemplate.d12t2}} class="input_line input_w50 txt_center" />日内书面通知对方。
+    变更的一方未履行通知义务导致送达不能的，应承担相应的法律责任。</p>
+
+
+<h2 class="h2_left">第十三条</h2>
+<p>本合同未尽事宜，可由当事人协商一致后签订补充协议，补充协议具有同等的法律效力。</p>
+
+
+<h2 class="h2_left">第十四条</h2>
+<p>本合同一式五份，双方买卖各执一份，办理资金托管一份，县税务部门存档一份，县不动产登记中心存档一份。</p>
+
+
+<div class="txt_top">
+  <div style="float:left;margin-left: 10%;margin-right:10%;">
+    <p class="">甲方（卖方）（签章）：<input  [(ngModel)]="stockTradeTemplate.qz1" title={{stockTradeTemplate.qz1}} class="input_line input_w200" [readonly]="isDisable"/> </p>
+    <p class="">共有权人（签章）：<input [(ngModel)]="stockTradeTemplate.qz2" title={{stockTradeTemplate.qz2}} class="input_line input_w200" [readonly]="isDisable" /> </p>
+    <p class="">委托代理人（签章）：<input [(ngModel)]="stockTradeTemplate.qz3" title={{stockTradeTemplate.qz3}} class="input_line input_w200"  [readonly]="isDisable" /></p>
+    <p class="">日期：
+      <span>
+      <nz-date-picker class="datapicker-line" [(ngModel)]="stockTradeTemplate.qz4" title={{stockTradeTemplate.qz4}} [nzAllowClear]="false"  [disabled]="isDisable">
+      </nz-date-picker>
+      </span> </p>
+  </div>
+  <div>
+    <p class="">乙方（买方）（签章）：<input [(ngModel)]="stockTradeTemplate.qz5" title={{stockTradeTemplate.qz5}} class="input_line input_w200" [readonly]="isDisable" /></p>
+    <p class="">共有权人（签章）：<input [(ngModel)]="stockTradeTemplate.qz6" title={{stockTradeTemplate.qz6}} class="input_line input_w200" [readonly]="isDisable" /></p>
+    <p class="">委托代理人（签章）：<input [(ngModel)]="stockTradeTemplate.qz7" title={{stockTradeTemplate.qz7}} class="input_line input_w200" [readonly]="isDisable" /></p>
+    <p class="">日期：
+      <span>
+      <nz-date-picker class="datapicker-line" [nzAllowClear]="false" [(ngModel)]="stockTradeTemplate.qz8" title={{stockTradeTemplate.qz8}} [disabled]="isDisable">
+      </nz-date-picker>
+      </span></p>
+  </div>
+</div>
+<!-- <p class="txt_top">甲方（卖方）（签章）：<input [(ngModel)]="stockTradeTemplate.qz1" title={{stockTradeTemplate.qz1}} class="input_line input_w200" /> 
+                  乙方（买方）（签章）：<input [(ngModel)]="stockTradeTemplate.qz2" title={{stockTradeTemplate.qz2}} class="input_line input_w200" /></p>
+<p class="txt_top">共有权人（签章）：<input [(ngModel)]="stockTradeTemplate.qz3" title={{stockTradeTemplate.qz3}} class="input_line input_w200" />
+                  共有权人（签章）：<input [(ngModel)]="stockTradeTemplate.qz4" title={{stockTradeTemplate.qz4}} class="input_line input_w200" /></p>
+<p class="txt_top">委托代理人（签章）：<input [(ngModel)]="stockTradeTemplate.qz5" title={{stockTradeTemplate.qz5}} class="input_line input_w200" />
+                  委托代理人（签章）：<input [(ngModel)]="stockTradeTemplate.qz6" title={{stockTradeTemplate.qz6}} class="input_line input_w200" /></p>
+<p class="txt_top">日期：<input [(ngModel)]="stockTradeTemplate.qz7" title={{stockTradeTemplate.qz7}} class="input_line input_w200" />
+                  日期：<input [(ngModel)]="stockTradeTemplate.qz8" title={{stockTradeTemplate.qz8}} class="input_line input_w200" /></p> -->
+ 
+<div class="txt_top">
+<p class="">附件：</p>
+<h2 class="h2_center txt_bottom">补 充 协 议</h2>
+</div>
+
+
+                                      
+     
+    </div>
+  </div>
+
+  <div *ngIf="tabsetIndex==3" style="width:100%;height:calc(100% - 90px);overflow: auto;background: #fff">
 
     <div class="file_left">
       <ul class="fileTypeList_ul">
@@ -621,23 +1164,22 @@
     </div>
   </div>
 
-  <div class="jbxx" *ngIf="tabsetIndex==2&&!associatedCompanyShow">
+  <div class="jbxx" *ngIf="tabsetIndex==4&&!associatedCompanyShow">
     <app-lpbgl [glType]="'stockTrade'" [pid]="detailObj.id"></app-lpbgl>
   </div>
 
 
-  <div class="jbxx" *ngIf="(tabsetIndex==2&&associatedCompanyShow)||tabsetIndex==3" style="overflow: hidden">
+  <div class="jbxx" *ngIf="(tabsetIndex==4&&associatedCompanyShow)||tabsetIndex==5" style="overflow: hidden">
     <app-associated-company [associatedid]="detailObj.id" modulename="stockTrade" [selectShow]="!isDisable">
     </app-associated-company>
   </div>
-
-
+  
 
   <div style="width:100%;height: 50px;padding: 10px;text-align: right;padding-right: 20px;float:left">
     <div nz-row>
       <div nz-col [nzSpan]="24">
         <button nz-button nzType="default" (click)="cancel()">返回</button>
-        <button nz-button nzType="primary" *ngIf="!isDisable&&tabsetIndex==0" [disabled]="isbusy"
+        <button nz-button nzType="primary" *ngIf="!isDisable&&(tabsetIndex==0||tabsetIndex==1||tabsetIndex==2)" [disabled]="isbusy"
           (click)="save()">保存</button>
         <button nz-button nzType="primary" *ngIf="!isDisable&&detailObj.ljzid&&tabsetIndex==0" (click)="linkH()">关联户</button>
       </div>

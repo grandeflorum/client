@@ -212,39 +212,39 @@
 
             <div *ngIf="type=='2'" style="margin-top:10px;height:auto">
                     <div class="div2" *ngFor="let data of data;index as index" style="margin-top:10px;height:auto">
-                            <div class="row1">
-                                <div  class="tr">
-                                    合同备案号：
+                                <div class="row1">
+                                    <div  class="tr">
+                                        不动产权证号：
+                                    </div>
+                                    <div >
+                                        {{data.BDCQZH}}
+                                    </div>
                                 </div>
-                                <div >
-                                    {{data.HTBH}}
+                                <div class="row1">
+                                    <div  class="tr">
+                                        合同备案号：
+                                    </div>
+                                    <div >
+                                        {{data.HTBAH}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row1">
-                                <div  class="tr">
-                                    入网时间：
+                                <div class="row1">
+                                    <div  class="tr">
+                                        合同状态：
+                                    </div>
+                                    <div >
+                                        {{data.CURRENTSTATUS}}
+                                    </div>
                                 </div>
-                                <div >
-                                    {{data.RWSJ}}
-                                </div>
-                            </div>
-                            <div class="row1">
-                                <div  class="tr">
-                                    合同状态：
-                                </div>
-                                <div >
-                                    {{data.CURRENTSTATUS}}
-                                </div>
-                            </div>
-                        <div class="row1">
-                                <div  class="tr">
-                                    不动产权证号：
-                                </div>
-                                <div >
-                                    {{data.BDCQZH}}
-                                </div>
-                            </div>
-                            <div class="row1">
+                                <div class="row1">
+                                    <div  class="tr">
+                                        入网时间：
+                                    </div>
+                                    <div >
+                                        {{data.RWSJ}}
+                                    </div>
+                                </div> 
+                                <div class="row1">
                                     <div  class="tr">
                                         权证地址：
                                     </div>
@@ -252,15 +252,31 @@
                                         {{data.ZL}}
                                     </div>
                                 </div>
-                            <div class="row1">
-                                <div  class="tr">
-                                        产权人：
+                                <div class="row1">
+                                    <div  class="tr">
+                                            产权人：
+                                    </div>
+                                    <div >
+                                        {{data.CQR}}
+                                    </div>
+                                </div> 
+                                <div class="row1">
+                                    <div  class="tr">
+                                        建筑面积：
+                                    </div>
+                                    <div >
+                                        {{data.JZMJ}}
+                                    </div>
                                 </div>
-                                <div >
-                                    {{data.CQR}}
+                                <div class="row1">
+                                    <div  class="tr">
+                                        房屋用途：
+                                    </div>
+                                    <div >
+                                        {{data.FWYT}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row1">
+                                <div class="row1">
                                     <div  class="tr">
                                             户型：
                                     </div>
@@ -268,15 +284,7 @@
                                         {{data.HX}}
                                     </div>
                                 </div>
-                            <div class="row1">
-                                <div  class="tr">
-                                    房屋用途：
-                                </div>
-                                <div >
-                                    {{data.FWYT}}
-                                </div>
-                            </div>
-                            <div class="row1">
+                                <div class="row1">
                                     <div  class="tr">
                                         甲方：
                                     </div>
@@ -308,23 +316,15 @@
                                         {{data.YFZJHM}}
                                     </div>
                                 </div>
-                            
-                            <div class="row1">
-                                <div  class="tr">
-                                    建筑面积：
+                             
+                                <div class="row1">
+                                    <div  class="tr">
+                                        总金额：
+                                    </div>
+                                    <div >
+                                        {{data.CRZJ}} 
+                                    </div>
                                 </div>
-                                <div >
-                                    {{data.JZMJ}}
-                                </div>
-                            </div>
-                            <div class="row1">
-                                <div  class="tr">
-                                    总金额：
-                                </div>
-                                <div >
-                                    {{data.CRZJ}}（元）
-                                </div>
-                            </div>
                         </div>
 
                         <div class="row1" *ngIf="data.length==0" style="text-align: center;">

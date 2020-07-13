@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-01-13 13:11:00
+ * @LastEditTime: 2020-03-10 19:12:12
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \client\src\app\app.module.ts
+ */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,11 +19,11 @@ import { registerLocaleData, LocationStrategy, HashLocationStrategy } from '@ang
 import zh from '@angular/common/locales/zh';
 import { IconsProviderModule } from './icons-provider.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
-//service
+// service
 import { AuthGuardService } from './business-modules/service/auth-guard.service';
 import { ExceptionInterceptorService } from './business-modules/service/exception-interceptor.service';
 
-//component
+// component
 import { NotFoundComponent } from './not-found/not-found.component';
 import { EwmCheckComponent } from './ewm-check/ewm-check.component';
 import { ContractQueryComponent } from './contract-query/contract-query.component';

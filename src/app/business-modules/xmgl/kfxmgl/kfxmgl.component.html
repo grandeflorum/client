@@ -2,11 +2,11 @@
   <div nz-row style="height: 50px;padding: 10px;">
     <div nz-col [nzSpan]="8">
       项目名称：
-      <input nz-input nzSize="default" [(ngModel)]="xmmc" class="w200" placeholder="请输入项目名称" />
+      <input nz-input nzSize="default" [(ngModel)]="xmmc" class="w200" placeholder="请输入项目名称" (keyup.enter)="search()" />
     </div>
     <div nz-col [nzSpan]="8">
       开发企业名称：
-      <input nz-input nzSize="default" [(ngModel)]="kfqymc" class="w200" placeholder="请输入开发企业名称" />
+      <input nz-input nzSize="default" [(ngModel)]="kfqymc" class="w200" placeholder="请输入开发企业名称" (keyup.enter)="search()" />
     </div>
 
     <div nz-col [nzSpan]="8">

@@ -112,9 +112,18 @@ export class LpbglComponent implements OnInit {
       if (roles.some(x => x == '审核员')) {
         this.cansh = true;
       }
-
-      if (roles.some(x => x == '开发企业') || roles.some(x => x == '经纪公司')) {
+      // 修改楼盘表经济公司的按钮权限 2020/01/17
+      // if (roles.some(x => x == '开发企业') || roles.some(x => x == '经纪公司')) {
+      //   this.canzsgc = true;
+      //   this.cantjsh = true;
+      // }
+      if (roles.some(x => x == '开发企业')) {
         this.canzsgc = true;
+        this.cantjsh = true;
+      }
+
+      if (roles.some(x => x == '经纪公司')) {
+          // this.canzsgc = true;
         this.cantjsh = true;
       }
     }

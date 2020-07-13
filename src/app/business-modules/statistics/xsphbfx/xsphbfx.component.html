@@ -50,14 +50,23 @@
   </div>
   <div nz-row style="padding: 12px;text-align: center;background: #e4e4e4">
   <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" style="width:400px">
-      <input type="text"  [(ngModel)]="mc" nz-input placeholder="请输入开发企业、项目名称搜索" />
+      <input type="text"  [(ngModel)]="mc" nz-input placeholder="请输入开发企业、经济公司、项目名称搜索" />
     </nz-input-group>
     <ng-template #suffixIconButton>
       <button nz-button nzType="primary" nzSearch style="margin-left:0" (click)="search()">搜索</button>
     </ng-template>
   </div>
 <div nz-row style="padding: 24px;">
-    <div nz-col [nzSpan]="24">
+   
+  <div nz-col [nzSpan]="12">
+    类型：
+    <nz-select  [(ngModel)]="lx" (ngModelChange)="search()" class="w200" nzPlaceHolder="请选择">
+        <nz-option nzValue="" nzLabel="全部"></nz-option>
+        <nz-option nzValue="1" nzLabel="商品房"></nz-option>
+        <nz-option nzValue="2" nzLabel="存量房"></nz-option> 
+    </nz-select>
+  </div>
+    <div nz-col [nzSpan]="12">
         <button class="right" nz-button nzType="primary" (click)="export()">导出</button>
     </div>
 
@@ -70,21 +79,23 @@
       (nzCurrentPageDataChange)="currentPageDataChange($event)">
       <thead (nzSortChange)="sort($event)">
         <tr>
-          <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
-            (nzCheckedChange)="checkAll($event)"></th>
-            <th>开发企业名称</th>
+          <!-- <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
+            (nzCheckedChange)="checkAll($event)"></th> -->
+            <th style="width:10%"></th>
+            <th>开发企业/经济公司</th>
             <th>项目名称</th>
             <th nzShowSort nzSortKey="xsl">销售量（套）</th>
-            <th nzShowSort nzSortKey="jj">销售均价（元/平方米）</th>
-            <th nzShowSort nzSortKey="xsmj">销售面积（平方米）</th>
+            <th nzShowSort nzSortKey="jj">销售均价（元/㎡）</th>
+            <th nzShowSort nzSortKey="xsmj">销售面积（㎡）</th>
           
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of nestedTable.data; index as index" 
           (click)="selectItem(data)">
-          <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
-            (nzCheckedChange)="refreshStatus()"></td>
+          <!-- <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
+            (nzCheckedChange)="refreshStatus()"></td> -->
+            <td style="width:10%"></td>
             <td>{{ data.qymc |tooltips:15}}</td>
             <td title="{{data.xmmc}}">{{ data.xmmc |tooltips:15}}</td>
             <td>{{ data.xsl}}</td>

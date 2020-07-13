@@ -90,7 +90,7 @@ export class StockTradeComponent implements OnInit {
   canzsgc: boolean = false;
   cantjsh: boolean = false;
   cansh: boolean = false;
-
+    
   //新审核
   auditIsVisibleNew: any = false;
 

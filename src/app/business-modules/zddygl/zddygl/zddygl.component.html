@@ -2,7 +2,7 @@
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="8">
             不动产单元号:
-            <input nz-input nzSize="default" [(ngModel)]="bdcdyh" class="w150" placeholder="请输入不动产单元号" />
+            <input nz-input nzSize="default" [(ngModel)]="bdcdyh" class="w150" placeholder="请输入不动产单元号" (keyup.enter)="search()"  />
         </div>
         <div nz-col [nzSpan]="8">
             抵押不动产类型:
@@ -15,7 +15,7 @@
 
         <div nz-col [nzSpan]="8">
             在建建筑物坐落:
-            <input nz-input nzSize="default" [(ngModel)]="zjjzwzl" class="w150" placeholder="请输入在建建筑物坐落" />
+            <input nz-input nzSize="default" [(ngModel)]="zjjzwzl" class="w150" placeholder="请输入在建建筑物坐落" (keyup.enter)="search()"  />
         </div>
     </div>
 
@@ -65,13 +65,13 @@
             <tr>
                 <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
                     [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
-                <th>不动产单元号</th>
+                <th style="width:20%">不动产单元号</th>
                 <th>抵押不动产类型</th>
                 <th>抵押方式</th>
                 <th>在建建筑物坐落</th>
                 <th nzShowSort nzSortKey="zmj">总面积（㎡）</th>
                 <th nzShowSort nzSortKey="dy_type">状态</th>
-                <th style="width:20%">操作</th>
+                <th style="width:15%">操作</th>
             </tr>
         </thead>
         <tbody>
@@ -79,7 +79,7 @@
                 (click)="selectItem(data)">
                 <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]"
                     [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
-                <td title="{{data.bdcdyh}}">{{ data.bdcdyh |tooltips:15}}</td>
+                <td style="width:20%" title="{{data.bdcdyh}}">{{ data.bdcdyh |tooltips:30}}</td>
                 <td title="{{data.dybdclxName}}">{{ data.dybdclxName |tooltips:15}}</td>
                 <td>{{ data.dyfsName }}</td>
                 <td title="{{data.zjjzwzl}}">{{ data.zjjzwzl|tooltips:15 }}</td>
@@ -87,13 +87,13 @@
                 <td [ngStyle]="{'color':data.dyType==0?'#868686':'#FF0000'}">
                     <img *ngIf="data.dyType!=0" style="margin-top:-3px;" src="../../../../assets/images/lock.png">
                     {{ data.dyType==0?'未抵押':data.dyType==1?'已抵押（楼盘）':'已抵押（幢）' }}</td>
-                <td style=" width:20%">
+                <td style=" width:15%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
-                    <a *ngIf="canzsgc" class="table_a" (click)="add(3,data)">编辑</a>
-                    <a *ngIf="data.dyType!=0&&cansh" class="table_a" nz-popconfirm nzTitle="确定注销抵押吗?"
+                    <a *ngIf="data.datasource==1&&canzsgc" class="table_a" (click)="add(3,data)">编辑</a>
+                    <a *ngIf="data.datasource==1&&data.dyType!=0&&cansh" class="table_a" nz-popconfirm nzTitle="确定注销抵押吗?"
                         (nzOnConfirm)="restrictedProperty(data.id)">注销抵押</a>
                     <!-- <a class="table_a" nz-popconfirm nzTitle="确定抵押楼盘吗?" (nzOnConfirm)="delete([data.id])">抵押楼盘</a> -->
-                    <a *ngIf="canzsgc" class="table_a" nz-popconfirm nzTitle="确定删除吗?"
+                    <a *ngIf="data.datasource==1&&canzsgc" class="table_a" nz-popconfirm nzTitle="确定删除吗?"
                         (nzOnConfirm)="delete([data.id])">删除</a>
                 </td>
             </tr>

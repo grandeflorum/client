@@ -2,11 +2,11 @@
   <div nz-row style="height: 50px;padding: 10px;">
     <div nz-col [nzSpan]="6">
       项目名称：
-      <input nz-input nzSize="default" [(ngModel)]="xmmc" class="w150" placeholder="请输入项目名称" />
+      <input nz-input nzSize="default" [(ngModel)]="xmmc" class="w150" placeholder="请输入项目名称" (keyup.enter)="search()" />
     </div>
     <div nz-col [nzSpan]="7">
       建筑物名称:
-      <input nz-input nzSize="default" [(ngModel)]="jzwmc" class="w150" placeholder="请输入建筑物名称" />
+      <input nz-input nzSize="default" [(ngModel)]="jzwmc" class="w150" placeholder="请输入建筑物名称" (keyup.enter)="search()" />
     </div>
 
     <div nz-col [nzSpan]="6">
@@ -105,7 +105,7 @@
             (click)="bg(data)">变更</a>
 
           <a class="table_a" *ngIf="data.currentStatus==5&&!data.isCancel" (click)="perview(data)">预览</a>
-          <a class="table_a" *ngIf="data.currentStatus==5&&!data.isCancel" (click)="print(data)">导出</a>
+          <a class="table_a" *ngIf="data.currentStatus==5&&!data.isCancel" (click)="print(data)">打印</a>
           <a class="table_a" (nzOnConfirm)="delete([data.id])" *ngIf="data.currentStatus==0&&canzsgc" nz-popconfirm
             nzTitle="确定删除吗?">删除</a>
 

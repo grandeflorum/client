@@ -107,7 +107,11 @@
   background: red !important;
   color:#fff;
 }
-
+// 空户口 20200205新增
+.lpb_khk {
+  background: #fff !important;
+  color: #fff;
+}
 
 .content_wrap{
     height:100%;
@@ -190,5 +194,141 @@
         max-width: calc(100% - 35px);
       }
     }
+  }
+
+
+  .h1_center {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .h2_center {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .h2_left {
+    text-align: left;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .h3_center {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .h3_left {
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .txt_right {
+    text-align: right;
+  }
+  
+  .txt_center {
+    text-align: center;
+  }
+  
+  .txt_left {
+    margin-left: 20%;
+  }
+  
+  .txt_top {
+    margin-top: 40px;
+  }
+  
+  .txt_bottom {
+    margin-bottom: 60px;
+  }
+  
+  .qz_left {
+    margin-left: 10%;
+  }
+  
+  .input_line {
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-bottom: 2px solid #050505;
+    outline: none;
+  }
+  
+  .input_tCenter{
+  text-align: center;
+  }
+   
+  
+  .input_w50 {
+    width: 50px;
+  }
+  
+  .input_w100 {
+    width: 100px;
+  }
+  
+  .input_w150 {
+    width: 150px;
+  }
+  
+  .input_w200 {
+    width: 200px;
+  }
+  
+  .input_w300 {
+    width: 300px;
+  }
+
+  .input_w400 {
+    width: 400px;
+  }
+
+  .input_w500 {
+    width: 500px;
+  }
+  
+  .input_w600 {
+    width: 600px;
+  }
+  
+  .input_w800 {
+    width: 800px;
+  }
+  
+  .input_wAll {
+    width: 85%;
+  }
+  
+  .WordSection {
+    // font-style: #050505;
+    font-weight:600;
+    font-size: 16px;
+    margin-top: 30px;
+    width: 75%;
+    min-height: 29.7cm;
+    min-width: 30cm;
+    padding: 2cm;
+    margin: 1cm auto;
+    border: 1px #D3D3D3 solid;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  .datapicker-line ::ng-deep  .ant-calendar-picker .ant-calendar-picker-input {
+    font-weight: bold; 
+    background-color: white;
+    border: none;
+    border-bottom: 2px solid #050505;
+    outline: none;
+  }
+
+  .col_h50{
+    height: 40px;
+    width: 450px;
   }
 

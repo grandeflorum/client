@@ -7,20 +7,28 @@
   </div>
 
   <div *ngIf="tabsetIndex==0" style="width:100%;height:calc(100% - 90px);overflow: auto">
+
     <!-- 基本信息 -->
     <div class="jbxx left_wrap" [ngClass]="{'show_balc_lfet':showBalc}">
+      <div nz-col [nzSpan]="23" class="ta_r" style="padding-top:10px;">
+        <button nz-button nzType="primary" *ngIf="btShow" (click)="wordShow()">
+          预览
+        </button>
+      </div>
       <nz-divider nzText="基本信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
 
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="12">
           <div class="label_div">项目名称：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.xmmc" title={{detailObj.xmmc}} [disabled]="true" class="w200" /></span>
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.xmmc" title={{detailObj.xmmc}}
+              [disabled]="true" class="w200" /></span>
 
         </div>
 
         <div nz-col [nzSpan]="12">
           <div class="label_div">建筑物名称：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.jzwmc" title={{detailObj.jzwmc}} [disabled]="true" class="w200" /></span>
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.jzwmc" title={{detailObj.jzwmc}}
+              [disabled]="true" class="w200" /></span>
 
         </div>
       </div>
@@ -28,13 +36,15 @@
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="12">
           <div class="label_div">幢号：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.zh" title={{detailObj.zh}} [disabled]="true" class="w200" /></span>
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.zh" title={{detailObj.zh}} [disabled]="true"
+              class="w200" /></span>
 
         </div>
 
         <div nz-col [nzSpan]="12">
           <div class="label_div">单元号：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.dyh" title={{detailObj.dyh}} [disabled]="true" class="w200" /></span>
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.dyh" title={{detailObj.dyh}} [disabled]="true"
+              class="w200" /></span>
 
         </div>
       </div>
@@ -42,13 +52,15 @@
 
         <div nz-col [nzSpan]="12">
           <div class="label_div">层号：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.ch" title={{detailObj.ch}} [disabled]="true" class="w200" /></span>
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.ch" title={{detailObj.ch}} [disabled]="true"
+              class="w200" /></span>
 
         </div>
 
         <div nz-col [nzSpan]="12">
           <div class="label_div">房号：</div>
-          <span><input nz-input nzSize="default" [(ngModel)]="detailObj.fh" title={{detailObj.fh}} [disabled]="true" class="w200" /></span>
+          <span><input nz-input nzSize="default" [(ngModel)]="detailObj.fh" title={{detailObj.fh}} [disabled]="true"
+              class="w200" /></span>
 
         </div>
 
@@ -57,15 +69,15 @@
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="12">
           <div class="label_div">单价（元/平方）：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.dj" title={{detailObj.dj}} maxlength="10" [validation]="true"
-              [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.dj" title={{detailObj.dj}} maxlength="10"
+              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
 
         </div>
 
         <div nz-col [nzSpan]="12">
           <div class="label_div">总价（元）：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.zj" title={{detailObj.zj}} maxlength="10" [validation]="true"
-              [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.zj" title={{detailObj.zj}} maxlength="10"
+              [validation]="true" [validationType]="'nullMoney'" [disabled]="isDisable" class="w200" /></span>
 
         </div>
       </div>
@@ -74,7 +86,8 @@
         <div nz-col [nzSpan]="12">
           <div class="label_div">入网时间：</div>
           <span>
-            <nz-date-picker  [nzStyle]="{'width':'150px'}"  [nzAllowClear]="false" [(ngModel)]="detailObj.rwsj" [disabled]="isDisable">
+            <nz-date-picker [nzStyle]="{'width':'150px'}" [nzAllowClear]="false" [(ngModel)]="detailObj.rwsj"
+              [disabled]="isDisable">
             </nz-date-picker>
           </span>
 
@@ -82,8 +95,8 @@
 
         <div nz-col [nzSpan]="12">
           <div class="label_div">合同备案号：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.htbah" title={{detailObj.htbah}} maxlength="50" disabled class="w200"
-              placeholder="登簿完成后自动生成" /></span>
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.htbah" title={{detailObj.htbah}} maxlength="50"
+              disabled class="w200" placeholder="登簿完成后自动生成" /></span>
 
         </div>
       </div>
@@ -91,15 +104,16 @@
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="12">
           <div class="label_div"><span class="clo_r">*</span>购买人：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.buyer" title={{detailObj.buyer}} maxlength="50" required
-              [validation]="true" [disabled]="isDisable" class="w200" /></span>
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.buyer" title={{detailObj.buyer}} maxlength="50"
+              required [validation]="true" [disabled]="isDisable" class="w200" /></span>
 
         </div>
 
         <div nz-col [nzSpan]="12">
           <div class="label_div"><span class="clo_r">*</span>身份证号：</div>
-          <span><input nz-input nzSize="default" [(ngModel)]="detailObj.sfzh" title={{detailObj.sfzh}} maxlength="25" [validation]="true"
-              [validationType]="'nullidcard'" required [validation]="true" [disabled]="isDisable" class="w200" /></span>
+          <span><input nz-input nzSize="default" [(ngModel)]="detailObj.sfzh" title={{detailObj.sfzh}} maxlength="25"
+              [validation]="true" [validationType]="'nullidcard'" required [validation]="true" [disabled]="isDisable"
+              class="w200" /></span>
 
         </div>
       </div>
@@ -107,15 +121,15 @@
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="12">
           <div class="label_div">联系地址：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.lxdz" title={{detailObj.lxdz}} maxlength="50" [disabled]="isDisable"
-              class="w200" /></span>
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.lxdz" title={{detailObj.lxdz}} maxlength="50"
+              [disabled]="isDisable" class="w200" /></span>
 
         </div>
 
         <div nz-col [nzSpan]="12">
           <div class="label_div">预售许可证：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.ysxkz" title={{detailObj.ysxkz}} maxlength="50" [disabled]="isDisable"
-              class="w200" /></span>
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.ysxkz" title={{detailObj.ysxkz}} maxlength="50"
+              [disabled]="isDisable" class="w200" /></span>
 
         </div>
       </div>
@@ -131,10 +145,10 @@
 
         <div nz-col [nzSpan]="12">
           <div class="label_div"><span class="clo_r">*</span>合同类型：</div>
-          <nz-select [(ngModel)]="detailObj.houseType" required name ="houseType"
-          [validation]="true" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
-              <nz-option *ngFor="let option of houseTypeList" [nzLabel]="option.name" [nzValue]="option.code">
-                </nz-option>
+          <nz-select [(ngModel)]="detailObj.houseType" required name="houseType" (ngModelChange)="houseTypeChange(detailObj.houseType)" [validation]="true" class="w200"
+            [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+            <nz-option *ngFor="let option of houseTypeList" [nzLabel]="option.name" [nzValue]="option.code">
+            </nz-option>
           </nz-select>
         </div>
       </div>
@@ -142,7 +156,8 @@
       <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="12">
           <div class="label_div">共有方式：</div>
-          <nz-select [(ngModel)]="detailObj.gyqk" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+          <nz-select [(ngModel)]="detailObj.gyqk" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择"
+            (ngModelChange)="gyqkSelectChange()">
             <nz-option *ngFor="let option of dictionaryObj.gyfs" [nzLabel]="option.name" [nzValue]="option.code">
             </nz-option>
           </nz-select>
@@ -150,65 +165,77 @@
 
         <div nz-col [nzSpan]="12">
           <div class="label_div">共有比例：</div>
-          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.gybl" title={{detailObj.gybl}} maxlength="50" [disabled]="isDisable"
-            class="w200" /></span>
+          <span> <input nz-input nzSize="default" [(ngModel)]="detailObj.gybl" title={{detailObj.gybl}} maxlength="50"
+              [disabled]="isDisable" class="w200" /></span>
 
+        </div>
+      </div>
+      <div nz-row style="height: 50px;padding: 10px;">
+        <div nz-col [nzSpan]="12">
+          <div class="label_div">户型：</div>
+          <nz-select [(ngModel)]="detailObj.hthx" class="w200" [disabled]="isDisable" nzAllowClear nzPlaceHolder="请选择">
+            <nz-option *ngFor="let option of dictionaryObj.hthx" [nzLabel]="option.name" [nzValue]="option.code">
+            </nz-option>
+          </nz-select>
         </div>
       </div>
 
       <nz-divider *ngIf="bg" nzText="变更理由" nzOrientation="left" style="font-size: 18px"></nz-divider>
-      <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }"  *ngIf="bg" [(ngModel)]="detailObj.bgly"
-      maxlength="250" placeholder="请输入变更理由"></textarea>
+      <textarea nz-input [nzAutosize]="{ minRows: 5, maxRows: 8 }" *ngIf="bg" [(ngModel)]="detailObj.bgly"
+        maxlength="250" placeholder="请输入变更理由"></textarea>
 
-      <nz-divider nzText="共有权人" nzOrientation="left" style="font-size: 18px"></nz-divider>
-      <div nz-row style="height: 50px;padding: 10px;">
-        <div style="text-align: center;" nz-col [nzSpan]="5">
-          <span class="clo_r">*</span>姓名
+      <div [(ngModel)]="gyqrShow" *ngIf="gyqrShow">
+        <nz-divider nzText="共有权人" nzOrientation="left" style="font-size: 18px"></nz-divider>
+        <div nz-row style="height: 50px;padding: 10px;">
+          <div style="text-align: center;" nz-col [nzSpan]="5">
+            <span class="clo_r">*</span>姓名
+          </div>
+          <div style="text-align: center;" nz-col [nzSpan]="4">
+            证件种类
+          </div>
+          <div style="text-align: center;" nz-col [nzSpan]="4">
+            <span class="clo_r">*</span>证件号码
+          </div>
+          <div style="text-align: center;" nz-col [nzSpan]="4">
+            <span class="clo_r">*</span>共有方式
+          </div>
+          <div style="text-align: center;" nz-col [nzSpan]="4">
+            共有比例
+          </div>
+          <div style="text-align: center;" nz-col [nzSpan]="3">
+            <button nz-button nzType="primary" [disabled]="isDisable" (click)="addpeople()">添加</button>
+          </div>
         </div>
-        <div style="text-align: center;" nz-col [nzSpan]="4">
-          证件种类
-        </div>
-        <div style="text-align: center;" nz-col [nzSpan]="4">
-          <span class="clo_r">*</span>证件号码
-        </div>
-        <div style="text-align: center;" nz-col [nzSpan]="4">
-          <span class="clo_r">*</span>共有方式
-        </div>
-        <div style="text-align: center;" nz-col [nzSpan]="4">
-          共有比例
-        </div>
-        <div style="text-align: center;" nz-col [nzSpan]="3">
-          <button nz-button nzType="primary" [disabled]="isDisable" (click)="addpeople()">添加</button>
-        </div>
-      </div>
-      <div *ngFor="let item of detailObj.relationShips;index as index" nz-row style="height: 50px;padding: 10px;">
-        <div style="text-align: center;" nz-col [nzSpan]="5">
-          <input nz-input nzSize="default" [(ngModel)]="item.name" title={{item.name}} (keyup)="nameChange()" [disabled]="isDisable"
-            required maxlength="50" [validation]="true" class="w200" placeholder="请输入姓名" />
-        </div>
-        <div style="text-align: center;" nz-col [nzSpan]="4">
-          <nz-select nzPlaceHolder='请选择证件类别' [(ngModel)]="item.zjlb" title={{item.zjlb}} class="w200" [disabled]="isDisable">
-            <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
-            </nz-option>
-          </nz-select>
-        </div>
-        <div style="text-align: center;" nz-col [nzSpan]="4">
-          <input nz-input nzSize="default" [(ngModel)]="item.sfzh" title={{item.sfzh}} [disabled]="isDisable" required [validation]="true"
-            maxlength="25" class="w200" placeholder="请输入证件号码" />
-        </div>
-        <div style="text-align: center;" nz-col [nzSpan]="4">
-          <nz-select [(ngModel)]="item.gyfs" class="w200" nzPlaceHolder="请选择共有方式" [disabled]="isDisable" required
-            [validation]="true">
-            <nz-option *ngFor="let option of dictionaryObj.gyfs" [nzLabel]="option.name" [nzValue]="option.code">
-            </nz-option>
-          </nz-select>
-        </div>
-        <div style="text-align: center;" nz-col [nzSpan]="4">
-          <input nz-input nzSize="default" [(ngModel)]="item.gybl" title={{item.gybl}}  [disabled]="isDisable"
-             maxlength="25"  class="w200" placeholder="请输入共有比例" />
-        </div>
-        <div style="text-align: center;" nz-col [nzSpan]="3">
-          <button nz-button nzType="primary" [disabled]="isDisable" (click)="deletepeople(item,index)">删除</button>
+        <div *ngFor="let item of detailObj.relationShips;index as index" nz-row style="height: 50px;padding: 10px;">
+          <div style="text-align: center;" nz-col [nzSpan]="5">
+            <input nz-input nzSize="default" [(ngModel)]="item.name" title={{item.name}} (keyup)="nameChange()"
+              [disabled]="isDisable" required maxlength="50" [validation]="true" class="w200" placeholder="请输入姓名" />
+          </div>
+          <div style="text-align: center;" nz-col [nzSpan]="4">
+            <nz-select nzPlaceHolder='请选择证件类别' [(ngModel)]="item.zjlb" title={{item.zjlb}} class="w200"
+              [disabled]="isDisable">
+              <nz-option *ngFor="let option of dictionaryObj.zjlb" [nzLabel]="option.name" [nzValue]="option.code">
+              </nz-option>
+            </nz-select>
+          </div>
+          <div style="text-align: center;" nz-col [nzSpan]="4">
+            <input nz-input nzSize="default" [(ngModel)]="item.sfzh" title={{item.sfzh}} [disabled]="isDisable" required
+              [validation]="true" maxlength="25" class="w200" placeholder="请输入证件号码" />
+          </div>
+          <div style="text-align: center;" nz-col [nzSpan]="4">
+            <nz-select [(ngModel)]="item.gyfs" class="w200" nzPlaceHolder="请选择共有方式" [disabled]="isDisable" required
+              [validation]="true">
+              <nz-option *ngFor="let option of dictionaryObj.gyfs" [nzLabel]="option.name" [nzValue]="option.code">
+              </nz-option>
+            </nz-select>
+          </div>
+          <div style="text-align: center;" nz-col [nzSpan]="4">
+            <input nz-input nzSize="default" [(ngModel)]="item.gybl" title={{item.gybl}} [disabled]="isDisable"
+              maxlength="25" class="w200" placeholder="请输入共有比例" />
+          </div>
+          <div style="text-align: center;" nz-col [nzSpan]="3">
+            <button nz-button nzType="primary" [disabled]="isDisable" (click)="deletepeople(item,index)">删除</button>
+          </div>
         </div>
       </div>
 
@@ -217,13 +244,15 @@
 
         <div class="lpb_div" style="width:980px;margin:0 auto;overflow: auto;">
           <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}">
-            <li class="ch_td"  style="background: #fff">楼层数</li>
-            <li style="background: #fff;color: rgba(0, 0, 0, 0.85) "   *ngFor="let data of lpbList.dyList; index as index" [ngStyle]="{'width':data.rowSpan*100+'px'}">
+            <li class="ch_td" style="background: #fff">楼层数</li>
+            <li style="background: #fff;color: rgba(0, 0, 0, 0.85) " *ngFor="let data of lpbList.dyList; index as index"
+              [ngStyle]="{'width':data.rowSpan*100+'px'}">
               {{data.name}}</li>
           </ul>
           <ul [ngStyle]="{'width':(rowSpan + 2)*100+'px'}" *ngFor="let item of lpbList.cList; index as index">
-            <li class="ch_td"  style="background: #fff">{{item.ch}}层</li>
-            <li *ngFor="let hu of item.hList" [ngClass]="{'lpb_ydy':hu.status == 1 , 'lpb_ycf':hu.cfStatus == 1,'lpb_yba':hu.tradeType>0,'lpb_yzl':hu.zlStatus==1}"
+            <li class="ch_td" style="background: #fff">{{item.ch}}层</li>
+            <li *ngFor="let hu of item.hList"
+              [ngClass]="{'lpb_ydy':hu.status == 1 , 'lpb_ycf':hu.cfStatus == 1,'lpb_yba':hu.tradeType>0,'lpb_yzl':hu.zlStatus==1,'lpb_khk':hu.id==null}"
               nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent"
               (mouseenter)="selectedHuChange(hu)" [ngStyle]="{'border-color':selectH==hu.id?'red':'#ccc'}"
               (click)="selectH=hu.id">
@@ -271,9 +300,1391 @@
 
     </div>
   </div>
+  
+  <div class="jbxx" *ngIf="tabsetIndex==1" style="width:100%;height:calc(100% - 90px);overflow: auto;background: #fff">
+    <!-- // 现售合同编辑 -->
+    <div class="WordSection" [ngClass]="{'show_balc_lfet':showBalc}" *ngIf="isXS">
+      <p class="txt_right">合同编号：<input [(ngModel)]="cashSalesTemplate.ht1" title={{cashSalesTemplate.ht1}} readonly class="input_line input_w200" /></p>  
+      <h1 class="h1_center">商品房买卖合同（现售）</h1>  
+      <h3 class="h3_center"> 合同名称：<input [(ngModel)]="cashSalesTemplate.htmc" title={{cashSalesTemplate.htmc}} class="input_line input_w300" [readonly]="isDisable" /></h3>                      
+      <h3 class="h3_center"> 房号：<input [(ngModel)]="cashSalesTemplate.fh" title={{cashSalesTemplate.fh}} class="input_line input_w300" [readonly]="isDisable" /></h3>
+      <h3 class="h3_center"> 出卖人：<input [(ngModel)]="cashSalesTemplate.ht2" title={{cashSalesTemplate.ht2}} class="input_line input_w300" [readonly]="isDisable" /></h3>                      
+      <h3 class="h3_center"> 买受人：<input [(ngModel)]="cashSalesTemplate.ht3" title={{cashSalesTemplate.ht3}} class="input_line input_w300" [readonly]="isDisable" /></h3>            
+      <h2 class="h2_center txt_top">万年县自然资源局 监制</h2>
+       
+      <h1 class="h1_center">目 录</h1>
+      <h2>说明</h2>
+      <h2>专业术语解释</h2>
+      <h2>第一章合同当事人</h2>
+      <h2>第二章商品房基本状况</h2>
+      <h2>第三章商品房价款</h2>
+      <h2>第四章商品房交付条件与交付手续</h2>
+      <h2>第五章商品房质量及保修责任</h2>
+      <h2>第六章合同备案与不动产登记登记</h2>
+      <h2>第七章物业管理</h2>
+      <h2>第八章其他事项</h2> 
+
+      
+      
+      <h1 class="h1_center">说 明</h1>
+      
+      <p>1.本合同文本为示范文本，由万年县自然资源局制定。各地可在有关法律法规、规定的范围内，结合实际情况调整合同相应内容。</p>
+      <p>2.签订本合同前，出卖人应当向买受人出示有关权属证书和证明文件。</p>
+      <p>3.出卖人应当就合同重大事项对买受人尽到提示义务。买受人应当审慎签订合同，在签订本合同前，要仔细阅读合同条款，特别是审阅其中具有选择性、补充性、修改性的内容，注意防范潜在的市场风险和交易风险。</p>
+      <p>4.本合同文本【】中选择内容、空格部位填写内容及其他需要删除或添加的内容，双方当事人应当协商确定。【】中选择内容，以划√方式选定；对于实际情况未发生或双方当事人不作约定时，应当在空格部位打×，以示删除。</p>
+      <p>5.出卖人与买受人可以针对本合同文本中没有约定或者约定不明确的内容，根据所售项目的具体情况在相关条款后的空白行中进行补充约定，也可以另行签订补充协议。</p>
+      <p>6.双方当事人可以根据实际情况决定本合同原件的份数，并在签订合同时认真核对，以确保各份合同内容一致；在任何情况下，出卖人和买受人都应当至少持有一份合同原件。</p>
+      
+      
+      <h1 class="h1_center">专业术语解释</h1>
+      
+      <p>1.商品房现售：是指房地产开发企业将竣工验收合格的商品房出售给买受人，并由买受人支付房价款的行为。</p>
+      <p>2.法定代理人：是指依照法律规定直接取得代理权的人。</p>
+      <p>3.套内建筑面积：是指成套房屋的套内建筑面积，由套内使用面积、套内墙体面积、套内阳台建筑面积三部分组成。</p>
+      <p>4.房屋的建筑面积：是指房屋外墙（柱）勒脚以上各层的外围水平投影面积，包括阳台、挑廊、地下室、室外楼梯等，且具备有上盖，结构牢固，层高2.20M 以上（含2.20M）的永久性建筑。</p>
+      <p>5.不可抗力：是指不能预见、不能避免并不能克服的客观情况。</p>
+      <p>6.民用建筑节能：是指在保证民用建筑使用功能和室内热环境质量的前提下，降低其使用过程中能源消耗的活动。民用建筑是指居住建筑、国家机关办公建筑和商业、服务业、教育、卫生等其他公共建筑。</p>
+      <p>7.不动产登记：是指不动产登记机构依法将房屋权利和其他应当记载的事项在不动产登记簿上予以记载的行为。</p>
+      <p>8.不动产转移登记：是指商品房所有权从出卖人转移至买受人所办理的登记类型。</p>
+      <p>9.不动产登记机构：是指直辖市、市、县人民政府自然资源主管部门或者其设置的负责不动产登记工作的机构。</p>
+      <p>10.分割拆零销售：是指房地产开发企业将成套的商品住宅分割为数部分分别出售给买受人的销售方式。</p>
+      <p>11.返本销售：是指房地产开发企业以定期向买受人返还购房款的方式销售商品房的行为。</p>
+      
+      
+      
+      
+      
+      
+      <h1 class="h1_center">商品房买卖合同</h1>
+      <h1 class="h1_center">（现售）</h1>
+      
+      <p>出卖人向买受人出售其开发建设的房屋，双方当事人应当在自愿、平等、公平及诚实信用的基础上，根据《中华人民共和国合同法》、《中华人民共和国物权法》、《中华人民共和国城市房地产管理法》等法律、法规的规定，就商品房买卖相关内容协商达成一致意见，签订本商品房买卖合同。</p>
+      <h2 class="h1_center">第一章 合同当事人</h2>
+      <p class="txt_left txt_top">出卖人：<input [(ngModel)]="cashSalesTemplate.jf1" title={{cashSalesTemplate.jf1}} class="input_line input_w500" [readonly]="isDisable" /></p>                                                       
+      <p class="txt_left ">通讯地址：<input [(ngModel)]="cashSalesTemplate.jf2" title={{cashSalesTemplate.jf2}} class="input_line input_w500" [readonly]="isDisable" /></p>                                                    
+      <p class="txt_left ">邮政编码：<input [(ngModel)]="cashSalesTemplate.jf3" title={{cashSalesTemplate.jf3}} class="input_line input_w500" [readonly]="isDisable" /></p>                                                     
+      <p class="txt_left ">营业执照注册号：<input [(ngModel)]="cashSalesTemplate.jf4" title={{cashSalesTemplate.jf4}} class="input_line input_w500" [readonly]="isDisable" /></p>                                              
+      <p class="txt_left ">企业资质证书号：<input [(ngModel)]="cashSalesTemplate.jf5" title={{cashSalesTemplate.jf5}} class="input_line input_w500" [readonly]="isDisable" /></p>                                                
+      <p class="txt_left ">法定代表人：<input [(ngModel)]="cashSalesTemplate.jf6" title={{cashSalesTemplate.jf6}} class="input_line input_w200" [readonly]="isDisable" />
+                          联系电话：<input [(ngModel)]="cashSalesTemplate.jf7" title={{cashSalesTemplate.jf7}} class="input_line input_w200" [readonly]="isDisable" /></p>          
+      <p class="txt_left ">委托代理人：<input [(ngModel)]="cashSalesTemplate.jf8" title={{cashSalesTemplate.jf8}} class="input_line input_w200" [readonly]="isDisable" />
+                          联系电话：<input [(ngModel)]="cashSalesTemplate.jf9" title={{cashSalesTemplate.jf9}} class="input_line input_w200" [readonly]="isDisable" /></p>                   
+      <p class="txt_left ">委托销售经纪机构：<input [(ngModel)]="cashSalesTemplate.jf10" title={{cashSalesTemplate.jf10}} class="input_line input_w500" [readonly]="isDisable" /></p>                                        
+      <p class="txt_left ">通讯地址：<input [(ngModel)]="cashSalesTemplate.jf11" title={{cashSalesTemplate.jf11}} class="input_line input_w500" [readonly]="isDisable" /></p>                                            
+      <p class="txt_left ">邮政编码：<input [(ngModel)]="cashSalesTemplate.jf12" title={{cashSalesTemplate.jf12}} class="input_line input_w500" [readonly]="isDisable" /> </p>                                               
+      <p class="txt_left ">营业执照注册号：<input [(ngModel)]="cashSalesTemplate.jf13" title={{cashSalesTemplate.jf13}} class="input_line input_w500" [readonly]="isDisable" /></p>                                           
+      <p class="txt_left ">经纪机构备案证明号：<input [(ngModel)]="cashSalesTemplate.jf14" title={{cashSalesTemplate.jf14}} class="input_line input_w500" [readonly]="isDisable" /></p>                                        
+      <p class="txt_left ">法定代表人：<input [(ngModel)]="cashSalesTemplate.jf15" title={{cashSalesTemplate.jf15}} class="input_line input_w200" [readonly]="isDisable" />
+                          联系电话：<input [(ngModel)]="cashSalesTemplate.jf16" title={{cashSalesTemplate.jf16}} class="input_line input_w200" [readonly]="isDisable" /></p>                    
+      
+      <p class="txt_left txt_top">买受人：<input [(ngModel)]="cashSalesTemplate.yf1" title={{cashSalesTemplate.yf1}} class="input_line input_w500" [readonly]="isDisable" /></p>                                          
+      <p class="txt_left">【法定代表人】【负责人】：<input [(ngModel)]="cashSalesTemplate.yf2" title={{cashSalesTemplate.yf2}} class="input_line input_w400" [readonly]="isDisable" /></p>                          
+      <p class="txt_left">【国籍】【户籍所在地】：<input [(ngModel)]="cashSalesTemplate.yf3" title={{cashSalesTemplate.yf3}} class="input_line input_w400" [readonly]="isDisable" /></p>                              
+      <p class="txt_left">证件类型：【居民身份证】【护照】【营业执照】
+                          【<input [(ngModel)]="cashSalesTemplate.yf4" title={{cashSalesTemplate.yf4}} class="input_line input_w100" [readonly]="isDisable" />】，</p>
+      <p class="txt_left">证号：<input [(ngModel)]="cashSalesTemplate.yf5" title={{cashSalesTemplate.yf5}} class="input_line input_w500" [readonly]="isDisable" /></p>         
+      <p class="txt_left">出生日期：
+                          <span>
+                          <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.yf6" title={{cashSalesTemplate.yf6}} [nzAllowClear]="false"  [disabled]="isDisable">
+                          </nz-date-picker>
+                          </span>，
+                          性别：<input [(ngModel)]="cashSalesTemplate.yf7" title={{cashSalesTemplate.yf7}} class="input_line input_w200" [readonly]="isDisable" /></p>                 
+      <p class="txt_left">通讯地址：<input [(ngModel)]="cashSalesTemplate.yf8" title={{cashSalesTemplate.yf8}} class="input_line input_w500" [readonly]="isDisable" /> </p>                                                  
+      <p class="txt_left">邮政编码：<input [(ngModel)]="cashSalesTemplate.yf9" title={{cashSalesTemplate.yf9}} class="input_line input_w200" [readonly]="isDisable" />
+                          联系电话：<input [(ngModel)]="cashSalesTemplate.yf10" title={{cashSalesTemplate.yf10}} class="input_line input_w200" [readonly]="isDisable" /></p>                
+      <p class="txt_left">【委托代理人】【法定代理人】：<input [(ngModel)]="cashSalesTemplate.yf11" title={{cashSalesTemplate.yf11}} class="input_line input_w400" [readonly]="isDisable" /></p>                                    
+      <p class="txt_left">【国籍】【户籍所在地】：<input [(ngModel)]="cashSalesTemplate.yf12" title={{cashSalesTemplate.yf12}} class="input_line input_w400" [readonly]="isDisable" /></p>                               
+      <p class="txt_left">证件类型：【居民身份证】【护照】【营业执照】【<input [(ngModel)]="cashSalesTemplate.yf13" title={{cashSalesTemplate.yf13}} class="input_line input_w100" [readonly]="isDisable" />】，</p>
+      <p class="txt_left">证号：<input [(ngModel)]="cashSalesTemplate.yf14" title={{cashSalesTemplate.yf14}} class="input_line input_w500" [readonly]="isDisable" /></p>         
+      <p class="txt_left"> 出生日期：
+                          <span>
+                          <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.yf15" title={{cashSalesTemplate.yf15}} [nzAllowClear]="false"  [disabled]="isDisable">
+                          </nz-date-picker>
+                          </span>，
+                          性别：<input [(ngModel)]="cashSalesTemplate.yf16" title={{cashSalesTemplate.yf16}} class="input_line input_w200" [readonly]="isDisable" /></p>                
+      <p class="txt_left">通讯地址：<input [(ngModel)]="cashSalesTemplate.yf17" title={{cashSalesTemplate.yf17}} class="input_line input_w500" [readonly]="isDisable" /></p>                            
+      <p class="txt_left">邮政编码：<input [(ngModel)]="cashSalesTemplate.yf18" title={{cashSalesTemplate.yf18}} class="input_line input_w200" [readonly]="isDisable" />
+                          联系电话：<input [(ngModel)]="cashSalesTemplate.yf19" title={{cashSalesTemplate.yf19}} class="input_line input_w200" [readonly]="isDisable" /></p>                
+      
+      <h2 class="h1_center">第二章 商品房基本状况</h2>
+      <h3 class="h3_left">第一条 项目建设依据</h3>
+      <p>1.出卖人以【出让】【划拨】【<input [(ngModel)]="cashSalesTemplate.d1t1" title={{cashSalesTemplate.d1t1}} class="input_line input_w100" [readonly]="isDisable" />】方式取得
+          坐落于<input [(ngModel)]="cashSalesTemplate.d1t2" title={{cashSalesTemplate.d1t2}} class="input_line input_w500" [readonly]="isDisable" />地块的建设用地使用权。
+          该地块【不动产权证号】【<input [(ngModel)]="cashSalesTemplate.d1t3" title={{cashSalesTemplate.d1t3}} class="input_line input_w200" [readonly]="isDisable" />】
+          为<input [(ngModel)]="cashSalesTemplate.d1t4" title={{cashSalesTemplate.d1t4}} class="input_line input_w200" [readonly]="isDisable" />，
+          土地使用权面积为<input [(ngModel)]="cashSalesTemplate.d1t5" title={{cashSalesTemplate.d1t5}} class="input_line input_w100" [readonly]="isDisable" />平方米。
+          买受人购买的商品房(以下简称该商品房）所在土地用途为<input [(ngModel)]="cashSalesTemplate.d1t6" title={{cashSalesTemplate.d1t6}} class="input_line input_w200" [readonly]="isDisable" />，
+          土地使用权终止日期为
+          <span>
+            <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d1t7" title={{cashSalesTemplate.d1t7}} [nzAllowClear]="false"  [disabled]="isDisable">
+            </nz-date-picker>
+            </span> 。</p>
+      <p> 2. 出卖人经批准，在上述地块上建设的商品房项目核准名称为<input [(ngModel)]="cashSalesTemplate.d1t8" title={{cashSalesTemplate.d1t8}} class="input_line input_w300" [readonly]="isDisable" />，
+          建设工程规划许可证号为<input [(ngModel)]="cashSalesTemplate.d1t9" title={{cashSalesTemplate.d1t9}} class="input_line input_w300" [readonly]="isDisable" />，
+          建筑工程施工许可证号为<input [(ngModel)]="cashSalesTemplate.d1t10" title={{cashSalesTemplate.d1t10}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+
+      <h3 class="h3_left">第二条 销售依据</h3>
+      <p>该商品房已取得【建设工程竣工验收备案证明文件】【《不动产权证》】，【备案号】【《不动产权证》证号】为<input [(ngModel)]="cashSalesTemplate.d2t1" title={{cashSalesTemplate.d2t1}} class="input_line input_w300" [readonly]="isDisable" />，
+        【备案机构】【不动产登记机构】为<input [(ngModel)]="cashSalesTemplate.d2t2" title={{cashSalesTemplate.d2t2}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+
+      <h3 class="h3_left">第三条 商品房基本情况</h3> 
+      <p>1.该商品房的规划用途为【住宅】【办公】【商业】【<input [(ngModel)]="cashSalesTemplate.d3t1" title={{cashSalesTemplate.d3t1}} class="input_line input_w100" [readonly]="isDisable" />】。</p>
+      <p>2.该商品房所在楼栋的主体建筑结构为<input [(ngModel)]="cashSalesTemplate.d3t2" title={{cashSalesTemplate.d3t2}} class="input_line input_w200" [readonly]="isDisable" />，
+      建筑层数为<input [(ngModel)]="cashSalesTemplate.d3t3" title={{cashSalesTemplate.d3t3}} class="input_line input_w50" [readonly]="isDisable" />层，
+      其中地上<input [(ngModel)]="cashSalesTemplate.d3t4" title={{cashSalesTemplate.d3t4}} class="input_line input_w50" [readonly]="isDisable" />层，
+      地下<input [(ngModel)]="cashSalesTemplate.d3t5" title={{cashSalesTemplate.d3t5}} class="input_line input_w50" [readonly]="isDisable" />层。</p>
+      <p>3.该商品房为第一条规定项目中的<input [(ngModel)]="cashSalesTemplate.d3t6" title={{cashSalesTemplate.d3t6}} class="input_line input_w200" [readonly]="isDisable" />【幢】【座】
+      【<input [(ngModel)]="cashSalesTemplate.d3t7" title={{cashSalesTemplate.d3t7}} class="input_line input_w50" [readonly]="isDisable" />】
+      <input [(ngModel)]="cashSalesTemplate.d3t8" title={{cashSalesTemplate.d3t8}} class="input_line input_w50" [readonly]="isDisable" />单元
+      <input [(ngModel)]="cashSalesTemplate.d3t9" title={{cashSalesTemplate.d3t9}} class="input_line input_w50" [readonly]="isDisable" />层
+      <input [(ngModel)]="cashSalesTemplate.d3t10" title={{cashSalesTemplate.d3t10}} class="input_line input_w50" [readonly]="isDisable" />号。房屋竣工后，如房号发生改变,不影响该商品房的特定位置。该商品房的平面图见附件一。</p>
+      <p>4.该商品房的房产测绘机构为<input [(ngModel)]="cashSalesTemplate.d3t11" title={{cashSalesTemplate.d3t11}} class="input_line input_w200" [readonly]="isDisable" />，
+      其实测建筑面积共<input [(ngModel)]="cashSalesTemplate.d3t12" title={{cashSalesTemplate.d3t12}} class="input_line input_w100" [readonly]="isDisable" />平方米，
+      其中套内建筑面积<input [(ngModel)]="cashSalesTemplate.d3t13" title={{cashSalesTemplate.d3t13}} class="input_line input_w100" [readonly]="isDisable" />平方米，
+      共有分摊建筑面积<input [(ngModel)]="cashSalesTemplate.d3t14" title={{cashSalesTemplate.d3t14}} class="input_line input_w100" [readonly]="isDisable" />平方米。该商品房共用部位见附件二。 
+      该商品房层高为<input [(ngModel)]="cashSalesTemplate.d3t15" title={{cashSalesTemplate.d3t15}} class="input_line input_w100" [readonly]="isDisable" />米，
+      有<input [(ngModel)]="cashSalesTemplate.d3t16" title={{cashSalesTemplate.d3t16}} class="input_line input_w50" [readonly]="isDisable" />个阳台，
+      其中<input [(ngModel)]="cashSalesTemplate.d3t17" title={{cashSalesTemplate.d3t17}} class="input_line input_w50" [readonly]="isDisable" />个阳台为封闭式，
+      <input [(ngModel)]="cashSalesTemplate.d3t18" title={{cashSalesTemplate.d3t18}} class="input_line input_w50" [readonly]="isDisable" />个阳台为非封闭式。阳台是否封闭以规划设计文件为准。</p>
+     
+      <h3 class="h3_left">第四条 抵押情况</h3>
+      <p>与该商品房有关的抵押情况为【抵押】【未抵押】。</p>
+      <p>抵押人：<input [(ngModel)]="cashSalesTemplate.d4t1" title={{cashSalesTemplate.d4t1}} class="input_line input_w300" [readonly]="isDisable" />，
+        抵押权人：<input [(ngModel)]="cashSalesTemplate.d4t2" title={{cashSalesTemplate.d4t2}} class="input_line input_w300" [readonly]="isDisable" />，</p>
+      <p>抵押登记机构：<input [(ngModel)]="cashSalesTemplate.d4t3" title={{cashSalesTemplate.d4t3}} class="input_line input_w300" [readonly]="isDisable" />，
+        抵押登记日期：<span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d4t4" title={{cashSalesTemplate.d4t4}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+          </span>，</p>
+      <p>债务履行期限：<input [(ngModel)]="cashSalesTemplate.d4t5" title={{cashSalesTemplate.d4t5}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>抵押权人同意该商品房转让的证明及关于抵押的相关约定见附件三。</p> 
+
+      <h3 class="h3_left">第五条 租赁情况</h3>      
+      <p>该商品房的租赁情况为【出租】【未出租】。</p>
+      <p>出卖人已将该商品房出租，【买受人为该商品房承租人】【承租人放弃优先购买权】。</p>
+      <p>租赁期限：从<span>
+        <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d5t1" title={{cashSalesTemplate.d5t1}} [nzAllowClear]="false"  [disabled]="isDisable">
+        </nz-date-picker>
+        </span> 
+        至<span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d5t2" title={{cashSalesTemplate.d5t2}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+          </span>。
+        出卖人与买受人经协商一致，自本合同约定的交付日至租赁期限届满期间的房屋收益归【出卖人】【买受人】所有。</p>
+        <p><input [(ngModel)]="cashSalesTemplate.d5t3" title={{cashSalesTemplate.d5t3}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+        <p>出卖人提供的承租人放弃优先购买权的声明见附件四。</p>
+
+      <h3 class="h3_left">第六条 房屋权利状况承诺</h3>      
+      <p>1.出卖人对该商品房享有合法权利；</p>
+      <p>2.该商品房没有销售给除本合同买受人以外的其他人；</p>
+      <p>3.该商品房没有司法查封或其他限制转让的情况；</p>
+      <p>4.<input [(ngModel)]="cashSalesTemplate.d6t1" title={{cashSalesTemplate.d6t1}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p>5.<input [(ngModel)]="cashSalesTemplate.d6t2" title={{cashSalesTemplate.d6t2}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>如该商品房权利状况与上述情况不符，导致不能完成不动产权转移登记的，买受人有权解除合同。买受人解除合同的，应当书面通知出卖人，出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="cashSalesTemplate.d6t3" title={{cashSalesTemplate.d6t3}} class="input_line input_w50" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息。给买受人造成损失的，由出卖人支付【已付房价款一倍】【买受人全部损失】的赔偿金。
+      </p>
+
+      <h2 class="h1_center">第三章 商品房价款</h2>
+      <h3 class="h3_left">第七条 计价方式与价款</h3>
+      <p>出卖人与买受人按照下列第<input [(ngModel)]="cashSalesTemplate.d7t1" title={{cashSalesTemplate.d7t1}} class="input_line input_w50" [readonly]="isDisable" />种方式计算该商品房价款：</p>
+      <p>1.按照套内建筑面积计算，该商品房单价为每平方米<input [(ngModel)]="cashSalesTemplate.d7t2" title={{cashSalesTemplate.d7t2}} class="input_line input_w50" [readonly]="isDisable" />（币种）
+      <input [(ngModel)]="cashSalesTemplate.d7t3" title={{cashSalesTemplate.d7t3}} class="input_line input_w100" [readonly]="isDisable" />元，
+      总价款为<input [(ngModel)]="cashSalesTemplate.d7t4" title={{cashSalesTemplate.d7t4}} class="input_line input_w50" [readonly]="isDisable" />（币种）
+      <input [(ngModel)]="cashSalesTemplate.d7t5" title={{cashSalesTemplate.d7t5}} class="input_line input_w100" [readonly]="isDisable" /> 元
+      （大写<input [(ngModel)]="cashSalesTemplate.d7t6" title={{cashSalesTemplate.d7t6}} class="input_line input_w400" [readonly]="isDisable" />元整）。</p>
+      <p>2.按照建筑面积计算，该商品房单价为每平方米<input [(ngModel)]="cashSalesTemplate.d7t7" title={{cashSalesTemplate.d7t7}} class="input_line input_w50" [readonly]="isDisable" />（币种）
+        <input [(ngModel)]="cashSalesTemplate.d7t8" title={{cashSalesTemplate.d7t8}} class="input_line input_w100" [readonly]="isDisable" />元，
+      总价款为<input [(ngModel)]="cashSalesTemplate.d7t9" title={{cashSalesTemplate.d7t9}} class="input_line input_w50" [readonly]="isDisable" />
+      （币种）<input [(ngModel)]="cashSalesTemplate.d7t10" title={{cashSalesTemplate.d7t10}} class="input_line input_w100" [readonly]="isDisable" />元
+      （大写<input [(ngModel)]="cashSalesTemplate.d7t11" title={{cashSalesTemplate.d7t11}} class="input_line input_w400" [readonly]="isDisable" />元整）。</p>
+      <p>3.按照套计算，该商品房总价款为<input [(ngModel)]="cashSalesTemplate.d7t12" title={{cashSalesTemplate.d7t12}} class="input_line input_w50" [readonly]="isDisable" />（币种）
+        <input [(ngModel)]="cashSalesTemplate.d7t13" title={{cashSalesTemplate.d7t13}} class="input_line input_w100" [readonly]="isDisable" /> 元
+        （大写 <input [(ngModel)]="cashSalesTemplate.d7t14" title={{cashSalesTemplate.d7t14}} class="input_line input_w400" [readonly]="isDisable" />元整）。</p>
+      <p>4.按照<input [(ngModel)]="cashSalesTemplate.d7t15" title={{cashSalesTemplate.d7t15}} class="input_line input_w300" [readonly]="isDisable" />计算，
+        该商品房总价款为<input [(ngModel)]="cashSalesTemplate.d7t16" title={{cashSalesTemplate.d7t16}} class="input_line input_w50" [readonly]="isDisable" />（币种）
+        <input [(ngModel)]="cashSalesTemplate.d7t17" title={{cashSalesTemplate.d7t17}} class="input_line input_w100" [readonly]="isDisable" /> 元
+        （大写<input [(ngModel)]="cashSalesTemplate.d7t18" title={{cashSalesTemplate.d7t18}} class="input_line input_w400" [readonly]="isDisable" />元整）。</p>
+
+      <h3 class="h3_left">第八条 付款方式及期限</h3>
+      <p>（一）签订本合同前，买受人已向出卖人支付定金<input [(ngModel)]="cashSalesTemplate.d8t1" title={{cashSalesTemplate.d8t1}} class="input_line input_w50" [readonly]="isDisable" />（币种）
+        <input [(ngModel)]="cashSalesTemplate.d8t2" title={{cashSalesTemplate.d8t2}} class="input_line input_w400" [readonly]="isDisable" />元（大写），
+        该定金于【本合同签订】【交付首付款】【<input [(ngModel)]="cashSalesTemplate.d8t3" title={{cashSalesTemplate.d8t3}} class="input_line input_w100" [readonly]="isDisable" />】时【抵作】
+        【<input [(ngModel)]="cashSalesTemplate.d8t4" title={{cashSalesTemplate.d8t4}} class="input_line input_w100" [readonly]="isDisable" />】商品房价款。</p>
+      <p>（二）买受人采取下列第<input [(ngModel)]="cashSalesTemplate.d8t5" title={{cashSalesTemplate.d8t5}} class="input_line input_w50" [readonly]="isDisable" />种方式付款：</p>
+      <p>1.一次性付款。买受人应当在
+        <span>
+        <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d8t6" title={{cashSalesTemplate.d8t6}} [nzAllowClear]="false"  [disabled]="isDisable">
+        </nz-date-picker>
+        </span>前支付该商品房全部价款。</p>
+      <p>2.分期付款。买受人应当在
+        <span>
+        <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d8t7" title={{cashSalesTemplate.d8t7}} [nzAllowClear]="false"  [disabled]="isDisable">
+        </nz-date-picker>
+        </span>前
+        分<input [(ngModel)]="cashSalesTemplate.d8t8" title={{cashSalesTemplate.d8t8}} class="input_line input_w50" [readonly]="isDisable" />期支付该商品房全部价款，
+        首期房价款<input [(ngModel)]="cashSalesTemplate.d8t9" title={{cashSalesTemplate.d8t9}} class="input_line input_w50" [readonly]="isDisable" />
+        （币种）<input [(ngModel)]="cashSalesTemplate.d8t10" title={{cashSalesTemplate.d8t10}} class="input_line input_w100" [readonly]="isDisable" />元
+        （大写：<input [(ngModel)]="cashSalesTemplate.d8t11" title={{cashSalesTemplate.d8t11}} class="input_line input_w400" [readonly]="isDisable" />元整），
+        应当于<span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d8t12" title={{cashSalesTemplate.d8t12}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+          </span>前支付。</p>
+        <input [(ngModel)]="cashSalesTemplate.d8t13" title={{cashSalesTemplate.d8t13}} class="input_line input_wAll" [readonly]="isDisable" />。
+      <p>3.贷款方式付款：【公积金贷款】【商业贷款】【<input [(ngModel)]="cashSalesTemplate.d8t14" title={{cashSalesTemplate.d8t14}} class="input_line input_w100" [readonly]="isDisable" />】。
+        买受人应当于<span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d8t15" title={{cashSalesTemplate.d8t15}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+          </span>前
+        支付首期房价款<input [(ngModel)]="cashSalesTemplate.d8t16" title={{cashSalesTemplate.d8t16}} class="input_line input_w50" [readonly]="isDisable" />（币种）
+        <input [(ngModel)]="cashSalesTemplate.d8t17" title={{cashSalesTemplate.d8t17}} class="input_line input_w100" [readonly]="isDisable" />元
+        （大写：<input [(ngModel)]="cashSalesTemplate.d8t18" title={{cashSalesTemplate.d8t18}} class="input_line input_w400" [readonly]="isDisable" />元整），
+        占全部房价款的<input [(ngModel)]="cashSalesTemplate.d8t19" title={{cashSalesTemplate.d8t19}} class="input_line input_w50" [readonly]="isDisable" />％。</p>
+      <p>余款<input [(ngModel)]="cashSalesTemplate.d8t20" title={{cashSalesTemplate.d8t20}} class="input_line input_w50" [readonly]="isDisable" />（币种）
+        <input [(ngModel)]="cashSalesTemplate.d8t21" title={{cashSalesTemplate.d8t21}} class="input_line input_w100" [readonly]="isDisable" />元
+        （大写：<input [(ngModel)]="cashSalesTemplate.d8t22" title={{cashSalesTemplate.d8t22}} class="input_line input_w400" [readonly]="isDisable" />元整）
+        向<input [(ngModel)]="cashSalesTemplate.d8t23" title={{cashSalesTemplate.d8t23}} class="input_line input_w300" [readonly]="isDisable" />（贷款机构）申请贷款支付。</p>
+      <p>4.其他方式：</p>
+      <p><input [(ngModel)]="cashSalesTemplate.d8t24" title={{cashSalesTemplate.d8t24}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>（三）双方约定全部房价款存入以下账户：账户名称为<input [(ngModel)]="cashSalesTemplate.d8t25" title={{cashSalesTemplate.d8t25}} class="input_line input_w300" [readonly]="isDisable" />，
+        开户银行为<input [(ngModel)]="cashSalesTemplate.d8t26" title={{cashSalesTemplate.d8t26}} class="input_line input_w300" [readonly]="isDisable" />，
+        账号为<input [(ngModel)]="cashSalesTemplate.d8t27" title={{cashSalesTemplate.d8t27}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>该商品房价款的计价方式、总价款、付款方式及期限的具体约定见附件五。</p>
+
+      <h3 class="h3_left">第九条 逾期付款责任</h3>
+      <p>除不可抗力外，买受人未按照约定时间付款的，双方同意按照下列第<input [(ngModel)]="cashSalesTemplate.d9t1" title={{cashSalesTemplate.d9t1}} class="input_line input_w50" [readonly]="isDisable" />种方式处理：</p>
+      <p>1.按照逾期时间，分别处理 (（1）和（2）不作累加 ) 。</p>
+      <p>(1) 逾期在<input [(ngModel)]="cashSalesTemplate.d9t2" title={{cashSalesTemplate.d9t2}} class="input_line input_w50" [readonly]="isDisable" />日之内，
+        买受人按日计算向出卖人支付逾期应付款万分之<input [(ngModel)]="cashSalesTemplate.d9t3" title={{cashSalesTemplate.d9t3}} class="input_line input_w50" [readonly]="isDisable" />的违约金。</p> 
+      <p>(2) 逾期超过<input [(ngModel)]="cashSalesTemplate.d9t4" title={{cashSalesTemplate.d9t4}} class="input_line input_w50" [readonly]="isDisable" />日（该期限应当与本条第（1）项中的期限相同）后，出卖人有权解除合同。出卖人解除合同的，应当书面通知买受人。
+        买受人应当自解除合同通知送达之日起<input [(ngModel)]="cashSalesTemplate.d9t5" title={{cashSalesTemplate.d9t5}} class="input_line input_w300" [readonly]="isDisable" />日内按照累计
+        应付款的<input [(ngModel)]="cashSalesTemplate.d9t6" title={{cashSalesTemplate.d9t6}} class="input_line input_w50" [readonly]="isDisable" />%向出卖人支付违约金，同时，出卖人退还买受人已付全部房款（含已付贷款部分）。</p>
+      <p>出卖人不解除合同的，买受人按日计算向出卖人支付逾期应付款万分之<input [(ngModel)]="cashSalesTemplate.d9t7" title={{cashSalesTemplate.d9t7}} class="input_line input_w50" [readonly]="isDisable" />（该比率不低于第（1）项中的比率）的违约金。</p>
+      <p>本条所称逾期应付款是指依照第八条及附件五约定的到期应付款与该期实际已付款的差额；采取分期付款的，按照相应的分期应付款与该期的实际已付款的差额确定。</p>
+      <p>2.<input [(ngModel)]="cashSalesTemplate.d9t8" title={{cashSalesTemplate.d9t8}} class="input_line input_wAll" [readonly]="isDisable" />。 </p>
+
+      <h2 class="h1_center">第四章 商品房交付条件与交付手续</h2>
+      <h3 class="h3_left">第十条 商品房交付条件</h3>
+      <p> 该商品房交付时应当符合下列第1、2、<input [(ngModel)]="cashSalesTemplate.d10t1" title={{cashSalesTemplate.d10t1}} class="input_line input_w50" [readonly]="isDisable" />、
+        <input [(ngModel)]="cashSalesTemplate.d10t2" title={{cashSalesTemplate.d10t2}} class="input_line input_w50" [readonly]="isDisable" />项所列条件：</p>
+      <p>1.该商品房已取得建设工程竣工验收备案证明文件；</p>
+      <p>2.该商品房已取得房屋测绘报告；</p>
+      <p>3.<input [(ngModel)]="cashSalesTemplate.d10t3" title={{cashSalesTemplate.d10t3}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p>4.<input [(ngModel)]="cashSalesTemplate.d10t4" title={{cashSalesTemplate.d10t4}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>该商品房为住宅的，出卖人还需提供《住宅使用说明书》和《住宅质量保证书》。</p> 
+
+      <h3 class="h3_left">第十一条 商品房相关设施设备交付条件</h3>
+      <P>（一）基础设施设备</P>
+      <P>1.供水、排水：交付时供水、排水配套设施齐全，并与城市公共供水、排水管网连接。使用自建设施供水的，供水的水质符合国家规定的饮用水卫生标准，</P>
+      <P><input [(ngModel)]="cashSalesTemplate.d11t1" title={{cashSalesTemplate.d11t1}} class="input_line input_wAll" [readonly]="isDisable" />；</P>
+      <P> 2.供电：交付时纳入城市供电网络并正式供电，</P>
+      <P><input [(ngModel)]="cashSalesTemplate.d11t2" title={{cashSalesTemplate.d11t2}} class="input_line input_wAll" [readonly]="isDisable" />；</P>
+      <P>3.供暖：交付时供热系统符合供热配建标准，使用城市集中供热的，纳入城市集中供热管网，</P>
+      <P><input [(ngModel)]="cashSalesTemplate.d11t3" title={{cashSalesTemplate.d11t3}} class="input_line input_wAll" [readonly]="isDisable" />；</P>
+      <P>4.燃气：交付时完成室内燃气管道的敷设，并与城市燃气管网连接，保证燃气供应，</P>
+      <P><input [(ngModel)]="cashSalesTemplate.d11t4" title={{cashSalesTemplate.d11t4}} class="input_line input_wAll" [readonly]="isDisable" />；</P>
+      <P>5.电话通信：交付时线路敷设到户；</P>
+      <P>6.有线电视：交付时线路敷设到户；</P>
+      <P>7.宽带网络：交付时线路敷设到户。</P>
+      <P>以上第 1、2、3项由出卖人负责办理开通手续并承担相关费用；第4、5、6、7项需要买受人自行办理开通手续。</P>
+      <P>如果在约定期限内基础设施设备未达到交付使用条件，双方同意按照下列第<input [(ngModel)]="cashSalesTemplate.d11t5" title={{cashSalesTemplate.d11t5}} class="input_line input_w50" [readonly]="isDisable" />种方式处理：</P>
+      <P>（1）以上设施中第 1、2、3、4项在约定交付日未达到交付条件的，出卖人按照本合同第十三条的约定承担逾期交付责任。</P>
+      <P>第5项未按时达到交付使用条件的，出卖人按日向买受人支付<input [(ngModel)]="cashSalesTemplate.d11t6" title={{cashSalesTemplate.d11t6}} class="input_line input_w100" [readonly]="isDisable" />元的违约金；
+        第6项未按时达到交付使用条件的，出卖人按日向买受人支付<input [(ngModel)]="cashSalesTemplate.d11t7" title={{cashSalesTemplate.d11t7}} class="input_line input_w100" [readonly]="isDisable" />元的违约金；
+        第7项未按时达到交付使用条件的，出卖人按日向买受人支付<input [(ngModel)]="cashSalesTemplate.d11t8" title={{cashSalesTemplate.d11t8}} class="input_line input_w100" [readonly]="isDisable" />元的违约金。
+        出卖人采取措施保证相关设施于约定交付日后<input [(ngModel)]="cashSalesTemplate.d11t9" title={{cashSalesTemplate.d11t9}} class="input_line input_w50" [readonly]="isDisable" />日之内达到交付使用条件。</P>
+      <P>（2）<input [(ngModel)]="cashSalesTemplate.d11t10" title={{cashSalesTemplate.d11t10}} class="input_line input_wAll" [readonly]="isDisable" />。</P>
+      <p>（二）公共服务及其他配套设施（以建设工程规划许可为准）</p>
+      <p>1.小区内绿地率：<span>
+        <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d11t11" title={{cashSalesTemplate.d11t11}} [nzAllowClear]="false"  [disabled]="isDisable">
+        </nz-date-picker>
+        </span> 
+        达到<input [(ngModel)]="cashSalesTemplate.d11t12" title={{cashSalesTemplate.d11t12}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>2.小区内非市政道路：<span>
+        <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d11t13" title={{cashSalesTemplate.d11t13}} [nzAllowClear]="false"  [disabled]="isDisable">
+        </nz-date-picker>
+        </span> 
+        达到<input [(ngModel)]="cashSalesTemplate.d11t14" title={{cashSalesTemplate.d11t14}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>3.规划的车位、车库：<span>
+        <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d11t15" title={{cashSalesTemplate.d11t15}} [nzAllowClear]="false"  [disabled]="isDisable">
+        </nz-date-picker>
+        </span>  
+        达到<input [(ngModel)]="cashSalesTemplate.d11t16" title={{cashSalesTemplate.d11t16}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>4.物业服务用房：<span>
+        <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d11t17" title={{cashSalesTemplate.d1d11t171t13}} [nzAllowClear]="false"  [disabled]="isDisable">
+        </nz-date-picker>
+        </span>  
+        达到<input [(ngModel)]="cashSalesTemplate.d11t18" title={{cashSalesTemplate.d11t18}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>5.医疗卫生机构：<span>
+        <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d11t19" title={{cashSalesTemplate.d11t19}} [nzAllowClear]="false"  [disabled]="isDisable">
+        </nz-date-picker>
+        </span>  
+        达到<input [(ngModel)]="cashSalesTemplate.d11t20" title={{cashSalesTemplate.d11t20}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>6.幼儿园：<span>
+        <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d11t21" title={{cashSalesTemplate.d11t21}} [nzAllowClear]="false"  [disabled]="isDisable">
+        </nz-date-picker>
+        </span>  
+        达到<input [(ngModel)]="cashSalesTemplate.d11t22" title={{cashSalesTemplate.d11t22}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>7.学校：<span>
+        <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d11t23" title={{cashSalesTemplate.d11t23}} [nzAllowClear]="false"  [disabled]="isDisable">
+        </nz-date-picker>
+        </span>  
+        达到<input [(ngModel)]="cashSalesTemplate.d11t24" title={{cashSalesTemplate.d11t24}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>8. <input [(ngModel)]="cashSalesTemplate.d11t25" title={{cashSalesTemplate.d11t25}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p>9. <input [(ngModel)]="cashSalesTemplate.d11t26" title={{cashSalesTemplate.d11t26}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>以上设施未达到上述条件的，双方同意按照以下方式处理：</p>
+      <p>1.小区内绿地率未达到上述约定条件的，<input [(ngModel)]="cashSalesTemplate.d11t27" title={{cashSalesTemplate.d11t27}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>2.小区内非市政道路未达到上述约定条件的，<input [(ngModel)]="cashSalesTemplate.d11t28" title={{cashSalesTemplate.d11t28}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>3.规划的车位、车库未达到上述约定条件的，<input [(ngModel)]="cashSalesTemplate.d11t29" title={{cashSalesTemplate.d11t29}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>4.物业服务用房未达到上述约定条件的，<input [(ngModel)]="cashSalesTemplate.d11t30" title={{cashSalesTemplate.d11t30}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+     <p> 5.其他设施未达到上述约定条件的，<input [(ngModel)]="cashSalesTemplate.d11t31" title={{cashSalesTemplate.d11t31}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p> 关于本项目内相关设施设备的具体约定见附件六。</p>
+
+      <h3 class="h3_left">第十二条 交付时间和手续</h3>
+      <p>（一）出卖人应当在<span>
+        <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d12t1" title={{cashSalesTemplate.d12t1}} [nzAllowClear]="false"  [disabled]="isDisable">
+        </nz-date-picker>
+        </span> 前向买受人交付该商品房。</p>
+      <p>（二）该商品房达到第十条、第十一条约定的交付条件后，出卖人应当在交付日期届满前<input [(ngModel)]="cashSalesTemplate.d12t2" title={{cashSalesTemplate.d12t2}} class="input_line input_w50" [readonly]="isDisable" />日（不少于10 日）将查验房屋的时间、办理交付手续的时间地点以及应当携带的证件材料的通知书面送达买受人。买受人未收到交付通知书的，以本合同约定的交付日期届满之日为办理交付手续的时间，以该商品房所在地为办理交付手续的地点。</p>
+      <p> <input [(ngModel)]="cashSalesTemplate.d12t3" title={{cashSalesTemplate.d12t3}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>交付该商品房时，出卖人应当出示满足第十条约定的证明文件。出卖人不出示证明文件或者出示的证明文件不齐全，不能满足第十条约定条件的，买受人有权拒绝接收，由此产生的逾期交付责任由出卖人承担，并按照第十三条处理。</p>
+      <p>（三）查验房屋</p>
+      <p>1.办理交付手续前，买受人有权对该商品房进行查验，出卖人不得以缴纳相关税费或者签署物业管理文件作为买受人查验和办理交付手续的前提条件。</p>
+      <p>2.买受人查验的该商品房存在下列除地基基础和主体结构外的其他质量问题的，由出卖人按照有关工程和产品质量规范、
+        标准自查验次日起<input [(ngModel)]="cashSalesTemplate.d12t4" title={{cashSalesTemplate.d12t4}} class="input_line input_w50" [readonly]="isDisable" />日内负责修复，并承担修复费用，修复后再行交付。</p>
+      <p>（1）屋面、墙面、地面渗漏或开裂等；</p>
+      <p>（2）管道堵塞；</p>
+      <p>（3）门窗翘裂、五金件损坏；</p>
+      <p>（4）灯具、电器等电气设备不能正常使用；</p>
+      <p>（5）<input [(ngModel)]="cashSalesTemplate.d12t5" title={{cashSalesTemplate.d12t5}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p>（6）<input [(ngModel)]="cashSalesTemplate.d12t6" title={{cashSalesTemplate.d12t6}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> 3.查验该商品房后，双方应当签署商品房交接单。由于买受人原因导致该商品房未能按期交付的，双方同意按照以下方式处理：</p>
+      <p>（1）<input [(ngModel)]="cashSalesTemplate.d12t7" title={{cashSalesTemplate.d12t7}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p>（2）<input [(ngModel)]="cashSalesTemplate.d12t8" title={{cashSalesTemplate.d12t8}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+
+      <h3 class="h3_left">第十三条 逾期交付责任</h3>
+      <p>除不可抗力外，出卖人未按照第十二条约定的时间将该商品房交付买受人的，双方同意按照下列第<input [(ngModel)]="cashSalesTemplate.d13t1" title={{cashSalesTemplate.d13t1}} class="input_line input_w50" [readonly]="isDisable" />种方式处理：</p>
+      <p>1.按照逾期时间，分别处理（（1）和（2）不作累加）。</p>
+      <p>（1）逾期在<input [(ngModel)]="cashSalesTemplate.d13t2" title={{cashSalesTemplate.d13t2}} class="input_line input_w50" [readonly]="isDisable" />日之内（该期限应当不多于第九条第1（1）项中的期限），自第十二条约定的交付期限届满之次日起至实际交付之日止，
+        出卖人按日计算向买受人支付全部房价款万分之<input [(ngModel)]="cashSalesTemplate.d13t3" title={{cashSalesTemplate.d13t3}} class="input_line input_w50" [readonly]="isDisable" />的违约金（该违约金比率应当不低于第九条第1（1）项中的比率）。</p>
+      <p>（2）逾期超过<input [(ngModel)]="cashSalesTemplate.d13t4" title={{cashSalesTemplate.d13t4}} class="input_line input_w50" [readonly]="isDisable" />日（该期限应当与本条第（1）项中的期限相同）后，买受人有权解除合同。买受人解除合同的，应当书面通知出卖人。出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="cashSalesTemplate.d13t5" title={{cashSalesTemplate.d13t5}} class="input_line input_w50" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息；同时，
+        出卖人按照全部房价款的<input [(ngModel)]="cashSalesTemplate.d13t6" title={{cashSalesTemplate.d13t6}} class="input_line input_w50" [readonly]="isDisable" />%向买受人支付违约金。</p>
+      <p> 买受人要求继续履行合同的，合同继续履行，出卖人按日计算向买受人支付全部房价款万分之<input [(ngModel)]="cashSalesTemplate.d13t7" title={{cashSalesTemplate.d13t7}} class="input_line input_w50" [readonly]="isDisable" />（该比率应当不低于本条第1（1）项中的比率）的违约金。</p>
+      <p> 2.<input [(ngModel)]="cashSalesTemplate.d13t8" title={{cashSalesTemplate.d13t8}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+
+      <h2 class="h1_center">第五章 商品房质量及保修责任</h2>
+      <h3 class="h3_left">第十四条 商品房质量</h3>
+      <p>（一）地基基础和主体结构</p>
+      <p>出卖人承诺该商品房地基基础和主体结构合格，并符合国家及行业标准。</p>
+      <p>经检测不合格的，买受人有权解除合同。买受人解除合同的，应当书面通知出卖人。出卖人应当自解除合同通知送达之日起 15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="cashSalesTemplate.d14t1" title={{cashSalesTemplate.d14t}} class="input_line input_w50" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息。给买受人造成损失的，由出卖人支付【已付房价款一倍】【买受人全部损失】的赔偿金。因此而发生的检测费用由出卖人承担。</p>
+      <p> 买受人不解除合同的，<input [(ngModel)]="cashSalesTemplate.d14t2" title={{cashSalesTemplate.d14t}} class="input_line input_w400" [readonly]="isDisable" />。</p>
+      <p>（二）其他质量问题</p>
+      <p>该商品房质量应当符合有关工程质量规范、标准和施工图设计文件的要求。发现除地基基础和主体结构外质量问题的，双方按照以下方式处理：</p>
+      <p>（1）及时更换、修理；如给买受人造成损失的，还应当承担相应赔偿责任。</p>
+      <p><input [(ngModel)]="cashSalesTemplate.d14t3" title={{cashSalesTemplate.d14t}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>（2）经过更换、修理，仍然严重影响正常使用的，买受人有权解除合同。买受人解除合同的，应当书面通知出卖人。出卖人应当自解除合同通知送达之日起 15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="cashSalesTemplate.d14t4" title={{cashSalesTemplate.d14t}} class="input_line input_w50" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息。给买受人造成损失的，由出卖人承担相应赔偿责任。因此而发生的检测费用由出卖人承担。</p>
+      <p>买受人不解除合同的，<input [(ngModel)]="cashSalesTemplate.d14t5" title={{cashSalesTemplate.d14t}} class="input_line input_w400" [readonly]="isDisable" />。</p>
+      <p>（三）装饰装修及设备标准</p>
+      <p> 该商品房应当使用合格的建筑材料、构配件和设备，装置、装修、装饰所用材料的产品质量必须符合国家的强制性标准及双方约定的标准。</p>
+      <p>不符合上述标准的，买受人有权要求出卖人按照下列第（1）、<input [(ngModel)]="cashSalesTemplate.d14t6" title={{cashSalesTemplate.d14t}} class="input_line input_w300" [readonly]="isDisable" />、
+        <input [(ngModel)]="cashSalesTemplate.d14t7" title={{cashSalesTemplate.d14t7}} class="input_line input_w300" [readonly]="isDisable" />方式处理（可多选）：</p>
+      <p>（1）及时更换、修理；</p>
+      <p>（2）出卖人赔偿双倍的装饰、设备差价；</p>
+      <p>（3）<input [(ngModel)]="cashSalesTemplate.d14t8" title={{cashSalesTemplate.d14t8}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>（4）<input [(ngModel)]="cashSalesTemplate.d14t9" title={{cashSalesTemplate.d14t9}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>具体装饰装修及相关设备标准的约定见附件七。</p>
+      <p>（四）室内空气质量、建筑隔声和民用建筑节能措施</p>
+      <p>1.该商品房室内空气质量符合【国家】【地方】标准，标准名称：<input [(ngModel)]="cashSalesTemplate.d14t10" title={{cashSalesTemplate.d14t10}} class="input_line input_w300" [readonly]="isDisable" />，
+        标准文号：<input [(ngModel)]="cashSalesTemplate.d14t11" title={{cashSalesTemplate.d14t11}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p> 该商品房为住宅的，建筑隔声情况符合【国家】【地方】标准，标准名称：<input [(ngModel)]="cashSalesTemplate.d14t12" title={{cashSalesTemplate.d14t12}} class="input_line input_w300" [readonly]="isDisable" />，
+        标准文号：<input [(ngModel)]="cashSalesTemplate.d14t13" title={{cashSalesTemplate.d14t13}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>该商品房室内空气质量或建筑隔声情况经检测不符合标准，由出卖人负责整改，整改后仍不符合标准的，买受人有权解除合同。买受人解除合同的，应当书面通知出卖人。出卖人应当自解除合同通知送达之日起 15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="cashSalesTemplate.d14t14" title={{cashSalesTemplate.d14t14}} class="input_line input_w300" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息。给买受人造成损失的，由出卖人承担相应赔偿责任。经检测不符合标准的，检测费用由出卖人承担，整改后再次检测发生的费用仍由出卖人承担。因整改导致该商品房逾期交付的，出卖人应当承担逾期交付责任。</p>
+      <p>2.该商品房应当符合国家有关民用建筑节能强制性标准的要求。</p>
+      <p>未达到标准的，出卖人应当按照相应标准要求补做节能措施，并承担全部费用；给买受人造成损失的，出卖人应当承担相应赔偿责任。</p>
+      <p><input [(ngModel)]="cashSalesTemplate.d14t15" title={{cashSalesTemplate.d14t15}} class="input_line input_wAll" [readonly]="isDisable" />。</p>     
+         
+      <h3 class="h3_left">第十五条 保修责任</h3>
+      <p>（一）商品房实行保修制度。该商品房为住宅的，出卖人自该商品房交付之日起，按照《住宅质量保证书》承诺的内容承担相应的保修责任。该商品房为非住宅的，双方应当签订补充协议详细约定保修范围、保修期限和保修责任等内容。具体内容见附件八。</p>
+      <p>（二）下列情形，出卖人不承担保修责任：</p>
+      <p>1.因不可抗力造成的房屋及其附属设施的损害；</p>
+      <p>2.因买受人不当使用造成的房屋及其附属设施的损害；</p>
+      <p>3.<input [(ngModel)]="cashSalesTemplate.d15t1" title={{cashSalesTemplate.d15t1}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>（三）在保修期内，买受人要求维修的书面通知送达出卖人<input [(ngModel)]="cashSalesTemplate.d15t2" title={{cashSalesTemplate.d15t2}} class="input_line input_w50" [readonly]="isDisable" />日内，出卖人既不履行保修义务也不提出书面异议的，买受人可以自行或委托他人进行维修，维修费用及维修期间造成的其他损失由出卖人承担。</p>
+
+      <h3 class="h3_left">第十六条 质量担保</h3>
+      <p>出卖人不按照第十四条、第十五条约定承担相关责任的，由<input [(ngModel)]="cashSalesTemplate.d16t1" title={{cashSalesTemplate.d16t1}} class="input_line input_w200" [readonly]="isDisable" />承担连带责任。</p>
+      <p>关于质担保的证明见附件九。</p>
+      
+      <h2 class="h1_center">第六章 房屋登记</h2>
+      <h3 class="h3_left">第十七条 房屋登记</h3>
+      <p>（一）双方同意共同向不动产登记机构申请办理该商品房的不动产权转移登记。</p>
+      <p>（二）因出卖人的原因，买受人未能在该商品房交付之日起<input [(ngModel)]="cashSalesTemplate.d17t1" title={{cashSalesTemplate.d17t1}} class="input_line input_w50" [readonly]="isDisable" />日内取得该商品房的不动产权证书的，
+        双方同意按照下列第<input [(ngModel)]="cashSalesTemplate.d17t2" title={{cashSalesTemplate.d17t2}} class="input_line input_w50" [readonly]="isDisable" />种方式处理：</p>
+      <p>1.买受人有权解除合同。买受人解除合同的，应当书面通知出卖人。出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="cashSalesTemplate.d17t3" title={{cashSalesTemplate.d17t3}} class="input_line input_w300" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息。买受人不解除合同的，自买受人应当完成不动产权登记的期限届满之次日起至实际完成不动产权登记之日止，
+        出卖人按日计算向买受人支付全部房价款万分之<input [(ngModel)]="cashSalesTemplate.d17t4" title={{cashSalesTemplate.d17t4}} class="input_line input_w50" [readonly]="isDisable" />的违约金。</p>
+      <p>2.<input [(ngModel)]="cashSalesTemplate.d17t5" title={{cashSalesTemplate.d17t5}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>（三）因买受人的原因未能在约定期限内完成该商品房的不动产权转移登记的，出卖人不承担责任。</p>
+
+      <h2 class="h1_center">第七章 物业管理</h2>
+      <h3 class="h3_left">第十八条 物业管理</h3>
+      <p>（一）出卖人依法选聘的前期物业服务企业为<input [(ngModel)]="cashSalesTemplate.d18t1" title={{cashSalesTemplate.d18t1}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>（二）物业服务时间从<span>
+        <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d18t2" title={{cashSalesTemplate.d18t2}} [nzAllowClear]="false"  [disabled]="isDisable">
+        </nz-date-picker>
+        </span> 
+        到<span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="cashSalesTemplate.d18t3" title={{cashSalesTemplate.d18t3}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+          </span>  。</p>
+      <p>（三）物业服务期间，物业收费计费方式为【包干制】【酬金制】【<input [(ngModel)]="cashSalesTemplate.d18t4" title={{cashSalesTemplate.d18t4}} class="input_line input_w100" [readonly]="isDisable" />】。
+        物业服务费为<input [(ngModel)]="cashSalesTemplate.d18t5" title={{cashSalesTemplate.d18t5}} class="input_line input_w100" [readonly]="isDisable" />元/月· 平方米（建筑面积）。</p>
+      <p>（四）买受人同意由出卖人选聘的前期物业服务企业代为查验并承接物业共用部位、共用设施设备，出卖人应当将物业共用部位、共用设施设备承接查验的备案情况书面告知买受人。</p>
+      <p>（五）买受人已详细阅读前期物业服务合同和临时管理规约，同意由出卖人依法选聘的物业服务企业实施前期物业管理，遵守临时管理规约。</p>
+      <p>（六）业主大会设立前适用该章规定。业主委员会成立后，由业主大会决定选聘或续聘物业服务企业。</p>
+      <p>该商品房前期物业服务合同、临时管理规约见附件十。</p>
+      
+      <h2 class="h1_center">第八章 其他事项</h2>
+      <h3 class="h3_left">第十九条 建筑物区分所有权</h3>
+      <p>（一）买受人对其建筑物专有部分享有占有、使用、收益和处分的权利。</p>
+      <p> （二）以下部位归业主共有：</p>
+      <p> 1.建筑物的基础、承重结构、外墙、屋顶等基本结构部分，通道、楼梯、大堂等公共通行部分，消防、公共照明等附属设施、设备，避难层、设备层或者设备间等结构部分；</p>
+      <p>  2.该商品房所在建筑区划内的道路（属于城镇公共道路的除外）、绿地（属于城镇公共绿地或者明示属于个人的除外）、占用业主共有的道路或者其他场地用于停放汽车的车位、物业服务用房；</p>
+      <p> 3.<input [(ngModel)]="cashSalesTemplate.d19t1" title={{cashSalesTemplate.d19t1}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>（三）双方对其他配套设施约定如下：</p>
+      <p> 1.规划的车位、车库：<input [(ngModel)]="cashSalesTemplate.d19t2" title={{cashSalesTemplate.d19t2}} class="input_line input_w400" [readonly]="isDisable" />；</p>
+      <p> 2.会所：<input [(ngModel)]="cashSalesTemplate.d19t3" title={{cashSalesTemplate.d19t3}} class="input_line input_w400" [readonly]="isDisable" />；</p>
+      <p> 3.<input [(ngModel)]="cashSalesTemplate.d19t4" title={{cashSalesTemplate.d19t4}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+
+      <h3 class="h3_left">第二十条 税费</h3>
+      <p> 双方应当按照国家的有关规定，向相应部门缴纳因该商品房买卖发生的税费。</p>
+
+      <h3 class="h3_left"> 第二十一条 销售和使用承诺</h3>
+      <p> 1.出卖人承诺不采取分割拆零销售、返本销售或者变相返本销售的方式销售商品房。</p>
+      <p> 2.出卖人承诺按照规划用途进行建设和出售，不擅自改变该商品房使用性质，并按照规划用途办理房屋登记。出卖人不得擅自改变与该商品房有关的共用部位和设施的使用性质。</p>
+      <p> 3.出卖人承诺对商品房的销售，不涉及依法或者依规划属于买受人共有的共用部位和设施的处分。</p>
+      <p>4.出卖人承诺已将遮挡或妨碍房屋正常使用的情况告知买受人。具体内容见附件十一。</p>
+      <p>5.买受人使用该商品房期间，不得擅自改变该商品房的用途、建筑主体结构和承重结构。</p>
+      <p>6. <input [(ngModel)]="cashSalesTemplate.d21t1" title={{cashSalesTemplate.d21t1}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>7. <input [(ngModel)]="cashSalesTemplate.d21t2" title={{cashSalesTemplate.d21t2}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+
+      <h3 class="h3_left">第二十二条 送达</h3>
+      <p>出卖人和买受人保证在本合同中记载的通讯地址、联系电话均真实有效。任何根据本合同发出的文件，均应采用书面形式，以【邮政快递】【邮寄挂号信】
+        【<input [(ngModel)]="cashSalesTemplate.d22t1" title={{cashSalesTemplate.d22t}} class="input_line input_w100" [readonly]="isDisable" />】方式送达对方。任何一方变更通讯地址、联系电话的，
+        应在变更之日起<input [(ngModel)]="cashSalesTemplate.d22t2" title={{cashSalesTemplate.d22t}} class="input_line input_w50" [readonly]="isDisable" />日内书面通知对方。变更的一方未履行通知义务导致送达不能的，应承担相应的法律责任。</p>
+
+      <h3 class="h3_left">第二十三条 买受人信息保护</h3>
+      <p>出卖人对买受人信息负有保密义务。非因法律、法规规定或国家安全机关、公安机关、检察机关、审判机关、纪检监察部门执行公务的需要，未经买受人书面同意，出卖人及其销售人员和相关工作人员不得对外披露买受人信息，或将买受人信息用于履行本合同之外的其他用途。</p>
+
+      <h3 class="h3_left">第二十四条 争议解决方式</h3>
+      <p>本合同在履行过程中发生的争议，由双方当事人协商解决，也可通过消费者协会等相关机构调解；或按照下列第<input [(ngModel)]="cashSalesTemplate.d24t1" title={{cashSalesTemplate.d24t1}} class="input_line input_w50" [readonly]="isDisable" />种方式解决：</p>
+      <p>1.依法向房屋所在地人民法院起诉。</p>
+      <p>2.提交<input [(ngModel)]="cashSalesTemplate.d24t2" title={{cashSalesTemplate.d24t2}} class="input_line input_w300" [readonly]="isDisable" />仲裁委员会仲裁。</p>
+
+      <h3 class="h3_left">第二十五条 补充协议</h3>
+      <p>对本合同中未约定或约定不明的内容，双方可根据具体情况签订书面补充协议（补充协议见附件十二）。</p>
+      <p>补充协议中含有不合理的减轻或免除本合同中约定应当由出卖人承担的责任，或不合理的加重买受人责任、排除买受人主要权利内容的，仍以本合同为准。</p>
+
+      <h3 class="h3_left">第二十六条 合同生效</h3>
+      <p>本合同自双方签字或盖章之日起生效。本合同的解除应当采用书面形式。</p>
+      <p>本合同及附件共<input [(ngModel)]="cashSalesTemplate.d26t1" title={{cashSalesTemplate.d26t1}} class="input_line input_w50" [readonly]="isDisable" />页，
+        一式<input [(ngModel)]="cashSalesTemplate.d26t2" title={{cashSalesTemplate.d26t2}} class="input_line input_w50" [readonly]="isDisable" />份，
+        其中出卖人<input [(ngModel)]="cashSalesTemplate.d26t3" title={{cashSalesTemplate.d26t3}} class="input_line input_w50" [readonly]="isDisable" />份，
+        买受人<input [(ngModel)]="cashSalesTemplate.d26t4" title={{cashSalesTemplate.d26t4}} class="input_line input_w50" [readonly]="isDisable" />份，
+        【<input [(ngModel)]="cashSalesTemplate.d26t5" title={{cashSalesTemplate.d26t5}} class="input_line input_w50" [readonly]="isDisable" />】
+        <input [(ngModel)]="cashSalesTemplate.d26t6" title={{cashSalesTemplate.d26t6}} class="input_line input_w50" [readonly]="isDisable" />份，
+        【<input [(ngModel)]="cashSalesTemplate.d26t7" title={{cashSalesTemplate.d26t7}} class="input_line input_w100" [readonly]="isDisable" />】
+        <input [(ngModel)]="cashSalesTemplate.d26t8" title={{cashSalesTemplate.d26t8}} class="input_line input_w50" [readonly]="isDisable" />份。合同附件与本合同具有同等法律效力。</p>
+      
+      
+       
+        <div class="txt_top" style="min-height: 400px;min-width: 1000px;">
+         
+          <div nz-row style="float:left;margin-left: 5%;">
+           <div nz-col class="col_h50">出卖人 (签字或盖章) ：<input  [(ngModel)]="cashSalesTemplate.qz1" title={{cashSalesTemplate.qz1}} class="input_line input_w200" [readonly]="isDisable"  /> </div>
+           <div nz-col class="col_h50">【法定代表人】(签字或盖章)：<input [(ngModel)]="cashSalesTemplate.qz2" title={{cashSalesTemplate.qz2}}  class="input_line input_w200" [readonly]="isDisable" /> </div>
+           <div nz-col class="col_h50">【委托代理人】(签字或盖章)：<input [(ngModel)]="cashSalesTemplate.qz3" title={{cashSalesTemplate.qz3}} class="input_line input_w200" [readonly]="isDisable"  /> </div>
+           <div nz-col class="col_h50"></div>
+           <div nz-col class="col_h50">签订时间：
+            <span>
+              <nz-date-picker class="datapicker-line" [nzAllowClear]="false" [(ngModel)]="cashSalesTemplate.qz4" title={{cashSalesTemplate.qz4}} [disabled]="isDisable">
+              </nz-date-picker>
+              </span>
+            </div>
+           <div nz-col class="col_h50">签订地点：<input  [(ngModel)]="cashSalesTemplate.qz5" title={{cashSalesTemplate.qz5}} class="input_line input_w200" [readonly]="isDisable" /></div> 
+         </div>
+         <div nz-row style="float:left;margin-left: 5%;">
+          <div nz-col class="col_h50">买受人 (签字或盖章 ) ：<input [(ngModel)]="cashSalesTemplate.qz6" title={{cashSalesTemplate.qz6}} class="input_line input_w200" [readonly]="isDisable"  /></div>
+          <div nz-col class="col_h50">【法定代表人】(签字或盖章)：<input  [(ngModel)]="cashSalesTemplate.qz7" title={{cashSalesTemplate.qz7}} class="input_line input_w200" [readonly]="isDisable"  /></div>
+          <div nz-col class="col_h50">【委托代理人】(签字或盖章)：<input   [(ngModel)]="cashSalesTemplate.qz8" title={{cashSalesTemplate.qz8}} class="input_line input_w200" [readonly]="isDisable"  /></div>
+          <div nz-col class="col_h50">【法定代理人】(签字或盖章)：<input   [(ngModel)]="cashSalesTemplate.qz9" title={{cashSalesTemplate.qz9}} class="input_line input_w200" [readonly]="isDisable"  /></div>
+          <div nz-col class="col_h50">签订时间：
+            <span>
+              <nz-date-picker class="datapicker-line" [nzAllowClear]="false" [(ngModel)]="cashSalesTemplate.qz10" title={{cashSalesTemplate.qz10}} [disabled]="isDisable">
+              </nz-date-picker>
+              </span>
+           </div>
+          <div nz-col class="col_h50">签订地点：<input [(ngModel)]="cashSalesTemplate.qz11" title={{cashSalesTemplate.qz11}} class="input_line input_w200" [readonly]="isDisable" /></div> 
+        </div> 
+      </div> 
+      
+      <p> 附件一 房屋平面图（应当标明方位）</p>
+      <p>1.房屋分层分户图（应当标明详细尺寸，并约定误差范围）</p>
+      <p> 2.建设工程规划方案总平面图</p>
+       
+      
+      <p> 附件二 关于该商品房共用部位的具体说明（可附图说明）</p>
+      <p> 1.纳入该商品房分摊的共用部位的名称、面积和所在位置</p>
+      <p> 2.未纳入该商品房分摊的共用部位的名称、所在位置</p>
+       
+      
+      <p> 附件三 抵押权人同意该商品房转让的证明及关于抵押的相关约定</p>
+      <p>1.抵押权人同意该商品房转让的证明</p>
+      <p>2.解除抵押的条件和时间</p>
+      <p>3.关于抵押的其他约定</p>
+       
+      <p>附件四 出卖人提供的承租人放弃优先购买权的声明</p>
+       
+      <p> 附件五 关于该商品房价款的计价方式、总价款、付款方式及期限的具体约定</p>
+      
+       
+      <p> 附件六 关于本项目内相关设施、设备的具体约定</p>
+      <p> 1.相关设施的位置及用途</p>
+      <p> 2.其他约定</p> 
+
+      <p> 附件七 关于装饰装修及相关设备标准的约定</p>
+      <p> 交付的商品房达不到本附件约定装修标准的，按照本合同第十四条第（三）款约定处理。出卖人未经双方约定增加的装置、装修、装饰，视为无条件赠送给买受人。</p>
+      <p> 双方就装饰装修主要材料和设备的品牌、产地、规格、数量等内容约定如下：</p>
+      <p> 1.外墙：【瓷砖】【涂料】【玻璃幕墙】【<input [(ngModel)]="cashSalesTemplate.fj7jw1" title={{cashSalesTemplate.fj7jw1}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p><input [(ngModel)]="cashSalesTemplate.fj7jw2" title={{cashSalesTemplate.fj7jw2}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>2.起居室：</p>
+      <p>（1）内墙：【涂料】【壁纸】【<input [(ngModel)]="cashSalesTemplate.fj7jw3" title={{cashSalesTemplate.fj7jw3}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p><input [(ngModel)]="cashSalesTemplate.fj7jw4" title={{cashSalesTemplate.fj7jw4}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> （2）顶棚：【石膏板吊顶】【涂料】【<input [(ngModel)]="cashSalesTemplate.fj7jw5" title={{cashSalesTemplate.fj7jw5}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p><input [(ngModel)]="cashSalesTemplate.fj7jw6" title={{cashSalesTemplate.fj7jw6}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> （3）室内地面：【大理石】【花岗岩】【水泥抹面】【实木地板】【<input [(ngModel)]="cashSalesTemplate.fj7jw7" title={{cashSalesTemplate.fj7jw7}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="cashSalesTemplate.fj7jw8" title={{cashSalesTemplate.fj7jw8}} class="input_line input_wAll" [readonly]="isDisable" />。 </p>
+      <p>  3.厨房： </p>
+      <p> （1）地面：【水泥抹面】【瓷砖】【<input [(ngModel)]="cashSalesTemplate.fj7jw9" title={{cashSalesTemplate.fj7jw9}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="cashSalesTemplate.fj7jw10" title={{cashSalesTemplate.fj7jw10}} class="input_line input_wAll" [readonly]="isDisable" />。 </p>
+      <p>  （2）墙面：【耐水腻子】【瓷砖】【<input [(ngModel)]="cashSalesTemplate.fj7jw11" title={{cashSalesTemplate.fj7jw11}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="cashSalesTemplate.fj7jw12" title={{cashSalesTemplate.fj7jw12}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>  （3）顶棚：【水泥抹面】【石膏吊顶】【<input [(ngModel)]="cashSalesTemplate.fj7jw13" title={{cashSalesTemplate.fj7jw13}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="cashSalesTemplate.fj7jw14" title={{cashSalesTemplate.fj7jw14}} class="input_line input_wAll" [readonly]="isDisable" />。 </p>
+      <p>  （4）厨具：<input [(ngModel)]="cashSalesTemplate.fj7jw15" title={{cashSalesTemplate.fj7jw15}} class="input_line input_wAll" [readonly]="isDisable" />。 </p>
+      <p> 4.卫生间： </p>
+      <p> （1）地面：【水泥抹面】【瓷砖】【<input [(ngModel)]="cashSalesTemplate.fj7jw16" title={{cashSalesTemplate.fj7jw16}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="cashSalesTemplate.fj7jw17" title={{cashSalesTemplate.fj7jw17}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> （2）墙面：【耐水腻子】【瓷砖】【<input [(ngModel)]="cashSalesTemplate.fj7jw18" title={{cashSalesTemplate.fj7jw18}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="cashSalesTemplate.fj7jw19" title={{cashSalesTemplate.fj7jw19}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>  （3）顶棚：【水泥抹面】【石膏吊顶】【<input [(ngModel)]="cashSalesTemplate.fj7jw20" title={{cashSalesTemplate.fj7jw20}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="cashSalesTemplate.fj7jw21" title={{cashSalesTemplate.fj7jw21}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>（4）卫生器具<input [(ngModel)]="cashSalesTemplate.fj7jw22" title={{cashSalesTemplate.fj7jw22}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> 5.阳台：【塑钢封闭】【铝合金封闭】【断桥铝合金封闭】【不封闭】
+          【<input [(ngModel)]="cashSalesTemplate.fj7jw23" title={{cashSalesTemplate.fj7jw23}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="cashSalesTemplate.fj7jw24" title={{cashSalesTemplate.fj7jw24}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> 6.电梯：</p>
+      <p>（1）品牌：<input [(ngModel)]="cashSalesTemplate.fj7jw25" title={{cashSalesTemplate.fj7jw25}} class="input_line input_wAll" [readonly]="isDisable" />； </p>
+      <p>（2）型号：<input [(ngModel)]="cashSalesTemplate.fj7jw26" title={{cashSalesTemplate.fj7jw26}} class="input_line input_wAll" [readonly]="isDisable" />。 </p>
+      <p> 7.管道：</p>
+      <p><input [(ngModel)]="cashSalesTemplate.fj7jw27" title={{cashSalesTemplate.fj7jw27}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> 8.窗户：</p>
+      <p><input [(ngModel)]="cashSalesTemplate.fj7jw28" title={{cashSalesTemplate.fj7jw28}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> 9.<input [(ngModel)]="cashSalesTemplate.fj7jw29" title={{cashSalesTemplate.fj7jw29}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> 10.<input [(ngModel)]="cashSalesTemplate.fj7jw30" title={{cashSalesTemplate.fj7jw30}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      
+       
+      
+      <p> 附件八 关于保修范围、保修期限和保修责任的约定</p>
+      <p> 该商品房为住宅的，出卖人应当提供《住宅质量保证书》；该商品房为非住宅的，双方可参照《住宅质量保证书》中的内容对保修范围、保修期限和保修责任等进行约定。</p>
+      <p> 该商品房的保修期自房屋交付之日起计算，关于保修期限的约定不应低于《建设工程质量管理条例》第四十条规定的最低保修期限。</p>
+      <p> （一）保修项目、期限及责任的约定</p>
+      <p> 1.地基基础和主体结构：</p>
+      <p> 保修期限为：<input [(ngModel)]="cashSalesTemplate.fj8jw1" title={{cashSalesTemplate.fj8jw1}} class="input_line input_w300" [readonly]="isDisable" />（不得低于设计文件规定的该工程的合理使用年限）；</p>
+      <p><input [(ngModel)]="cashSalesTemplate.fj8jw2" title={{cashSalesTemplate.fj8jw2}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>2.屋面防水工程、有防水要求的卫生间、房间和外墙面的防渗漏：</p>
+      <p>保修期限为：<input [(ngModel)]="cashSalesTemplate.fj8jw3" title={{cashSalesTemplate.fj8jw3}} class="input_line input_w300" [readonly]="isDisable" />（不得低于5年）；</p>
+      <p><input [(ngModel)]="cashSalesTemplate.fj8jw4" title={{cashSalesTemplate.fj8jw4}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>3.供热、供冷系统和设备：</p>
+      <p>保修期限为：<input [(ngModel)]="cashSalesTemplate.fj8jw5" title={{cashSalesTemplate.fj8jw5}} class="input_line input_w300" [readonly]="isDisable" />（不得低于2个采暖期、供冷期）；</p>
+      <p><input [(ngModel)]="cashSalesTemplate.fj8jw6" title={{cashSalesTemplate.fj8jw6}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>4.电气管线、给排水管道、设备安装：</p>
+      <p>保修期限为：<input [(ngModel)]="cashSalesTemplate.fj8jw7" title={{cashSalesTemplate.fj8jw7}} class="input_line input_w300" [readonly]="isDisable" />（不得低于2年）；</p>
+      <p><input [(ngModel)]="cashSalesTemplate.fj8jw8" title={{cashSalesTemplate.fj8jw8}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>5.装修工程：</p>
+      <p>保修期限为：<input [(ngModel)]="cashSalesTemplate.fj8jw9" title={{cashSalesTemplate.fj8jw9}} class="input_line input_w300" [readonly]="isDisable" />（不得低于2年）；</p>
+      <p><input [(ngModel)]="cashSalesTemplate.fj8jw10" title={{cashSalesTemplate.fj8jw10}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>6、<input [(ngModel)]="cashSalesTemplate.fj8jw11" title={{cashSalesTemplate.fj8jw11}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p>7、<input [(ngModel)]="cashSalesTemplate.fj8jw12" title={{cashSalesTemplate.fj8jw12}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p>8、<input [(ngModel)]="cashSalesTemplate.fj8jw13" title={{cashSalesTemplate.fj8jw13}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>（二）其他约定</p>
+      <p> <input [(ngModel)]="cashSalesTemplate.fj8jw14" title={{cashSalesTemplate.fj8jw14}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      
+      <p>附件九 关于质量担保的证明</p>
+      
+       
+      
+      <p>附件十 关于物业管理的约定</p>
+      <p>1.前期物业服务合同</p>
+      <p>2.临时管理规约</p>
+      
+      
+       
+      <p>附件十一 出卖人关于遮挡或妨碍房屋正常使用情况的说明</p>
+      <p>（如：该商品房公共管道检修口、柱子、变电箱等有遮挡或妨碍房屋正常使用的情况）</p>
+        
+        
+      <p> 附件十二 补充协议</p>
+      
+    </div>
+
+    <!-- // 预售合同编辑 -->
+    <div class="WordSection" [ngClass]="{'show_balc_lfet':showBalc}" *ngIf="isYS">
+      <p class="txt_right">合同编号：<input [(ngModel)]="advanceSalesTemplate.ht1" title={{advanceSalesTemplate.ht1}} readonly class="input_line input_w200" /></p>  
+      <h1 class="h1_center">商品房买卖合同（预售）</h1> 
+       
+      <h3 class="h3_center"> 合同名称：<input [(ngModel)]="cashSalesTemplate.htmc" title={{cashSalesTemplate.htmc}} class="input_line input_w300" [readonly]="isDisable" /></h3>                      
+      <h3 class="h3_center"> 房号：<input [(ngModel)]="cashSalesTemplate.fh" title={{cashSalesTemplate.fh}} class="input_line input_w300" [readonly]="isDisable" /></h3>
+      <h3 class="h3_center"> 出卖人：<input [(ngModel)]="advanceSalesTemplate.ht2" title={{advanceSalesTemplate.ht2}} class="input_line input_w300" [readonly]="isDisable" /></h3>                      
+      <h3 class="h3_center"> 买受人：<input [(ngModel)]="advanceSalesTemplate.ht3" title={{advanceSalesTemplate.ht3}} class="input_line input_w300" [readonly]="isDisable" /></h3>            
+      <h2 class="h2_center txt_top">万年县自然资源局 监制</h2>
+       
+      <h1 class="h1_center">目 录</h1>
+      <h2>说明</h2>
+      <h2>专业术语解释</h2>
+      <h2>第一章合同当事人</h2>
+      <h2>第二章商品房基本状况</h2>
+      <h2>第三章商品房价款</h2>
+      <h2>第四章商品房交付条件与交付手续</h2>
+      <h2>第五章商品房质量及保修责任</h2>
+      <h2>第六章合同备案与不动产登记</h2>
+      <h2>第七章物业管理</h2>
+      <h2>第八章其他事项</h2> 
+      <h2>第九章前期物业管理</h2>
+      <h2>第十章其他事项</h2>  
+      
+      <h1 class="h1_center">说 明</h1>
+      
+      <p>1.本合同文本为示范文本，由万年县自然资源局制定。各地可在有关法律法规、规定的范围内，结合实际情况调整合同相应内容。</p>
+      <p>2.签订本合同前，出卖人应当向买受人出示《商品房预售许可证》及其他有关证书和证明文件。</p>
+      <p>3.出卖人应当就合同重大事项对买受人尽到提示义务。买受人应当审慎签订合同，在签订本合同前，要仔细阅读合同条款，特别是审阅其中具有选择性、补充性、修改性的内容，注意防范潜在的市场风险和交易风险。</p>
+      <p>4.本合同文本【】中选择内容、空格部位填写内容及其他需要删除或添加的内容，双方当事人应当协商确定。【】中选择内容，以划√方式选定；对于实际情况未发生或双方当事人不作约定时，应当在空格部位打×，以示删除。</p>
+      <p>5.出卖人与买受人可以针对本合同文本中没有约定或者约定不明确的内容，根据所售项目的具体情况在相关条款后的空白行中进行补充约定，也可以另行签订补充协议。</p>
+      <p>6.双方当事人可以根据实际情况决定本合同原件的份数，并在签订合同时认真核对，以确保各份合同内容一致；在任何情况下，出卖人和买受人都应当至少持有一份合同原件。</p>
+      
+      
+      <h1 class="h1_center">专业术语解释</h1>
+      
+      <p>1.商品房预售：是指房地产开发企业将正在建设中的取得《商品房预售许可证》的商品房预先出售给买受人，并由买受人支付定金或房价款的行为。</p>
+      <p>2.法定代理人：是指依照法律规定直接取得代理权的人。</p>
+      <p>3.套内建筑面积：是指成套房屋的套内建筑面积，由套内使用面积、套内墙体面积、套内阳台建筑面积三部分组成。</p>
+      <p>4.房屋的建筑面积：是指房屋外墙（柱）勒脚以上各层的外围水平投影面积，包括阳台、挑廊、地下室、室外楼梯等，且具备有上盖，结构牢固，层高2.20M 以上（含2.20M）的永久性建筑。</p>
+      <p>5.不可抗力：是指不能预见、不能避免并不能克服的客观情况。</p>
+      <p>6.民用建筑节能：是指在保证民用建筑使用功能和室内热环境质量的前提下，降低其使用过程中能源消耗的活动。民用建筑是指居住建筑、国家机关办公建筑和商业、服务业、教育、卫生等其他公共建筑。</p>
+      <p>7.不动产登记：是指不动产登记机构依法将房屋权利和其他应当记载的事项在不动产登记簿上予以记载的行为。</p>
+      <p>8.不动产转移登记：是指商品房所有权从出卖人转移至买受人所办理的登记类型。</p>
+      <p>9.不动产登记机构：是指直辖市、市、县人民政府自然资源主管部门或者其设置的负责不动产登记工作的机构。</p>
+      <p>10.分割拆零销售：是指房地产开发企业将成套的商品住宅分割为数部分分别出售给买受人的销售方式。</p>
+      <p>11.返本销售：是指房地产开发企业以定期向买受人返还购房款的方式销售商品房的行为。</p>
+      <p>12.售后包租：是指房地产开发企业以在一定期限内承租或者代为出租买受人所购该企业商品房的方式销售商品房的行为。</p>
+      
+       
+      
+      <h1 class="h1_center">商品房买卖合同</h1>
+      <h1 class="h1_center">（预售）</h1>
+      
+      <p>出卖人向买受人出售其开发建设的房屋，双方当事人应当在自愿、平等、公平及诚实信用的基础上，根据《中华人民共和国合同法》、《中华人民共和国物权法》、《中华人民共和国城市房地产管理法》等法律、法规的规定，就商品房买卖相关内容协商达成一致意见，签订本商品房买卖合同。 </p>
+      <h2 class="h1_center">第一章 合同当事人</h2>
+      <p class="txt_left txt_top">出卖人：<input [(ngModel)]="advanceSalesTemplate.jf1" title={{advanceSalesTemplate.jf1}} class="input_line input_w500" [readonly]="isDisable" /></p>                                                       
+      <p class="txt_left ">通讯地址：<input [(ngModel)]="advanceSalesTemplate.jf2" title={{advanceSalesTemplate.jf2}} class="input_line input_w500" [readonly]="isDisable" /></p>                                                    
+      <p class="txt_left ">邮政编码：<input [(ngModel)]="advanceSalesTemplate.jf3" title={{advanceSalesTemplate.jf3}} class="input_line input_w500" [readonly]="isDisable" /></p>                                                     
+      <p class="txt_left ">营业执照注册号：<input [(ngModel)]="advanceSalesTemplate.jf4" title={{advanceSalesTemplate.jf4}} class="input_line input_w500" [readonly]="isDisable" /></p>                                              
+      <p class="txt_left ">企业资质证书号：<input [(ngModel)]="advanceSalesTemplate.jf5" title={{advanceSalesTemplate.jf5}} class="input_line input_w500" [readonly]="isDisable" /></p>                                                
+      <p class="txt_left ">法定代表人：<input [(ngModel)]="advanceSalesTemplate.jf6" title={{advanceSalesTemplate.jf6}} class="input_line input_w200" [readonly]="isDisable" />
+                          联系电话：<input [(ngModel)]="advanceSalesTemplate.jf7" title={{advanceSalesTemplate.jf7}} class="input_line input_w200" [readonly]="isDisable" /></p>          
+      <p class="txt_left ">委托代理人：<input [(ngModel)]="advanceSalesTemplate.jf8" title={{advanceSalesTemplate.jf8}} class="input_line input_w200" [readonly]="isDisable" />
+                          联系电话：<input [(ngModel)]="advanceSalesTemplate.jf9" title={{advanceSalesTemplate.jf9}} class="input_line input_w200" [readonly]="isDisable" /></p>                   
+      <p class="txt_left ">委托销售经纪机构：<input [(ngModel)]="advanceSalesTemplate.jf10" title={{advanceSalesTemplate.jf10}} class="input_line input_w500" [readonly]="isDisable" /></p>                                        
+      <p class="txt_left ">通讯地址：<input [(ngModel)]="advanceSalesTemplate.jf11" title={{advanceSalesTemplate.jf11}} class="input_line input_w500" [readonly]="isDisable" /></p>                                            
+      <p class="txt_left ">邮政编码：<input [(ngModel)]="advanceSalesTemplate.jf12" title={{advanceSalesTemplate.jf12}} class="input_line input_w500" [readonly]="isDisable" /> </p>                                               
+      <p class="txt_left ">营业执照注册号：<input [(ngModel)]="advanceSalesTemplate.jf13" title={{advanceSalesTemplate.jf13}} class="input_line input_w500" [readonly]="isDisable" /></p>                                           
+      <p class="txt_left ">经纪机构备案证明号：<input [(ngModel)]="advanceSalesTemplate.jf14" title={{advanceSalesTemplate.jf14}} class="input_line input_w500" [readonly]="isDisable" /></p>                                        
+      <p class="txt_left ">法定代表人：<input [(ngModel)]="advanceSalesTemplate.jf15" title={{advanceSalesTemplate.jf15}} class="input_line input_w200" [readonly]="isDisable" />
+                          联系电话：<input [(ngModel)]="advanceSalesTemplate.jf16" title={{advanceSalesTemplate.jf16}} class="input_line input_w200" [readonly]="isDisable" /></p>                    
+      
+      <p class="txt_left txt_top">买受人：<input [(ngModel)]="advanceSalesTemplate.yf1" title={{advanceSalesTemplate.yf1}} class="input_line input_w500" [readonly]="isDisable" /></p>                                          
+      <p class="txt_left">【法定代表人】【负责人】：<input [(ngModel)]="advanceSalesTemplate.yf2" title={{advanceSalesTemplate.yf2}} class="input_line input_w400" [readonly]="isDisable" /></p>                          
+      <p class="txt_left">【国籍】【户籍所在地】：<input [(ngModel)]="advanceSalesTemplate.yf3" title={{advanceSalesTemplate.yf3}} class="input_line input_w400" [readonly]="isDisable" /></p>                              
+      <p class="txt_left">证件类型：【居民身份证】【护照】【营业执照】
+                          【<input [(ngModel)]="advanceSalesTemplate.yf4" title={{advanceSalesTemplate.yf4}} class="input_line input_w100" [readonly]="isDisable" />】，</p>
+      <p class="txt_left">证号：<input [(ngModel)]="advanceSalesTemplate.yf5" title={{advanceSalesTemplate.yf5}} class="input_line input_w500" [readonly]="isDisable" /></p>         
+      <p class="txt_left">出生日期：
+                          <span>
+                          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.yf6" title={{advanceSalesTemplate.yf6}} [nzAllowClear]="false"  [disabled]="isDisable">
+                          </nz-date-picker>
+                          </span>，
+                          性别：<input [(ngModel)]="advanceSalesTemplate.yf7" title={{advanceSalesTemplate.yf7}} class="input_line input_w200" [readonly]="isDisable" /></p>                 
+      <p class="txt_left">通讯地址：<input [(ngModel)]="advanceSalesTemplate.yf8" title={{advanceSalesTemplate.yf8}} class="input_line input_w500" [readonly]="isDisable" /> </p>                                                  
+      <p class="txt_left">邮政编码：<input [(ngModel)]="advanceSalesTemplate.yf9" title={{advanceSalesTemplate.yf9}} class="input_line input_w200" [readonly]="isDisable" />
+                          联系电话：<input [(ngModel)]="advanceSalesTemplate.yf10" title={{advanceSalesTemplate.yf10}} class="input_line input_w200" [readonly]="isDisable" /></p>                
+      <p class="txt_left">【委托代理人】【法定代理人】：<input [(ngModel)]="advanceSalesTemplate.yf11" title={{advanceSalesTemplate.yf11}} class="input_line input_w400" [readonly]="isDisable" /></p>                                    
+      <p class="txt_left">【国籍】【户籍所在地】：<input [(ngModel)]="advanceSalesTemplate.yf12" title={{advanceSalesTemplate.yf12}} class="input_line input_w400" [readonly]="isDisable" /></p>                               
+      <p class="txt_left">证件类型：【居民身份证】【护照】【营业执照】【<input [(ngModel)]="advanceSalesTemplate.yf13" title={{advanceSalesTemplate.yf13}} class="input_line input_w100" [readonly]="isDisable" />】，</p>
+      <p class="txt_left">证号：<input [(ngModel)]="advanceSalesTemplate.yf14" title={{advanceSalesTemplate.yf14}} class="input_line input_w500" [readonly]="isDisable" /></p>         
+      <p class="txt_left"> 出生日期：
+                          <span>
+                          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.yf15" title={{advanceSalesTemplate.yf15}} [nzAllowClear]="false"  [disabled]="isDisable">
+                          </nz-date-picker>
+                          </span>，
+                          性别：<input [(ngModel)]="advanceSalesTemplate.yf16" title={{advanceSalesTemplate.yf16}} class="input_line input_w200" [readonly]="isDisable" /></p>                
+      <p class="txt_left">通讯地址：<input [(ngModel)]="advanceSalesTemplate.yf17" title={{advanceSalesTemplate.yf17}} class="input_line input_w500" [readonly]="isDisable" /></p>                            
+      <p class="txt_left">邮政编码：<input [(ngModel)]="advanceSalesTemplate.yf18" title={{advanceSalesTemplate.yf18}} class="input_line input_w200" [readonly]="isDisable" />
+                          联系电话：<input [(ngModel)]="advanceSalesTemplate.yf19" title={{advanceSalesTemplate.yf19}} class="input_line input_w200" [readonly]="isDisable" /></p>                
+      
+      <h2 class="h1_center">第二章 商品房基本状况</h2>
+      <h3 class="h3_left">第一条 项目建设依据</h3>
+      <p>1.出卖人以【出让】【划拨】【<input [(ngModel)]="advanceSalesTemplate.d1t1" title={{advanceSalesTemplate.d1t1}} class="input_line input_w100" [readonly]="isDisable" />】方式取得
+          坐落于<input [(ngModel)]="advanceSalesTemplate.d1t2" title={{advanceSalesTemplate.d1t2}} class="input_line input_w500" [readonly]="isDisable" />地块的建设用地使用权。
+          该地块【不动产权证号】【<input [(ngModel)]="advanceSalesTemplate.d1t3" title={{advanceSalesTemplate.d1t3}} class="input_line input_w200" [readonly]="isDisable" />】
+          为<input [(ngModel)]="advanceSalesTemplate.d1t4" title={{advanceSalesTemplate.d1t4}} class="input_line input_w200" [readonly]="isDisable" />，
+          土地使用权面积为<input [(ngModel)]="advanceSalesTemplate.d1t5" title={{advanceSalesTemplate.d1t5}} class="input_line input_w100" [readonly]="isDisable" />平方米。
+          买受人购买的商品房(以下简称该商品房）所在土地用途为<input [(ngModel)]="advanceSalesTemplate.d1t6" title={{advanceSalesTemplate.d1t6}} class="input_line input_w200" [readonly]="isDisable" />，
+          土地使用权终止日期为
+          <span>
+            <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d1t7" title={{advanceSalesTemplate.d1t7}} [nzAllowClear]="false"  [disabled]="isDisable">
+            </nz-date-picker>
+          </span>。</p>
+      <p> 2. 出卖人经批准，在上述地块上建设的商品房项目核准名称为<input [(ngModel)]="advanceSalesTemplate.d1t8" title={{advanceSalesTemplate.d1t8}} class="input_line input_w300" [readonly]="isDisable" />，
+          建设工程规划许可证号为<input [(ngModel)]="advanceSalesTemplate.d1t9" title={{advanceSalesTemplate.d1t9}} class="input_line input_w300" [readonly]="isDisable" />，
+          建筑工程施工许可证号为<input [(ngModel)]="advanceSalesTemplate.d1t10" title={{advanceSalesTemplate.d1t10}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+
+      <h3 class="h3_left">第二条 销售依据</h3>
+      <p>该商品房已由<input [(ngModel)]="advanceSalesTemplate.d2t1" title={{advanceSalesTemplate.d2t1}} class="input_line input_w300" [readonly]="isDisable" />批准预售，
+        预售许可证号为<input [(ngModel)]="advanceSalesTemplate.d2t2" title={{advanceSalesTemplate.d2t2}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+
+      <h3 class="h3_left">第三条 商品房基本情况</h3> 
+      <p>1.该商品房的规划用途为【住宅】【办公】【商业】【<input [(ngModel)]="advanceSalesTemplate.d3t1" title={{advanceSalesTemplate.d3t1}} class="input_line input_w100" [readonly]="isDisable" />】。</p>
+      <p>2.该商品房所在楼栋的主体建筑结构为<input [(ngModel)]="advanceSalesTemplate.d3t2" title={{advanceSalesTemplate.d3t2}} class="input_line input_w200" [readonly]="isDisable" />，
+      建筑层数为<input [(ngModel)]="advanceSalesTemplate.d3t3" title={{advanceSalesTemplate.d3t3}} class="input_line input_w50" [readonly]="isDisable" />层，
+      其中地上<input [(ngModel)]="advanceSalesTemplate.d3t4" title={{advanceSalesTemplate.d3t4}} class="input_line input_w50" [readonly]="isDisable" />层，
+      地下<input [(ngModel)]="advanceSalesTemplate.d3t5" title={{advanceSalesTemplate.d3t5}} class="input_line input_w50" [readonly]="isDisable" />层。</p>
+      <p>3.该商品房为第一条规定项目中的<input [(ngModel)]="advanceSalesTemplate.d3t6" title={{advanceSalesTemplate.d3t6}} class="input_line input_w200" [readonly]="isDisable" />【幢】【座】
+      【<input [(ngModel)]="advanceSalesTemplate.d3t7" title={{advanceSalesTemplate.d3t7}} class="input_line input_w50" [readonly]="isDisable" />】
+      <input [(ngModel)]="advanceSalesTemplate.d3t8" title={{advanceSalesTemplate.d3t8}} class="input_line input_w50" [readonly]="isDisable" />单元
+      <input [(ngModel)]="advanceSalesTemplate.d3t9" title={{advanceSalesTemplate.d3t9}} class="input_line input_w50" [readonly]="isDisable" />层
+      <input [(ngModel)]="advanceSalesTemplate.d3t10" title={{advanceSalesTemplate.d3t10}} class="input_line input_w50" [readonly]="isDisable" />号。房屋竣工后，如房号发生改变,不影响该商品房的特定位置。该商品房的平面图见附件一。</p>
+      <p>4.该商品房的房产测绘机构为<input [(ngModel)]="advanceSalesTemplate.d3t11" title={{advanceSalesTemplate.d3t11}} class="input_line input_w200" [readonly]="isDisable" />，
+      其实测建筑面积共<input [(ngModel)]="advanceSalesTemplate.d3t12" title={{advanceSalesTemplate.d3t12}} class="input_line input_w100" [readonly]="isDisable" />平方米，
+      其中套内建筑面积<input [(ngModel)]="advanceSalesTemplate.d3t13" title={{advanceSalesTemplate.d3t13}} class="input_line input_w100" [readonly]="isDisable" />平方米，
+      共有分摊建筑面积<input [(ngModel)]="advanceSalesTemplate.d3t14" title={{advanceSalesTemplate.d3t14}} class="input_line input_w100" [readonly]="isDisable" />平方米。该商品房共用部位见附件二。 
+      该商品房层高为<input [(ngModel)]="advanceSalesTemplate.d3t15" title={{advanceSalesTemplate.d3t15}} class="input_line input_w100" [readonly]="isDisable" />米，
+      有<input [(ngModel)]="advanceSalesTemplate.d3t16" title={{advanceSalesTemplate.d3t16}} class="input_line input_w50" [readonly]="isDisable" />个阳台，
+      其中<input [(ngModel)]="advanceSalesTemplate.d3t17" title={{advanceSalesTemplate.d3t17}} class="input_line input_w50" [readonly]="isDisable" />个阳台为封闭式，
+      <input [(ngModel)]="advanceSalesTemplate.d3t18" title={{advanceSalesTemplate.d3t18}} class="input_line input_w50" [readonly]="isDisable" />个阳台为非封闭式。阳台是否封闭以规划设计文件为准。</p>
+     
+      <h3 class="h3_left">第四条 抵押情况</h3>
+      <p>与该商品房有关的抵押情况为【抵押】【未抵押】。</p>
+      <p>抵押类型：<input [(ngModel)]="advanceSalesTemplate.d4t1" title={{advanceSalesTemplate.d4t1}} class="input_line input_w300" [readonly]="isDisable" />，
+        抵押人：<input [(ngModel)]="advanceSalesTemplate.d4t2" title={{advanceSalesTemplate.d4t2}} class="input_line input_w300" [readonly]="isDisable" />，</p>
+      <p>抵押权人：<input [(ngModel)]="advanceSalesTemplate.d4t3" title={{advanceSalesTemplate.d4t3}} class="input_line input_w300" [readonly]="isDisable" />，
+        抵押登记机构：<input [(ngModel)]="advanceSalesTemplate.d4t4" title={{advanceSalesTemplate.d4t4}} class="input_line input_w300" [readonly]="isDisable" />，</p>
+      <p>抵押登记日期：
+      <span>
+        <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d4t5" title={{advanceSalesTemplate.d4t5}} [nzAllowClear]="false"  [disabled]="isDisable">
+        </nz-date-picker>
+      </span> ，
+        债务履行期限：<input [(ngModel)]="advanceSalesTemplate.d4t6" title={{advanceSalesTemplate.d4t6}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>抵押类型：<input [(ngModel)]="advanceSalesTemplate.d4t7" title={{advanceSalesTemplate.d4t7}} class="input_line input_w300" [readonly]="isDisable" />，
+          抵押人：<input [(ngModel)]="advanceSalesTemplate.d4t8" title={{advanceSalesTemplate.d4t8}} class="input_line input_w300" [readonly]="isDisable" />，</p>
+      <p>抵押权人：<input [(ngModel)]="advanceSalesTemplate.d4t9" title={{advanceSalesTemplate.d4t9}} class="input_line input_w300" [readonly]="isDisable" />，
+          抵押登记机构：<input [(ngModel)]="advanceSalesTemplate.d4t10" title={{advanceSalesTemplate.d4t10}} class="input_line input_w300" [readonly]="isDisable" />，</p>
+      <p>抵押登记日期：
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d4t11" title={{advanceSalesTemplate.d4t11}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span>，
+          债务履行期限：<input [(ngModel)]="advanceSalesTemplate.d4t12" title={{advanceSalesTemplate.d4t12}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>抵押权人同意该商品房转让的证明及关于抵押的相关约定见附件三。</p> 
+
+      <h3 class="h3_left">第五条 房屋权利状况承诺</h3>      
+      <p>1.出卖人对该商品房享有合法权利；</p>
+      <p>2.该商品房没有销售给除本合同买受人以外的其他人；</p>
+      <p>3.该商品房没有司法查封或其他限制转让的情况；</p>
+      <p>4.<input [(ngModel)]="advanceSalesTemplate.d5t1" title={{advanceSalesTemplate.d5t1}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>5.<input [(ngModel)]="advanceSalesTemplate.d5t2" title={{advanceSalesTemplate.d5t2}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>如该商品房权利状况与上述情况不符，导致不能完成本合同登记备案或不动产权转移登记的，买受人有权解除合同。买受人解除合同的，应当书面通知出卖人，出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="advanceSalesTemplate.d5t3" title={{advanceSalesTemplate.d5t3}} class="input_line input_wAll" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息。给买受人造成损失的，由出卖人支付【已付房价款一倍】【买受人全部损失】的赔偿金。</p>
+
+       
+
+      <h2 class="h1_center">第三章 商品房价款</h2>
+      <h3 class="h3_left">第六条 计价方式与价款</h3>
+      <p>出卖人与买受人按照下列第<input [(ngModel)]="advanceSalesTemplate.d6t1" title={{advanceSalesTemplate.d6t1}} class="input_line input_w50" [readonly]="isDisable" />种方式计算该商品房价款：</p>
+      <p>1.按照套内建筑面积计算，该商品房单价为每平方米<input [(ngModel)]="advanceSalesTemplate.d6t2" title={{advanceSalesTemplate.d6t2}} class="input_line input_w100" [readonly]="isDisable" />
+        （币种）<input [(ngModel)]="advanceSalesTemplate.d6t3" title={{advanceSalesTemplate.d6t3}} class="input_line input_w100" [readonly]="isDisable" />元，
+      总价款为<input [(ngModel)]="advanceSalesTemplate.d6t4" title={{advanceSalesTemplate.d6t4}} class="input_line input_w50" [readonly]="isDisable" />
+      （币种）<input [(ngModel)]="advanceSalesTemplate.d6t5" title={{advanceSalesTemplate.d6t5}} class="input_line input_w100" [readonly]="isDisable" /> 元
+      （大写<input [(ngModel)]="advanceSalesTemplate.d6t6" title={{advanceSalesTemplate.d6t6}} class="input_line input_w400" [readonly]="isDisable" />元整）。</p>
+      <p>2.按照建筑面积计算，该商品房单价为每平方米<input [(ngModel)]="advanceSalesTemplate.d6t7" title={{advanceSalesTemplate.d6t7}} class="input_line input_w50" [readonly]="isDisable" />
+        （币种）<input [(ngModel)]="advanceSalesTemplate.d6t8" title={{advanceSalesTemplate.d6t8}} class="input_line input_w100" [readonly]="isDisable" /> 元，
+      总价款为<input [(ngModel)]="advanceSalesTemplate.d6t9" title={{advanceSalesTemplate.d6t9}} class="input_line input_w50" [readonly]="isDisable" />
+      （币种）<input [(ngModel)]="advanceSalesTemplate.d6t10" title={{advanceSalesTemplate.d6t10}} class="input_line input_w100" [readonly]="isDisable" />元
+      （大写<input [(ngModel)]="advanceSalesTemplate.d6t11" title={{advanceSalesTemplate.d6t11}} class="input_line input_w400" [readonly]="isDisable" />元整）。</p>
+      <p>3.按照套计算，该商品房总价款为<input [(ngModel)]="advanceSalesTemplate.d6t12" title={{advanceSalesTemplate.d6t12}} class="input_line input_w50" [readonly]="isDisable" />（币种）
+        <input [(ngModel)]="advanceSalesTemplate.d6t13" title={{advanceSalesTemplate.d6t13}} class="input_line input_w100" [readonly]="isDisable" /> 元
+        （大写 <input [(ngModel)]="advanceSalesTemplate.d6t14" title={{advanceSalesTemplate.d6t14}} class="input_line input_w400" [readonly]="isDisable" />元整）。</p>
+      <p>4.按照<input [(ngModel)]="advanceSalesTemplate.d6t15" title={{advanceSalesTemplate.d6t15}} class="input_line input_w300" [readonly]="isDisable" />计算，
+        该商品房总价款为<input [(ngModel)]="advanceSalesTemplate.d6t16" title={{advanceSalesTemplate.d6t16}} class="input_line input_w50" [readonly]="isDisable" />（币种）
+        <input [(ngModel)]="advanceSalesTemplate.d6t17" title={{advanceSalesTemplate.d6t17}} class="input_line input_w100" [readonly]="isDisable" /> 元
+        （大写<input [(ngModel)]="advanceSalesTemplate.d6t18" title={{advanceSalesTemplate.d6t18}} class="input_line input_w400" [readonly]="isDisable" />元整）。</p>
+
+      <h3 class="h3_left">第七条 付款方式及期限</h3>
+      <p>（一）签订本合同前，买受人已向出卖人支付定金<input [(ngModel)]="advanceSalesTemplate.d7t1" title={{advanceSalesTemplate.d7t1}} class="input_line input_w50" [readonly]="isDisable" />（币种）
+        <input [(ngModel)]="advanceSalesTemplate.d7t2" title={{advanceSalesTemplate.d7t2}} class="input_line input_w400" [readonly]="isDisable" />元（大写），
+        该定金于【本合同签订】【交付首付款】【<input [(ngModel)]="advanceSalesTemplate.d7t3" title={{advanceSalesTemplate.d7t3}} class="input_line input_w100" [readonly]="isDisable" />】时【抵作】
+        【<input [(ngModel)]="advanceSalesTemplate.d7t4" title={{advanceSalesTemplate.d7t4}} class="input_line input_w100" [readonly]="isDisable" />】商品房价款。</p>
+      <p>（二）买受人采取下列第<input [(ngModel)]="advanceSalesTemplate.d7t5" title={{advanceSalesTemplate.d7t5}} class="input_line input_w50" [readonly]="isDisable" />种方式付款：</p>
+      <p>1.一次性付款。买受人应当在
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d7t6" title={{advanceSalesTemplate.d7t6}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span> 前支付该商品房全部价款。</p>
+      <p>2.分期付款。买受人应当在
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d7t7" title={{advanceSalesTemplate.d7t7}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span> 前
+        分<input [(ngModel)]="advanceSalesTemplate.d7t8" title={{advanceSalesTemplate.d7t8}} class="input_line input_w50" [readonly]="isDisable" />期支付该商品房全部价款，
+        首期房价款<input [(ngModel)]="advanceSalesTemplate.d7t9" title={{advanceSalesTemplate.d7t9}} class="input_line input_w50" [readonly]="isDisable" />
+        （币种）<input [(ngModel)]="advanceSalesTemplate.d7t10" title={{advanceSalesTemplate.d7t10}} class="input_line input_w100" [readonly]="isDisable" />元
+        （大写：<input [(ngModel)]="advanceSalesTemplate.d7t11" title={{advanceSalesTemplate.d7t11}} class="input_line input_w400" [readonly]="isDisable" />元整），
+        应当于
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d7t12" title={{advanceSalesTemplate.d7t12}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span>前支付。</p>
+        <input [(ngModel)]="advanceSalesTemplate.d7t13" title={{advanceSalesTemplate.d7t13}} class="input_line input_wAll" [readonly]="isDisable" />。
+      <p>3.贷款方式付款：【公积金贷款】【商业贷款】【<input [(ngModel)]="advanceSalesTemplate.d7t14" title={{advanceSalesTemplate.d7t14}} class="input_line input_w100" [readonly]="isDisable" />】。
+        买受人应当于
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d7t15" title={{advanceSalesTemplate.d7t15}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span> 前
+        支付首期房价款<input [(ngModel)]="advanceSalesTemplate.d7t16" title={{advanceSalesTemplate.d7t16}} class="input_line input_w50" [readonly]="isDisable" />（币种）
+        <input [(ngModel)]="advanceSalesTemplate.d7t17" title={{advanceSalesTemplate.d7t17}} class="input_line input_w100" [readonly]="isDisable" />元
+        （大写：<input [(ngModel)]="advanceSalesTemplate.d7t18" title={{advanceSalesTemplate.d7t18}} class="input_line input_w400" [readonly]="isDisable" />元整），
+        占全部房价款的<input [(ngModel)]="advanceSalesTemplate.d7t19" title={{advanceSalesTemplate.d7t19}} class="input_line input_w50" [readonly]="isDisable" />％。</p>
+      <p>余款<input [(ngModel)]="advanceSalesTemplate.d7t20" title={{advanceSalesTemplate.d7t20}} class="input_line input_w50" [readonly]="isDisable" />（币种）
+        <input [(ngModel)]="advanceSalesTemplate.d7t21" title={{advanceSalesTemplate.d7t21}} class="input_line input_w100" [readonly]="isDisable" />元
+        （大写：<input [(ngModel)]="advanceSalesTemplate.d7t22" title={{advanceSalesTemplate.d7t22}} class="input_line input_w400" [readonly]="isDisable" />元整）
+        向<input [(ngModel)]="advanceSalesTemplate.d7t23" title={{advanceSalesTemplate.d7t23}} class="input_line input_w300" [readonly]="isDisable" />（贷款机构）申请贷款支付。</p>
+      <p>4.其他方式：</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.d7t24" title={{advanceSalesTemplate.d7t24}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>（三）出售该商品房的全部房价款应当存入预售资金监管账户，用于本工程建设。</p>
+      <p>该商品房的预售资金监管机构为<input [(ngModel)]="advanceSalesTemplate.d7t25" title={{advanceSalesTemplate.d7t25}} class="input_line input_w300" [readonly]="isDisable" />，预售资金监管
+        账户名称为<input [(ngModel)]="advanceSalesTemplate.d7t26" title={{advanceSalesTemplate.d7t26}} class="input_line input_w300" [readonly]="isDisable" />，
+        账号为<input [(ngModel)]="advanceSalesTemplate.d7t27" title={{advanceSalesTemplate.d7t27}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>该商品房价款的计价方式、总价款、付款方式及期限的具体约定见附件五。</p>
+
+      <h3 class="h3_left">第八条 逾期付款责任</h3>
+      <p>除不可抗力外，买受人未按照约定时间付款的，双方同意按照下列第<input [(ngModel)]="advanceSalesTemplate.d8t1" title={{advanceSalesTemplate.d8t1}} class="input_line input_w50" [readonly]="isDisable" />种方式处理：</p>
+      <p>1.按照逾期时间，分别处理 (（1）和（2）不作累加 ) 。</p>
+      <p>(1) 逾期在<input [(ngModel)]="advanceSalesTemplate.d8t2" title={{advanceSalesTemplate.d8t2}} class="input_line input_w50" [readonly]="isDisable" />日之内，
+        买受人按日计算向出卖人支付逾期应付款万分之<input [(ngModel)]="advanceSalesTemplate.d8t3" title={{advanceSalesTemplate.d8t3}} class="input_line input_w50" [readonly]="isDisable" />的违约金。</p> 
+      <p>(2) 逾期超过<input [(ngModel)]="advanceSalesTemplate.d8t4" title={{advanceSalesTemplate.d8t4}} class="input_line input_w50" [readonly]="isDisable" />日（该期限应当与本条第（1）项中的期限相同）后，出卖人有权解除合同。出卖人解除合同的，应当书面通知买受人。
+        买受人应当自解除合同通知送达之日起<input [(ngModel)]="advanceSalesTemplate.d8t5" title={{advanceSalesTemplate.d8t5}} class="input_line input_w300" [readonly]="isDisable" />日内按照累计
+        应付款的<input [(ngModel)]="advanceSalesTemplate.d8t6" title={{advanceSalesTemplate.d8t6}} class="input_line input_w50" [readonly]="isDisable" />%向出卖人支付违约金，同时，出卖人退还买受人已付全部房款（含已付贷款部分）。</p>
+      <p>出卖人不解除合同的，买受人按日计算向出卖人支付逾期应付款万分之<input [(ngModel)]="advanceSalesTemplate.d8t7" title={{advanceSalesTemplate.d8t7}} class="input_line input_w50" [readonly]="isDisable" />（该比率不低于第（1）项中的比率）的违约金。</p>
+      <p>本条所称逾期应付款是指依照第八条及附件五约定的到期应付款与该期实际已付款的差额；采取分期付款的，按照相应的分期应付款与该期的实际已付款的差额确定。</p>
+      <p>2.<input [(ngModel)]="advanceSalesTemplate.d8t8" title={{advanceSalesTemplate.d8t8}} class="input_line input_wAll" [readonly]="isDisable" />。 </p>
+
+      <h2 class="h1_center">第四章 商品房交付条件与交付手续</h2>
+      <h3 class="h3_left">第九条 商品房交付条件</h3>
+      <p> 该商品房交付时应当符合下列第1、2、<input [(ngModel)]="advanceSalesTemplate.d9t1" title={{advanceSalesTemplate.d9t1}} class="input_line input_w50" [readonly]="isDisable" />、
+        <input [(ngModel)]="advanceSalesTemplate.d9t2" title={{advanceSalesTemplate.d9t2}} class="input_line input_w50" [readonly]="isDisable" />项所列条件：</p>
+      <p>1.该商品房已取得建设工程竣工验收备案证明文件；</p>
+      <p>2.该商品房已取得房屋测绘报告；</p>
+      <p>3.<input [(ngModel)]="advanceSalesTemplate.d9t3" title={{advanceSalesTemplate.d9t3}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p>4.<input [(ngModel)]="advanceSalesTemplate.d9t4" title={{advanceSalesTemplate.d9t4}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>该商品房为住宅的，出卖人还需提供《住宅使用说明书》和《住宅质量保证书》。</p> 
+
+      <h3 class="h3_left">第十条 商品房相关设施设备交付条件</h3>
+      <P>（一）基础设施设备</P>
+      <P>1.供水、排水：交付时供水、排水配套设施齐全，并与城市公共供水、排水管网连接。使用自建设施供水的，供水的水质符合国家规定的饮用水卫生标准，</P>
+      <P><input [(ngModel)]="advanceSalesTemplate.d10t1" title={{advanceSalesTemplate.d10t1}} class="input_line input_wAll" [readonly]="isDisable" />；</P>
+      <P> 2.供电：交付时纳入城市供电网络并正式供电，</P>
+      <P><input [(ngModel)]="advanceSalesTemplate.d10t2" title={{advanceSalesTemplate.d10t2}} class="input_line input_wAll" [readonly]="isDisable" />；</P>
+      <P>3.供暖：交付时供热系统符合供热配建标准，使用城市集中供热的，纳入城市集中供热管网，</P>
+      <P><input [(ngModel)]="advanceSalesTemplate.d10t3" title={{advanceSalesTemplate.d10t3}} class="input_line input_wAll" [readonly]="isDisable" />；</P>
+      <P>4.燃气：交付时完成室内燃气管道的敷设，并与城市燃气管网连接，保证燃气供应，</P>
+      <P><input [(ngModel)]="advanceSalesTemplate.d10t4" title={{advanceSalesTemplate.d10t4}} class="input_line input_wAll" [readonly]="isDisable" />；</P>
+      <P>5.电话通信：交付时线路敷设到户；</P>
+      <P>6.有线电视：交付时线路敷设到户；</P>
+      <P>7.宽带网络：交付时线路敷设到户。</P>
+      <P>以上第 1、2、3项由出卖人负责办理开通手续并承担相关费用；第4、5、6、7项需要买受人自行办理开通手续。</P>
+      <P>如果在约定期限内基础设施设备未达到交付使用条件，双方同意按照下列第<input [(ngModel)]="advanceSalesTemplate.d10t5" title={{advanceSalesTemplate.d10t5}} class="input_line input_w50" [readonly]="isDisable" />种方式处理：</P>
+      <P>（1）以上设施中第 1、2、3、4项在约定交付日未达到交付条件的，出卖人按照本合同第十三条的约定承担逾期交付责任。</P>
+      <P>第5项未按时达到交付使用条件的，出卖人按日向买受人支付<input [(ngModel)]="advanceSalesTemplate.d10t6" title={{advanceSalesTemplate.d10t6}} class="input_line input_w100" [readonly]="isDisable" />元的违约金；
+        第6项未按时达到交付使用条件的，出卖人按日向买受人支付<input [(ngModel)]="advanceSalesTemplate.d10t7" title={{advanceSalesTemplate.d10t7}} class="input_line input_w100" [readonly]="isDisable" />元的违约金；
+        第7项未按时达到交付使用条件的，出卖人按日向买受人支付<input [(ngModel)]="advanceSalesTemplate.d10t8" title={{advanceSalesTemplate.d10t8}} class="input_line input_w100" [readonly]="isDisable" />元的违约金。
+        出卖人采取措施保证相关设施于约定交付日后<input [(ngModel)]="advanceSalesTemplate.d10t9" title={{advanceSalesTemplate.d10t9}} class="input_line input_w50" [readonly]="isDisable" />日之内达到交付使用条件。</P>
+      <P>（2）<input [(ngModel)]="advanceSalesTemplate.d10t10" title={{advanceSalesTemplate.d10t10}} class="input_line input_wAll" [readonly]="isDisable" />。</P>
+      <p>（二）公共服务及其他配套设施（以建设工程规划许可为准）</p>
+      <p>1.小区内绿地率：
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d10t11" title={{advanceSalesTemplate.d10t11}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span> 
+        达到<input [(ngModel)]="advanceSalesTemplate.d10t12" title={{advanceSalesTemplate.d10t12}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>2.小区内非市政道路：
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d10t13" title={{advanceSalesTemplate.d10t13}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span> 
+        达到<input [(ngModel)]="advanceSalesTemplate.d10t14" title={{advanceSalesTemplate.d10t14}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>3.规划的车位、车库：
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d10t15" title={{advanceSalesTemplate.d10t15}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span> 
+        达到<input [(ngModel)]="advanceSalesTemplate.d10t16" title={{advanceSalesTemplate.d10t16}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>4.物业服务用房：
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d10t17" title={{advanceSalesTemplate.d10t17}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span> 
+        达到<input [(ngModel)]="advanceSalesTemplate.d10t18" title={{advanceSalesTemplate.d10t18}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>5.医疗卫生机构：
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d10t19" title={{advanceSalesTemplate.d10t19}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span>  
+        达到<input [(ngModel)]="advanceSalesTemplate.d10t20" title={{advanceSalesTemplate.d10t20}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>6.幼儿园：
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d10t21" title={{advanceSalesTemplate.d10t21}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span>  
+        达到<input [(ngModel)]="advanceSalesTemplate.d10t22" title={{advanceSalesTemplate.d10t22}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>7.学校：
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d10t23" title={{advanceSalesTemplate.d10t23}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span>  
+        达到<input [(ngModel)]="advanceSalesTemplate.d10t24" title={{advanceSalesTemplate.d10t24}} class="input_line input_w300" [readonly]="isDisable" />；</p>
+      <p>8. <input [(ngModel)]="advanceSalesTemplate.d10t25" title={{advanceSalesTemplate.d10t25}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p>9. <input [(ngModel)]="advanceSalesTemplate.d10t26" title={{advanceSalesTemplate.d10t26}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>以上设施未达到上述条件的，双方同意按照以下方式处理：</p>
+      <p>1.小区内绿地率未达到上述约定条件的，<input [(ngModel)]="advanceSalesTemplate.d10t27" title={{advanceSalesTemplate.d10t27}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>2.小区内非市政道路未达到上述约定条件的，<input [(ngModel)]="advanceSalesTemplate.d10t28" title={{advanceSalesTemplate.d10t28}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>3.规划的车位、车库未达到上述约定条件的，<input [(ngModel)]="advanceSalesTemplate.d10t29" title={{advanceSalesTemplate.d10t29}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>4.物业服务用房未达到上述约定条件的，<input [(ngModel)]="advanceSalesTemplate.d10t30" title={{advanceSalesTemplate.d10t30}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p> 5.其他设施未达到上述约定条件的，<input [(ngModel)]="advanceSalesTemplate.d10t31" title={{advanceSalesTemplate.d10t31}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p> 关于本项目内相关设施设备的具体约定见附件五。</p>
+
+<!-- 丢失 -->
+      <h3 class="h3_left">第十一条 交付时间和手续</h3>
+      <p>（一）出卖人应当在
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d11t1" title={{advanceSalesTemplate.d11t1}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span> 前向买受人交付该商品房。</p>
+      <p>（二）该商品房达到第九条、第十条约定的交付条件后，出卖人应当在交付日期届满前<input [(ngModel)]="advanceSalesTemplate.d11t2" title={{advanceSalesTemplate.d11t2}} class="input_line input_w50" [readonly]="isDisable" />日（不少于10 日）将查验房屋的时间、办理交付手续的时间地点以及应当携带的证件材料的通知书面送达买受人。买受人未收到交付通知书的，以本合同约定的交付日期届满之日为办理交付手续的时间，以该商品房所在地为办理交付手续的地点。</p>
+      <p> <input [(ngModel)]="advanceSalesTemplate.d11t3" title={{advanceSalesTemplate.d11t3}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>交付该商品房时，出卖人应当出示满足第九条约定的证明文件。出卖人不出示证明文件或者出示的证明文件不齐全，不能满足第九条约定条件的，买受人有权拒绝接收，由此产生的逾期交付责任由出卖人承担，并按照第十二条处理。</p>
+      <p>（三）查验房屋</p>
+      <p>1.办理交付手续前，买受人有权对该商品房进行查验，出卖人不得以缴纳相关税费或者签署物业管理文件作为买受人查验和办理交付手续的前提条件。</p>
+      <p>2.买受人查验的该商品房存在下列除地基基础和主体结构外的其他质量问题的，由出卖人按照有关工程和产品质量规范、
+        标准自查验次日起<input [(ngModel)]="advanceSalesTemplate.d11t4" title={{advanceSalesTemplate.d11t4}} class="input_line w50" [readonly]="isDisable" />日内负责修复，并承担修复费用，修复后再行交付。</p>
+      <p>（1）屋面、墙面、地面渗漏或开裂等；</p>
+      <p>（2）管道堵塞；</p>
+      <p>（3）门窗翘裂、五金件损坏；</p>
+      <p>（4）灯具、电器等电气设备不能正常使用；</p>
+      <p>（5）<input [(ngModel)]="advanceSalesTemplate.d11t5" title={{advanceSalesTemplate.d11t5}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p>（6）<input [(ngModel)]="advanceSalesTemplate.d11t6" title={{advanceSalesTemplate.d11t6}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> 3.查验该商品房后，双方应当签署商品房交接单。由于买受人原因导致该商品房未能按期交付的，双方同意按照以下方式处理：</p>
+      <p>（1）<input [(ngModel)]="advanceSalesTemplate.d11t7" title={{advanceSalesTemplate.d11t7}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p>（2）<input [(ngModel)]="advanceSalesTemplate.d11t8" title={{advanceSalesTemplate.d11t8}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+
+<!-- 丢失 -->
+      <h3 class="h3_left">第十二条 逾期交付责任</h3>
+      <p>除不可抗力外，出卖人未按照第十二条约定的时间将该商品房交付买受人的，双方同意按照下列第<input [(ngModel)]="advanceSalesTemplate.d12t1" title={{advanceSalesTemplate.d12t1}} class="input_line input_w50" [readonly]="isDisable" />种方式处理：</p>
+      <p>1.按照逾期时间，分别处理（（1）和（2）不作累加）。</p>
+      <p>（1）逾期在<input [(ngModel)]="advanceSalesTemplate.d12t2" title={{advanceSalesTemplate.d12t2}} class="input_line input_w50" [readonly]="isDisable" />日之内（该期限应当不多于第九条第1（1）项中的期限），自第十二条约定的交付期限届满之次日起至实际交付之日止，
+        出卖人按日计算向买受人支付全部房价款万分之<input [(ngModel)]="advanceSalesTemplate.d12t3" title={{advanceSalesTemplate.d12t3}} class="input_line input_w50" [readonly]="isDisable" />的违约金（该违约金比率应当不低于第九条第1（1）项中的比率）。</p>
+      <p>（2）逾期超过<input [(ngModel)]="advanceSalesTemplate.d12t4" title={{advanceSalesTemplate.d12t4}} class="input_line input_w50" [readonly]="isDisable" />日（该期限应当与本条第（1）项中的期限相同）后，买受人有权解除合同。买受人解除合同的，应当书面通知出卖人。出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="advanceSalesTemplate.d12t5" title={{advanceSalesTemplate.d12t5}} class="input_line input_w50" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息；同时，
+        出卖人按照全部房价款的<input [(ngModel)]="advanceSalesTemplate.d12t6" title={{advanceSalesTemplate.d12t6}} class="input_line input_w50" [readonly]="isDisable" />%向买受人支付违约金。</p>
+      <p> 买受人要求继续履行合同的，合同继续履行，出卖人按日计算向买受人支付全部房价款万分之<input [(ngModel)]="advanceSalesTemplate.d12t7" title={{advanceSalesTemplate.d12t7}} class="input_line input_w50" [readonly]="isDisable" />（该比率应当不低于本条第1（1）项中的比率）的违约金。</p>
+      <p> 2.<input [(ngModel)]="advanceSalesTemplate.d12t8" title={{advanceSalesTemplate.d12t8}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+
+      <h2 class="h1_center">第五章 面积差异处理方式</h2>
+      <h3 class="h3_left">第十三条 面积差异处理</h3>
+      <p>该商品房交付时，出卖人应当向买受人出示房屋测绘报告，并向买受人提供该商品房的面积实测数据（以下简称实测面积）。实测面积与第三条载明的预测面积发生误差的，
+        双方同意按照第<input [(ngModel)]="advanceSalesTemplate.d13t1" title={{advanceSalesTemplate.d13t1}} class="input_line input_w50" [readonly]="isDisable" />种方式处理。</p>
+      <p>1.根据第六条按照套内建筑面积计价的约定，双方同意按照下列原则处理：</p>
+      <p>（1）套内建筑面积误差比绝对值在3%以内（含3%）的，据实结算房价款；</p>
+      <p>（2）套内建筑面积误差比绝对值超出3%时，买受人有权解除合同。</p>
+      <p>买受人解除合同的，应当书面通知出卖人。出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="advanceSalesTemplate.d13t2" title={{advanceSalesTemplate.d13t2}} class="input_line input_w50" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息。</p>
+      <p>买受人选择不解除合同的，实测套内建筑面积大于预测套内建筑面积时，套内建筑面积误差比在3%以内（含3%）部分的房价款由买受人补足；超出3%部分的房价款由出卖人承担，产权归买受人所有。实测套内建筑面积小于预测套内建筑面积时，套内建筑面积误差比绝对值在3%以内（含3%）部分的房价款由出卖人返还买受人；绝对值超出3%部分的房价款由出卖人双倍返还买受人。</p>
+      <div>
+      <p style="margin-left:40%">实测套内建筑面积－预测套内建筑面积</p>  
+      <p class="txt_center">套内建筑面积误差比＝<input [(ngModel)]="advanceSalesTemplate.d13t3" title={{advanceSalesTemplate.d13t3}} class="input_line input_w300" [readonly]="isDisable" />×100%</p>  
+      <p style="margin-left:45%">预测套内建筑面积</p>  
+      </div>   
+      <p>2.根据第六条按照建筑面积计价的约定，双方同意按照下列原则处理：</p>
+      <p>（1）建筑面积、套内建筑面积误差比绝对值均在3%以内（含3%）的，根据实测建筑面积结算房价款；</p>
+      <p>（2）建筑面积、套内建筑面积误差比绝对值其中有一项超出3%时，买受人有权解除合同。</p>
+      <p>买受人解除合同的，应当书面通知出卖人。出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="advanceSalesTemplate.d13t4" title={{advanceSalesTemplate.d13t4}} class="input_line input_w50" [readonly]="isDisable" /> %（不低于中国人民银行公布的同期贷款基准利率）计算给付利息。</p>
+      <p>买受人选择不解除合同的，实测建筑面积大于预测建筑面积时，建筑面积误差比在3%以内（含3%）部分的房价款由买受人补足，超出3%部分的房价款由出卖人承担，产权归买受人所有。实测建筑面积小于预测建筑面积时，建筑面积误差比绝对值在3%以内（含3%）部分的房价款由出卖人返还买受人；绝对值超出3%部分的房价款由出卖人双倍返还买受人。</p>  
+      <div>
+        <p style="margin-left:40%">实测建筑面积－预测建筑面积</p>  
+        <p class="txt_center">套内建筑面积误差比＝<input [(ngModel)]="advanceSalesTemplate.d13t5" title={{advanceSalesTemplate.d13t5}} class="input_line input_w300" [readonly]="isDisable" />×100%</p>  
+        <p style="margin-left:45%">预测建筑面积</p>  
+        </div>   
+      <p>（3）因设计变更造成面积差异，双方不解除合同的，应当签署补充协议。</p>       
+      <p>3.根据第六条按照套计价的，出卖人承诺在房屋平面图中标明详细尺寸，并约定误差范围。该商品房交付时，套型与设计图纸不一致或者相关尺寸超出约定的误差范围，双方约定如下：</p> 
+      <p><input [(ngModel)]="advanceSalesTemplate.d13t6" title={{advanceSalesTemplate.d13t6}} class="input_line input_wAll" [readonly]="isDisable" /></p> 
+      <p>4.双方自行约定：</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.d13t7" title={{advanceSalesTemplate.d13t7}} class="input_line input_wAll" [readonly]="isDisable" /></p> 
+
+      <h2 class="h1_center">第六章 规划设计变更</h2>
+      <h3 class="h3_left">第十四条 规划变更</h3>
+      <p>（一）出卖人应当按照城乡规划主管部门核发的建设工程规划许可证规定的条件建设商品房，不得擅自变更。</p>
+      <p>双方签订合同后，涉及该商品房规划用途、面积、容积率、绿地率、基础设施、公共服务及其他配套设施等规划许可内容经城乡规划主管部门批准变更的，出卖人应当在变更确立之日起 10日内将书面通知送达买受人。出卖人未在规定期限内通知买受人的，买受人有权解除合同。</p>
+      <p>（二）买受人应当在通知送达之日起15日内做出是否解除合同的书面答复。买受人逾期未予以书面答复的，视同接受变更。</p>
+      <p>（三）买受人解除合同的，应当书面通知出卖人。出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="advanceSalesTemplate.d14t1" title={{advanceSalesTemplate.d14t1}} class="input_line input_w50" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息；同时，
+        出卖人按照全部房价款的<input [(ngModel)]="advanceSalesTemplate.d14t2" title={{advanceSalesTemplate.d14t2}} class="input_line input_w50" [readonly]="isDisable" />%向买受人支付违约金。</p>
+      <p>买受人不解除合同的，有权要求出卖人赔偿由此造成的损失，双方约定如下：</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.d14t3" title={{advanceSalesTemplate.d14t3}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+        
 
 
-  <div *ngIf="tabsetIndex==1" style="width:100%;height:calc(100% - 90px);overflow: auto;background: #fff">
+      <h3 class="h3_left">第十五条 设计变更</h3>
+      <p>（一）双方签订合同后，出卖人按照法定程序变更建筑工程施工图设计文件，涉及下列可能影响买受人所购商品房质量或使用功能情形的，出卖人应当在变更确立之日起10日内将书面通知送达买受人。出卖人未在规定期限内通知买受人的，买受人有权解除合同。</p>
+      <p>1.该商品房结构形式、户型、空间尺寸、朝向；</p>
+      <p>2.供热、采暖方式；</p>
+      <p>3.<input [(ngModel)]="advanceSalesTemplate.d15t1" title={{advanceSalesTemplate.d15t1}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>4.<input [(ngModel)]="advanceSalesTemplate.d15t2" title={{advanceSalesTemplate.d15t2}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>5.<input [(ngModel)]="advanceSalesTemplate.d15t3" title={{advanceSalesTemplate.d15t3}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>（二）买受人应当在通知送达之日起15日内做出是否解除合同的书面答复。买受人逾期未予以书面答复的，视同接受变更。</p>
+      <p>（三）买受人解除合同的，应当书面通知出卖人。出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="advanceSalesTemplate.d15t4" title={{advanceSalesTemplate.d15t4}} class="input_line input_w50" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息；同时，
+        出卖人按照全部房价款的<input [(ngModel)]="advanceSalesTemplate.d15t5" title={{advanceSalesTemplate.d15t5}} class="input_line input_w50" [readonly]="isDisable" />%向买受人支付违约金。</p>
+      <p>买受人不解除合同的，有权要求出卖人赔偿由此造成的损失，双方约定如下：</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.d15t6" title={{advanceSalesTemplate.d15t6}} class="input_line input_wAll" [readonly]="isDisable" />。</p> 
+
+      
+      
+       
+
+      <h2 class="h1_center">第七章 商品房质量及保修责任</h2>
+      <h3 class="h3_left">第十六条 商品房质量</h3>
+      <p>（一）地基基础和主体结构</p>
+      <p>出卖人承诺该商品房地基基础和主体结构合格，并符合国家及行业标准。</p>
+      <p>经检测不合格的，买受人有权解除合同。买受人解除合同的，应当书面通知出卖人。出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="advanceSalesTemplate.d16t1" title={{advanceSalesTemplate.d16t1}} class="input_line input_w50" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息。给买受人造成损失的，由出卖人支付【已付房价款一倍】【买受人全部损失】的赔偿金。因此而发生的检测费用由出卖人承担。</p> 
+      <p>买受人不解除合同的，<input [(ngModel)]="advanceSalesTemplate.d16t2" title={{advanceSalesTemplate.d16t2}} class="input_line input_w50" [readonly]="isDisable" />。</p>  
+      <p>（二）其他质量问题</p>
+      <p>该商品房质量应当符合有关工程质量规范、标准和施工图设计文件的要求。发现除地基基础和主体结构外质量问题的，双方按照以下方式处理：</p>
+      <p>(1)及时更换、修理；如给买受人造成损失的，还应当承担相应赔偿责任。</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.d16t3" title={{advanceSalesTemplate.d16t3}} class="input_line input_wAll" [readonly]="isDisable" /></p>
+      <p>(2)经过更换、修理，仍然严重影响正常使用的，买受人有权解除合同。买受人解除合同的，应当书面通知出卖人。出卖人应当自解除合同通知送达之日起 15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="advanceSalesTemplate.d16t4" title={{advanceSalesTemplate.d16t4}} class="input_line input_w50" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息。给买受人造成损失的，由出卖人承担相应赔偿责任。因此而发生的检测费用由出卖人承担。</p>
+      <p>买受人不解除合同的，<input [(ngModel)]="advanceSalesTemplate.d16t5" title={{advanceSalesTemplate.d16t5}} class="input_line input_w50" [readonly]="isDisable" />。</p>  
+      <p>（三）装饰装修及设备标准</p>
+      <p>该商品房应当使用合格的建筑材料、构配件和设备，装置、装修、装饰所用材料的产品质量必须符合国家的强制性标准及双方约定的标准。</p>
+      <p>不符合上述标准的，买受人有权要求出卖人按照下列第（1）、
+        <input [(ngModel)]="advanceSalesTemplate.d16t6" title={{advanceSalesTemplate.d16t6}} class="input_line input_w50" [readonly]="isDisable" />、
+        <input [(ngModel)]="advanceSalesTemplate.d16t7" title={{advanceSalesTemplate.d16t7}} class="input_line input_w50" [readonly]="isDisable" />方式处理（可多选）：</p>
+      <p>（1）及时更换、修理；</p>
+      <p>（2）出卖人赔偿双倍的装饰、设备差价；</p>
+      <p>（3）<input [(ngModel)]="advanceSalesTemplate.d16t8" title={{advanceSalesTemplate.d16t8}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>（4）<input [(ngModel)]="advanceSalesTemplate.d16t8" title={{advanceSalesTemplate.d16t8}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>具体装饰装修及相关设备标准的约定见附件六。</p>
+      <p>（四）室内空气质量、建筑隔声和民用建筑节能措施</p>
+      <p>1.该商品房室内空气质量符合【国家】【地方】标准，
+        标准名称：<input [(ngModel)]="advanceSalesTemplate.d16t10" title={{advanceSalesTemplate.d16t10}} class="input_line input_w400" [readonly]="isDisable" />，
+        标准文号：<input [(ngModel)]="advanceSalesTemplate.d16t11" title={{advanceSalesTemplate.d16t11}} class="input_line input_w400" [readonly]="isDisable" />。</p>
+      <p>该商品房为住宅的，建筑隔声情况符合【国家】【地方】标准，
+        标准名称：<input [(ngModel)]="advanceSalesTemplate.d16t12" title={{advanceSalesTemplate.d16t12}} class="input_line input_w400" [readonly]="isDisable" />，
+        标准文号：<input [(ngModel)]="advanceSalesTemplate.d16t13" title={{advanceSalesTemplate.d16t13}} class="input_line input_w400" [readonly]="isDisable" />。</p>
+      <p>该商品房室内空气质量或建筑隔声情况经检测不符合标准，由出卖人负责整改，整改后仍不符合标准的，买受人有权解除合同。买受人解除合同的，应当书面通知出卖人。出卖人应当自解除合同通知送达之日起 15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="advanceSalesTemplate.d16t14" title={{advanceSalesTemplate.d16t14}} class="input_line input_w50" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息。给买受人造成损失的，由出卖人承担相应赔偿责任。经检测不符合标准的，检测费用由出卖人承担，整改后再次检测发生的费用仍由出卖人承担。因整改导致该商品房逾期交付的，出卖人应当承担逾期交付责任。</p>
+      <p>2.该商品房应当符合国家有关民用建筑节能强制性标准的要求。</p>
+      <p>未达到标准的，出卖人应当按照相应标准要求补做节能措施，并承担全部费用；给买受人造成损失的，出卖人应当承担相应赔偿责任。</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.d16t15" title={{advanceSalesTemplate.d16t15}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+
+      
+       
+      <h3 class="h3_left">第十七条 保修责任</h3>
+      <p>（一）商品房实行保修制度。该商品房为住宅的，出卖人自该商品房交付之日起，按照《住宅质量保证书》承诺的内容承担相应的保修责任。该商品房为非住宅的，双方应当签订补充协议详细约定保修范围、保修期限和保修责任等内容。具体内容见附件七。</p>
+      <p>（二）下列情形，出卖人不承担保修责任：</p>
+      <p>1.因不可抗力造成的房屋及其附属设施的损害；</p>
+      <p>2.因买受人不当使用造成的房屋及其附属设施的损害；</p>
+      <p>3.<input [(ngModel)]="advanceSalesTemplate.d17t1" title={{advanceSalesTemplate.d17t1}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>（三）在保修期内，买受人要求维修的书面通知送达出卖人<input [(ngModel)]="advanceSalesTemplate.d17t2" title={{advanceSalesTemplate.d17t2}} class="input_line input_w50" [readonly]="isDisable" />日内，出卖人既不履行保修义务也不提出书面异议的，买受人可以自行或委托他人进行维修，维修费用及维修期间造成的其他损失由出卖人承担。</p>
+      
+
+      <h3 class="h3_left">第十八条 质量担保</h3>
+      <p> 出卖人不按照第十四条、第十五条约定承担相关责任的，由<input [(ngModel)]="advanceSalesTemplate.d18t1" title={{advanceSalesTemplate.d18t1}} class="input_line input_w200" [readonly]="isDisable" />承担连带责任。</p>
+      <p>关于质量担保的证明见附件九。</p>
+
+
+
+      <h2 class="h1_center">第八章 合同备案与房屋登记</h2>
+      <h3 class="h3_left">第十九条 预售合同登记备案</h3>
+      <p>（一）出卖人应当自本合同签订之日起【30日内】【<input [(ngModel)]="advanceSalesTemplate.d19t1" title={{advanceSalesTemplate.d19t1}} class="input_line input_w50" [readonly]="isDisable" />日内】（不超过30日）办理商品房预售合同登记备案手续，并将本合同登记备案情况告知买受人。</p>
+      <p>（二）有关预售合同登记备案的其他约定如下：</p> 
+      <p><input [(ngModel)]="advanceSalesTemplate.d19t2" title={{advanceSalesTemplate.d19t2}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.d19t3" title={{advanceSalesTemplate.d19t3}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+
+
+
+      <h3 class="h3_left">第二十条 房屋登记</h3>
+      <p>（一）双方同意共同向不动产登记机构申请办理该商品房的不动产权转移登记。</p>
+      <p>（二）因出卖人的原因，买受人未能在该商品房交付之日起<input [(ngModel)]="advanceSalesTemplate.d20t1" title={{advanceSalesTemplate.d20t1}} class="input_line input_w50" [readonly]="isDisable" />日内取得该商品房的不动产权证书的，
+        双方同意按照下列第<input [(ngModel)]="advanceSalesTemplate.d20t2" title={{advanceSalesTemplate.d20t2}} class="input_line input_w50" [readonly]="isDisable" />种方式处理：</p>
+      <p>1.买受人有权解除合同。买受人解除合同的，应当书面通知出卖人。出卖人应当自解除合同通知送达之日起15日内退还买受人已付全部房款（含已付贷款部分），并自买受人付款之日起，
+        按照<input [(ngModel)]="advanceSalesTemplate.d20t3" title={{advanceSalesTemplate.d20t3}} class="input_line input_w50" [readonly]="isDisable" />%（不低于中国人民银行公布的同期贷款基准利率）计算给付利息。买受人不解除合同的，自买受人应当完成不动产权登记的期限届满之次日起至实际完成不动产权登记之日止，
+        出卖人按日计算向买受人支付全部房价款万分之<input [(ngModel)]="advanceSalesTemplate.d20t4" title={{advanceSalesTemplate.d20t4}} class="input_line input_w50" [readonly]="isDisable" />的违约金。</p>
+      <p>2.<input [(ngModel)]="advanceSalesTemplate.d20t5" title={{advanceSalesTemplate.d20t5}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>（三）因买受人的原因未能在约定期限内完成该商品房的不动产权转移登记的，出卖人不承担责任。</p>
+
+
+      <h2 class="h1_center">第九章 前期物业管理</h2> 
+      <h3 class="h3_left">第二十一条 买受人信息保护</h3>
+      <p>（一）出卖人依法选聘的前期物业服务企业为<input [(ngModel)]="advanceSalesTemplate.d21t1" title={{advanceSalesTemplate.d21t1}} class="input_line input_w300" [readonly]="isDisable" />。</p>
+      <p>（二）物业服务时间从
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d21t2" title={{advanceSalesTemplate.d21t2}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span>  
+        到
+        <span>
+          <nz-date-picker class="datapicker-line" [(ngModel)]="advanceSalesTemplate.d21t3" title={{advanceSalesTemplate.d21t3}} [nzAllowClear]="false"  [disabled]="isDisable">
+          </nz-date-picker>
+        </span>  。</p>
+      <p>（三）物业服务期间，物业收费计费方式为【包干制】【酬金制】【<input [(ngModel)]="advanceSalesTemplate.d21t4" title={{advanceSalesTemplate.d21t4}} class="input_line input_w100" [readonly]="isDisable" />】。
+        物业服务费为<input [(ngModel)]="advanceSalesTemplate.d21t5" title={{advanceSalesTemplate.d21t5}} class="input_line input_w100" [readonly]="isDisable" />元/月· 平方米（建筑面积）。</p>
+      <p>（四）买受人同意由出卖人选聘的前期物业服务企业代为查验并承接物业共用部位、共用设施设备，出卖人应当将物业共用部位、共用设施设备承接查验的备案情况书面告知买受人。</p>
+      <p>（五）买受人已详细阅读前期物业服务合同和临时管理规约，同意由出卖人依法选聘的物业服务企业实施前期物业管理，遵守临时管理规约。业主委员会成立后，由业主大会决定选聘或续聘物业服务企业。</p>
+      <p>该商品房前期物业服务合同、临时管理规约见附件九。</p>
+
+
+      <h2 class="h1_center">第十章 其他事项</h2> 
+      <h3 class="h3_left">第二十二条 建筑物区分所有权</h3>
+      <p>（一）买受人对其建筑物专有部分享有占有、使用、收益和处分的权利。</p>
+      <p>（二）以下部位归业主共有：</p>
+      <p>1.建筑物的基础、承重结构、外墙、屋顶等基本结构部分，通道、楼梯、大堂等公共通行部分，消防、公共照明等附属设施、设备，避难层、设备层或者设备间等结构部分；</p>
+      <p>2.该商品房所在建筑区划内的道路（属于城镇公共道路的除外）、绿地（属于城镇公共绿地或者明示属于个人的除外）、占用业主共有的道路或者其他场地用于停放汽车的车位、物业服务用房；</p>
+      <p>3.<input [(ngModel)]="advanceSalesTemplate.d22t1" title={{advanceSalesTemplate.d22t1}} class="input_line input_wAll" [readonly]="isDisable" /></p>
+      <p>（三）双方对其他配套设施约定如下：</p>
+      <P>1.规划的车位、车库：<input [(ngModel)]="advanceSalesTemplate.d22t2" title={{advanceSalesTemplate.d22t2}} class="input_line input_w500" [readonly]="isDisable" />；</P>
+      <P>2.会所：<input [(ngModel)]="advanceSalesTemplate.d22t3" title={{advanceSalesTemplate.d22t3}} class="input_line input_w500" [readonly]="isDisable" />；</P>
+      <P>3.<input [(ngModel)]="advanceSalesTemplate.d22t4" title={{advanceSalesTemplate.d22t4}} class="input_line input_w500" [readonly]="isDisable" />；</P>
+
+
+
+
+      <h3 class="h3_left">第二十三条 税费</h3>
+      <p>双方应当按照国家的有关规定，向相应部门缴纳因该商品房买卖发生的税费。因预测面积与实测面积差异，导致买受人不能享受税收优惠政策而增加的税收负担，
+        由<input [(ngModel)]="advanceSalesTemplate.d23t1" title={{advanceSalesTemplate.d23t1}} class="input_line input_w300" [readonly]="isDisable" />承担。</p>
+
+
+      <h3 class="h3_left">第二十四条 销售和使用承诺</h3>
+      <p>1.出卖人承诺不采取分割拆零销售、返本销售或者变相返本销售的方式销售商品房；不采取售后包租或者变相售后包租的方式销售未竣工商品房。</p>
+      <p>2.出卖人承诺按照规划用途进行建设和出售，不擅自改变该商品房使用性质，并按照规划用途办理房屋登记。出卖人不得擅自改变与该商品房有关的共用部位和设施的使用性质。</p>
+      <p>3.出卖人承诺对商品房的销售，不涉及依法或者依规划属于买受人共有的共用部位和设施的处分。</p>
+      <p>4.出卖人承诺已将遮挡或妨碍房屋正常使用的情况告知买受人。具体内容见附件十。</p>
+      <p>5.买受人使用该商品房期间，不得擅自改变该商品房的用途、建筑主体结构和承重结构。</p>
+      <p>6.<input [(ngModel)]="advanceSalesTemplate.d24t1" title={{advanceSalesTemplate.d24t1}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p>7.<input [(ngModel)]="advanceSalesTemplate.d24t2" title={{advanceSalesTemplate.d24t2}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+
+      <h3 class="h3_left">第二十五条 送达</h3>
+      <p>出卖人和买受人保证在本合同中记载的通讯地址、联系电话均真实有效。任何根据本合同发出的文件，均应采用书面形式，以【邮政快递】【邮寄挂号信】
+        【<input [(ngModel)]="advanceSalesTemplate.d25t1" title={{advanceSalesTemplate.d25t1}} class="input_line input_w100" [readonly]="isDisable" />】方式送达对方。任何一方变更通讯地址、联系电话的，
+        应在变更之日起<input [(ngModel)]="advanceSalesTemplate.d25t2" title={{advanceSalesTemplate.d25t2}} class="input_line input_w50" [readonly]="isDisable" />日内书面通知对方。变更的一方未履行通知义务导致送达不能的，应承担相应的法律责任。</p>
+
+
+      <h3 class="h3_left">第二十六条 买受人信息保护</h3>
+      <p>出卖人对买受人信息负有保密义务。非因法律、法规规定或国家安全机关、公安机关、检察机关、审判机关、纪检监察部门执行公务的需要，未经买受人书面同意，出卖人及其销售人员和相关工作人员不得对外披露买受人信息，或将买受人信息用于履行本合同之外的其他用途。</p>
+
+
+      <h3 class="h3_left">第二十七条 争议解决方式</h3>
+      <p>本合同在履行过程中发生的争议，由双方当事人协商解决，也可通过消费者协会等相关机构调解；
+        或按照下列第<input [(ngModel)]="advanceSalesTemplate.d27t1" title={{advanceSalesTemplate.d27t1}} class="input_line input_w50" [readonly]="isDisable" />种方式解决：</p>
+      <p>1.依法向房屋所在地人民法院起诉。</p>
+      <p>2.提交<input [(ngModel)]="advanceSalesTemplate.d27t2" title={{advanceSalesTemplate.d27t2}} class="input_line input_w400" [readonly]="isDisable" />仲裁委员会仲裁。</p>
+
+  
+      <h3 class="h3_left">第二十八条 补充协议</h3>
+      <p>对本合同中未约定或约定不明的内容，双方可根据具体情况签订书面补充协议（补充协议见附件十一）。</p>
+      <p>补充协议中含有不合理的减轻或免除本合同中约定应当由出卖人承担的责任，或不合理的加重买受人责任、排除买受人主要权利内容的，仍以本合同为准。</p>
+
+  
+      <h3 class="h3_left">第二十九条 合同生效</h3>
+      <p>本合同自双方签字或盖章之日起生效。本合同的解除应当采用书面形式。</p>
+      <p>本合同及附件共<input [(ngModel)]="advanceSalesTemplate.d29t1" title={{advanceSalesTemplate.d29t1}} class="input_line input_w50" [readonly]="isDisable" />页，
+        一式<input [(ngModel)]="advanceSalesTemplate.d29t2" title={{advanceSalesTemplate.d29t2}} class="input_line input_w50" [readonly]="isDisable" />份，
+        其中出卖人<input [(ngModel)]="advanceSalesTemplate.d29t3" title={{advanceSalesTemplate.d29t3}} class="input_line input_w50" [readonly]="isDisable" />份，
+        买受人<input [(ngModel)]="advanceSalesTemplate.d29t4" title={{advanceSalesTemplate.d29t4}} class="input_line input_w50" [readonly]="isDisable" />份，
+        【<input [(ngModel)]="advanceSalesTemplate.d29t5" title={{advanceSalesTemplate.d29t5}} class="input_line input_w50" [readonly]="isDisable" />】
+        <input [(ngModel)]="advanceSalesTemplate.d29t6" title={{advanceSalesTemplate.d29t6}} class="input_line input_w50" [readonly]="isDisable" />份，
+        【<input [(ngModel)]="advanceSalesTemplate.d29t7" title={{advanceSalesTemplate.d29t7}} class="input_line input_w100" [readonly]="isDisable" />】
+        <input [(ngModel)]="advanceSalesTemplate.d29t8" title={{advanceSalesTemplate.d29t8}} class="input_line input_w50" [readonly]="isDisable" />份。合同附件与本合同具有同等法律效力。</p>
+      
+      
+       
+      <div class="txt_top" style="min-height: 400px;min-width: 1000px;">
+         
+         <div nz-row style="float:left;margin-left: 5%;">
+           <div nz-col class="col_h50">出卖人 (签字或盖章) ：<input [(ngModel)]="advanceSalesTemplate.qz1" title={{advanceSalesTemplate.qz1}} class="input_line input_w200" [readonly]="isDisable" /> </div>
+           <div nz-col class="col_h50">【法定代表人】(签字或盖章)：<input [(ngModel)]="advanceSalesTemplate.qz2" title={{advanceSalesTemplate.qz2}} class="input_line input_w200" [readonly]="isDisable" /> </div>
+           <div nz-col class="col_h50">【委托代理人】(签字或盖章)：<input [(ngModel)]="advanceSalesTemplate.qz3" title={{advanceSalesTemplate.qz3}} class="input_line input_w200" [readonly]="isDisable"  /> </div>
+           <div nz-col class="col_h50"></div>
+           <div nz-col class="col_h50">签订时间：
+            <span>
+            <nz-date-picker class="datapicker-line" [nzAllowClear]="false" [(ngModel)]="advanceSalesTemplate.qz4" title={{advanceSalesTemplate.qz4}} [disabled]="isDisable">
+            </nz-date-picker>
+            </span> 
+            </div>
+           <div nz-col class="col_h50">签订地点：<input [(ngModel)]="advanceSalesTemplate.qz5" title={{advanceSalesTemplate.qz5}} class="input_line input_w200" [readonly]="isDisable"  /></div> 
+         </div>
+         <div nz-row  style="float:left;">
+          <div nz-col class="col_h50">买受人 (签字或盖章 ) ：<input [(ngModel)]="advanceSalesTemplate.qz6" title={{advanceSalesTemplate.qz6}} class="input_line input_w200" [readonly]="isDisable"  /></div>
+          <div nz-col class="col_h50">【法定代表人】(签字或盖章)：<input [(ngModel)]="advanceSalesTemplate.qz7" title={{advanceSalesTemplate.qz7}} class="input_line input_w200" [readonly]="isDisable" /></div>
+          <div nz-col class="col_h50">【委托代理人】(签字或盖章)：<input [(ngModel)]="advanceSalesTemplate.qz8" title={{advanceSalesTemplate.qz8}} class="input_line input_w200" [readonly]="isDisable" /></div>
+          <div nz-col class="col_h50">【法定代理人】(签字或盖章)：<input [(ngModel)]="advanceSalesTemplate.qz9" title={{advanceSalesTemplate.qz9}} class="input_line input_w200" [readonly]="isDisable" /></div>
+          <div nz-col class="col_h50">签订时间：
+            <span>
+              <nz-date-picker class="datapicker-line" [nzAllowClear]="false" [(ngModel)]="advanceSalesTemplate.qz10" title={{advanceSalesTemplate.qz10}} [disabled]="isDisable">
+              </nz-date-picker>
+              </span>
+           </div>
+          <div nz-col class="col_h50">签订地点：<input [(ngModel)]="advanceSalesTemplate.qz11" title={{advanceSalesTemplate.qz11}} class="input_line input_w200" [readonly]="isDisable"  /></div> 
+        </div> 
+      </div> 
+      
+      <p> 附件一 房屋平面图（应当标明方位）</p>
+      <p>1.房屋分层分户图（应当标明详细尺寸，并约定误差范围）</p>
+      <p>2.建设工程规划方案总平面图</p>
+       
+      
+      <p> 附件二 关于该商品房共用部位的具体说明（可附图说明）</p>
+      <p> 1.纳入该商品房分摊的共用部位的名称、面积和所在位置</p>
+      <p> 2.未纳入该商品房分摊的共用部位的名称、所在位置</p>
+       
+      
+      <p> 附件三 抵押权人同意该商品房转让的证明及关于抵押的相关约定</p>
+      <p>1.抵押权人同意该商品房转让的证明</p>
+      <p>2.解除抵押的条件和时间</p>
+      <p>3.关于抵押的其他约定</p>
+       
+
+      <p>附件四 关于该商品房价款的计价方式、总价款、付款方式及期限的具体约定</p>
+       
+
+
+      <p> 附件五 关于本项目内相关设施、设备的具体约定</p>
+      <p> 1.相关设施的位置及用途</p>
+      <p> 2.其他约定</p> 
+
+
+      <p> 附件六 关于装饰装修及相关设备标准的约定</p>
+      <p> 交付的商品房达不到本附件约定装修标准的，按照本合同第十六条第（三）款约定处理。出卖人未经双方约定增加的装置、装修、装饰，视为无条件赠送给买受人。</p>
+      <p> 双方就装饰装修主要材料和设备的品牌、产地、规格、数量等内容约定如下：</p>
+      <p> 1.外墙：【瓷砖】【涂料】【玻璃幕墙】【<input [(ngModel)]="advanceSalesTemplate.fj6jw1" title={{advanceSalesTemplate.fj6jw1}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.fj6jw2" title={{advanceSalesTemplate.fj6jw2}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>2.起居室：</p>
+      <p>（1）内墙：【涂料】【壁纸】【<input [(ngModel)]="advanceSalesTemplate.fj6jw3" title={{advanceSalesTemplate.fj6jw3}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.fj6jw4" title={{advanceSalesTemplate.fj6jw4}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> （2）顶棚：【石膏板吊顶】【涂料】【<input [(ngModel)]="advanceSalesTemplate.fj6jw5" title={{advanceSalesTemplate.fj6jw5}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.fj6jw6" title={{advanceSalesTemplate.fj6jw6}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> （3）室内地面：【大理石】【花岗岩】【水泥抹面】【实木地板】【<input [(ngModel)]="advanceSalesTemplate.fj6jw7" title={{advanceSalesTemplate.fj6jw7}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="advanceSalesTemplate.fj6jw8" title={{advanceSalesTemplate.fj6jw8}} class="input_line input_wAll" [readonly]="isDisable" />。 </p>
+      <p>  3.厨房： </p>
+      <p> （1）地面：【水泥抹面】【瓷砖】【<input [(ngModel)]="advanceSalesTemplate.fj6jw9" title={{advanceSalesTemplate.fj6jw9}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="advanceSalesTemplate.fj6jw10" title={{advanceSalesTemplate.fj6jw10}} class="input_line input_wAll" [readonly]="isDisable" />。 </p>
+      <p>  （2）墙面：【耐水腻子】【瓷砖】【<input [(ngModel)]="advanceSalesTemplate.fj6jw11" title={{advanceSalesTemplate.fj6jw11}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="advanceSalesTemplate.fj6jw12" title={{advanceSalesTemplate.fj6jw12}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>  （3）顶棚：【水泥抹面】【石膏吊顶】【<input [(ngModel)]="advanceSalesTemplate.fj6jw13" title={{advanceSalesTemplate.fj6jw13}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="advanceSalesTemplate.fj6jw14" title={{advanceSalesTemplate.fj6jw14}} class="input_line input_wAll" [readonly]="isDisable" />。 </p>
+      <p>  （4）厨具：<input [(ngModel)]="advanceSalesTemplate.fj6jw15" title={{advanceSalesTemplate.fj6jw15}} class="input_line input_wAll" [readonly]="isDisable" />。 </p>
+      <p> 4.卫生间： </p>
+      <p> （1）地面：【水泥抹面】【瓷砖】【<input [(ngModel)]="advanceSalesTemplate.fj6jw16" title={{advanceSalesTemplate.fj6jw16}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="advanceSalesTemplate.fj6jw17" title={{advanceSalesTemplate.fj6jw17}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> （2）墙面：【耐水腻子】【瓷砖】【<input [(ngModel)]="advanceSalesTemplate.fj6jw18" title={{advanceSalesTemplate.fj6jw18}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="advanceSalesTemplate.fj6jw19" title={{advanceSalesTemplate.fj6jw19}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>  （3）顶棚：【水泥抹面】【石膏吊顶】【<input [(ngModel)]="advanceSalesTemplate.fj6jw20" title={{advanceSalesTemplate.fj6jw20}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="advanceSalesTemplate.fj6jw21" title={{advanceSalesTemplate.fj6jw21}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>（4）卫生器具<input [(ngModel)]="advanceSalesTemplate.fj6jw22" title={{advanceSalesTemplate.fj6jw22}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> 5.阳台：【塑钢封闭】【铝合金封闭】【断桥铝合金封闭】【不封闭】
+          【<input [(ngModel)]="advanceSalesTemplate.fj6jw23" title={{advanceSalesTemplate.fj6jw23}} class="input_line input_w100" [readonly]="isDisable" />】；</p>
+      <p> <input [(ngModel)]="advanceSalesTemplate.fj6jw24" title={{advanceSalesTemplate.fj6jw24}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> 6.电梯：</p>
+      <p>（1）品牌：<input [(ngModel)]="advanceSalesTemplate.fj6jw25" title={{advanceSalesTemplate.fj6jw25}} class="input_line input_wAll" [readonly]="isDisable" />； </p>
+      <p>（2）型号：<input [(ngModel)]="advanceSalesTemplate.fj6jw26" title={{advanceSalesTemplate.fj6jw26}} class="input_line input_wAll" [readonly]="isDisable" />。 </p>
+      <p> 7.管道：</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.fj6jw27" title={{advanceSalesTemplate.fj6jw27}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> 8.窗户：</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.fj6jw28" title={{advanceSalesTemplate.fj6jw28}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> 9.<input [(ngModel)]="advanceSalesTemplate.fj6jw29" title={{advanceSalesTemplate.fj6jw29}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p> 10.<input [(ngModel)]="advanceSalesTemplate.fj6jw30" title={{advanceSalesTemplate.fj6jw30}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      
+       
+      
+      <p> 附件七 关于保修范围、保修期限和保修责任的约定</p>
+      <p> 该商品房为住宅的，出卖人应当提供《住宅质量保证书》；该商品房为非住宅的，双方可参照《住宅质量保证书》中的内容对保修范围、保修期限和保修责任等进行约定。</p>
+      <p> 该商品房的保修期自房屋交付之日起计算，关于保修期限的约定不应低于《建设工程质量管理条例》第四十条规定的最低保修期限。</p>
+      <p> （一）保修项目、期限及责任的约定</p>
+      <p> 1.地基基础和主体结构：</p>
+      <p> 保修期限为：<input [(ngModel)]="advanceSalesTemplate.fj7jw1" title={{advanceSalesTemplate.fj7jw1}} class="input_line input_w300" [readonly]="isDisable" />（不得低于设计文件规定的该工程的合理使用年限）；</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.fj7jw2" title={{advanceSalesTemplate.fj7jw2}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>2.屋面防水工程、有防水要求的卫生间、房间和外墙面的防渗漏：</p>
+      <p>保修期限为：<input [(ngModel)]="advanceSalesTemplate.fj7jw3" title={{advanceSalesTemplate.fj7jw3}} class="input_line input_w300" [readonly]="isDisable" />（不得低于5年）；</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.fj7jw4" title={{advanceSalesTemplate.fj7jw4}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>3.供热、供冷系统和设备：</p>
+      <p>保修期限为：<input [(ngModel)]="advanceSalesTemplate.fj7jw5" title={{advanceSalesTemplate.fj7jw5}} class="input_line input_w300" [readonly]="isDisable" />（不得低于2个采暖期、供冷期）；</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.fj7jw6" title={{advanceSalesTemplate.fj7jw6}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>4.电气管线、给排水管道、设备安装：</p>
+      <p>保修期限为：<input [(ngModel)]="advanceSalesTemplate.fj7jw7" title={{advanceSalesTemplate.fj7jw7}} class="input_line input_w300" [readonly]="isDisable" />（不得低于2年）；</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.fj7jw8" title={{advanceSalesTemplate.fj7jw8}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>5.装修工程：</p>
+      <p>保修期限为：<input [(ngModel)]="advanceSalesTemplate.fj7jw9" title={{advanceSalesTemplate.fj7jw9}} class="input_line input_w300" [readonly]="isDisable" />（不得低于2年）；</p>
+      <p><input [(ngModel)]="advanceSalesTemplate.fj7jw10" title={{advanceSalesTemplate.fj7jw10}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>6、<input [(ngModel)]="advanceSalesTemplate.fj7jw11" title={{advanceSalesTemplate.fj7jw11}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p>7、<input [(ngModel)]="advanceSalesTemplate.fj7jw12" title={{advanceSalesTemplate.fj7jw12}} class="input_line input_wAll" [readonly]="isDisable" />；</p>
+      <p>8、<input [(ngModel)]="advanceSalesTemplate.fj7jw13" title={{advanceSalesTemplate.fj7jw13}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      <p>（二）其他约定</p>
+      <p> <input [(ngModel)]="advanceSalesTemplate.fj7jw14" title={{advanceSalesTemplate.fj7jw14}} class="input_line input_wAll" [readonly]="isDisable" />。</p>
+      
+      <p>附件八 关于质量担保的证明</p>
+      
+       
+      
+      <p>附件九 关于前期物业管理的约定</p>
+      <p>1.前期物业服务合同</p>
+      <p>2.临时管理规约</p>
+      
+      
+       
+      <p>附件十 出卖人关于遮挡或妨碍房屋正常使用情况的说明</p>
+      <p>（如：该商品房公共管道检修口、柱子、变电箱等有遮挡或妨碍房屋正常使用的情况）</p>
+        
+        
+      <p>附件十一 补充协议</p>
+      
+    </div>
+  </div>
+  
+  <div *ngIf="tabsetIndex==2" style="width:100%;height:calc(100% - 90px);overflow: auto;background: #fff">
 
     <div class="file_left">
       <ul class="fileTypeList_ul">
@@ -304,9 +1715,10 @@
       </div>
 
       <nz-table #nestedTable [nzData]="fjList" class="commontable tablescoll_rainbow" [nzLoading]="Loading"
-      [nzShowTotal]="rangeTemplate"  [nzPageIndex]="pageIndex" [nzPageSize]="pageSize" nzShowPagination nzShowQuickJumper nzShowSizeChanger
-         [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"
-        (nzCurrentPageDataChange)="currentPageDataChange($event)" [nzScroll]="tableIsScroll" [nzFrontPagination]="false">
+        [nzShowTotal]="rangeTemplate" [nzPageIndex]="pageIndex" [nzPageSize]="pageSize" nzShowPagination
+        nzShowQuickJumper nzShowSizeChanger [nzTotal]="totalCount" (nzPageIndexChange)="pageIndexChange($event)"
+        (nzPageSizeChange)="pageSizeChange($event)" (nzCurrentPageDataChange)="currentPageDataChange($event)"
+        [nzScroll]="tableIsScroll" [nzFrontPagination]="false">
         <thead>
           <tr>
             <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
@@ -337,11 +1749,11 @@
     </div>
   </div>
 
-  <div class="jbxx" *ngIf="tabsetIndex==2&&!associatedCompanyShow">
+  <div class="jbxx" *ngIf="tabsetIndex==3&&!associatedCompanyShow">
     <app-lpbgl [glType]="'houseTrade'" [pid]="detailObj.id"></app-lpbgl>
   </div>
 
-  <div class="jbxx" *ngIf="(tabsetIndex==2&&associatedCompanyShow)||tabsetIndex==3" style="overflow: hidden">
+  <div class="jbxx" *ngIf="(tabsetIndex==3&&associatedCompanyShow)||tabsetIndex==4" style="overflow: hidden">
     <app-associated-company [associatedid]="detailObj.id" modulename="houseTrade" [selectShow]="!isDisable">
     </app-associated-company>
   </div>
@@ -350,19 +1762,19 @@
     <div nz-row>
       <div nz-col [nzSpan]="24">
         <button nz-button nzType="default" (click)="cancel()">返回</button>
-        <button nz-button nzType="primary" *ngIf="!isDisable&&tabsetIndex==0" [disabled]="isbusy"
+        <button nz-button nzType="primary" *ngIf="!isDisable&&(tabsetIndex==0||tabsetIndex==1)" [disabled]="isbusy"
           (click)="save()">保存</button>
-        <button nz-button nzType="primary" *ngIf="!isDisable&&detailObj.ljzid&&tabsetIndex==0" (click)="linkH()">关联户</button>
+        <button nz-button nzType="primary" *ngIf="!isDisable&&detailObj.ljzid&&tabsetIndex==0"
+          (click)="linkH()">关联户</button>
       </div>
 
     </div>
-  </div>
+  
+  </div>    
+ 
 
-
-
-</div>
-
-<nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="附件上传" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading">
   <app-upload #uploadComponent [refid]="detailObj.id" [type]="fileType" (outer)="outer($event)"></app-upload>
 </nz-modal>
 

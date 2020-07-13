@@ -30,42 +30,54 @@
 
   </div>
 
-  <div nz-row style="height: 150px;padding: 20px;border-top: 1px solid #ccc;">
+  <div nz-row style="height: 150px;padding: 20px;border-top: 1px solid #ccc;min-width: 1400px;">
     <ul class="static_top_ul">
       <li style="margin-left: 0;background:#1890ff;color:#fff">
         <div class="left_div"><i nz-icon nzType="pay-circle" nzTheme="outline"></i></div>
-        <div class="right_div">
-          <p class="right_div_title">交易总价（万元）</p>
+        <div class="center_div">
+          <p class="right_div_title">交易总价（元）</p>
           <p class="right_div_num">{{staticValue.zj}}</p>
         </div>
+        <div class="right_div">
+          <p class="right_div_title">商品房总价（元）：{{this.szj}}</p>
+          <p class="right_div_title">存量房总价（元）：{{this.czj}}</p> 
+        </div> 
       </li>
       <li style="background:#ffae17;color:#fff">
           <div class="left_div"><i nz-icon nzType="credit-card" nzTheme="outline"></i></div>
-          <div class="right_div">
-            <p class="right_div_title">交易总面积（平方米）</p>
+          <div class="center_div">
+            <p class="right_div_title">交易总面积（㎡）</p>
             <p class="right_div_num">{{staticValue.mj}}</p>
           </div>
+          <div class="right_div">
+            <p class="right_div_title">商品房面积（㎡）：{{this.smj}}</p>
+            <p class="right_div_title">存量房面积（㎡）：{{this.cmj}}</p> 
+          </div> 
         </li>
         <li style="background:#58cb4b;color:#fff">
             <div class="left_div"><i nz-icon nzType="idcard" nzTheme="outline"></i></div>
-            <div class="right_div">
+            <div class="center_div">
               <p class="right_div_title">交易销售数量（套）</p>
               <p class="right_div_num">{{staticValue.ts}}</p>
             </div>
+            <div class="right_div">
+              <p class="right_div_title">商品房销售数量（套）：{{this.sts}}</p>
+              <p class="right_div_title">存量房销售数量（套）：{{this.cts}}</p> 
+            </div> 
           </li>
     </ul>
   </div>
 
 <div nz-row style="padding: 12px;text-align: center;background: #e4e4e4">
   <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" style="width:400px">
-      <input type="text" [(ngModel)]="mc" nz-input placeholder="请输入开发企业、项目名称搜索" />
+      <input type="text" [(ngModel)]="mc" nz-input placeholder="请输入开发企业、经济公司、项目名称搜索" />
     </nz-input-group>
     <ng-template #suffixIconButton>
       <button nz-button nzType="primary" nzSearch style="margin-left:0" (click)="search()">搜索</button>
     </ng-template>
   </div>
 <div nz-row style="padding: 24px;">
-    <div nz-col [nzSpan]="12">
+    <div nz-col [nzSpan]="6">
       用途：
       <nz-select [(ngModel)]="yt" (ngModelChange)="search()" class="w200" nzPlaceHolder="请选择">
           <nz-option nzValue="" nzLabel="全部"></nz-option>
@@ -73,6 +85,14 @@
           </nz-option>
       </nz-select>
 </div>
+    <div nz-col [nzSpan]="6">
+      类型：
+      <nz-select [(ngModel)]="lx" (ngModelChange)="search()" class="w200" nzPlaceHolder="请选择">
+          <nz-option nzValue="" nzLabel="全部"></nz-option>
+          <nz-option nzValue="1" nzLabel="商品房"></nz-option>
+          <nz-option nzValue="2" nzLabel="存量房"></nz-option> 
+      </nz-select>
+    </div>
 <div nz-col [nzSpan]="12">
     <button class="right" nz-button nzType="primary" (click)="export()">导出</button>
 </div>
@@ -86,25 +106,27 @@
       (nzCurrentPageDataChange)="currentPageDataChange($event)">
       <thead (nzSortChange)="sort($event)">
         <tr>
-          <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
-            (nzCheckedChange)="checkAll($event)"></th>
-            <th>开发企业名称</th>
+            <th style="width:10%"></th>
+          <!-- <th style="width:10%" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
+            (nzCheckedChange)="checkAll($event)"></th> -->
+            <th>开发企业/经济公司</th>
             <th>项目名称</th>
             <th>用途</th>
-            <th nzShowSort nzSortKey="jj">均价（元/平方米）</th>
-            <th nzShowSort nzSortKey="xsmj">销售面积（平方米）</th>
+            <th nzShowSort nzSortKey="jj">均价（元/㎡）</th>
+            <th nzShowSort nzSortKey="xsmj">销售面积（㎡）</th>
             <th nzShowSort nzSortKey="xsl">销售量（套）</th>
-            <th nzShowSort nzSortKey="zj">总价（万元）</th>
+            <th nzShowSort nzSortKey="zj">总价（元）</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of nestedTable.data; index as index" 
           (click)="selectItem(data)">
-          <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
-            (nzCheckedChange)="refreshStatus()"></td>
+            <td></td>
+          <!-- <td style="width:10%" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" [nzDisabled]="data.disabled"
+            (nzCheckedChange)="refreshStatus()"></td> -->
             <td title="{{data.qymc}}">{{ data.qymc |tooltips:15}}</td>
             <td title="{{data.xmmc}}">{{ data.xmmc |tooltips:15}}</td>
-            <td>{{data.yt}}</td>
+            <td>{{data.xmyt}}</td>
             <td>{{data.jj}}</td>
             <td>{{data.xsmj}}</td>
             <td>{{data.xsl}}</td>

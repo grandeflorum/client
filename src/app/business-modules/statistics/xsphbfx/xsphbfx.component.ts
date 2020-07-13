@@ -14,9 +14,9 @@ import * as echarts from 'echarts';
   styleUrls: ['./xsphbfx.component.scss']
 })
 export class XsphbfxComponent implements OnInit {
-  @Input() type = "";
-  @Input() glType = "";
-  @Input() pid = "";
+  @Input() type = '';
+  @Input() glType = '';
+  @Input() pid = '';
 
   pageIndex: any = 1;
   totalCount: any = 0;
@@ -27,6 +27,7 @@ export class XsphbfxComponent implements OnInit {
   sortList: any = [];
   selectId: any = '';
   mc = '';
+  lx = '';
 
   isVisible = false;
   dataType = 0;
@@ -37,12 +38,12 @@ export class XsphbfxComponent implements OnInit {
   shxxObj: any = {
     ids: [],
     wfAudit: {
-      shjg: "1",
+      shjg: '1',
       shry: '',
       bz: '',
       shrq: null
     }
-  }
+  };
   isAllDisplayDataChecked = false;
   isIndeterminate = false;
   listOfDisplayData = [];
@@ -56,7 +57,7 @@ export class XsphbfxComponent implements OnInit {
     { name: '销售量', index: 0 },
     { name: '销售均价', index: 1 },
     { name: '销售面积', index: 2 }
-  ]
+  ];
   tabsetIndex = 0;
   dateRange = [];
   btnIndex = 1;
@@ -110,12 +111,12 @@ export class XsphbfxComponent implements OnInit {
     { name: '鎏金园', ts: 300 },
     { name: '天祥上府', ts: 200 },
     { name: '华侨城', ts: 100 }
-  ]
+  ];
 
-  nowDayOfWeek = new Date().getDay(); //今天本周的第几天
-  nowDay = new Date().getDate(); //当前日
-  nowMonth = new Date().getMonth(); //当前月
-  nowYear = new Date().getFullYear(); //当前年
+  nowDayOfWeek = new Date().getDay(); // 今天本周的第几天
+  nowDay = new Date().getDate(); // 当前日
+  nowMonth = new Date().getMonth(); // 当前月
+  nowYear = new Date().getFullYear(); // 当前年
 
   constructor(
     private msg: NzMessageService,
@@ -140,26 +141,26 @@ export class XsphbfxComponent implements OnInit {
   echartChange(m) {
     this.btnIndex = m;
 
-    this.nowDayOfWeek = new Date().getDay(); //今天本周的第几天
-    this.nowDay = new Date().getDate(); //当前日
-    this.nowMonth = new Date().getMonth(); //当前月
-    this.nowYear = new Date().getFullYear(); //当前年
+    this.nowDayOfWeek = new Date().getDay(); // 今天本周的第几天
+    this.nowDay = new Date().getDate(); // 当前日
+    this.nowMonth = new Date().getMonth(); // 当前月
+    this.nowYear = new Date().getFullYear(); // 当前年
 
-    if (m == 1) {//今日
+    if (m == 1) {// 今日
       this.kssj = Moment(new Date()).format('YYYY-MM-DD');
       this.jssj = Moment(new Date()).format('YYYY-MM-DD');
       this.year = new Date().getFullYear();
 
-    } else if (m == 2) {//本周
+    } else if (m == 2) {// 本周
       this.kssj = this.ghGetWeekStartDate();
       this.jssj = this.ghGetNextWeekStartDate();
-    } else if (m == 3) {//本月
+    } else if (m == 3) {// 本月
       this.kssj = this.ghGetMonthStartDate();
       this.jssj = this.ghGetNextMonthStartDate();
-    } else if (m == 4) {//本季度
+    } else if (m == 4) {// 本季度
       this.kssj = this.ghGetQuarterStartDate();
       this.jssj = this.ghGetNextQuarterStartDate();
-    } else if (m == 5) {//本年
+    } else if (m == 5) {// 本年
       this.kssj = Moment(new Date(new Date().getFullYear(), 0, 1)).format('YYYY-MM-DD');
       this.jssj = Moment(new Date(new Date().getFullYear() + 1, 0, 1)).format('YYYY-MM-DD');
     }
@@ -168,17 +169,17 @@ export class XsphbfxComponent implements OnInit {
   }
 
   async setXsEchart() {
-    var option = {
+    const option = {
       year: this.year,
 
-    }
-    var res = await this.statisticService.getOverallSalesTrend(option);
+    };
+    const res = await this.statisticService.getOverallSalesTrend(option);
     if (res && res.code == 200) {
       this.option.xAxis[0].data = res.msg.X;
       this.option.series[0].data = res.msg.Y;
-      this.myChart = echarts.init(document.getElementById("xs_echart"));
+      this.myChart = echarts.init(document.getElementById('xs_echart'));
       this.myChart.off('click');
-      this.myChart.setOption(this.option)
+      this.myChart.setOption(this.option);
     }
 
 
@@ -186,7 +187,7 @@ export class XsphbfxComponent implements OnInit {
 
   async searchTopTen() {
 
-    let option = {
+    const option = {
       pageNo: 1,
       pageSize: 10,
       conditions: []
@@ -199,21 +200,24 @@ export class XsphbfxComponent implements OnInit {
     if (this.jssj) {
       option.conditions.push({ key: 'jssj', value: this.jssj });
     }
-
+    option.conditions.push({ key: 'lx', value: this.lx });
     option.conditions.push({ key: 'sort', value: ['xsl desc'] });
 
 
-    var res = await this.statisticService.getProjectSalesVolumeList(option);
+    const res = await this.statisticService.getProjectSalesVolumeList(option);
     this.Loading = false;
     if (res.code == 200) {
-      this.rankList = res.msg.currentList;
+      console.log(res);
+      console.log(res.msg);
+      this.rankList = res.msg;
+      console.log(this.rankList);
 
     }
   }
 
   async search() {
     this.Loading = true;
-    let option = {
+    const option = {
       pageNo: this.pageIndex,
       pageSize: this.pageSize,
       conditions: []
@@ -223,6 +227,11 @@ export class XsphbfxComponent implements OnInit {
       option.conditions.push({ key: 'mc', value: this.mc });
     }
 
+    if (this.lx) {
+      option.conditions.push({ key: 'lx', value: this.lx });
+    }
+
+
     if (this.kssj) {
       option.conditions.push({ key: 'kssj', value: this.kssj });
     }
@@ -231,10 +240,10 @@ export class XsphbfxComponent implements OnInit {
       option.conditions.push({ key: 'jssj', value: this.jssj });
     }
 
-
+    option.conditions.push({ key: 'lx', value: this.lx });
     option.conditions.push({ key: 'sort', value: this.sortList });
 
-    var res = await this.statisticService.getProjectSalesVolumeList(option);
+    const res = await this.statisticService.getSalesVolumeTotalList(option);
     this.Loading = false;
     if (res.code == 200) {
       this.dataSet = res.msg.currentList;
@@ -246,9 +255,9 @@ export class XsphbfxComponent implements OnInit {
 
   }
 
-  //排序
+  // 排序
   sort(evt) {
-    let key = evt.key;
+    const key = evt.key;
 
     if (this.sortList.some(x => x.indexOf(key) > -1)) {
       this.sortList.splice(this.sortList.findIndex(x => x.indexOf(key) > -1), 1);
@@ -266,7 +275,7 @@ export class XsphbfxComponent implements OnInit {
   }
 
   export() {
-    window.open(AppConfig.Configuration.baseUrl + "/Statistic/excelDownload?mc=" + this.mc + "&kssj=" + this.kssj + "&jssj=" + this.jssj + '&exportType=sales');
+    window.open(AppConfig.Configuration.baseUrl + '/Statistic/excelDownload?mc=' + this.mc + '&lx=' + this.lx + '&kssj=' + this.kssj + '&jssj=' + this.jssj + '&exportType=sales');
   }
 
 
@@ -310,13 +319,13 @@ export class XsphbfxComponent implements OnInit {
 
 
   onChange(m, type) {
-    console.log(m)
+    console.log(m);
     if (type == 'year') {
       this.kssj = Moment(new Date(m.getFullYear(), 0, 1)).format('YYYY-MM-DD');
       this.jssj = Moment(new Date(m.getFullYear(), 12, 1)).format('YYYY-MM-DD');
       this.year = m.getFullYear();
     } else if (type == 'month') {
-      var selectMonth = m.getMonth();
+      const selectMonth = m.getMonth();
       this.kssj = Moment(new Date(m.getFullYear(), selectMonth, 1)).format('YYYY-MM-DD');
       this.jssj = Moment(new Date(m.getFullYear(), selectMonth + 1, 1)).format('YYYY-MM-DD');
       this.year = m.getFullYear();
@@ -345,20 +354,20 @@ export class XsphbfxComponent implements OnInit {
     return Moment(date).format('YYYY-MM-DD');
   }
 
-  //获得某月的天数
+  // 获得某月的天数
   getMonthDays(theYear, theMonth) {
-    var monthStartDate: any = new Date(theYear, theMonth, 1);
-    var monthEndDate: any = new Date(theYear, theMonth + 1, 1);
-    var days = (monthEndDate - monthStartDate) / (1000 * 60 * 60 * 24);
+    const monthStartDate: any = new Date(theYear, theMonth, 1);
+    const monthEndDate: any = new Date(theYear, theMonth + 1, 1);
+    const days = (monthEndDate - monthStartDate) / (1000 * 60 * 60 * 24);
     return days;
   }
 
-  //获得本季度的开始月份
+  // 获得本季度的开始月份
   getQuarterStartMonth(theMonth?) {
     if (!theMonth) {
       theMonth = this.nowMonth;
     }
-    var quarterStartMonth = 0;
+    let quarterStartMonth = 0;
     if (theMonth < 3) {
       quarterStartMonth = 0;
     }
@@ -374,69 +383,69 @@ export class XsphbfxComponent implements OnInit {
     return quarterStartMonth;
   }
 
-  //获得本周的开始日期
+  // 获得本周的开始日期
   ghGetWeekStartDate() {
-    var weekStartDate = new Date(this.nowYear, this.nowMonth, this.nowDay - this.nowDayOfWeek + 1);
+    const weekStartDate = new Date(this.nowYear, this.nowMonth, this.nowDay - this.nowDayOfWeek + 1);
     return this.formatDate(weekStartDate);
   }
-  //获得本周的结束日期
+  // 获得本周的结束日期
   ghGetWeekEndDate() {
-    var weekEndDate = new Date(this.nowYear, this.nowMonth, this.nowDay + (6 - this.nowDayOfWeek) + 1);
+    const weekEndDate = new Date(this.nowYear, this.nowMonth, this.nowDay + (6 - this.nowDayOfWeek) + 1);
     return this.formatDate(weekEndDate);
   }
 
-  //获得下周的开始日期
+  // 获得下周的开始日期
   ghGetNextWeekStartDate() {
-    var weekStartDate = new Date(this.nowYear, this.nowMonth, this.nowDay - this.nowDayOfWeek + 7 + 1);
+    const weekStartDate = new Date(this.nowYear, this.nowMonth, this.nowDay - this.nowDayOfWeek + 7 + 1);
     return this.formatDate(weekStartDate);
   }
 
-  //获得本月的开始日期
+  // 获得本月的开始日期
   ghGetMonthStartDate() {
-    var monthStartDate = new Date(this.nowYear, this.nowMonth, 1);
+    const monthStartDate = new Date(this.nowYear, this.nowMonth, 1);
     return this.formatDate(monthStartDate);
   }
 
-  //获得本月的结束日期
+  // 获得本月的结束日期
   ghGetMonthEndDate() {
-    var monthEndDate = new Date(this.nowYear, this.nowMonth, this.getMonthDays(this.nowYear, this.nowMonth));
+    const monthEndDate = new Date(this.nowYear, this.nowMonth, this.getMonthDays(this.nowYear, this.nowMonth));
     return this.formatDate(monthEndDate);
   }
 
-  //获得下月开始时间
+  // 获得下月开始时间
   ghGetNextMonthStartDate() {
-    var theYear = this.nowYear;
-    var theMonth = this.nowMonth + 1;
+    let theYear = this.nowYear;
+    let theMonth = this.nowMonth + 1;
     if (theMonth == 12) {
       theYear += 1;
       theMonth = 0;
     }
-    var nextMonthStartDate = new Date(theYear, theMonth, 1);
+    const nextMonthStartDate = new Date(theYear, theMonth, 1);
     return this.formatDate(nextMonthStartDate);
   }
 
-  //获得本季度的开始日期
+  // 获得本季度的开始日期
   ghGetQuarterStartDate() {
-    var quarterStartDate = new Date(this.nowYear, this.getQuarterStartMonth(), 1);
+    const quarterStartDate = new Date(this.nowYear, this.getQuarterStartMonth(), 1);
     return this.formatDate(quarterStartDate);
   }
 
-  //或的本季度的结束日期
+  // 或的本季度的结束日期
   ghGetQuarterEndDate() {
-    var quarterEndMonth = this.getQuarterStartMonth() + 2;
-    var quarterStartDate = new Date(this.nowYear, quarterEndMonth,
+    const quarterEndMonth = this.getQuarterStartMonth() + 2;
+    const quarterStartDate = new Date(this.nowYear, quarterEndMonth,
       this.getMonthDays(this.nowYear, quarterEndMonth));
     return this.formatDate(quarterStartDate);
   }
 
   ghGetNextQuarterStartDate() {
-    var theYear = this.nowYear;
-    var theQuarterMonth = this.nowMonth + 3;
+    let theYear = this.nowYear;
+    let theQuarterMonth = this.nowMonth + 3;
     if (theQuarterMonth > 11) {
       theYear += 1;
       theQuarterMonth -= 12;
     }
-    var quarterStartDate = new Date(theYear, this.getQuarterStartMonth(theQuarterMonth), 1);
+    const quarterStartDate = new Date(theYear, this.getQuarterStartMonth(theQuarterMonth), 1);
     return this.formatDate(quarterStartDate);
   }
 
@@ -445,10 +454,10 @@ export class XsphbfxComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    var that = this;
-    $(window).resize(function () {
+    const that = this;
+    $(window).resize(function() {
 
-    })
+    });
   }
 
 }
