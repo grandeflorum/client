@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router , ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as Moment from 'moment';
 import * as $ from 'jquery';
 import { CompanyService } from '../../service/practitioner/company.service';
@@ -122,7 +122,7 @@ export class CompanyComponent implements OnInit {
       }
 
       if (roles.some(x => x == '审核员')) {
-        this.cansh = true; 
+        this.cansh = true;
       }
 
       if (roles.some(x => x == '开发企业') || roles.some(x => x == '经纪公司')) {
@@ -240,16 +240,16 @@ export class CompanyComponent implements OnInit {
   }
 
   add(m, item?) {
-      this.companyService.pageCache = {
-        qymc: this.qymc,
-        qylx: this.qylx,
-        auditType: this.auditType,
-        selectId: item ? item.id : '',
-        pageIndex: 1,
-        pageSize: 10
-      };
+    this.companyService.pageCache = {
+      qymc: this.qymc,
+      qylx: this.qylx,
+      auditType: this.auditType,
+      selectId: item ? item.id : '',
+      pageIndex: 1,
+      pageSize: 10
+    };
 
-      this.router.navigate(['/practitioner/company/detail'], {
+    this.router.navigate(['/practitioner/company/detail'], {
       queryParams: {
         id: item ? item.id : '',
         type: m
@@ -418,7 +418,7 @@ export class CompanyComponent implements OnInit {
 
   ngAfterViewInit() {
     const that = this;
-    $(window).resize(function() {
+    $(window).resize(function () {
       that.alculationHeight();
     });
   }
@@ -446,13 +446,15 @@ export class CompanyComponent implements OnInit {
         name: data.qymc,
         zjh: res.msg.username,
         password: res.msg.password,
-        switchValue: res.msg.isVaild == 1 ? true : false
+        switchValue: res.msg.isVaild == 1 ? true : false,
+        grantValue: res.msg.isGrant == 1 ? true : false
       };
     } else {
       this.roleData = {
         name: data.qymc,
         zjh: data.zjh,
-        switchValue: true
+        switchValue: true,
+        grantValue: false
       };
 
       this.roleData.password = this.getPassword();
@@ -497,6 +499,7 @@ export class CompanyComponent implements OnInit {
       password: this.roleData.password,
       realname: this.roleData.name,
       isVaild: this.roleData.switchValue ? 1 : 2,
+      isGrant: this.roleData.grantValue ? 1 : 0,
       card: this.roleData.zjh
     };
 

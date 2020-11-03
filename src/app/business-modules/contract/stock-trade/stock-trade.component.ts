@@ -90,7 +90,7 @@ export class StockTradeComponent implements OnInit {
   canzsgc: boolean = false;
   cantjsh: boolean = false;
   cansh: boolean = false;
-    
+
   //新审核
   auditIsVisibleNew: any = false;
 
@@ -161,7 +161,7 @@ export class StockTradeComponent implements OnInit {
     this.calculationHeight();
   }
 
-  //排序
+  // 排序
   sort(evt) {
     let key = evt.key;
 
@@ -316,7 +316,7 @@ export class StockTradeComponent implements OnInit {
     });
   }
 
-  //提交审核
+  // 提交审核
   async auditHouseTrade(id, type) {
 
     let res = await this.stockTradeService.auditStockTradeById(id, type);
@@ -330,6 +330,7 @@ export class StockTradeComponent implements OnInit {
   }
 
   async sh(data) {
+    console.log(data);
     if (!data.houseId) {
       this.msg.create('error', '该合同未关联户，不能提交审核');
       return;
@@ -607,19 +608,23 @@ export class StockTradeComponent implements OnInit {
     }
   }
 
-  //打印
+  // 打印
   print(data) {
-
     let url = AppConfig.Configuration.baseUrl + "/StockTrade/printHt?id=" + data.id;
     url = this.utilitiesSercice.wrapUrl(url);
     window.open(url, '_blank');
+    let url2 = AppConfig.Configuration.baseUrl + "/StockTrade/printCeHt?id=" + data.contractEntrustmentId;
+    url2 = this.utilitiesSercice.wrapUrl(url2);
+    window.open(url2, '_blank');
   }
 
   async perview(data) {
-
-    let url = AppConfig.Configuration.baseUrl + "/StockTrade/previewHt?id=" + data.id;
+    let url = AppConfig.Configuration.baseUrl + '/StockTrade/previewHt?id=' + data.id;
     url = this.utilitiesSercice.wrapUrl(url);
     window.open('assets/usermanual/web/viewer.html?url=' + url, '_blank');
+    let url2 = AppConfig.Configuration.baseUrl + '/StockTrade/previewCeHt?id=' + data.contractEntrustmentId;
+    url2 = this.utilitiesSercice.wrapUrl(url2);
+    window.open('assets/usermanual/web/viewer.html?url=' + url2, '_blank');
   }
 
 

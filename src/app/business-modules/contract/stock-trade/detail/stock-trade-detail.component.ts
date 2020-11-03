@@ -25,12 +25,12 @@ export class StockTradeDetailComponent implements OnInit {
 
   downLoadurl = AppConfig.Configuration.baseUrl + '/FileInfo/download';
   tabs = [
-      { name: '合同信息', index: 0 },
-      { name: '合同委托', index: 1 },
-      { name: '买卖合同', index: 2 },
-      { name: '附件', index: 3 },
-      { name: '关联企业', index: 4 }
-    // { name: '关联企业', index: 3 }
+    { name: '合同信息', index: 0 },
+    { name: '合同委托', index: 1 },
+    { name: '买卖合同', index: 2 },
+    { name: '附件', index: 3 },
+    { name: '关联户信息', index: 4 },
+    { name: '关联企业', index: 5 }
   ];
 
   constructor(
@@ -57,7 +57,7 @@ export class StockTradeDetailComponent implements OnInit {
 
     this.tabsetIndex = glType ? 4 : 0;
 
-    if (type == 4) {
+    if (type == 2) {
       this.isDisable = true;
       this.tabs = [
         { name: '合同信息', index: 0 },
@@ -68,19 +68,22 @@ export class StockTradeDetailComponent implements OnInit {
       ];
 
       this.associatedCompanyShow = true;
-    } else if (type == 5) {
-      this.tabs.push({ name: '关联企业', index: 5 });
+    } else if (type == 4) {
+      this.tabs.push({ name: '关联户信息', index: 5 });
     }
 
     switch (type) {
       case '1': // 添加
         this.isDisable = false;
+        this.isWfaudit = false;
         break;
       case '2': // 查看
         this.isDisable = true;
+        this.isWfaudit = false;
         break;
       case '3': // 编辑
         this.isDisable = false;
+        this.isWfaudit = true;
         break;
       default:
         break;
@@ -90,6 +93,7 @@ export class StockTradeDetailComponent implements OnInit {
 
   tabsetIndex = 0;
   isDisable = false;
+
   detailObj: any = {};
   hid: '';
   selectId = -1;
@@ -240,6 +244,75 @@ export class StockTradeDetailComponent implements OnInit {
   ajtgyfkjes: any = '';
   ajtgyfkjey: any = '';
 
+  // 合同委托金额
+  htwtjeqw: any = '';
+  htwtjebw: any = '';
+  htwtjesw: any = '';
+  htwtjew: any = '';
+  htwtjeq: any = '';
+  htwtjeb: any = '';
+  htwtjes: any = '';
+  htwtjey: any = '';
+
+
+  // 审核记录
+  pagedateIndex: any = 1;
+  totaldateCount: any;
+  pagedateSize: any = 10;
+  dateLoading = false;
+  sortList: any = [];
+  dataSet = [];
+  isWfaudit = false;
+
+  pagedateIndexChange(num) {
+    this.pagedateIndex = num;
+    this.checksearch();
+  }
+
+  pagedateSizeChange(num) {
+    this.pagedateSize = num;
+    this.pagedateIndex = 1;
+    this.checksearch();
+  }
+
+  async checksearch() {
+    this.dateLoading = true;
+    let option = {
+      pageNo: this.pagedateIndex,
+      pageSize: this.pagedateSize,
+      conditions: []
+    };
+    option.conditions.push({ key: 'projectid', value: this.detailObj.id });
+    option.conditions.push({ key: 'sort', value: this.sortList });
+    this.operateAuditData(option);
+    this.calculationHeight();
+  }
+
+  checkPageDataChange($event): void {
+    this.listOfDisplayData = $event;
+    this.refreshStatus();
+  }
+
+  async operateAuditData(option) {
+    let res = await this.stockTradeService.getWFAuditListByProjectid(option);
+
+    if (res && res.code == 200) {
+      this.dateLoading = false;
+      console.log(res);
+      this.dataSet = res.msg.currentList;
+      this.totaldateCount = res.msg.recordCount;
+
+      // this.listOfAllData.forEach(item => (this.mapOfCheckedId[item.id] = false));
+      this.refreshStatus();
+
+      this.calculationHeight();
+    } else {
+      this.Loading = false;
+      this.msg.create('error', '查询失败');
+    }
+  }
+
+
 
   isOkLoading = false;
 
@@ -254,414 +327,457 @@ export class StockTradeDetailComponent implements OnInit {
       this.getHInfo();
     }
     this.search();
-
+    this.checksearch();
 
 
   }
 
 
-        // 房屋转让金额转换大写
-      async fwzrjeTodx(strNum) {
-          if (strNum != undefined || strNum != null) {
-            const j = strNum.length;
-            for (let i = j; i <= 7; i++) {
-                const str = '0';
-                strNum = str + strNum ;
-            }
-            // console.log(strNum);
-            const chineseMoney = this.toUpperCase(strNum);
-            // console.log(chineseMoney);
-            for (let i = 0; i <= 7; i++) {
-
-                switch (i) {
-                    case 0:
-                    this.fwzrjeqw = chineseMoney.substr(0, 1);
-                    break;
-                    case 1:
-                      this.fwzrjebw = chineseMoney.substr(1, 1);
-                      break;
-                    case 2:
-                      this.fwzrjesw = chineseMoney.substr(2, 1);
-                      break;
-                    case 3:
-                      this.fwzrjew = chineseMoney.substr(3, 1);
-                      break;
-                    case 4:
-                      this.fwzrjeq = chineseMoney.substr(4, 1);
-                      break;
-                    case 5:
-                      this.fwzrjeb = chineseMoney.substr(5, 1);
-                      break;
-                    case 6:
-                      this.fwzrjes = chineseMoney.substr(6, 1);
-                      break;
-                    case 7:
-                      this.fwzrjey = chineseMoney.substr(7, 1);
-                      break;
-
-                }
-            }
-           }
-
-
+  // 房屋转让金额转换大写
+  async fwzrjeTodx(strNum) {
+    if (strNum != undefined || strNum != null) {
+      const j = strNum.length;
+      for (let i = j; i <= 7; i++) {
+        const str = '0';
+        strNum = str + strNum;
       }
+      // console.log(strNum);
+      const chineseMoney = this.toUpperCase(strNum);
+      // console.log(chineseMoney);
+      for (let i = 0; i <= 7; i++) {
 
-      // 交割房款金额转换大写
-      async jgfkjeTodx(strNum) {
-        if (strNum != undefined || strNum != null) {
-        const j = strNum.length;
-        for (let i = j; i <= 7; i++) {
-            const str = '0';
-            strNum = str + strNum ;
-        }
-        // console .log(strNum);
-        const chineseMoney = this.toUpperCase(strNum);
-        // console .log(chineseMoney);
-        for (let i = 0; i <= 7; i++) {
+        switch (i) {
+          case 0:
+            this.fwzrjeqw = chineseMoney.substr(0, 1);
+            break;
+          case 1:
+            this.fwzrjebw = chineseMoney.substr(1, 1);
+            break;
+          case 2:
+            this.fwzrjesw = chineseMoney.substr(2, 1);
+            break;
+          case 3:
+            this.fwzrjew = chineseMoney.substr(3, 1);
+            break;
+          case 4:
+            this.fwzrjeq = chineseMoney.substr(4, 1);
+            break;
+          case 5:
+            this.fwzrjeb = chineseMoney.substr(5, 1);
+            break;
+          case 6:
+            this.fwzrjes = chineseMoney.substr(6, 1);
+            break;
+          case 7:
+            this.fwzrjey = chineseMoney.substr(7, 1);
+            break;
 
-            switch (i) {
-                case 0:
-                this.jgfkjeqw = chineseMoney.substr(0, 1);
-                break;
-                case 1:
-                  this.jgfkjebw = chineseMoney.substr(1, 1);
-                  break;
-                case 2:
-                  this.jgfkjesw = chineseMoney.substr(2, 1);
-                  break;
-                case 3:
-                  this.jgfkjew = chineseMoney.substr(3, 1);
-                  break;
-                case 4:
-                  this.jgfkjeq = chineseMoney.substr(4, 1);
-                  break;
-                case 5:
-                  this.jgfkjeb = chineseMoney.substr(5, 1);
-                  break;
-                case 6:
-                  this.jgfkjes = chineseMoney.substr(6, 1);
-                  break;
-                case 7:
-                  this.jgfkjey = chineseMoney.substr(7, 1);
-                  break;
-
-            }
-        }
         }
       }
+    }
 
-      // 按揭首付款金额转换大写
-      async ajsfkjeTodx(strNum) {
-        if (strNum != undefined || strNum != null) {
+
+  }
+
+  // 交割房款金额转换大写
+  async jgfkjeTodx(strNum) {
+    if (strNum != undefined || strNum != null) {
       const j = strNum.length;
       for (let i = j; i <= 7; i++) {
-          const str = '0';
-          strNum = str + strNum ;
+        const str = '0';
+        strNum = str + strNum;
+      }
+      // console .log(strNum);
+      const chineseMoney = this.toUpperCase(strNum);
+      // console .log(chineseMoney);
+      for (let i = 0; i <= 7; i++) {
+
+        switch (i) {
+          case 0:
+            this.jgfkjeqw = chineseMoney.substr(0, 1);
+            break;
+          case 1:
+            this.jgfkjebw = chineseMoney.substr(1, 1);
+            break;
+          case 2:
+            this.jgfkjesw = chineseMoney.substr(2, 1);
+            break;
+          case 3:
+            this.jgfkjew = chineseMoney.substr(3, 1);
+            break;
+          case 4:
+            this.jgfkjeq = chineseMoney.substr(4, 1);
+            break;
+          case 5:
+            this.jgfkjeb = chineseMoney.substr(5, 1);
+            break;
+          case 6:
+            this.jgfkjes = chineseMoney.substr(6, 1);
+            break;
+          case 7:
+            this.jgfkjey = chineseMoney.substr(7, 1);
+            break;
+
+        }
+      }
+    }
+  }
+
+  // 按揭首付款金额转换大写
+  async ajsfkjeTodx(strNum) {
+    if (strNum != undefined || strNum != null) {
+      const j = strNum.length;
+      for (let i = j; i <= 7; i++) {
+        const str = '0';
+        strNum = str + strNum;
       }
 
       const chineseMoney = this.toUpperCase(strNum);
       for (let i = 0; i <= 7; i++) {
 
-          switch (i) {
-              case 0:
-              this.ajsfkjeqw = chineseMoney.substr(0, 1);
-              break;
-              case 1:
-                this.ajsfkjebw = chineseMoney.substr(1, 1);
-                break;
-              case 2:
-                this.ajsfkjesw = chineseMoney.substr(2, 1);
-                break;
-              case 3:
-                this.ajsfkjew = chineseMoney.substr(3, 1);
-                break;
-              case 4:
-                this.ajsfkjeq = chineseMoney.substr(4, 1);
-                break;
-              case 5:
-                this.ajsfkjeb = chineseMoney.substr(5, 1);
-                break;
-              case 6:
-                this.ajsfkjes = chineseMoney.substr(6, 1);
-                break;
-              case 7:
-                this.ajsfkjey = chineseMoney.substr(7, 1);
-                break;
+        switch (i) {
+          case 0:
+            this.ajsfkjeqw = chineseMoney.substr(0, 1);
+            break;
+          case 1:
+            this.ajsfkjebw = chineseMoney.substr(1, 1);
+            break;
+          case 2:
+            this.ajsfkjesw = chineseMoney.substr(2, 1);
+            break;
+          case 3:
+            this.ajsfkjew = chineseMoney.substr(3, 1);
+            break;
+          case 4:
+            this.ajsfkjeq = chineseMoney.substr(4, 1);
+            break;
+          case 5:
+            this.ajsfkjeb = chineseMoney.substr(5, 1);
+            break;
+          case 6:
+            this.ajsfkjes = chineseMoney.substr(6, 1);
+            break;
+          case 7:
+            this.ajsfkjey = chineseMoney.substr(7, 1);
+            break;
 
-          }
+        }
       }
     }
-      }
+  }
 
-      // 按揭余付款金额
-      async ajyfkjeTodx(strNum) {
-        if (strNum != undefined || strNum != null) {
+  // 按揭余付款金额
+  async ajyfkjeTodx(strNum) {
+    if (strNum != undefined || strNum != null) {
       const j = strNum.length;
       for (let i = j; i <= 7; i++) {
-          const str = '0';
-          strNum = str + strNum ;
+        const str = '0';
+        strNum = str + strNum;
       }
 
       const chineseMoney = this.toUpperCase(strNum);
       for (let i = 0; i <= 7; i++) {
 
-          switch (i) {
-              case 0:
-              this.ajyfkjeqw = chineseMoney.substr(0, 1);
-              break;
-              case 1:
-                this.ajyfkjebw = chineseMoney.substr(1, 1);
-                break;
-              case 2:
-                this.ajyfkjesw = chineseMoney.substr(2, 1);
-                break;
-              case 3:
-                this.ajyfkjew = chineseMoney.substr(3, 1);
-                break;
-              case 4:
-                this.ajyfkjeq = chineseMoney.substr(4, 1);
-                break;
-              case 5:
-                this.ajyfkjeb = chineseMoney.substr(5, 1);
-                break;
-              case 6:
-                this.ajyfkjes = chineseMoney.substr(6, 1);
-                break;
-              case 7:
-                this.ajyfkjey = chineseMoney.substr(7, 1);
-                break;
+        switch (i) {
+          case 0:
+            this.ajyfkjeqw = chineseMoney.substr(0, 1);
+            break;
+          case 1:
+            this.ajyfkjebw = chineseMoney.substr(1, 1);
+            break;
+          case 2:
+            this.ajyfkjesw = chineseMoney.substr(2, 1);
+            break;
+          case 3:
+            this.ajyfkjew = chineseMoney.substr(3, 1);
+            break;
+          case 4:
+            this.ajyfkjeq = chineseMoney.substr(4, 1);
+            break;
+          case 5:
+            this.ajyfkjeb = chineseMoney.substr(5, 1);
+            break;
+          case 6:
+            this.ajyfkjes = chineseMoney.substr(6, 1);
+            break;
+          case 7:
+            this.ajyfkjey = chineseMoney.substr(7, 1);
+            break;
 
-          }
+        }
       }
     }
-      }
+  }
 
-      // 一次性付款金额
-      async ycxfkjeTodx(strNum) {
-        if (strNum != undefined || strNum != null) {
+  // 一次性付款金额
+  async ycxfkjeTodx(strNum) {
+    if (strNum != undefined || strNum != null) {
       const j = strNum.length;
       for (let i = j; i <= 7; i++) {
-          const str = '0';
-          strNum = str + strNum ;
+        const str = '0';
+        strNum = str + strNum;
       }
 
       const chineseMoney = this.toUpperCase(strNum);
       for (let i = 0; i <= 7; i++) {
 
-          switch (i) {
-              case 0:
-              this.ycxfkjeqw = chineseMoney.substr(0, 1);
-              break;
-              case 1:
-                this.ycxfkjebw = chineseMoney.substr(1, 1);
-                break;
-              case 2:
-                this.ycxfkjesw = chineseMoney.substr(2, 1);
-                break;
-              case 3:
-                this.ycxfkjew = chineseMoney.substr(3, 1);
-                break;
-              case 4:
-                this.ycxfkjeq = chineseMoney.substr(4, 1);
-                break;
-              case 5:
-                this.ycxfkjeb = chineseMoney.substr(5, 1);
-                break;
-              case 6:
-                this.ycxfkjes = chineseMoney.substr(6, 1);
-                break;
-              case 7:
-                this.ycxfkjey = chineseMoney.substr(7, 1);
-                break;
+        switch (i) {
+          case 0:
+            this.ycxfkjeqw = chineseMoney.substr(0, 1);
+            break;
+          case 1:
+            this.ycxfkjebw = chineseMoney.substr(1, 1);
+            break;
+          case 2:
+            this.ycxfkjesw = chineseMoney.substr(2, 1);
+            break;
+          case 3:
+            this.ycxfkjew = chineseMoney.substr(3, 1);
+            break;
+          case 4:
+            this.ycxfkjeq = chineseMoney.substr(4, 1);
+            break;
+          case 5:
+            this.ycxfkjeb = chineseMoney.substr(5, 1);
+            break;
+          case 6:
+            this.ycxfkjes = chineseMoney.substr(6, 1);
+            break;
+          case 7:
+            this.ycxfkjey = chineseMoney.substr(7, 1);
+            break;
 
-          }
+        }
       }
     }
-      }
+  }
 
-      // 分期首付款金额
-      async fqsfkjeTodx(strNum) {
-        if (strNum != undefined || strNum != null) {
+  // 分期首付款金额
+  async fqsfkjeTodx(strNum) {
+    if (strNum != undefined || strNum != null) {
       const j = strNum.length;
       for (let i = j; i <= 7; i++) {
-          const str = '0';
-          strNum = str + strNum ;
+        const str = '0';
+        strNum = str + strNum;
       }
 
       const chineseMoney = this.toUpperCase(strNum);
       for (let i = 0; i <= 7; i++) {
 
-          switch (i) {
-              case 0:
-              this.fqsfkjeqw = chineseMoney.substr(0, 1);
-              break;
-              case 1:
-                this.fqsfkjebw = chineseMoney.substr(1, 1);
-                break;
-              case 2:
-                this.fqsfkjesw = chineseMoney.substr(2, 1);
-                break;
-              case 3:
-                this.fqsfkjew = chineseMoney.substr(3, 1);
-                break;
-              case 4:
-                this.fqsfkjeq = chineseMoney.substr(4, 1);
-                break;
-              case 5:
-                this.fqsfkjeb = chineseMoney.substr(5, 1);
-                break;
-              case 6:
-                this.fqsfkjes = chineseMoney.substr(6, 1);
-                break;
-              case 7:
-                this.fqsfkjey = chineseMoney.substr(7, 1);
-                break;
+        switch (i) {
+          case 0:
+            this.fqsfkjeqw = chineseMoney.substr(0, 1);
+            break;
+          case 1:
+            this.fqsfkjebw = chineseMoney.substr(1, 1);
+            break;
+          case 2:
+            this.fqsfkjesw = chineseMoney.substr(2, 1);
+            break;
+          case 3:
+            this.fqsfkjew = chineseMoney.substr(3, 1);
+            break;
+          case 4:
+            this.fqsfkjeq = chineseMoney.substr(4, 1);
+            break;
+          case 5:
+            this.fqsfkjeb = chineseMoney.substr(5, 1);
+            break;
+          case 6:
+            this.fqsfkjes = chineseMoney.substr(6, 1);
+            break;
+          case 7:
+            this.fqsfkjey = chineseMoney.substr(7, 1);
+            break;
 
-          }
+        }
       }
     }
-      }
+  }
 
-      // 分期余付款金额
-      async fqyfkjeTodx(strNum) {
-        if (strNum != undefined || strNum != null) {
+  // 分期余付款金额
+  async fqyfkjeTodx(strNum) {
+    if (strNum != undefined || strNum != null) {
       const j = strNum.length;
       for (let i = j; i <= 7; i++) {
-          const str = '0';
-          strNum = str + strNum ;
+        const str = '0';
+        strNum = str + strNum;
       }
 
       const chineseMoney = this.toUpperCase(strNum);
       for (let i = 0; i <= 7; i++) {
 
-          switch (i) {
-              case 0:
-              this.fqyfkjeqw = chineseMoney.substr(0, 1);
-              break;
-              case 1:
-                this.fqyfkjebw = chineseMoney.substr(1, 1);
-                break;
-              case 2:
-                this.fqyfkjesw = chineseMoney.substr(2, 1);
-                break;
-              case 3:
-                this.fqyfkjew = chineseMoney.substr(3, 1);
-                break;
-              case 4:
-                this.fqyfkjeq = chineseMoney.substr(4, 1);
-                break;
-              case 5:
-                this.fqyfkjeb = chineseMoney.substr(5, 1);
-                break;
-              case 6:
-                this.fqyfkjes = chineseMoney.substr(6, 1);
-                break;
-              case 7:
-                this.fqyfkjey = chineseMoney.substr(7, 1);
-                break;
+        switch (i) {
+          case 0:
+            this.fqyfkjeqw = chineseMoney.substr(0, 1);
+            break;
+          case 1:
+            this.fqyfkjebw = chineseMoney.substr(1, 1);
+            break;
+          case 2:
+            this.fqyfkjesw = chineseMoney.substr(2, 1);
+            break;
+          case 3:
+            this.fqyfkjew = chineseMoney.substr(3, 1);
+            break;
+          case 4:
+            this.fqyfkjeq = chineseMoney.substr(4, 1);
+            break;
+          case 5:
+            this.fqyfkjeb = chineseMoney.substr(5, 1);
+            break;
+          case 6:
+            this.fqyfkjes = chineseMoney.substr(6, 1);
+            break;
+          case 7:
+            this.fqyfkjey = chineseMoney.substr(7, 1);
+            break;
 
-          }
+        }
       }
     }
-      }
+  }
 
-      // 按揭托管首付款金额
-      async ajtgsfkjeTodx(strNum) {
-        if (strNum != undefined || strNum != null) {
+  // 按揭托管首付款金额
+  async ajtgsfkjeTodx(strNum) {
+    if (strNum != undefined || strNum != null) {
       const j = strNum.length;
       for (let i = j; i <= 7; i++) {
-          const str = '0';
-          strNum = str + strNum ;
+        const str = '0';
+        strNum = str + strNum;
       }
 
       const chineseMoney = this.toUpperCase(strNum);
       for (let i = 0; i <= 7; i++) {
 
-          switch (i) {
-              case 0:
-              this.ajtgsfkjeqw = chineseMoney.substr(0, 1);
-              break;
-              case 1:
-                this.ajtgsfkjebw = chineseMoney.substr(1, 1);
-                break;
-              case 2:
-                this.ajtgsfkjesw = chineseMoney.substr(2, 1);
-                break;
-              case 3:
-                this.ajtgsfkjew = chineseMoney.substr(3, 1);
-                break;
-              case 4:
-                this.ajtgsfkjeq = chineseMoney.substr(4, 1);
-                break;
-              case 5:
-                this.ajtgsfkjeb = chineseMoney.substr(5, 1);
-                break;
-              case 6:
-                this.ajtgsfkjes = chineseMoney.substr(6, 1);
-                break;
-              case 7:
-                this.ajtgsfkjey = chineseMoney.substr(7, 1);
-                break;
+        switch (i) {
+          case 0:
+            this.ajtgsfkjeqw = chineseMoney.substr(0, 1);
+            break;
+          case 1:
+            this.ajtgsfkjebw = chineseMoney.substr(1, 1);
+            break;
+          case 2:
+            this.ajtgsfkjesw = chineseMoney.substr(2, 1);
+            break;
+          case 3:
+            this.ajtgsfkjew = chineseMoney.substr(3, 1);
+            break;
+          case 4:
+            this.ajtgsfkjeq = chineseMoney.substr(4, 1);
+            break;
+          case 5:
+            this.ajtgsfkjeb = chineseMoney.substr(5, 1);
+            break;
+          case 6:
+            this.ajtgsfkjes = chineseMoney.substr(6, 1);
+            break;
+          case 7:
+            this.ajtgsfkjey = chineseMoney.substr(7, 1);
+            break;
 
-          }
+        }
       }
     }
-      }
+  }
 
-      // 按揭托管余付款金额
-      async ajtgyfkjeTodx(strNum) {
-        if (strNum != undefined || strNum != null) {
+  // 按揭托管余付款金额
+  async ajtgyfkjeTodx(strNum) {
+    if (strNum != undefined || strNum != null) {
       const j = strNum.length;
       for (let i = j; i <= 7; i++) {
-          const str = '0';
-          strNum = str + strNum ;
+        const str = '0';
+        strNum = str + strNum;
       }
 
       const chineseMoney = this.toUpperCase(strNum);
       for (let i = 0; i <= 7; i++) {
 
-          switch (i) {
-              case 0:
-              this.ajtgyfkjeqw = chineseMoney.substr(0, 1);
-              break;
-              case 1:
-                this.ajtgyfkjebw = chineseMoney.substr(1, 1);
-                break;
-              case 2:
-                this.ajtgyfkjesw = chineseMoney.substr(2, 1);
-                break;
-              case 3:
-                this.ajtgyfkjew = chineseMoney.substr(3, 1);
-                break;
-              case 4:
-                this.ajtgyfkjeq = chineseMoney.substr(4, 1);
-                break;
-              case 5:
-                this.ajtgyfkjeb = chineseMoney.substr(5, 1);
-                break;
-              case 6:
-                this.ajtgyfkjes = chineseMoney.substr(6, 1);
-                break;
-              case 7:
-                this.ajtgyfkjey = chineseMoney.substr(7, 1);
-                break;
+        switch (i) {
+          case 0:
+            this.ajtgyfkjeqw = chineseMoney.substr(0, 1);
+            break;
+          case 1:
+            this.ajtgyfkjebw = chineseMoney.substr(1, 1);
+            break;
+          case 2:
+            this.ajtgyfkjesw = chineseMoney.substr(2, 1);
+            break;
+          case 3:
+            this.ajtgyfkjew = chineseMoney.substr(3, 1);
+            break;
+          case 4:
+            this.ajtgyfkjeq = chineseMoney.substr(4, 1);
+            break;
+          case 5:
+            this.ajtgyfkjeb = chineseMoney.substr(5, 1);
+            break;
+          case 6:
+            this.ajtgyfkjes = chineseMoney.substr(6, 1);
+            break;
+          case 7:
+            this.ajtgyfkjey = chineseMoney.substr(7, 1);
+            break;
 
-          }
+        }
       }
     }
+  }
+
+  // 合同委托付款金额
+  async htwtjeTodx(strNum) {
+    if (strNum != undefined || strNum != null) {
+      const j = strNum.length;
+      for (let i = j; i <= 7; i++) {
+        const str = '0';
+        strNum = str + strNum;
       }
 
-      // 数字转汉字金额
-      toUpperCase(money) {
-        const digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
-        let chineseNum = '';
-        for (let i = 0; i < money.length; i++) {
-            const j = parseInt(money.substr( i, 1));
-            chineseNum = chineseNum + digit[j];
-          }
-        return chineseNum;
+      const chineseMoney = this.toUpperCase(strNum);
+      for (let i = 0; i <= 7; i++) {
 
+        switch (i) {
+          case 0:
+            this.htwtjeqw = chineseMoney.substr(0, 1);
+            break;
+          case 1:
+            this.htwtjebw = chineseMoney.substr(1, 1);
+            break;
+          case 2:
+            this.htwtjesw = chineseMoney.substr(2, 1);
+            break;
+          case 3:
+            this.htwtjew = chineseMoney.substr(3, 1);
+            break;
+          case 4:
+            this.htwtjeq = chineseMoney.substr(4, 1);
+            break;
+          case 5:
+            this.htwtjeb = chineseMoney.substr(5, 1);
+            break;
+          case 6:
+            this.htwtjes = chineseMoney.substr(6, 1);
+            break;
+          case 7:
+            this.htwtjey = chineseMoney.substr(7, 1);
+            break;
+
+        }
       }
+    }
+  }
+
+  // 数字转汉字金额
+  toUpperCase(money) {
+    const digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+    let chineseNum = '';
+    for (let i = 0; i < money.length; i++) {
+      const j = parseInt(money.substr(i, 1));
+      chineseNum = chineseNum + digit[j];
+    }
+    return chineseNum;
+
+  }
 
   async getDetail() {
     const res = await this.stockTradeService.getStockTradeById(this.detailObj.id);
@@ -747,7 +863,7 @@ export class StockTradeDetailComponent implements OnInit {
   buildInfoList(param) {
 
     let list = [];
-    param = param ? param :  '';
+    param = param ? param : '';
 
     if (param.indexOf(',') != -1) {
       list = param.split(',');
@@ -865,7 +981,7 @@ export class StockTradeDetailComponent implements OnInit {
 
   tabsetChange(m) {
     this.tabsetIndex = m;
-    console .log(this.tabsetIndex);
+    console.log(this.tabsetIndex);
   }
 
   cancel() {
@@ -881,7 +997,7 @@ export class StockTradeDetailComponent implements OnInit {
     //   default:
     //     break;
     // }
-    this.router.navigate([route], {queryParams: {isGoBack: true}});
+    this.router.navigate([route], { queryParams: { isGoBack: true } });
   }
 
   pageIndexChange(num) {
@@ -928,7 +1044,7 @@ export class StockTradeDetailComponent implements OnInit {
 
   async jfChoose() {
     $('#mrjfgx').attr('checked', 'checked');
-   // $('input[name=\'sex\'][value=0]').attr('checked', true);
+    // $('input[name=\'sex\'][value=0]').attr('checked', true);
   }
 
   onChange(m, date) {
@@ -1030,13 +1146,13 @@ export class StockTradeDetailComponent implements OnInit {
         this.detailObj.yfgyfs += this.yfList[idx].yfgyfs + ',';
         this.detailObj.yfgybl += this.yfList[idx].yfgybl + ',';
       } else {
-        this.detailObj.yf += this.yfList[idx].yf ;
-        this.detailObj.yflxdz += this.yfList[idx].yflxdz ;
-        this.detailObj.yfzjlx += this.yfList[idx].yfzjlx ;
-        this.detailObj.yfzjhm += this.yfList[idx].yfzjhm ;
-        this.detailObj.yflxdh += this.yfList[idx].yflxdh ;
-        this.detailObj.yfgyfs += this.yfList[idx].yfgyfs ;
-        this.detailObj.yfgybl += this.yfList[idx].yfgybl ;
+        this.detailObj.yf += this.yfList[idx].yf;
+        this.detailObj.yflxdz += this.yfList[idx].yflxdz;
+        this.detailObj.yfzjlx += this.yfList[idx].yfzjlx;
+        this.detailObj.yfzjhm += this.yfList[idx].yfzjhm;
+        this.detailObj.yflxdh += this.yfList[idx].yflxdh;
+        this.detailObj.yfgyfs += this.yfList[idx].yfgyfs;
+        this.detailObj.yfgybl += this.yfList[idx].yfgybl;
       }
 
     }
@@ -1055,6 +1171,32 @@ export class StockTradeDetailComponent implements OnInit {
     if (!this.isEmpty(this.contractEntrustment.jf1)) {
       this.detailObj.contractEntrustment.jf1 = this.contractEntrustment.jf1;
     }
+
+    // 甲方勾选项
+    this.detailObj.contractEntrustment.isjfsfzzh = 0;
+    // console.log(this.contractEntrustment.isjfsfzzh);
+    if (this.contractEntrustment.isjfsfzzh == true) {
+      this.detailObj.contractEntrustment.isjfsfzzh = 1;
+      // console.log(this.detailObj.contractEntrustment.isjfsfzzh);
+      // console.log(this.contractEntrustment.isjfsfzzh);
+    }
+
+    this.detailObj.contractEntrustment.isjfhzh = 0;
+    // console.log(this.contractEntrustment.isjfhzh);
+    if (this.contractEntrustment.isjfhzh == true) {
+      this.detailObj.contractEntrustment.isjfhzh = 1;
+      // console.log(this.detailObj.contractEntrustment.isjfhzh);
+      // console.log(this.contractEntrustment.isjfhzh);
+    }
+
+    this.detailObj.contractEntrustment.isjfyyzz = 0;
+    // console.log(this.contractEntrustment.isjfyyzz);
+    if (this.contractEntrustment.isjfyyzz == true) {
+      this.detailObj.contractEntrustment.isjfyyzz = 1;
+      // console.log(this.detailObj.contractEntrustment.isjfyyzz);
+      // console.log(this.contractEntrustment.isjfyyzz);
+    }
+
     this.detailObj.contractEntrustment.jf2 = '';
     if (!this.isEmpty(this.contractEntrustment.jf2)) {
       this.detailObj.contractEntrustment.jf2 = this.contractEntrustment.jf2;
@@ -1093,6 +1235,26 @@ export class StockTradeDetailComponent implements OnInit {
     if (!this.isEmpty(this.contractEntrustment.yf1)) {
       this.detailObj.contractEntrustment.yf1 = this.contractEntrustment.yf1;
     }
+
+    // 乙方勾选项
+    this.detailObj.contractEntrustment.isyfsfzzh = 0;
+    if (this.contractEntrustment.isyfsfzzh == true) {
+      this.detailObj.contractEntrustment.isyfsfzzh = 1;
+    }
+
+    this.detailObj.contractEntrustment.isyfhzh = 0;
+    if (this.contractEntrustment.isyfhzh == true) {
+      this.detailObj.contractEntrustment.isyfhzh = 1;
+    }
+
+    this.detailObj.contractEntrustment.isyfyyzz = 0;
+    // console.log(this.contractEntrustment.isyfyyzz);
+    if (this.contractEntrustment.isyfyyzz == true) {
+      this.detailObj.contractEntrustment.isyfyyzz = 1;
+      // console.log(this.detailObj.contractEntrustment.isyfyyzz);
+      // console.log(this.contractEntrustment.isyfyyzz);
+    }
+
     this.detailObj.contractEntrustment.yf2 = '';
     if (!this.isEmpty(this.contractEntrustment.yf2)) {
       this.detailObj.contractEntrustment.yf2 = this.contractEntrustment.yf2;
@@ -1151,6 +1313,27 @@ export class StockTradeDetailComponent implements OnInit {
     // 第四条
     this.detailObj.contractEntrustment.d4t1 = this.contractEntrustment.d4t1;
     this.detailObj.contractEntrustment.d4t2 = this.contractEntrustment.d4t2;
+    // 勾选部分
+    this.detailObj.contractEntrustment.iscs = 0;
+    if (this.contractEntrustment.iscs == true) {
+      this.detailObj.contractEntrustment.iscs = 1;
+    }
+    this.detailObj.contractEntrustment.iscz = 0;
+    if (this.contractEntrustment.iscz == true) {
+      this.detailObj.contractEntrustment.iscz = 1;
+    }
+    this.detailObj.contractEntrustment.iscg = 0;
+    if (this.contractEntrustment.iscg == true) {
+      this.detailObj.contractEntrustment.iscg = 1;
+    }
+    this.detailObj.contractEntrustment.iscz1 = 0;
+    if (this.contractEntrustment.iscz1 == true) {
+      this.detailObj.contractEntrustment.iscz1 = 1;
+    }
+    this.detailObj.contractEntrustment.iszh = 0;
+    if (this.contractEntrustment.iszh == true) {
+      this.detailObj.contractEntrustment.iszh = 1;
+    }
 
     // 第六条
     this.detailObj.contractEntrustment.d6t1 = '';
@@ -1210,10 +1393,10 @@ export class StockTradeDetailComponent implements OnInit {
 
     this.detailObj.contractEntrustment.qz5 = this.contractEntrustment.qz5;
 
-    this.detailObj.contractEntrustment.qz5 = '';
-    if (!this.isEmpty(this.contractEntrustment.qz5)) {
-      this.detailObj.contractEntrustment.qz5 = this.contractEntrustment.qz5;
-    }
+    // this.detailObj.contractEntrustment.qz5 = '';
+    // if (!this.isEmpty(this.contractEntrustment.qz5)) {
+    //   this.detailObj.contractEntrustment.qz5 = this.contractEntrustment.qz5;
+    // }
     this.detailObj.contractEntrustment.qz6 = '';
     if (!this.isEmpty(this.contractEntrustment.qz6)) {
       this.detailObj.contractEntrustment.qz6 = this.contractEntrustment.qz6;
@@ -1228,6 +1411,79 @@ export class StockTradeDetailComponent implements OnInit {
     }
     this.detailObj.contractEntrustment.qz9 = this.contractEntrustment.qz9;
 
+    // 附件1
+    this.detailObj.contractEntrustment.fj1jw1 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw1)) {
+      this.detailObj.contractEntrustment.fj1jw1 = this.contractEntrustment.fj1jw1;
+    }
+    this.detailObj.contractEntrustment.fj1jw2 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw2)) {
+      this.detailObj.contractEntrustment.fj1jw2 = this.contractEntrustment.fj1jw2;
+    }
+    this.detailObj.contractEntrustment.fj1jw3 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw3)) {
+      this.detailObj.contractEntrustment.fj1jw3 = this.contractEntrustment.fj1jw3;
+    }
+    this.detailObj.contractEntrustment.fj1jw4 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw4)) {
+      this.detailObj.contractEntrustment.fj1jw4 = this.contractEntrustment.fj1jw4;
+    }
+    this.detailObj.contractEntrustment.fj1jw5 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw5)) {
+      this.detailObj.contractEntrustment.fj1jw5 = this.contractEntrustment.fj1jw5;
+    }
+    this.detailObj.contractEntrustment.fj1jw6 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw6)) {
+      this.detailObj.contractEntrustment.fj1jw6 = this.contractEntrustment.fj1jw6;
+    }
+    this.detailObj.contractEntrustment.fj1jw7 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw7)) {
+      this.detailObj.contractEntrustment.fj1jw7 = this.contractEntrustment.fj1jw7;
+    }
+    this.detailObj.contractEntrustment.fj1jw8 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw8)) {
+      this.detailObj.contractEntrustment.fj1jw8 = this.contractEntrustment.fj1jw8;
+    }
+    this.detailObj.contractEntrustment.fj1jw9 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw9)) {
+      this.detailObj.contractEntrustment.fj1jw9 = this.contractEntrustment.fj1jw9;
+    }
+    this.detailObj.contractEntrustment.fj1jw10 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw10)) {
+      this.detailObj.contractEntrustment.fj1jw10 = this.contractEntrustment.fj1jw10;
+    }
+    this.detailObj.contractEntrustment.fj1jw11 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw11)) {
+      this.detailObj.contractEntrustment.fj1jw11 = this.contractEntrustment.fj1jw11;
+    }
+    this.detailObj.contractEntrustment.fj1jw12 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw12)) {
+      this.detailObj.contractEntrustment.fj1jw12 = this.contractEntrustment.fj1jw12;
+    }
+    this.detailObj.contractEntrustment.fj1jw13 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw13)) {
+      this.detailObj.contractEntrustment.fj1jw13 = this.contractEntrustment.fj1jw13;
+    }
+    this.detailObj.contractEntrustment.fj1jw14 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw14)) {
+      this.detailObj.contractEntrustment.fj1jw14 = this.contractEntrustment.fj1jw14;
+    }
+    this.detailObj.contractEntrustment.fj1jw15 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw15)) {
+      this.detailObj.contractEntrustment.fj1jw15 = this.contractEntrustment.fj1jw15;
+    }
+    this.detailObj.contractEntrustment.fj1jw16 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw16)) {
+      this.detailObj.contractEntrustment.fj1jw16 = this.contractEntrustment.fj1jw16;
+    }
+    this.detailObj.contractEntrustment.fj1jw17 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw17)) {
+      this.detailObj.contractEntrustment.fj1jw17 = this.contractEntrustment.fj1jw17;
+    }
+    this.detailObj.contractEntrustment.fj1jw18 = '';
+    if (!this.isEmpty(this.contractEntrustment.fj1jw18)) {
+      this.detailObj.contractEntrustment.fj1jw18 = this.contractEntrustment.fj1jw18;
+    }
 
 
     // 合同买卖部分
@@ -1431,7 +1687,7 @@ export class StockTradeDetailComponent implements OnInit {
     // if (!this.isEmpty(d1t8)) {
     //   this.detailObj.stockTradeTemplate.d1t8 = d1t8;
     // }
-    console.log(this.detailObj.stockTradeTemplate.d1t8);
+    //console.log(this.detailObj.stockTradeTemplate.d1t8);
     this.detailObj.stockTradeTemplate.d1t9 = '';
     if (!this.isEmpty(this.stockTradeTemplate.d1t9)) {
       this.detailObj.stockTradeTemplate.d1t9 = this.stockTradeTemplate.d1t9;
@@ -1786,7 +2042,8 @@ export class StockTradeDetailComponent implements OnInit {
       setTimeout(() => {
         const image = new Viewer(document.getElementById('image'), {
           hidden(e) {
-            image.destroy();          }
+            image.destroy();
+          }
         });
       }, 200);
     } else {
@@ -1914,7 +2171,7 @@ export class StockTradeDetailComponent implements OnInit {
 
   ngAfterViewInit() {
     const that = this;
-    $(window).resize(function() {
+    $(window).resize(function () {
       that.calculationHeight();
     });
   }
@@ -1931,50 +2188,50 @@ export class StockTradeDetailComponent implements OnInit {
     // let url = AppConfig.Configuration.baseUrl + "/StockTrade/previewHt?id=" + data.id;
     // url = this.utilitiesSercice.wrapUrl(url);
     // window.open('assets/usermanual/web/viewer.html?url=' + url, '_blank');
-      let url = AppConfig.Configuration.baseUrl + '/StockTrade/previewHt?id=' + this.detailObj.id;
-      url = this.utilitiesSercice.wrapUrl(url);
-      window.open('assets/usermanual/web/viewer.html?url=' + url, '_blank');
+    let url = AppConfig.Configuration.baseUrl + '/StockTrade/previewHt?id=' + this.detailObj.id;
+    url = this.utilitiesSercice.wrapUrl(url);
+    window.open('assets/usermanual/web/viewer.html?url=' + url, '_blank');
   }
 
-    // 合同中无内容时基本信息直接覆盖过去
-    fwjgValue(value: number): void {
-      console.log(value);
-      if (value > 0 && (this.stockTradeTemplate.d1t4 == undefined || this.stockTradeTemplate.d1t4 == '')) {
-        const i = value - 1;
-        console.log(this.dictionaryObj.fwjg[i].name);
-        this.stockTradeTemplate.d1t4 = this.dictionaryObj.fwjg[i].name;
-      }
-
+  // 合同中无内容时基本信息直接覆盖过去
+  fwjgValue(value: number): void {
+    console.log(value);
+    if (value > 0 && (this.stockTradeTemplate.d1t4 == undefined || this.stockTradeTemplate.d1t4 == '')) {
+      const i = value - 1;
+      console.log(this.dictionaryObj.fwjg[i].name);
+      this.stockTradeTemplate.d1t4 = this.dictionaryObj.fwjg[i].name;
     }
 
-    // 合同中无内容时基本信息直接覆盖过去 对应合同中办证时间
-    djsjValue(value: Date): void {
-      if (value != undefined && (this.stockTradeTemplate.d1t8 == undefined || this.stockTradeTemplate.d1t8 == '')) {
-        this.stockTradeTemplate.d1t8 = value;
-      }
+  }
 
+  // 合同中无内容时基本信息直接覆盖过去 对应合同中办证时间
+  djsjValue(value: Date): void {
+    if (value != undefined && (this.stockTradeTemplate.d1t8 == undefined || this.stockTradeTemplate.d1t8 == '')) {
+      this.stockTradeTemplate.d1t8 = value;
     }
 
+  }
 
-    bdcqzhValue(value: string): void {
-      if (this.stockTradeTemplate.d1t6 == undefined || this.stockTradeTemplate.d1t6 == '') {
-        this.stockTradeTemplate.d1t6 = this.detailObj.bdcqzh;
-      }
 
+  bdcqzhValue(value: string): void {
+    if (this.stockTradeTemplate.d1t6 == undefined || this.stockTradeTemplate.d1t6 == '') {
+      this.stockTradeTemplate.d1t6 = this.detailObj.bdcqzh;
     }
 
-    zjValue(value: string): void {
-      if (this.stockTradeTemplate.d2t1 == undefined || this.stockTradeTemplate.d2t1 == '') {
-        this.stockTradeTemplate.d2t1 = this.detailObj.zj;
-        this.fwzrjeTodx(this.stockTradeTemplate.d2t1);
-      }
+  }
 
+  zjValue(value: string): void {
+    if (this.stockTradeTemplate.d2t1 == undefined || this.stockTradeTemplate.d2t1 == '') {
+      this.stockTradeTemplate.d2t1 = this.detailObj.zj;
+      this.fwzrjeTodx(this.stockTradeTemplate.d2t1);
     }
 
-    djValue(value: string): void {
-      if (this.stockTradeTemplate.d2t2 == undefined || this.stockTradeTemplate.d2t2 == '') {
-        this.stockTradeTemplate.d2t2 = this.detailObj.dj;
-      }
+  }
 
+  djValue(value: string): void {
+    if (this.stockTradeTemplate.d2t2 == undefined || this.stockTradeTemplate.d2t2 == '') {
+      this.stockTradeTemplate.d2t2 = this.detailObj.dj;
     }
+
+  }
 }

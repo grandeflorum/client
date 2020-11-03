@@ -14,7 +14,7 @@ export class StockTradeService {
     selectId: '',
     pageIndex: 1,
     pageSize: 10
-};
+  };
 
   getStockTradeList(data): any {
     return this.http.post('/StockTrade/getStockTradeList', data);
@@ -58,5 +58,9 @@ export class StockTradeService {
 
   AuditHouseTradeNew(data): any {
     return this.http.post('/StockTrade/AuditHouseTradeNew', data);
+  }
+
+  getWFAuditListByProjectid(data): any {
+    return this.http.post('/StockTrade/getWFAuditListByProjectid', data);
   }
 }

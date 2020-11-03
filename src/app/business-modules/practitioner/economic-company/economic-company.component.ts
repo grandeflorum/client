@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { ValidationDirective } from 'src/app/layout/_directives/validation.directive';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Router , ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CompanyService } from '../../service/practitioner/company.service';
 import { Localstorage } from '../../service/localstorage';
 import { UserService } from '../../service/system/user.service';
@@ -128,7 +128,7 @@ export class EconomicCompanyComponent implements OnInit {
 
     var isGoBack = this.ActivatedRoute.snapshot.queryParams.isGoBack;
 
-    if(isGoBack){
+    if (isGoBack) {
       this.qymc = this.companyService.pageCache.qymc;
       this.qylx = this.companyService.pageCache.qylx;
       this.auditType = this.companyService.pageCache.auditType;
@@ -226,14 +226,14 @@ export class EconomicCompanyComponent implements OnInit {
 
   add(m, item?) {
 
-      this.companyService.pageCache = {
-        qymc:this.qymc,
-        qylx:this.qylx,
-        auditType:this.auditType,
-        selectId:item?item.id:'',
-        pageIndex:1,
-        pageSize:10
-      }
+    this.companyService.pageCache = {
+      qymc: this.qymc,
+      qylx: this.qylx,
+      auditType: this.auditType,
+      selectId: item ? item.id : '',
+      pageIndex: 1,
+      pageSize: 10
+    }
 
     this.router.navigate(['/practitioner/economic/detail'], {
       queryParams: {
@@ -432,13 +432,15 @@ export class EconomicCompanyComponent implements OnInit {
         name: data.qymc,
         zjh: res.msg.username,
         password: res.msg.password,
-        switchValue: res.msg.isVaild == 1 ? true : false
+        switchValue: res.msg.isVaild == 1 ? true : false,
+        grantValue: res.msg.isGrant == 1 ? true : false
       };
     } else {
       this.roleData = {
         name: data.qymc,
         zjh: data.zjh,
-        switchValue: true
+        switchValue: true,
+        grantValue: false
       };
 
       this.roleData.password = this.getPassword();
@@ -483,6 +485,7 @@ export class EconomicCompanyComponent implements OnInit {
       password: this.roleData.password,
       realname: this.roleData.name,
       isVaild: this.roleData.switchValue ? 1 : 2,
+      isGrant: this.roleData.grantValue ? 1 : 0,
       card: this.roleData.zjh
     }
 

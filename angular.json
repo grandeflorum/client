@@ -137,5 +137,8 @@
       }
     }
   },
-  "defaultProject": "baxt"
+  "defaultProject": "baxt",
+  "cli": {
+    "analytics": "2661f280-e9d6-42de-962c-dce58ab72e92"
+  }
 }

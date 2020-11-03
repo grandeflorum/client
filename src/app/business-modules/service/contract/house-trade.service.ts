@@ -9,13 +9,14 @@ export class HouseTradeService {
   constructor(private http: HttpRestService) { }
 
   pageCache = {
-    xmmc:'',
-    jzwmc:'',
-    currentStatus:'',
-    selectId:'',
-    pageIndex:1,
-    pageSize:10
-}
+    xmmc: '',
+    jzwmc: '',
+    buyer: '',
+    currentStatus: '',
+    selectId: '',
+    pageIndex: 1,
+    pageSize: 10
+  }
 
   getHouseTradeList(data): any {
     return this.http.post('/HouseTrade/getHouseTradeList', data);
@@ -62,18 +63,22 @@ export class HouseTradeService {
   }
 
   getEwmCheckInfo(data): any {
-    return this.http.post('/HouseTrade/getEwmCheckInfo',data);
+    return this.http.post('/HouseTrade/getEwmCheckInfo', data);
   }
 
-  sh(id):any{
+  sh(id): any {
     return this.http.get('/HouseTrade/sh?id=' + id);
   }
 
-  getAuditNewInfo(id,type):any{
-    return this.http.get('/AuditNew/getAuditNewInfo?id=' + id+"&type="+type);
+  getAuditNewInfo(id, type): any {
+    return this.http.get('/AuditNew/getAuditNewInfo?id=' + id + "&type=" + type);
   }
 
-  AuditHouseTradeNew(data):any{
-    return this.http.post('/HouseTrade/AuditHouseTradeNew',data);
+  AuditHouseTradeNew(data): any {
+    return this.http.post('/HouseTrade/AuditHouseTradeNew', data);
+  }
+
+  getWFAuditListByProjectid(data): any {
+    return this.http.post('/StockTrade/getWFAuditListByProjectid', data);
   }
 }

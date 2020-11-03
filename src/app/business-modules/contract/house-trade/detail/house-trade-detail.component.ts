@@ -60,33 +60,37 @@ export class HouseTradeDetailComponent implements OnInit {
 
       this.associatedCompanyShow = true;
     } else if (type == 4) {
-      this.tabs.push({ name: '关联企业', index: 4 });
+      this.tabs.push({ name: '关联户信息', index: 4 });
     }
 
     switch (type) {
       case '1': // 添加
         this.isDisable = false;
+        this.isWfaudit = false;
         break;
       case '2': // 查看
         this.isDisable = true;
+        this.isWfaudit = false;
         break;
       case '3': // 编辑
         this.isDisable = false;
+        this.isWfaudit = true;
         break;
       default:
         break;
     }
   }
+
   @ViewChildren(ValidationDirective) directives: QueryList<ValidationDirective>;
   @ViewChild('uploadComponent', { static: false }) uploadComponent;
 
   downLoadurl = AppConfig.Configuration.baseUrl + '/FileInfo/download';
   tabs = [
     { name: '合同信息', index: 0 },
-        { name: '合同委托', index: 1 },
-        { name: '附件', index: 2 },
-    { name: '关联户信息', index: 3 }
-    // { name: '关联企业', index: 3 }
+    { name: '合同委托', index: 1 },
+    { name: '附件', index: 2 },
+    { name: '关联户信息', index: 3 },
+    { name: '关联企业', index: 4 }
   ];
   tabsetIndex = 0;
   isDisable = false;
@@ -151,6 +155,66 @@ export class HouseTradeDetailComponent implements OnInit {
   associatedCompanyShow = false;
   isOkLoading = false;
 
+
+  // 审核记录
+  pagedateIndex: any = 1;
+  totaldateCount: any;
+  pagedateSize: any = 10;
+  dateLoading = false;
+  sortList: any = [];
+  dataSet = [];
+  isWfaudit = false;
+
+  pagedateIndexChange(num) {
+    this.pagedateIndex = num;
+    this.checksearch();
+  }
+
+  pagedateSizeChange(num) {
+    this.pagedateSize = num;
+    this.pagedateIndex = 1;
+    this.checksearch();
+  }
+
+  async checksearch() {
+    this.dateLoading = true;
+    let option = {
+      pageNo: this.pagedateIndex,
+      pageSize: this.pagedateSize,
+      conditions: []
+    };
+    option.conditions.push({ key: 'projectid', value: this.detailObj.id });
+    option.conditions.push({ key: 'sort', value: this.sortList });
+    this.operateAuditData(option);
+    this.calculationHeight();
+  }
+
+  checkPageDataChange($event): void {
+    this.listOfDisplayData = $event;
+    this.refreshStatus();
+  }
+
+  async operateAuditData(option) {
+    let res = await this.houseTradeService.getWFAuditListByProjectid(option);
+
+    if (res && res.code == 200) {
+      this.dateLoading = false;
+      console.log(res);
+      this.dataSet = res.msg.currentList;
+      this.totaldateCount = res.msg.recordCount;
+
+      // this.listOfAllData.forEach(item => (this.mapOfCheckedId[item.id] = false));
+      this.refreshStatus();
+
+      this.calculationHeight();
+    } else {
+      this.Loading = false;
+      this.msg.create('error', '查询失败');
+    }
+  }
+
+
+
   ngOnInit() {
     // this.isbtShow();
     this.dictionaryObj = this.localstorage.getObject('dictionary');
@@ -162,6 +226,7 @@ export class HouseTradeDetailComponent implements OnInit {
       this.getHInfo();
     }
     this.search();
+    this.checksearch();
   }
 
   async getDetail() {
@@ -601,7 +666,7 @@ export class HouseTradeDetailComponent implements OnInit {
     // }
     this.detailObj.cashSalesTemplate.yf16 = '';
     if (!this.isEmpty(this.cashSalesTemplate.yf16)) {
-    this.detailObj.cashSalesTemplate.yf16 = this.cashSalesTemplate.yf16;
+      this.detailObj.cashSalesTemplate.yf16 = this.cashSalesTemplate.yf16;
     }
     this.detailObj.cashSalesTemplate.yf17 = '';
     if (!this.isEmpty(this.cashSalesTemplate.yf17)) {
@@ -1652,6 +1717,247 @@ export class HouseTradeDetailComponent implements OnInit {
     if (!this.isEmpty(this.cashSalesTemplate.fj8jw14)) {
       this.detailObj.cashSalesTemplate.fj8jw14 = this.cashSalesTemplate.fj8jw14;
     }
+
+    // 现售补充20200214
+    this.detailObj.cashSalesTemplate.htmc = '';
+    if (!this.isEmpty(this.cashSalesTemplate.htmc)) {
+      this.detailObj.cashSalesTemplate.htmc = this.cashSalesTemplate.htmc;
+    }
+    this.detailObj.cashSalesTemplate.fh = '';
+    if (!this.isEmpty(this.cashSalesTemplate.fh)) {
+      this.detailObj.cashSalesTemplate.fh = this.cashSalesTemplate.fh;
+    }
+
+    this.detailObj.cashSalesTemplate.isdbr = 0;
+    if (this.cashSalesTemplate.isdbr == true) {
+      this.detailObj.cashSalesTemplate.isdbr = 1;
+    }
+    this.detailObj.cashSalesTemplate.isfzr = 0;
+    if (this.cashSalesTemplate.isfzr == true) {
+      this.detailObj.cashSalesTemplate.isfzr = 1;
+    }
+    this.detailObj.cashSalesTemplate.isdbrgj = 0;
+    if (this.cashSalesTemplate.isdbrgj == true) {
+      this.detailObj.cashSalesTemplate.isdbrgj = 1;
+    }
+    this.detailObj.cashSalesTemplate.isdbrhj = 0;
+    if (this.cashSalesTemplate.isdbrhj == true) {
+      this.detailObj.cashSalesTemplate.isdbrhj = 1;
+    }
+    this.detailObj.cashSalesTemplate.isdbrsfz = 0;
+    if (this.cashSalesTemplate.isdbrsfz == true) {
+      this.detailObj.cashSalesTemplate.isdbrsfz = 1;
+    }
+    this.detailObj.cashSalesTemplate.isdbrhz = 0;
+    if (this.cashSalesTemplate.isdbrhz == true) {
+      this.detailObj.cashSalesTemplate.isdbrhz = 1;
+    }
+    this.detailObj.cashSalesTemplate.isdbryyzz = 0;
+    if (this.cashSalesTemplate.isdbryyzz == true) {
+      this.detailObj.cashSalesTemplate.isdbryyzz = 1;
+    }
+
+    this.detailObj.cashSalesTemplate.iswtdlr = 0;
+    if (this.cashSalesTemplate.iswtdlr == true) {
+      this.detailObj.cashSalesTemplate.iswtdlr = 1;
+    }
+    this.detailObj.cashSalesTemplate.isfddlr = 0;
+    if (this.cashSalesTemplate.isfddlr == true) {
+      this.detailObj.cashSalesTemplate.isfddlr = 1;
+    }
+    this.detailObj.cashSalesTemplate.isdlrgj = 0;
+    if (this.cashSalesTemplate.isdlrgj == true) {
+      this.detailObj.cashSalesTemplate.isdlrgj = 1;
+    }
+    this.detailObj.cashSalesTemplate.isdlrhj = 0;
+    if (this.cashSalesTemplate.isdlrhj == true) {
+      this.detailObj.cashSalesTemplate.isdlrhj = 1;
+    }
+    this.detailObj.cashSalesTemplate.isdlrsfz = 0;
+    if (this.cashSalesTemplate.isdlrsfz == true) {
+      this.detailObj.cashSalesTemplate.isdlrsfz = 1;
+    }
+    this.detailObj.cashSalesTemplate.isdlrhz = 0;
+    if (this.cashSalesTemplate.isdlrhz == true) {
+      this.detailObj.cashSalesTemplate.isdlrhz = 1;
+    }
+    this.detailObj.cashSalesTemplate.isdlryyzz = 0;
+    if (this.cashSalesTemplate.isdlryyzz == true) {
+      this.detailObj.cashSalesTemplate.isdlryyzz = 1;
+    }
+    // 第一条
+    this.detailObj.cashSalesTemplate.iscrd1 = 0;
+    if (this.cashSalesTemplate.iscrd1 == true) {
+      this.detailObj.cashSalesTemplate.iscrd1 = 1;
+    }
+    this.detailObj.cashSalesTemplate.ishbd1 = 0;
+    if (this.cashSalesTemplate.ishbd1 == true) {
+      this.detailObj.cashSalesTemplate.ishbd1 = 1;
+    }
+
+    // 第二条
+    this.detailObj.cashSalesTemplate.isjswjd2 = 0;
+    if (this.cashSalesTemplate.isjswjd2 == true) {
+      this.detailObj.cashSalesTemplate.isjswjd2 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isbdcqzd2 = 0;
+    if (this.cashSalesTemplate.isbdcqzd2 == true) {
+      this.detailObj.cashSalesTemplate.isbdcqzd2 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isbahd2 = 0;
+    if (this.cashSalesTemplate.isbahd2 == true) {
+      this.detailObj.cashSalesTemplate.isbahd2 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isbdczhd2 = 0;
+    if (this.cashSalesTemplate.isbdczhd2 == true) {
+      this.detailObj.cashSalesTemplate.isbdczhd2 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isbajgd2 = 0;
+    if (this.cashSalesTemplate.isbajgd2 == true) {
+      this.detailObj.cashSalesTemplate.isbajgd2 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isdjjgd2 = 0;
+    if (this.cashSalesTemplate.isdjjgd2 == true) {
+      this.detailObj.cashSalesTemplate.isdjjgd2 = 1;
+    }
+
+    // 第3条
+    this.detailObj.cashSalesTemplate.iszzd3 = 0;
+    if (this.cashSalesTemplate.iszzd3 == true) {
+      this.detailObj.cashSalesTemplate.iszzd3 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isbgd3 = 0;
+    if (this.cashSalesTemplate.isbgd3 == true) {
+      this.detailObj.cashSalesTemplate.isbgd3 = 1;
+    }
+    this.detailObj.cashSalesTemplate.issyd3 = 0;
+    if (this.cashSalesTemplate.issyd3 == true) {
+      this.detailObj.cashSalesTemplate.issyd3 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isz1d3 = 0;
+    if (this.cashSalesTemplate.isz1d3 == true) {
+      this.detailObj.cashSalesTemplate.isz1d3 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isz2d3 = 0;
+    if (this.cashSalesTemplate.isz2d3 == true) {
+      this.detailObj.cashSalesTemplate.isz2d3 = 1;
+    }
+
+    // 第4条
+    this.detailObj.cashSalesTemplate.isdyd4 = 0;
+    if (this.cashSalesTemplate.isdyd4 == true) {
+      this.detailObj.cashSalesTemplate.isdyd4 = 1;
+    }
+    this.detailObj.cashSalesTemplate.iswdyd4 = 0;
+    if (this.cashSalesTemplate.iswdyd4 == true) {
+      this.detailObj.cashSalesTemplate.iswdyd4 = 1;
+    }
+
+    // 第5条
+    this.detailObj.cashSalesTemplate.isczd5 = 0;
+    if (this.cashSalesTemplate.isczd5 == true) {
+      this.detailObj.cashSalesTemplate.isczd5 = 1;
+    }
+    this.detailObj.cashSalesTemplate.iswczd5 = 0;
+    if (this.cashSalesTemplate.iswczd5 == true) {
+      this.detailObj.cashSalesTemplate.iswczd5 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isczrd5 = 0;
+    if (this.cashSalesTemplate.isczrd5 == true) {
+      this.detailObj.cashSalesTemplate.isczrd5 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isgmqd5 = 0;
+    if (this.cashSalesTemplate.isgmqd5 == true) {
+      this.detailObj.cashSalesTemplate.isgmqd5 = 1;
+    }
+    this.detailObj.cashSalesTemplate.iscmrd5 = 0;
+    if (this.cashSalesTemplate.iscmrd5 == true) {
+      this.detailObj.cashSalesTemplate.iscmrd5 = 1;
+    }
+    this.detailObj.cashSalesTemplate.ismsrd5 = 0;
+    if (this.cashSalesTemplate.ismsrd5 == true) {
+      this.detailObj.cashSalesTemplate.ismsrd5 = 1;
+    }
+
+    // 第6条
+    this.detailObj.cashSalesTemplate.isyffkd6 = 0;
+    if (this.cashSalesTemplate.isyffkd6 == true) {
+      this.detailObj.cashSalesTemplate.isyffkd6 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isqbssd6 = 0;
+    if (this.cashSalesTemplate.isqbssd6 == true) {
+      this.detailObj.cashSalesTemplate.isqbssd6 = 1;
+    }
+
+    // 第8条
+    this.detailObj.cashSalesTemplate.ishtqdd8 = 0;
+    if (this.cashSalesTemplate.ishtqdd8 == true) {
+      this.detailObj.cashSalesTemplate.ishtqdd8 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isjfsfkd8 = 0;
+    if (this.cashSalesTemplate.isjfsfkd8 == true) {
+      this.detailObj.cashSalesTemplate.isjfsfkd8 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isdzd8 = 0;
+    if (this.cashSalesTemplate.isdzd8 == true) {
+      this.detailObj.cashSalesTemplate.isdzd8 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isgjjdkd8 = 0;
+    if (this.cashSalesTemplate.isgjjdkd8 == true) {
+      this.detailObj.cashSalesTemplate.isgjjdkd8 = 1;
+    }
+    this.detailObj.cashSalesTemplate.issydkd8 = 0;
+    if (this.cashSalesTemplate.issydkd8 == true) {
+      this.detailObj.cashSalesTemplate.issydkd8 = 1;
+    }
+
+    // 第14条
+    this.detailObj.cashSalesTemplate.isyffkd14 = 0;
+    if (this.cashSalesTemplate.isyffkd14 == true) {
+      this.detailObj.cashSalesTemplate.isyffkd14 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isqbssd14 = 0;
+    if (this.cashSalesTemplate.isqbssd14 == true) {
+      this.detailObj.cashSalesTemplate.isqbssd14 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isgj1d14 = 0;
+    if (this.cashSalesTemplate.isgj1d14 == true) {
+      this.detailObj.cashSalesTemplate.isgj1d14 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isdf1d14 = 0;
+    if (this.cashSalesTemplate.isdf1d14 == true) {
+      this.detailObj.cashSalesTemplate.isdf1d14 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isgj2d14 = 0;
+    if (this.cashSalesTemplate.isgj2d14 == true) {
+      this.detailObj.cashSalesTemplate.isgj2d14 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isdf2d14 = 0;
+    if (this.cashSalesTemplate.isdf2d14 == true) {
+      this.detailObj.cashSalesTemplate.isdf2d14 = 1;
+    }
+
+    // 第18条
+    this.detailObj.cashSalesTemplate.isbgzd18 = 0;
+    if (this.cashSalesTemplate.isbgzd18 == true) {
+      this.detailObj.cashSalesTemplate.isbgzd18 = 1;
+    }
+    this.detailObj.cashSalesTemplate.iscjzd18 = 0;
+    if (this.cashSalesTemplate.iscjzd18 == true) {
+      this.detailObj.cashSalesTemplate.iscjzd18 = 1;
+    }
+
+    // 第22条
+    this.detailObj.cashSalesTemplate.iskdd22 = 0;
+    if (this.cashSalesTemplate.iskdd22 == true) {
+      this.detailObj.cashSalesTemplate.iskdd22 = 1;
+    }
+    this.detailObj.cashSalesTemplate.isghxd22 = 0;
+    if (this.cashSalesTemplate.isghxd22 == true) {
+      this.detailObj.cashSalesTemplate.isghxd22 = 1;
+    }
+
+
   }
 
   // 预售合同数据填充
@@ -2977,6 +3283,190 @@ export class HouseTradeDetailComponent implements OnInit {
       this.detailObj.advanceSalesTemplate.fj7jw14 = this.advanceSalesTemplate.fj7jw14;
     }
 
+    // 预售补充20200214
+    this.detailObj.advanceSalesTemplate.htmc = '';
+    if (!this.isEmpty(this.advanceSalesTemplate.htmc)) {
+      this.detailObj.advanceSalesTemplate.htmc = this.advanceSalesTemplate.htmc;
+    }
+    this.detailObj.advanceSalesTemplate.fh = '';
+    if (!this.isEmpty(this.advanceSalesTemplate.fh)) {
+      this.detailObj.advanceSalesTemplate.fh = this.advanceSalesTemplate.fh;
+    }
+
+    this.detailObj.advanceSalesTemplate.isdbr = 0;
+    if (this.advanceSalesTemplate.isdbr == true) {
+      this.detailObj.advanceSalesTemplate.isdbr = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isfzr = 0;
+    if (this.advanceSalesTemplate.isfzr == true) {
+      this.detailObj.advanceSalesTemplate.isfzr = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isdbrgj = 0;
+    if (this.advanceSalesTemplate.isdbrgj == true) {
+      this.detailObj.advanceSalesTemplate.isdbrgj = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isdbrhj = 0;
+    if (this.advanceSalesTemplate.isdbrhj == true) {
+      this.detailObj.advanceSalesTemplate.isdbrhj = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isdbrsfz = 0;
+    if (this.advanceSalesTemplate.isdbrsfz == true) {
+      this.detailObj.advanceSalesTemplate.isdbrsfz = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isdbrhz = 0;
+    if (this.advanceSalesTemplate.isdbrhz == true) {
+      this.detailObj.advanceSalesTemplate.isdbrhz = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isdbryyzz = 0;
+    if (this.advanceSalesTemplate.isdbryyzz == true) {
+      this.detailObj.advanceSalesTemplate.isdbryyzz = 1;
+    }
+
+    this.detailObj.advanceSalesTemplate.iswtdlr = 0;
+    if (this.advanceSalesTemplate.iswtdlr == true) {
+      this.detailObj.advanceSalesTemplate.iswtdlr = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isfddlr = 0;
+    if (this.advanceSalesTemplate.isfddlr == true) {
+      this.detailObj.advanceSalesTemplate.isfddlr = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isdlrgj = 0;
+    if (this.advanceSalesTemplate.isdlrgj == true) {
+      this.detailObj.advanceSalesTemplate.isdlrgj = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isdlrhj = 0;
+    if (this.advanceSalesTemplate.isdlrhj == true) {
+      this.detailObj.advanceSalesTemplate.isdlrhj = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isdlrsfz = 0;
+    if (this.advanceSalesTemplate.isdlrsfz == true) {
+      this.detailObj.advanceSalesTemplate.isdlrsfz = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isdlrhz = 0;
+    if (this.advanceSalesTemplate.isdlrhz == true) {
+      this.detailObj.advanceSalesTemplate.isdlrhz = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isdlryyzz = 0;
+    if (this.advanceSalesTemplate.isdlryyzz == true) {
+      this.detailObj.advanceSalesTemplate.isdlryyzz = 1;
+    }
+    // 第一条
+    this.detailObj.advanceSalesTemplate.iscrd1 = 0;
+    if (this.advanceSalesTemplate.iscrd1 == true) {
+      this.detailObj.advanceSalesTemplate.iscrd1 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.ishbd1 = 0;
+    if (this.advanceSalesTemplate.ishbd1 == true) {
+      this.detailObj.advanceSalesTemplate.ishbd1 = 1;
+    }
+
+    // 第3条
+    this.detailObj.advanceSalesTemplate.iszzd3 = 0;
+    if (this.advanceSalesTemplate.iszzd3 == true) {
+      this.detailObj.advanceSalesTemplate.iszzd3 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isbgd3 = 0;
+    if (this.advanceSalesTemplate.isbgd3 == true) {
+      this.detailObj.advanceSalesTemplate.isbgd3 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.issyd3 = 0;
+    if (this.advanceSalesTemplate.issyd3 == true) {
+      this.detailObj.advanceSalesTemplate.issyd3 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isz1d3 = 0;
+    if (this.advanceSalesTemplate.isz1d3 == true) {
+      this.detailObj.advanceSalesTemplate.isz1d3 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isz2d3 = 0;
+    if (this.advanceSalesTemplate.isz2d3 == true) {
+      this.detailObj.advanceSalesTemplate.isz2d3 = 1;
+    }
+
+
+    // 第4条
+    this.detailObj.advanceSalesTemplate.isdyd4 = 0;
+    if (this.advanceSalesTemplate.isdyd4 == true) {
+      this.detailObj.advanceSalesTemplate.isdyd4 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.iswdyd4 = 0;
+    if (this.advanceSalesTemplate.iswdyd4 == true) {
+      this.detailObj.advanceSalesTemplate.iswdyd4 = 1;
+    }
+
+    // 第7条
+    this.detailObj.advanceSalesTemplate.ishtqdd7 = 0;
+    if (this.advanceSalesTemplate.ishtqdd7 == true) {
+      this.detailObj.advanceSalesTemplate.ishtqdd7 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isjfsfkd7 = 0;
+    if (this.advanceSalesTemplate.isjfsfkd7 == true) {
+      this.detailObj.advanceSalesTemplate.isjfsfkd7 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isdzd7 = 0;
+    if (this.advanceSalesTemplate.isdzd7 == true) {
+      this.detailObj.advanceSalesTemplate.isdzd7 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isgjjdkd7 = 0;
+    if (this.advanceSalesTemplate.isgjjdkd7 == true) {
+      this.detailObj.advanceSalesTemplate.isgjjdkd7 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.issydkd7 = 0;
+    if (this.advanceSalesTemplate.issydkd7 == true) {
+      this.detailObj.advanceSalesTemplate.issydkd7 = 1;
+    }
+
+    // 第16条
+    this.detailObj.advanceSalesTemplate.isyffkd16 = 0;
+    if (this.advanceSalesTemplate.isyffkd16 == true) {
+      this.detailObj.advanceSalesTemplate.isyffkd16 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isqbssd16 = 0;
+    if (this.advanceSalesTemplate.isqbssd16 == true) {
+      this.detailObj.advanceSalesTemplate.isqbssd16 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isgj1d16 = 0;
+    if (this.advanceSalesTemplate.isgj1d16 == true) {
+      this.detailObj.advanceSalesTemplate.isgj1d16 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isdf1d16 = 0;
+    if (this.advanceSalesTemplate.isdf1d16 == true) {
+      this.detailObj.advanceSalesTemplate.isdf1d16 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isgj2d16 = 0;
+    if (this.advanceSalesTemplate.isgj2d16 == true) {
+      this.detailObj.advanceSalesTemplate.isgj2d16 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isdf2d16 = 0;
+    if (this.advanceSalesTemplate.isdf2d16 == true) {
+      this.detailObj.advanceSalesTemplate.isdf2d16 = 1;
+    }
+
+    // 第19条
+    this.detailObj.advanceSalesTemplate.is30tnd19 = 0;
+    if (this.advanceSalesTemplate.is30tnd19 == true) {
+      this.detailObj.advanceSalesTemplate.is30tnd19 = 1;
+    }
+
+    // 第21条
+    this.detailObj.advanceSalesTemplate.isbgzd21 = 0;
+    if (this.advanceSalesTemplate.isbgzd21 == true) {
+      this.detailObj.advanceSalesTemplate.isbgzd21 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.iscjzd21 = 0;
+    if (this.advanceSalesTemplate.iscjzd21 == true) {
+      this.detailObj.advanceSalesTemplate.iscjzd21 = 1;
+    }
+
+    // 第25条
+    this.detailObj.advanceSalesTemplate.iskdd25 = 0;
+    if (this.advanceSalesTemplate.iskdd25 == true) {
+      this.detailObj.advanceSalesTemplate.iskdd25 = 1;
+    }
+    this.detailObj.advanceSalesTemplate.isghxd25 = 0;
+    if (this.advanceSalesTemplate.isghxd25 == true) {
+      this.detailObj.advanceSalesTemplate.isghxd25 = 1;
+    }
+
   }
 
 
@@ -3129,9 +3619,9 @@ export class HouseTradeDetailComponent implements OnInit {
     // }
   }
   async wordShow() {
-      let url = AppConfig.Configuration.baseUrl + '/HouseTrade/previewHt?id=' + this.detailObj.id;
-      url = this.utilitiesSercice.wrapUrl(url);
-      window.open('assets/usermanual/web/viewer.html?url=' + url, '_blank');
+    let url = AppConfig.Configuration.baseUrl + '/HouseTrade/previewHt?id=' + this.detailObj.id;
+    url = this.utilitiesSercice.wrapUrl(url);
+    window.open('assets/usermanual/web/viewer.html?url=' + url, '_blank');
   }
 
   houseTypeChange(date) {
@@ -3158,7 +3648,7 @@ export class HouseTradeDetailComponent implements OnInit {
 
   ngAfterViewInit() {
     const that = this;
-    $(window).resize(function() {
+    $(window).resize(function () {
       that.calculationHeight();
     });
   }

@@ -2,7 +2,8 @@
     <div nz-row style="height: 50px;padding: 10px;">
         <div nz-col [nzSpan]="7">
             经纪企业名称：
-            <input nz-input nzSize="default" [(ngModel)]="qymc" class="w150" placeholder="请输入开发企业名称" (keyup.enter)="search()" />
+            <input nz-input nzSize="default" [(ngModel)]="qymc" class="w150" placeholder="请输入开发企业名称"
+                (keyup.enter)="search()" />
         </div>
         <div nz-col [nzSpan]="6">
             企业类型：
@@ -81,8 +82,7 @@
                 </td>
                 <td style="width:30%">
                     <a class="table_a" (click)="add(2,data)">查看</a>
-                    <a class="table_a" (click)="rolemanage(data)"
-                        *ngIf="qxgl">权限管理</a>
+                    <a class="table_a" (click)="rolemanage(data)" *ngIf="qxgl">权限管理</a>
                     <a class="table_a" *ngIf="(data.auditType==0||data.auditType==3)&&(canzsgc||onlybj)"
                         (click)="add(3,data)">编辑</a>
                     <a class="table_a" *ngIf="data.auditType==1&&cansh" (click)="audit(data)">审核</a>
@@ -162,11 +162,17 @@
                 <div nz-col [nzSpan]="12">
                     是否启用（不启用则无法使用该账户登录）
                 </div>
+                <div nz-col [nzSpan]="12">
+                    是否启用完整权限（不启用则只有基本权限）
+                </div>
             </div>
 
             <div nz-row style="height: 60px;">
                 <div nz-col [nzSpan]="12">
                     <nz-switch [(ngModel)]="roleData.switchValue"></nz-switch>
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <nz-switch [(ngModel)]="roleData.grantValue"></nz-switch>
                 </div>
             </div>
 

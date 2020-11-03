@@ -61,8 +61,23 @@ export class LpbDetailComponent implements OnInit {
     private kfxmglService: KfxmglService
   ) { }
 
+
+  // 添加权限
+  isShow: boolean = true;
+
+  getRoles() {
+    let roles = this.localstorage.getObject("roles");
+
+    if (roles) {
+      if (roles.some(x => x == '开发企业') || roles.some(x => x == '经纪公司')) {
+        this.isShow = false;
+      }
+    }
+  }
+
   ngOnInit() {
     this.dictionaryObj = this.localstorage.getObject("dictionary");
+    this.getRoles();
   }
 
   init(detailObj) {
@@ -71,7 +86,7 @@ export class LpbDetailComponent implements OnInit {
     this.onSearch(this.detailObj.xmmc);
 
     if (detailObj && detailObj.ljzList.length > 0) {
-      //this.tabsetIndex2 = 0;
+      // this.tabsetIndex2 = 0;
       if (this.isAddLjz) {
         this.tabsetIndex2 = detailObj.ljzList.length - 1;
       }
@@ -184,10 +199,10 @@ export class LpbDetailComponent implements OnInit {
   }
 
   contract(huparam) {
-    if(!huparam.id||!huparam.isnewstock){
+    if (!huparam.id || !huparam.isnewstock) {
       this.msg.create('error', '该房屋信息信息有误，无法备案');
     }
-    if(huparam.isnewstock==1&&huparam.tradeType==0){
+    if (huparam.isnewstock == 1 && huparam.tradeType == 0) {
       var route = "/contract/houseTrade/detail";
       this.router.navigate([route], {
         queryParams: {
@@ -195,7 +210,7 @@ export class LpbDetailComponent implements OnInit {
           hid: huparam.id
         }
       });
-    }else{
+    } else {
       var route = "/contract/stockTrade/detail";
       this.router.navigate([route], {
         queryParams: {
@@ -204,7 +219,7 @@ export class LpbDetailComponent implements OnInit {
         }
       });
     }
-    
+
   }
 
 
@@ -242,7 +257,7 @@ export class LpbDetailComponent implements OnInit {
     this.hValidation = false;
     this.cValidation = false;
 
-    this.ljzObj.ljzh = "L"+this.utilitiesSercice.getTimeStamp(),
+    this.ljzObj.ljzh = "L" + this.utilitiesSercice.getTimeStamp(),
       this.ljzObj.zcs = "",
 
       this.ljzObj.scjzmj = "",
@@ -304,7 +319,7 @@ export class LpbDetailComponent implements OnInit {
         zrzh: this.detailObj.zrzh,
         sjc: this.cObj.sjc,
         ch: this.cObj.ch,
-        myc:this.cObj.myc,
+        myc: this.cObj.myc,
         sfqfdy: this.cObj.sfqfdy,
         qxdm: '361129',
       };

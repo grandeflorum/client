@@ -30,6 +30,7 @@ export class HouseTradeComponent implements OnInit {
   selectId: any = '';
   jzwmc = '';
   xmmc = '';
+  buyer = '';
   currentStatus = '';
   dataSet = [];
 
@@ -49,8 +50,8 @@ export class HouseTradeComponent implements OnInit {
   ]
   //审核对象
   auditObj: any = {
-    zrzyj:{},
-    zjj:{}
+    zrzyj: {},
+    zjj: {}
   };
 
   auditIsVisible: any = false;
@@ -89,15 +90,15 @@ export class HouseTradeComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) { }
 
-  //添加权限
+  // 添加权限
   canzsgc: boolean = false;
   cantjsh: boolean = false;
   cansh: boolean = false;
 
-  //开发企业
+  // 开发企业
   isKfqy: boolean = false;
 
-  //新审核
+  // 新审核
   auditIsVisibleNew: any = false;
 
   getRoles() {
@@ -151,6 +152,7 @@ export class HouseTradeComponent implements OnInit {
 
     if (isGoBack) {
       this.xmmc = this.houseTradeService.pageCache.xmmc;
+      this.buyer = this.houseTradeService.pageCache.buyer;
       this.jzwmc = this.houseTradeService.pageCache.jzwmc;
       this.currentStatus = this.houseTradeService.pageCache.currentStatus;
       this.selectId = this.houseTradeService.pageCache.selectId;
@@ -170,6 +172,9 @@ export class HouseTradeComponent implements OnInit {
 
     if (this.jzwmc) {
       option.conditions.push({ key: 'jzwmc', value: this.jzwmc });
+    }
+    if (this.buyer) {
+      option.conditions.push({ key: 'buyer', value: this.buyer });
     }
     if (this.xmmc) {
       option.conditions.push({ key: 'xmmc', value: this.xmmc });
@@ -215,6 +220,7 @@ export class HouseTradeComponent implements OnInit {
 
   reset() {
     this.jzwmc = '';
+    this.buyer = '';
     this.xmmc = '';
     this.currentStatus = '';
     this.search();
@@ -312,6 +318,7 @@ export class HouseTradeComponent implements OnInit {
 
     this.houseTradeService.pageCache = {
       xmmc: this.xmmc,
+      buyer: this.buyer,
       jzwmc: this.jzwmc,
       currentStatus: this.currentStatus,
       selectId: item ? item.id : '',
@@ -351,6 +358,7 @@ export class HouseTradeComponent implements OnInit {
   }
 
   async sh(data) {
+    console.log(data.houseId);
     if (!data.houseId) {
       this.msg.create('error', '该合同未关联户，不能提交审核');
       return;
@@ -611,7 +619,7 @@ export class HouseTradeComponent implements OnInit {
   ngAfterViewInit() {
     var that = this;
     $(window).resize(function () {
-      that.calculationHeight()
+      that.calculationHeight();
     })
   }
 
@@ -633,7 +641,7 @@ export class HouseTradeComponent implements OnInit {
     //   that.htContent = res.msg;
     // }
 
-    let url = AppConfig.Configuration.baseUrl + "/HouseTrade/previewHt?id=" + data.id;
+    let url = AppConfig.Configuration.baseUrl + '/HouseTrade/previewHt?id=' + data.id;
     url = this.utilitiesSercice.wrapUrl(url);
     window.open('assets/usermanual/web/viewer.html?url=' + url, '_blank');
   }
@@ -646,6 +654,7 @@ export class HouseTradeComponent implements OnInit {
 
     this.houseTradeService.pageCache = {
       xmmc: this.xmmc,
+      buyer: this.buyer,
       jzwmc: this.jzwmc,
       currentStatus: this.currentStatus,
       selectId: id ? id : '',

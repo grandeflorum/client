@@ -2,7 +2,7 @@
   <button style="float: right;z-index: 1000;" nz-button nzType="primary" *ngIf="glType=='zddygl'&&zrzShow"
     (click)="restrictedProperty1('1')">限制楼盘销售</button>
   <nz-divider *ngIf="zrzShow" nzText="基本信息" nzOrientation="left" style="font-size: 18px"></nz-divider>
-   
+
   <div *ngIf="zrzShow" nz-row style="height: 50px;padding: 10px;">
     <div nz-col [nzSpan]="8">
       <div class="label_div"> <span class="clo_r">*</span>关联项目：</div>
@@ -370,9 +370,10 @@
           [nzPopoverContent]="CePopoverContent">{{item.ch}}层</li>
         <li *ngFor="let hu of item.hList" [ngClass]="{'lpb_ydy':(moduleType=='dy'&&hu.status == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.status == 1) ,
                             'lpb_ycf':(moduleType=='cf'&&hu.cfStatus == 1) || (moduleType!='cf'&&moduleType!='dy'&&hu.cfStatus == 1),
-                            'lpb_yba':hu.tradeType>0,'lpb_yzl':hu.zlStatus==1,'lpb_khk':hu.id==null }" nz-popover [nzPopoverTrigger]="hu.mph?'hover':'null'"
-          [nzPopoverContent]="PopoverContent" (mouseenter)="selectedHuChange(hu)"
-          [ngStyle]="{'border-color':selectH==hu.id?'red':'#ccc'}" (click)="selectH=hu.id">
+                            'lpb_yba':hu.tradeType>0,'lpb_yzl':hu.zlStatus==1,'lpb_khk':hu.id==null }" nz-popover
+          [nzPopoverTrigger]="hu.mph?'hover':'null'" [nzPopoverContent]="PopoverContent"
+          (mouseenter)="selectedHuChange(hu)" [ngStyle]="{'border-color':selectH==hu.id?'red':'#ccc'}"
+          (click)="selectH=hu.id">
           {{hu.mph}}</li>
       </ul>
 
@@ -384,11 +385,11 @@
       <li class="lpb_ydy">已抵押</li>
       <li class="lpb_ycf">已查封</li>
       <li class="lpb_bks">不可售</li>
-      <li class="lpb_yzl">已租赁</li> 
-    </ul> 
+      <li class="lpb_yzl">已租赁</li>
+    </ul>
   </div>
 </div>
- 
+
 <ng-template #PopoverContent>
   <p>门牌号：{{selectedHu.mph}}</p>
   <p>层数：{{selectedHu.ch}}</p>
@@ -397,10 +398,10 @@
   <p>不动产登记号：{{selectedHu.bdcdyh}}</p>
   <p>坐落：{{selectedHu.zl}}</p>
   <p *ngIf="!isDisable||selectedHu.tradeType>0||detailObj.auditType==4||detailObj.auditType==2" style="height: 20px;">
-    <button nz-button *ngIf="selectedHu.tradeType>0" nzType="primary" (click)="perview()">预览合同</button>
+    <button nz-button *ngIf="selectedHu.tradeType>0&&isShow" nzType="primary" (click)="perview()">预览合同</button>
     <button nz-button *ngIf="isDisable&&(detailObj.auditType==4||detailObj.auditType==2)" nzType="primary"
       (click)="contract(selectedHu)">合同备案</button>
-    <button nz-button *ngIf="selectedHu.tradeType>0" nzType="primary" (click)="viewHistory()">查看历史备案记录</button>
+    <button nz-button *ngIf="selectedHu.tradeType>0&&isShow" nzType="primary" (click)="viewHistory()">查看历史备案记录</button>
     <button nz-button *ngIf="!isDisable" nzType="primary" (click)="editH(selectedHu.id)">编辑</button>
     <button nz-button *ngIf="!isDisable" nzType="danger" (click)="deleteH(selectedHu.id)">删除</button>
   </p>
